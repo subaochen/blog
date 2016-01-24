@@ -1,0 +1,1202 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=`
+} 
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman 新宋体
+\font_sans 新宋体
+\font_typewriter 新宋体
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+git rebase和git merge的用法
+\end_layout
+
+\begin_layout Section
+前言
+\end_layout
+
+\begin_layout Standard
+git rebase和git merge常令人迷惑，都是合并分支，什么时候用rebase，什么时候用merge呢？下面通过两个实验彻底搞清楚这两个命令的区别。
+\end_layout
+
+\begin_layout Section
+准备工作
+\end_layout
+
+\begin_layout Standard
+hello-git是一个已经有一些提交（C0-C5）的示例项目，我们下面的两个实验都基于hello-git，分别通过merge和rebase两种方法将topoi
+c分支合并到master分支。首先做一点点准备工作：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git clone https://github.com/subaochen/hello-git # 获取演示文件
+\end_layout
+
+\begin_layout Plain Layout
+$ git fetch origin topic # 获取topic分支。默认git clone下来的是master分支
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+此时hello-git的状态如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:hello-git的初始状态"
+
+\end_inset
+
+所示，也就是说，master分支指向C3,topic分支指向C5，当前分支是master（HEAD指向master）。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../imgs/git_rebase_1.eps
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+hello-git的初始状态
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:hello-git的初始状态"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+merge方法合并分支
+\end_layout
+
+\begin_layout Standard
+git merge用法简单，要把topic分支合并到master分支，首先确保当前处于master分支：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git branch 
+\end_layout
+
+\begin_layout Plain Layout
+* master 
+\end_layout
+
+\begin_layout Plain Layout
+topic
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后直接执行merge指令即可：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git merge topic
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+git merge的过程是首先找到master分支和topic分支的起点C2，然后把C2提交之后的所有提交，即C3、C4、C5合并起来形成一个新的提交C6。
+\end_layout
+
+\begin_layout Standard
+执行命令提交合并的结果：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git commit
+\end_layout
+
+\end_inset
+
+将创建一个新的提交C6,如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:git-merge后的状态"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../imgs/git_merge_1.eps
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+git merge后的状态
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:git-merge后的状态"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+此时，master分支指向新的提交C6,并且C6有两个父节点，即C5是C3、C4、C5合并后的结果。
+\end_layout
+
+\begin_layout Standard
+如果通过git log命令可以看到如下的结果：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git log --oneline --decorate --graph --all
+\end_layout
+
+\begin_layout Plain Layout
+* 1679337 (HEAD -> master) C6:Merge branch 'topic'
+\end_layout
+
+\begin_layout Plain Layout
+|
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+| * 4b874d6 (origin/topic, topic) C5
+\end_layout
+
+\begin_layout Plain Layout
+| * 6e2550c C4
+\end_layout
+
+\begin_layout Plain Layout
+* | 96bba70 (origin/master, origin/HEAD) C3
+\end_layout
+
+\begin_layout Plain Layout
+|/ 
+\end_layout
+
+\begin_layout Plain Layout
+* 5aadaa6 C2
+\end_layout
+
+\begin_layout Plain Layout
+* 273c00a C1
+\end_layout
+
+\begin_layout Plain Layout
+* d50589b C0
+\end_layout
+
+\begin_layout Plain Layout
+* fb68e6f Initial commit
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+重点
+\series default
+：git merge合并后只创建一个新的提交，即这个新的提交包含了所有的合并结果，合并的过程在合并后就丢失了。
+\end_layout
+
+\begin_layout Section
+rebase方法合并分支
+\end_layout
+
+\begin_layout Standard
+在实验rebase方法河滨分支之前，首先删除上一步的项目目录hello-git，即重新clone一个新的项目出来：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ rm -rf hello-git
+\end_layout
+
+\begin_layout Plain Layout
+$ git clone https://github.com/subaochen/hello-git
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+rebase的基本思路是，将topic分支的每一个提交（C4、C5）相对于C2的变更（diff，即补丁）临时保存起来，然后逐一在C3上面重放（replay，即逐
+一在C3上面打补丁），每打一个补丁即创建一个新的提交，直到所有topic分支的补丁全部打完，这样就完成了在master分支上合并topic分支的任务。rebas
+e的本意也是这样：将当前分支（topic）重新基于（rebase）指定的分支构建。下面是rebase方法合并topic分支到master分支的基本流程：
+\end_layout
+
+\begin_layout Subsection
+获取topic分支
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git checkout topic
+\end_layout
+
+\begin_layout Plain Layout
+来自 https://github.com/subaochen/hello-git
+\end_layout
+
+\begin_layout Plain Layout
+* branch topic -> FETCH_HEAD
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+此时hello-git的状态和图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:hello-git的初始状态"
+
+\end_inset
+
+一样。
+\end_layout
+
+\begin_layout Subsection
+切换到topic分支
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git checkout topic
+\end_layout
+
+\begin_layout Plain Layout
+分支 topic 设置为跟踪来自 origin 的远程分支 topic。
+\end_layout
+
+\begin_layout Plain Layout
+切换到一个新分支 'topic'
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+rebase onto master分支
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git rebase master
+\end_layout
+
+\begin_layout Plain Layout
+首先，重置头指针以便在上面重放您的工作...
+\end_layout
+
+\begin_layout Plain Layout
+正应用：C4
+\end_layout
+
+\begin_layout Plain Layout
+正应用：C5
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+此时hello-git的状态如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:将C4、C5的diff在C3上面重放后的状态"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../imgs/git_after_rebase_1.eps
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+将C4、C5的diff在C3上面重放后的状态
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:将C4、C5的diff在C3上面重放后的状态"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+通过git log命令可以看出此时HEAD指向topic（当前分支）和C5，但是master分支仍然指向C3。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git log --oneline --decorate --graph --all
+\end_layout
+
+\begin_layout Plain Layout
+* 2de5ca6 (HEAD -> topic) C5
+\end_layout
+
+\begin_layout Plain Layout
+* 9eed5cb C4
+\end_layout
+
+\begin_layout Plain Layout
+* 96bba70 (origin/master, origin/HEAD, master) C3
+\end_layout
+
+\begin_layout Plain Layout
+| * 4b874d6 (origin/topic) C5
+\end_layout
+
+\begin_layout Plain Layout
+| * 6e2550c C4
+\end_layout
+
+\begin_layout Plain Layout
+|/ 
+\end_layout
+
+\begin_layout Plain Layout
+* 5aadaa6 C2
+\end_layout
+
+\begin_layout Plain Layout
+* 273c00a C1
+\end_layout
+
+\begin_layout Plain Layout
+* d50589b C0
+\end_layout
+
+\begin_layout Plain Layout
+* fb68e6f Initial commit
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+fast forward merge
+\end_layout
+
+\begin_layout Standard
+我们的目标是将topic分支合并到master分支，因此现在切换到master分支执行：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git checkout master
+\end_layout
+
+\begin_layout Plain Layout
+$ git merge 
+\end_layout
+
+\begin_layout Plain Layout
+$ git merge topic
+\end_layout
+
+\begin_layout Plain Layout
+更新 96bba70..2de5ca6
+\end_layout
+
+\begin_layout Plain Layout
+Fast-forward
+\end_layout
+
+\begin_layout Plain Layout
+C4 | 1 +
+\end_layout
+
+\begin_layout Plain Layout
+C5 | 1 +
+\end_layout
+
+\begin_layout Plain Layout
+2 files changed, 2 insertions(+)
+\end_layout
+
+\begin_layout Plain Layout
+create mode 100644 C4
+\end_layout
+
+\begin_layout Plain Layout
+create mode 100644 C5
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+由于在第三步的rebase操作的时候已经将topic分支合并到了master分支，这里的git merge topic仅仅是移动HEAD指针而已，因此被称为快进
+（fast forward）模式。此时HEAD指向了C5，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:在master分支fast-forword-merge之后的状态"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../imgs/git_after_rebase_ff.eps
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+在master分支fast forword merge之后的状态
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:在master分支fast-forword-merge之后的状态"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如果使用git log命令查看，此时HEAD已经指向了C5。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+* 2de5ca6 (HEAD -> master, topic) C5
+\end_layout
+
+\begin_layout Plain Layout
+* 9eed5cb C4
+\end_layout
+
+\begin_layout Plain Layout
+* 96bba70 (origin/master, origin/HEAD) C3
+\end_layout
+
+\begin_layout Plain Layout
+| * 4b874d6 (origin/topic) C5
+\end_layout
+
+\begin_layout Plain Layout
+| * 6e2550c C4
+\end_layout
+
+\begin_layout Plain Layout
+|/ 
+\end_layout
+
+\begin_layout Plain Layout
+* 5aadaa6 C2
+\end_layout
+
+\begin_layout Plain Layout
+* 273c00a C1
+\end_layout
+
+\begin_layout Plain Layout
+* d50589b C0
+\end_layout
+
+\begin_layout Plain Layout
+* fb68e6f Initial commit
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+rebase的进一步解释
+\end_layout
+
+\begin_layout Standard
+注意到以下两个命令的效果是一样的：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git rebase master
+\end_layout
+
+\begin_layout Plain Layout
+$ git rebase master topic # 首先执行git rebase master，然后执行git checkout topic。但是实际上gi
+t rebase master也可以达到同样的效果。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+危险的--onto
+\end_layout
+
+\begin_layout Standard
+TBD
+\end_layout
+
+\begin_layout Section
+区别使用
+\end_layout
+
+\begin_layout Standard
+可以看出，rebase模式进行分支的合并最大的优点是可以保留分支的变动情况，或者说，topic分支的历史在master分支上被完整的复现了出来。merge模式的
+合并则不然，merge在合并点像和面一样将两个分支融合在一，只是记录了合并的结果，在master分支上看不出topic分支的变动情况。因此，在大多数情况下，建议
+使用rebase来合并分支。如果是采用pull更新远程分支，建议使用如下的命令：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git pull --rebase upstream branch
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+为了方便起见，建议设置别名：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git alias pull 
+\begin_inset Quotes eld
+\end_inset
+
+pull --rebase
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+rebase合并失败会怎样？
+\end_layout
+
+\begin_layout Standard
+重复“准备工作”获得一个新鲜的hello-git，我们故意制造一个冲突看看：在master分支中执行：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ echo 
+\begin_inset Quotes eld
+\end_inset
+
+C4 from master
+\begin_inset Quotes erd
+\end_inset
+
+ >> C4
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后按照rebase的合并方法试图将topic分支合并到master的时候会提示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+首先，回退分支以便在上面重放您的工作...
+\end_layout
+
+\begin_layout Plain Layout
+应用：C4
+\end_layout
+
+\begin_layout Plain Layout
+使用索引来重建一个（三方合并的）基础目录树...
+\end_layout
+
+\begin_layout Plain Layout
+回落到基础版本上打补丁及进行三方合并...
+\end_layout
+
+\begin_layout Plain Layout
+自动合并 C4
+\end_layout
+
+\begin_layout Plain Layout
+冲突（添加/添加）：合并冲突于 C4
+\end_layout
+
+\begin_layout Plain Layout
+error: 无法合并变更。
+\end_layout
+
+\begin_layout Plain Layout
+打补丁失败于 0001 C4
+\end_layout
+
+\begin_layout Plain Layout
+失败的补丁文件副本位于：.git/rebase-apply/patch
+\end_layout
+
+\begin_layout Plain Layout
+当您解决了此问题后，执行 "git rebase --continue"。
+\end_layout
+
+\begin_layout Plain Layout
+如果您想跳过此补丁，则执行 "git rebase --skip"。
+\end_layout
+
+\begin_layout Plain Layout
+要恢复原分支并停止变基，执行 "git rebase --abort"。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+非常人性化，这告诉我们rebase在给C4打补丁时发现冲突因此停了下来（C5还没有处理）并且给出三个解决方案：
+\end_layout
+
+\begin_layout Itemize
+解决冲突后执行git rebase --continue继续rebase的流程。
+\end_layout
+
+\begin_layout Itemize
+如果跳过这个补丁（通常这是不允许的）则可以执行git rebase --skip。
+\end_layout
+
+\begin_layout Itemize
+如果后悔了，可以通过执行git rebase --abort回复rebase之前的状态。
+\end_layout
+
+\begin_layout Standard
+通常的做法是，打开C4这个文件解决冲突后执行git add C4，然后git rebase --continue。
+\end_layout
+
+\begin_layout Section
+rebase就木有缺点吗？
+\end_layout
+
+\begin_layout Standard
+TBD，see revert a faulty merge howto
+\end_layout
+
+\begin_layout Section
+参考资料
+\end_layout
+
+\begin_layout Itemize
+《pro git》，分支一章讲的非常精彩，基本上，这篇日志是pro git的搬运工外加自己的理解。
+\end_layout
+
+\begin_layout Itemize
+git help rebase也是不错的学习材料！
+\end_layout
+
+\begin_layout Itemize
+本文的pdf版本和dot源文件可到
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/subaochen/blog"
+target "https://github.com/subaochen/blog"
+
+\end_inset
+
+ 下载
+\end_layout
+
+\end_body
+\end_document

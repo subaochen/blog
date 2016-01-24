@@ -1,0 +1,12 @@
+digraph G {
+    rankdir=RL;
+    C0,C1,C2,C3,C4,C5[shape=box,style=filled,color=lightblue];
+    HEAD,master,topic[shape=box,style=filled,color=red];
+    C5->topic[dir=back];
+    C5->C4[weight=2];
+    C4->C3[weight=2];
+    C3->C2[weight=2];
+    C2->C1->C0;
+    HEAD->master->C5;
+    {rank=same;HEAD,C5,master,topic;}
+}
