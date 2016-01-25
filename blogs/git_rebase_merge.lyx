@@ -952,7 +952,7 @@ $ git rebase master
 
 \begin_layout Plain Layout
 $ git rebase master topic # 首先执行git rebase master，然后执行git checkout topic。但是实际上gi
-t rebase master也可以达到同样的效果。
+t rebase master也可以达到同样的效果。另外，这条命令不管当前在哪个分支上都有效，而且语义更加明确，推荐。
 \end_layout
 
 \end_inset
@@ -961,11 +961,394 @@ t rebase master也可以达到同样的效果。
 \end_layout
 
 \begin_layout Subsection
-危险的--onto
+神奇的rebase --onto
 \end_layout
 
 \begin_layout Standard
-TBD
+假设有如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:在server分支上存在client分支的情形"
+
+\end_inset
+
+的情形（请git clone https://github.com/subaochen/hello-git-rebase获取图中的示例代码）：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/git_rebase_off_topic_1.eps
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+在server分支上存在client分支的情形
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:在server分支上存在client分支的情形"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+通过git log --oneline --decorate --graph --all观察的结果是：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+* 5c38282 (server) C9
+\end_layout
+
+\begin_layout Plain Layout
+* 0b8cc9e C4
+\end_layout
+
+\begin_layout Plain Layout
+| * d2ba3bd (client) C8
+\end_layout
+
+\begin_layout Plain Layout
+| * aecaedb C7
+\end_layout
+
+\begin_layout Plain Layout
+|/ 
+\end_layout
+
+\begin_layout Plain Layout
+* 1e3855d C3
+\end_layout
+
+\begin_layout Plain Layout
+| * 894eb0e (HEAD -> master) C6
+\end_layout
+
+\begin_layout Plain Layout
+| * a1cdb1e C5
+\end_layout
+
+\begin_layout Plain Layout
+|/ 
+\end_layout
+
+\begin_layout Plain Layout
+* 20b3774 (origin/master, origin/HEAD) C2
+\end_layout
+
+\begin_layout Plain Layout
+* e99b06f C1
+\end_layout
+
+\begin_layout Plain Layout
+* 255c292 Initial commit
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+现在假设client分支的开发稳定了，我们希望把client分支合并到master分支上。但是此时server分支的开发尚在继续，怎么办呢？git
+ rebase --onto提供了神奇的效果：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git rebase --onto master server client
+\end_layout
+
+\begin_layout Plain Layout
+首先，回退分支以便在上面重放您的工作...
+\end_layout
+
+\begin_layout Plain Layout
+应用：C7
+\end_layout
+
+\begin_layout Plain Layout
+应用：C8
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这个命令的意思是说：“检查client分支，获得client和server的分歧点（这里是C3）以来的所有补丁（这里是C7、C8）并打在master分支上”，基
+本上，你可以把这句命令倒着念回去。执行后的结果会是图所示的那样。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/git_rebase_off_topic_2.eps
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+client分支合并到master后的情形
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后再在master分支执行fast forword merge即可：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git checkout master
+\end_layout
+
+\begin_layout Plain Layout
+$ git merge client
+\end_layout
+
+\begin_layout Plain Layout
+更新 894eb0e..d64c83b
+\end_layout
+
+\begin_layout Plain Layout
+Fast-forward
+\end_layout
+
+\begin_layout Plain Layout
+C7 | 1 +
+\end_layout
+
+\begin_layout Plain Layout
+C8 | 1 +
+\end_layout
+
+\begin_layout Plain Layout
+2 files changed, 2 insertions(+)
+\end_layout
+
+\begin_layout Plain Layout
+create mode 100644 C7
+\end_layout
+
+\begin_layout Plain Layout
+create mode 100644 C8
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+最终的结果正如我们期望的：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/git_rebase_off_topic_3.eps
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+rebase --onto的最终结果
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+git log --oneline --decorate --graph --all的执行结果也佐证了这一点：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ git log --oneline --decorate --graph --all
+\end_layout
+
+\begin_layout Plain Layout
+* d64c83b (HEAD -> master, client) C8
+\end_layout
+
+\begin_layout Plain Layout
+* 729c0bb C7
+\end_layout
+
+\begin_layout Plain Layout
+* 894eb0e (origin/master, origin/HEAD) C6
+\end_layout
+
+\begin_layout Plain Layout
+* a1cdb1e C5
+\end_layout
+
+\begin_layout Plain Layout
+| * 5c38282 (origin/server, server) C9
+\end_layout
+
+\begin_layout Plain Layout
+| * 0b8cc9e C4
+\end_layout
+
+\begin_layout Plain Layout
+| | * d2ba3bd (origin/client) C8
+\end_layout
+
+\begin_layout Plain Layout
+| | * aecaedb C7
+\end_layout
+
+\begin_layout Plain Layout
+| |/ 
+\end_layout
+
+\begin_layout Plain Layout
+| * 1e3855d C3
+\end_layout
+
+\begin_layout Plain Layout
+|/ 
+\end_layout
+
+\begin_layout Plain Layout
+* 20b3774 C2
+\end_layout
+
+\begin_layout Plain Layout
+* e99b06f C1
+\end_layout
+
+\begin_layout Plain Layout
+* 255c292 Initial commit
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -973,9 +1356,9 @@ TBD
 \end_layout
 
 \begin_layout Standard
-可以看出，rebase模式进行分支的合并最大的优点是可以保留分支的变动情况，或者说，topic分支的历史在master分支上被完整的复现了出来。merge模式的
-合并则不然，merge在合并点像和面一样将两个分支融合在一，只是记录了合并的结果，在master分支上看不出topic分支的变动情况。因此，在大多数情况下，建议
-使用rebase来合并分支。如果是采用pull更新远程分支，建议使用如下的命令：
+虽然，两种合并分支方式的最终结果并没有什么差别，但是rebase模式的最大优点是可以保留分支的变动情况，或者说，topic分支的历史在master分支上被完整的
+复现了出来。merge模式的合并则不然，merge在合并点像和面一样将两个分支融合在一，只是记录了合并的结果，在master分支上看不出topic分支的变动情况
+。因此，在大多数情况下，建议使用rebase来合并分支。如果是采用pull更新远程分支，建议使用如下的命令：
 \end_layout
 
 \begin_layout Standard
@@ -1030,6 +1413,19 @@ pull --rebase
 
 
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+通常，在一些开源项目中要求使用rebase合并分支。如果你要为一个开源项目开发一个新特性，通常会创建一个分支，然后在这个分支上开发新特性，开发完成后再合并到ma
+ster分支上来。如果采用rebase方式合并分支，则开源项目的维护人只需要执进行fast forward merge即可。比如：
+\begin_inset CommandInset href
+LatexCommand href
+name "https://developer.jboss.org/wiki/HackingOnWildFly#"
+target "https://developer.jboss.org/wiki/HackingOnWildFly#"
 
 \end_inset
 
@@ -1171,7 +1567,19 @@ rebase就木有缺点吗？
 \end_layout
 
 \begin_layout Standard
+这部分还需要加强学习和理解！
+\end_layout
+
+\begin_layout Standard
 TBD，see revert a faulty merge howto
+\end_layout
+
+\begin_layout Section
+总结
+\end_layout
+
+\begin_layout Standard
+如果更新还没有push到远程仓库，那么使用rebase，尽量保留更新的历史；如果更新已经push到了远程仓库，那么永远不要rebase这部分代码！
 \end_layout
 
 \begin_layout Section
@@ -1179,7 +1587,7 @@ TBD，see revert a faulty merge howto
 \end_layout
 
 \begin_layout Itemize
-《pro git》，分支一章讲的非常精彩，基本上，这篇日志是pro git的搬运工外加自己的理解。
+《pro git》，分支一章讲的非常精彩，这篇日志的部分内容搬运自pro git外加自己的理解。
 \end_layout
 
 \begin_layout Itemize

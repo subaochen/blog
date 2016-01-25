@@ -1,0 +1,16 @@
+digraph G {
+    rankdir=RL;
+    node[shape=Mrecord,style=filled,color=lightblue];
+    HEAD,master,server,client[shape=box,style=filled,color=red];
+
+    C2->C1;
+    "C8'"->"C7'"->C6->C5->C2[weight=100];
+    C3->C2;
+    C9->C4->C3[weight=100];
+    HEAD->master->"C8'";
+    C9->server[dir=back];
+    "C8'"->client[dir=back];
+
+    {rank=same;C9,server;}
+    {rank=same;"C8'",client,master,HEAD;}
+}

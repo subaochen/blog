@@ -1,7 +1,7 @@
 digraph G {
     rankdir=RL;
-    C0,C1,C2,C3,C4,C5,C6[shape=box,style=filled,color=lightblue];
-    HEAD,master,topic[shape=box,style=filled,color=red];
+    C0,C1,C2,C3,C4,C5,C6[shape=Mrecord,style=filled,color=lightblue];
+    HEAD,master,topic[shape=record,style=filled,color=red];
     C6->C3[weight=2];
     C3->C2[weight=2];
     C2->C1->C0;
