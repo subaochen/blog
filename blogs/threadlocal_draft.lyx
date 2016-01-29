@@ -139,12 +139,48 @@
 彻底玩转ThreadLocal
 \end_layout
 
+\begin_layout Section
+问题的提出
+\end_layout
+
+\begin_layout Section
+解决方案1
+\end_layout
+
+\begin_layout Section
+解决方案2：ThreadLocal
+\end_layout
+
+\begin_layout Section
+ThreadLocal内部探秘
+\end_layout
+
+\begin_layout Section
+总结
+\end_layout
+
+\begin_layout Standard
+关于ThreadLocal的使用场景、synchronizied使用场景。
+\end_layout
+
 \begin_layout Standard
 ThreadLocal的目的是变量隔离而不是共享，变量共享需要同步（sychronized）支持。分别给出例子，比如关于获取序列号。
 \end_layout
 
 \begin_layout Section
 参考资料
+\end_layout
+
+\begin_layout Itemize
+ThreadLocal的官方API：
+\begin_inset CommandInset href
+LatexCommand href
+name "http://docs.oracle.com/javase/8/docs/api/java/lang/ThreadLocal.html"
+target "http://docs.oracle.com/javase/8/docs/api/java/lang/ThreadLocal.html"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
