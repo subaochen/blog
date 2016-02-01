@@ -136,13 +136,42 @@
 \begin_body
 
 \begin_layout Title
-彻底玩转ThreadLocal
+深入了解ThreadLocal
 \end_layout
 
 \begin_layout Section
 问题的提出
 \end_layout
 
+\begin_layout Standard
+并发编程（多线程）之所以复杂，一个很重要的原因是多个线程之间需要协作（通讯），即在线程之间共享数据
+\begin_inset CommandInset citation
+LatexCommand cite
+key "java-concurrency-in-practice"
+
+\end_inset
+
+。如果多个线程之间完全没有数据交互，那么多线程编程和单线程编程并没有多大差别。线程之间共享数据又分为两种情况：
+\end_layout
+
+\begin_layout Enumerate
+共享常量（不变的数据）：只需要保证变量不会被无意修改即可，这可以通过Java语法的final限制。
+\end_layout
+
+\begin_layout Enumerate
+共享变量：又存在两种情况：
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+多个线程操作同一个变量共同演化：比如，数据库中的序列号，银行的排队机等。
+\end_layout
+
+\begin_layout Enumerate
+每个线程保持变量的一个副本独立演化：比如？ThreadLocal即为此种情况而设计。
+\end_layout
+
+\end_deeper
 \begin_layout Section
 解决方案1
 \end_layout
@@ -152,7 +181,27 @@
 \end_layout
 
 \begin_layout Section
-ThreadLocal内部探秘
+ThreadLocal内部探秘（openjdk源码解析）
+\end_layout
+
+\begin_layout Standard
+github openjdk fork:
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/dmlloyd/openjdk"
+target "https://github.com/dmlloyd/openjdk"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以研究ThreadLocal的代码演化过程（从1.5到1.9的进化历史）
+\end_layout
+
+\begin_layout Section
+ThreadLocal的实际应用：Wildfly
 \end_layout
 
 \begin_layout Section
@@ -167,32 +216,16 @@ ThreadLocal内部探秘
 ThreadLocal的目的是变量隔离而不是共享，变量共享需要同步（sychronized）支持。分别给出例子，比如关于获取序列号。
 \end_layout
 
-\begin_layout Section
-参考资料
+\begin_layout Standard
+threadlocal不能干什么？举例说明。
 \end_layout
 
-\begin_layout Itemize
-ThreadLocal的官方API：
-\begin_inset CommandInset href
-LatexCommand href
-name "http://docs.oracle.com/javase/8/docs/api/java/lang/ThreadLocal.html"
-target "http://docs.oracle.com/javase/8/docs/api/java/lang/ThreadLocal.html"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-《Java并发编程》
-\end_layout
-
-\begin_layout Itemize
-解密ThreadLocal: 
-\begin_inset CommandInset href
-LatexCommand href
-name "http://qifuguang.me/2015/09/02/%5BJava%E5%B9%B6%E5%8F%91%E5%8C%85%E5%AD%A6%E4%B9%A0%E4%B8%83%5D%E8%A7%A3%E5%AF%86ThreadLocal/"
-target "http://qifuguang.me/2015/09/02/%5BJava%E5%B9%B6%E5%8F%91%E5%8C%85%E5%AD%A6%E4%B9%A0%E4%B8%83%5D%E8%A7%A3%E5%AF%86ThreadLocal/"
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/blog/blogs/references"
+options "plain"
 
 \end_inset
 
