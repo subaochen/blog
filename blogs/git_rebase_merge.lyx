@@ -523,7 +523,7 @@ height_special "totalheight"
 status open
 
 \begin_layout Plain Layout
-$ git checkout topic
+$ git fetch topic
 \end_layout
 
 \begin_layout Plain Layout
@@ -742,6 +742,58 @@ $ git log --oneline --decorate --graph --all
 
 \end_layout
 
+\begin_layout Standard
+注意：如果topic分支是最新的，即topic分支是从master分支的最新节点开始，并且此后master分支没有新的进展，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:topic分支是最新时的情形"
+
+\end_inset
+
+所示的情形，则get rebase master的结果只是显示：topic是最新的。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/git_before_rebase_0.eps
+	width 80line%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+topic分支是最新时的情形
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:topic分支是最新时的情形"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 fast forward merge
 \end_layout
@@ -766,10 +818,6 @@ status open
 
 \begin_layout Plain Layout
 $ git checkout master
-\end_layout
-
-\begin_layout Plain Layout
-$ git merge 
 \end_layout
 
 \begin_layout Plain Layout
