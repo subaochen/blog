@@ -1,0 +1,646 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=`
+} 
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman 新宋体
+\font_sans 新宋体
+\font_typewriter 新宋体
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+微信公众号开发的方法
+\end_layout
+
+\begin_layout Standard
+客户要搞一个微信营销大赛，于是最近看了一下微信公众号以及微信小店（貌似以后要改名微信商铺）的开发方法。不得不说，微信的开放接口设计的蛮不错的，比当初的拍拍网接口
+强多了！不过，微信的开发文档有些弱，有些乱，下面算是我个人的理解和学习记录，不一定全对，还希望同行多多指正！
+\end_layout
+
+\begin_layout Section
+准备工作
+\end_layout
+
+\begin_layout Standard
+最基础的工作就是在你的微信公众号（服务号、企业号）中进行开发配置，即登录微信公众号后，在“开发”菜单中进行“基本配置”，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:微信开发的基本配置"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/文档/blog/imgs/wechat_dev_basic_config.pdf
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+微信开发的基本配置
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:微信开发的基本配置"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+基本原理
+\end_layout
+
+\begin_layout Standard
+在基本配置中填写的URL，你必须在这个URL老老实实的等待微信推送消息过来，包括基本配置中点击“提交”后的第一步认证过程。因此，在进行微信公众号开发之前，最好已
+经写好了微信开发的基本框架。这似乎是一个矛盾：还没有通过认证，怎么写微信开发的基本框架呢？好在现在已经有不少成熟的微信开发框架了，一般不需要自己从头写起。
+\end_layout
+
+\begin_layout Standard
+但是，如果你只是进行微信开发基本配置的认证的话，可以简单的在服务器放一个如
+\begin_inset CommandInset href
+LatexCommand href
+name "接入指南"
+target "http://mp.weixin.qq.com/wiki/8/f9a0b8382e0b77d87b3bcc1ce6fbc104.html"
+
+\end_inset
+
+所说的PHP脚本即可。我采用的开发语言是Java，官方没有给出这样的接入认证示范。
+\end_layout
+
+\begin_layout Section
+微信的基本Java开发框架
+\end_layout
+
+\begin_layout Standard
+基于Java的微信开发框架也有好几个了，自己去github搜，我选择的是wechat4j，原始地址是：
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/sword-org/wechat4j"
+target "https://github.com/sword-org/wechat4j"
+
+\end_inset
+
+，我对wechat4j做了maven化，顺便修了几个bug，参见：
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/subaochen/wechat4j"
+target "https://github.com/subaochen/wechat4j"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+wechat4j框架的好处是，封装了基本的微信通讯数据接口，包括认证、accessToken的自动刷新、数据模型的封装等，这样我们的开发就可以专注于业务逻辑了。
+我使用maven进行改造的原因是可以方便的进行依赖管理和版本控制，也提交了PR给原作者，但是看起来原作者没有打算merge进去，只是在README中列出了我的m
+aven分支，也许作者有自己的考虑。
+\end_layout
+
+\begin_layout Standard
+wechat4j有一个demo项目可以直接下载研究并在这个基础上进行开发：
+\begin_inset CommandInset href
+LatexCommand href
+name "wechat4jDemo"
+target "https://github.com/repoproject/wechat4jDemo"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+使用wechat4j进行微信公众号开发的基本步骤如下所述：
+\end_layout
+
+\begin_layout Subsection
+编写配置文件
+\end_layout
+
+\begin_layout Standard
+wechat4j.properties的基本内容如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+#token
+\end_layout
+
+\begin_layout Plain Layout
+wechat.token=wechat
+\end_layout
+
+\begin_layout Plain Layout
+#wechat appid
+\end_layout
+
+\begin_layout Plain Layout
+wechat.appid=appid
+\end_layout
+
+\begin_layout Plain Layout
+#wechat app secret
+\end_layout
+
+\begin_layout Plain Layout
+wechat.appsecret=secret
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+更多的选项，可以参考wechat4j源码中的wechat4j.properties.sample，位于：src/main/resources目录下。
+\end_layout
+
+\begin_layout Standard
+要注意的是，wechat4j.properties文件要放到class文件的根目录，这个有点写的过死了，其实放到classpath应该都可以的，照时间fix一下。
+\end_layout
+
+\begin_layout Subsection
+编写基础的Servlet
+\end_layout
+
+\begin_layout Standard
+我使用的是seam，写一个能够支持CDI的Servlet要多少费些周折，直接上代码：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/eshop/src/hot/com/mallng/wechat/WeChatServlet.java"
+lstparams "caption={MyWechatServlet.java},label={支持CDI的Servlet示例}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这个示例中的写法，不需要改动web.xml文件就可以部署使用。如果是简单的Servlet，wechat4jDemo中的写法就足够了。
+\end_layout
+
+\begin_layout Subsection
+业务逻辑处理
+\end_layout
+
+\begin_layout Standard
+在Servlet中的MyWechat自然就是我们自己的业务逻辑处理类了，基本的内容如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+MyServlet.java
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class MyWechat extends WechatSupport {
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\begin_layout Plain Layout
+
+	private static final Log logger = LogFactory.getLog(MyWechat.class);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	public MyWechat(HttpServletRequest request) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		super(request);
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\begin_layout Plain Layout
+
+	/**
+\end_layout
+
+\begin_layout Plain Layout
+
+	 * 文本消息
+\end_layout
+
+\begin_layout Plain Layout
+
+	 */
+\end_layout
+
+\begin_layout Plain Layout
+
+	@Override
+\end_layout
+
+\begin_layout Plain Layout
+
+	protected void onText() {
+\end_layout
+
+\begin_layout Plain Layout
+
+		String content = super.wechatRequest.getContent().trim();
+\end_layout
+
+\begin_layout Plain Layout
+
+//		String msgId = wechatRequest.getMsgId();
+\end_layout
+
+\begin_layout Plain Layout
+
+		logger.info(content);
+\end_layout
+
+\begin_layout Plain Layout
+
+		//文本测试
+\end_layout
+
+\begin_layout Plain Layout
+
+		if(content.equals("1")){
+\end_layout
+
+\begin_layout Plain Layout
+
+			responseText("你好，hello world!<a href=
+\backslash
+"http://www.baidu.com
+\backslash
+">这是链接</a>");
+\end_layout
+
+\begin_layout Plain Layout
+
+		}
+\end_layout
+
+\begin_layout Plain Layout
+
+		else if(content.equals("2")){
+\end_layout
+
+\begin_layout Plain Layout
+
+			responseNew("图文消息", "测试图文消息", "http://upload.qqfuzhi.com/portal/showimg.php?img=
+e2dnYyk8PHEhIys9Y3t8Z3w9YGd8YXY9YmI9cHx%2BPHtnZ2NMen50f3xydz1wdHosPGFmYX8nTHEuJ3
+Z2IXFyJnUiICAqcnAnInYhcHJ2InAnKndycidwKyAgdnIqdiN1KitxdyojIysjcSAiJipyK3YqIXd1JC
+t1JyBxKnIkcCt1JyYkKysicCAjIiokKyogcHd1ICAhcXArciUjI3EhdyYjKiIncSclIiUqJyAkInEgKi
+V2IiEiJnEgKyp2cXV3cCEmJ3EjcHYqJHIrdytwIyYgIHIicHAgcXFwIiIldyIhNXIuISMrNXEuISMr",
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+					"http://www.chengn.com");
+\end_layout
+
+\begin_layout Plain Layout
+
+			
+\end_layout
+
+\begin_layout Plain Layout
+
+//			responseNew(title, description, picUrl, url);
+\end_layout
+
+\begin_layout Plain Layout
+
+//			
+\end_layout
+
+\begin_layout Plain Layout
+
+//			ArticleResponse item = new ArticleResponse();
+\end_layout
+
+\begin_layout Plain Layout
+
+//			item.setTitle(title);
+\end_layout
+
+\begin_layout Plain Layout
+
+//			item.setDescription(description);
+\end_layout
+
+\begin_layout Plain Layout
+
+//			item.setUrl(url);
+\end_layout
+
+\begin_layout Plain Layout
+
+//			item.setPicUrl(picUrl);
+\end_layout
+
+\begin_layout Plain Layout
+
+//			responseNews(item);
+\end_layout
+
+\begin_layout Plain Layout
+
+//			
+\end_layout
+
+\begin_layout Plain Layout
+
+//			List<ArticleResponse> items = new ArrayList<ArticleResponse>();
+\end_layout
+
+\begin_layout Plain Layout
+
+//			items.add(item);
+\end_layout
+
+\begin_layout Plain Layout
+
+//			responseNews(items);
+\end_layout
+
+\begin_layout Plain Layout
+
+		}
+\end_layout
+
+\begin_layout Plain Layout
+
+		else{
+\end_layout
+
+\begin_layout Plain Layout
+
+			responseText("你好，你的输入为 " + content + "
+\backslash
+n"
+\end_layout
+
+\begin_layout Plain Layout
+
+					+ "请按照如下操作输入:
+\backslash
+n"
+\end_layout
+
+\begin_layout Plain Layout
+
+					+ "1 文本
+\backslash
+n"
+\end_layout
+
+\begin_layout Plain Layout
+
+					+ "2 图文
+\backslash
+n");
+\end_layout
+
+\begin_layout Plain Layout
+
+		}
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+    ......
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+相当直接了当。
+\end_layout
+
+\begin_layout Section
+小结
+\end_layout
+
+\begin_layout Standard
+这就算入门了，剩下的就是体力活了。
+\end_layout
+
+\end_body
+\end_document

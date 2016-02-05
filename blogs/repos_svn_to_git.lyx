@@ -212,7 +212,11 @@ zhangsan=Zhang San<zhangsan@126.com>
 \series bold
 这里特别提醒：获取的每一个svn仓库贡献者都必须在users.txt文件中列出，一个都不能少
 \series default
-（貌似多些几个没关系）！否则后面迁移的时候将前功尽弃！本人就是因为偷懒少写了一个名字，结果屡次迁移不成功。
+，
+\series bold
+要不就干脆不要使用--authors-file参数（貌似多写几个没关系）
+\series default
+！否则后面迁移的时候将前功尽弃！本人就是因为偷懒少写了一个名字，结果屡次迁移不成功。
 \end_layout
 
 \begin_layout Standard
