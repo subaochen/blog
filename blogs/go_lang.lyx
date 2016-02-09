@@ -1,0 +1,678 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=`
+} 
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman 新宋体
+\font_sans 新宋体
+\font_typewriter 新宋体
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+go编程学习笔记
+\end_layout
+
+\begin_layout Standard
+现在每学习一种语言，都会迫使自己考虑，和Java语言相比怎样？有什么不同，有什么优点？也许是受java的“毒”太深，学习一下go解解毒。下面的内容只是go语言学
+习笔记，并不系统，不作为教程使用。
+\end_layout
+
+\begin_layout Standard
+一个衍生的有趣的问题：《学习Go语言》这本书的源代码在哪里？很感兴趣这样的代码解释是如何实现的。
+\end_layout
+
+\begin_layout Section
+go语言的优点
+\end_layout
+
+\begin_layout Itemize
+执行速度快，据说go的执行速度是可以和C一拼的。
+\end_layout
+
+\begin_layout Itemize
+部署维护方便，这一点从gogs就可以看出，无需任何执行环境，直接替换可执行文件即可。
+\end_layout
+
+\begin_layout Itemize
+有一个名声不错，实力强大的爹。
+\end_layout
+
+\begin_layout Section
+go语言和C语言语法上的明显不同
+\end_layout
+
+\begin_layout Itemize
+参数后置，感觉这一点有些反人类：几乎所有语言的类型都是前置的，go有必要在这方面创新吗？
+\end_layout
+
+\begin_layout Itemize
+没有逗号表达式，通过平行赋值达到同样的目的
+\end_layout
+
+\begin_layout Itemize
+语句可以不用;结束
+\end_layout
+
+\begin_layout Itemize
+严格的{位置，比如if语句
+\end_layout
+
+\begin_layout Itemize
+更加灵活的for循环，只有for循环，语法上似乎比C更简洁一些。
+\end_layout
+
+\begin_layout Itemize
+GC机制，这是C/C++所没有的。所以，尽管可以通过new/make申请内存，却无需操心内存的释放问题。
+\end_layout
+
+\begin_layout Itemize
+指针的用法几乎和C一样，那么所谓的“有指针没有指针运算”如何理解？为什么这样设计呢？
+\end_layout
+
+\begin_layout Itemize
+面向对象的特征？
+\end_layout
+
+\begin_layout Section
+go语言和javascirpt的语法比较
+\end_layout
+
+\begin_layout Itemize
+闭包支持相似
+\end_layout
+
+\begin_layout Itemize
+强大的函数使用方式相似，go也支持将函数赋值给变量，同样支持函数的回调
+\end_layout
+
+\begin_layout Itemize
+由于函数可以赋值给变量，即函数也是一个值，则struct中函数就可以成为一个自然的成员分量，这就是类了！
+\end_layout
+
+\begin_layout Section
+go语言和java的比较
+\end_layout
+
+\begin_layout Standard
+go没有异常！这一点令人惊讶，目前不解中...
+\end_layout
+
+\begin_layout Section
+go的函数定义
+\end_layout
+
+\begin_layout Subsection
+多个返回值
+\end_layout
+
+\begin_layout Standard
+可以定义多个返回值是go语言的突出优点和特点，比如求非伯纳稀释数列的函数：
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+package main
+\end_layout
+
+\begin_layout Plain Layout
+
+import "fmt"
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+func fib(n int)(val,pos int) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    if n == 0 {
+\end_layout
+
+\begin_layout Plain Layout
+
+        val = 1
+\end_layout
+
+\begin_layout Plain Layout
+
+        pos = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+    } else if n == 1 {
+\end_layout
+
+\begin_layout Plain Layout
+
+        val = 1
+\end_layout
+
+\begin_layout Plain Layout
+
+        pos = 1
+\end_layout
+
+\begin_layout Plain Layout
+
+    } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        v1, _ := fib(n - 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+        v2, _ := fib(n - 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+        val = v1 + v2
+\end_layout
+
+\begin_layout Plain Layout
+
+        pos = n
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+func main() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    fmt.Print(fib(10));
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+有趣的命名返回值
+\end_layout
+
+\begin_layout Standard
+go的函数可以指定哪个变量作为返回值，因此在返回多个值的时候，有时反而可以直接return即可：因为已经在返回值列表中指定了返回的变量了。
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+func ReadFull(r Reader, buf []byte) (n int, err error) {
+\end_layout
+
+\begin_layout Plain Layout
+
+for len(buf) > 0 && err == nil {
+\end_layout
+
+\begin_layout Plain Layout
+
+var nr int
+\end_layout
+
+\begin_layout Plain Layout
+
+nr, err = r.Read(buf)
+\end_layout
+
+\begin_layout Plain Layout
+
+n += nr
+\end_layout
+
+\begin_layout Plain Layout
+
+buf = buf[nr:len(buf)]
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+return
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这个函数返回两个值，注意到最后的return用法，无需再次说明返回的变量列表。当然，写上也没有错。
+\end_layout
+
+\begin_layout Subsection
+延迟执行的代码（defer）
+\end_layout
+
+\begin_layout Standard
+可以通过defer定义一系列需要在return之前执行的代码，很实用、很方便的功能，类似于java的final，但是用途不同：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+for i := 0; i < 5; i++ {
+\end_layout
+
+\begin_layout Plain Layout
+
+    defer fmt.Print("%d ",i);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+defer的原理应该是将defer的代码入栈，然后在return之前逐个出栈执行，因此这段代码的结果是4 3 2 1 0
+\end_layout
+
+\begin_layout Subsection
+支持闭包
+\end_layout
+
+\begin_layout Standard
+可以利用defer实现类似javascript的闭包：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+package main
+\end_layout
+
+\begin_layout Plain Layout
+
+import "fmt"
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+func main(){
+\end_layout
+
+\begin_layout Plain Layout
+
+    fmt.Print(f());
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+func f()(ret int) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    defer func(){
+\end_layout
+
+\begin_layout Plain Layout
+
+        ret++
+\end_layout
+
+\begin_layout Plain Layout
+
+    }()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    return 0
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+注意到defer func(){ret++}()中的()，表示定义匿名函数并且调用之。
+\end_layout
+
+\begin_layout Subsection
+工作在数据类型上的函数（方法）
+\end_layout
+
+\begin_layout Standard
+比如这样的函数定义形式：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//
+\end_layout
+
+\begin_layout Plain Layout
+
+ 保存元素的Stack
+\end_layout
+
+\begin_layout Plain Layout
+
+type Stack struct {
+\end_layout
+
+\begin_layout Plain Layout
+
+i
+\end_layout
+
+\begin_layout Plain Layout
+
+ int
+\end_layout
+
+\begin_layout Plain Layout
+
+data [10]int
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+// Push
+\end_layout
+
+\begin_layout Plain Layout
+
+ 将元素压入栈中
+\end_layout
+
+\begin_layout Plain Layout
+
+func (s *Stack) Push(k int) {
+\end_layout
+
+\begin_layout Plain Layout
+
+s.data[s.i] = k
+\end_layout
+
+\begin_layout Plain Layout
+
+s.i++
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+。。。
+\end_layout
+
+\begin_layout Plain Layout
+
+s.Push(10);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+go的包管理
+\end_layout
+
+\begin_layout Standard
+觉得go的包管理方式要比java好些：包名可以和目录名不一致（当然一般是一致的，何苦自己找麻烦？），包内的函数可见性创造性的利用了函数首字母的大小写：大写字母开
+头的函数可以外部调用，小写字母开头的只能在包内使用（相当于隐私函数）。
+\end_layout
+
+\begin_layout Standard
+通过包名调用包内的函数也相当自然。
+\end_layout
+
+\begin_layout Standard
+不过，包名只能是一个小写字母单词的限制，go是如何避免包名冲突的呢？
+\end_layout
+
+\begin_layout Standard
+go也是用了“约定重于配置”，比如测试文件的命名（event_test.go），测试函数的命名(TestEvent)都是直接约定。
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,707 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass ctex-article-with-coderemarks
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{coderemarks}
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman 新宋体
+\font_sans 新宋体
+\font_typewriter 新宋体
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+使用coderemarks更好的解释程序代码
+\end_layout
+
+\begin_layout Standard
+一直蛮欣赏图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:coderemarks方式解释代码"
+
+\end_inset
+
+这样的代码解释方式：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../imgs/coderemarks.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+coderemarks方式解释代码
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:coderemarks方式解释代码"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在阅读《学习Go语言》这本书时，意外学到了这种方式，原来早有大侠制作了方便的coderemarks.sty包，参见：
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/miekg/coderemarks"
+target "https://github.com/miekg/coderemarks"
+
+\end_inset
+
+。根据
+\begin_inset CommandInset href
+LatexCommand href
+name "http://dz.sdut.edu.cn/blog/subaochen/2016/02/lyx%E5%AE%89%E8%A3%85cls%E5%92%8Csty%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/"
+target "http://dz.sdut.edu.cn/blog/subaochen/2016/02/lyx%E5%AE%89%E8%A3%85cls%E5%92%8Csty%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/"
+
+\end_inset
+
+所述，在lyx中使用coderemarks的具体步骤如下：
+\end_layout
+
+\begin_layout Enumerate
+复制coderemarks.sty到/usr/share/texmf/tex/latex/coderemarks目录下
+\end_layout
+
+\begin_layout Enumerate
+执行texhash
+\end_layout
+
+\begin_layout Enumerate
+复制/usr/share/lyx/layouts/ctex-article.layout到.lyx/layouts/ctex-article-with-codere
+marks.layout,并修改第二行为：# 
+\backslash
+DeclareLaTeXClass[ctexart,savesym.sty,xeCJK.sty,coderemarks.sty]{Chinese Article
+ (CTeX) with coderemarks}
+\end_layout
+
+\begin_layout Enumerate
+点击lyx的工具->重配置，等待配置完成，重启lyx
+\end_layout
+
+\begin_layout Enumerate
+创建新文件，选择文档类为Chinese Article (CTeX) with coderemarks，并在导言区（listing的定义后面）增加
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+usepackage{tikz}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+usepackage{ifthen}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+usepackage{coderemarks}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+此后，就可以通过如下的方法为代码增加注释了：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+func f(p I) {  |
+\backslash
+longremark{定义一个函数接受一个接口类型作为参数；}|
+\end_layout
+
+\begin_layout Plain Layout
+    fmt.Println(p.Get()) |
+\backslash
+longremark{p实现了接口I，必须有 Get() 方法；}|
+\end_layout
+
+\begin_layout Plain Layout
+    p.Put(1) |
+\backslash
+longremark{Put() 方法是类似的。}|
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+showremarks
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+所展现出来的，就是图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:coderemarks方式解释代码"
+
+\end_inset
+
+的样子，下面是真实的输出：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+func f(p I) {  |
+\backslash
+longremark{定义一个函数接受一个接口类型作为参数；}|
+\end_layout
+
+\begin_layout Plain Layout
+
+    fmt.Println(p.Get()) |
+\backslash
+longremark{p实现了接口I，必须有 Get() 方法；}|
+\end_layout
+
+\begin_layout Plain Layout
+
+    p.Put(1) |
+\backslash
+longremark{Put() 方法是类似的。}|
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+showremarks
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+欧耶！
+\end_layout
+
+\begin_layout Standard
+更进一步，如果希望能够使用黑体字突出变量名、函数名，可以在导言区增加如下的声明：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+%% Style commands
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+newcommand{
+\backslash
+func}[1]{
+\backslash
+texttt{#1}}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+newcommand{
+\backslash
+key}[1]{
+\backslash
+texttt{#1}}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+newcommand{
+\backslash
+type}[1]{
+\backslash
+texttt{#1}}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+newcommand{
+\backslash
+prog}[1]{
+\backslash
+texttt{#1}}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+newcommand{
+\backslash
+flag}[1]{
+\backslash
+textit{#1}}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+newcommand{
+\backslash
+dir}[1]{
+\backslash
+texttt{#1}}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+newcommand{
+\backslash
+file}[1]{
+\backslash
+texttt{#1}}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+newcommand{
+\backslash
+var}[1]{
+\backslash
+texttt{#1}}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+newcommand{
+\backslash
+rem}[1]{
+\backslash
+texttt{
+\backslash
+textit{#1}}}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+newcommand{
+\backslash
+package}[1]{{
+\backslash
+textit{#1}}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后上面的代码就可以如下解释了：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+func f(p I) { |
+\backslash
+longremark{定义一个函数接受一个接口类型作为参数；}|
+\end_layout
+
+\begin_layout Plain Layout
+fmt.Println(p.Get()) |
+\backslash
+longremark{
+\backslash
+var{p} 实现了接口 
+\backslash
+type{I}，
+\backslash
+emph{必须}有 
+\backslash
+func{Get()} 方法；}|
+\end_layout
+
+\begin_layout Plain Layout
+p.Put(1) |
+\backslash
+longremark{
+\backslash
+func{Put()} 方法是类似的。}|
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+showremarks
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+结果如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+func f(p I) {  |
+\backslash
+longremark{定义一个函数接受一个接口类型作为参数；}|
+\end_layout
+
+\begin_layout Plain Layout
+
+    fmt.Println(p.Get()) |
+\backslash
+longremark{
+\backslash
+var{p} 实现了接口 
+\backslash
+type{I}，必须有 
+\backslash
+func{Get()} 方法；}|
+\end_layout
+
+\begin_layout Plain Layout
+
+    p.Put(1) |
+\backslash
+longremark{
+\backslash
+func{Put()} 方法是类似的。}|
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+showremarks
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如果经常这样解释代码，最好将代码（包含注释）放到独立的文件包含进来，也便于代码文件文件的维护。
+\end_layout
+
+\end_body
+\end_document
