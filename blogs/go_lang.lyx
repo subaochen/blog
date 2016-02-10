@@ -241,7 +241,6 @@ go的函数定义
 \end_layout
 
 \begin_layout Standard
-
 \begin_inset listings
 inline false
 status open
@@ -672,6 +671,28 @@ go的包管理
 
 \begin_layout Standard
 go也是用了“约定重于配置”，比如测试文件的命名（event_test.go），测试函数的命名(TestEvent)都是直接约定。
+\end_layout
+
+\begin_layout Section
+go的面向对象：接口
+\end_layout
+
+\begin_layout Standard
+go的接口是动态的，即一个数据结构无需事先声明实现了某接口。对比java等静态语言，需要明确声明实现了哪些接口。go也对接口的实现进行静态检查，不过，这种类似于
+javascript prototype的面向对象机制，也许给IDE带来了不小的困难？
+\end_layout
+
+\begin_layout Standard
+go的接口命名规则似乎很有道理：Reader,Emitter等以er结尾的单词，值得其他语言借鉴。
+\end_layout
+
+\begin_layout Section
+其它问题
+\end_layout
+
+\begin_layout Standard
+go消除了java中著名的NPE问题吗？比如在java中obj1.obj2.obj3.method()，要注意obj1 or obj2 or obj3可能为null的
+情形，否则导致NPE。其实java可以这样处理类似的NPE：如果obj1 or obj2 or obj3为null，则整个表达式返回null以避免NPE？
 \end_layout
 
 \end_body

@@ -71,6 +71,7 @@
 \usepackage{tikz}
 \usepackage{ifthen}
 \usepackage{coderemarks}
+\usepackage{alltt}
 %% Style commands
 \newcommand{\func}[1]{\texttt{#1}}
 \newcommand{\key}[1]{\texttt{#1}}
@@ -82,6 +83,22 @@
 \newcommand{\var}[1]{\texttt{#1}}
 \newcommand{\rem}[1]{\texttt{\textit{#1}}}
 \newcommand{\package}[1]{{\textit{#1}}}
+
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
 \end_preamble
 \use_default_options true
 \begin_modules
@@ -255,6 +272,10 @@ DeclareLaTeXClass[ctexart,savesym.sty,xeCJK.sty,coderemarks.sty]{Chinese Article
 
 \begin_layout Enumerate
 创建新文件，选择文档类为Chinese Article (CTeX) with coderemarks，并在导言区（listing的定义后面）增加
+\begin_inset Newline newline
+\end_inset
+
+
 \begin_inset Box Shaded
 position "t"
 hor_pos "c"
@@ -701,6 +722,262 @@ showremarks
 
 \begin_layout Standard
 如果经常这样解释代码，最好将代码（包含注释）放到独立的文件包含进来，也便于代码文件文件的维护。
+\end_layout
+
+\begin_layout Standard
+BTW，不要将coderemarks和coderemark混淆，coderemark是一个这样的定义：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+newcommand{
+\backslash
+coderemark}[1]{
+\backslash
+sffamily
+\backslash
+normalfont
+\backslash
+qquad$
+\backslash
+leftarrow 
+\backslash
+textit{
+\backslash
+footnotesize #1}$}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+coderemark一般用于程序执行结果的解释，见下例：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{display}
+\end_layout
+
+\begin_layout Plain Layout
+
+I'm waiting         
+\backslash
+coderemark{立刻}
+\end_layout
+
+\begin_layout Plain Layout
+
+Coffee is ready!    
+\backslash
+coderemark{1 秒后}
+\end_layout
+
+\begin_layout Plain Layout
+
+Tea is ready!       
+\backslash
+coderemark{2 秒后}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{display}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+注意display不是latex的build in tag，定义如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+newenvironment{display}{
+\backslash
+def
+\backslash
+FrameCommand{
+\backslash
+hskip
+\backslash
+parindent}%%
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+MakeFramed{
+\backslash
+advance
+\backslash
+hsize-
+\backslash
+width
+\backslash
+FrameRestore}%%
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+vspace*{-2ex}
+\backslash
+small
+\backslash
+begin{alltt}}%
+\end_layout
+
+\begin_layout Plain Layout
+{
+\backslash
+end{alltt}
+\backslash
+vspace*{-2ex}
+\backslash
+endMakeFramed}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+newenvironment{lbar}[1][]{%
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+def
+\backslash
+FrameCommand{
+\backslash
+rightskip=
+\backslash
+parindent
+\backslash
+hskip
+\backslash
+parindent
+\backslash
+vrule width 1pt 
+\backslash
+hspace{10pt}}%
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+MakeFramed{
+\backslash
+rightskip=
+\backslash
+parindent
+\backslash
+advance
+\backslash
+hsize-
+\backslash
+width
+\backslash
+FrameRestore
+\backslash
+noindent
+\backslash
+hskip-0.6ex}%
+\end_layout
+
+\begin_layout Plain Layout
+{%
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+ifthenelse{
+\backslash
+equal{#1}{}}{}{
+\backslash
+hskip0.6ex
+\backslash
+normalfont
+\backslash
+myfamily
+\backslash
+myheadseries{#1}
+\backslash
+
+\backslash
+
+\backslash
+
+\backslash
+}}%
+\end_layout
+
+\begin_layout Plain Layout
+}%
+\end_layout
+
+\begin_layout Plain Layout
+{
+\backslash
+endMakeFramed}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+idea：最好定制一个专门展示console内容的标签，比如terminal?console?
 \end_layout
 
 \end_body
