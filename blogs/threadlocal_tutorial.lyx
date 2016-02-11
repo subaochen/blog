@@ -361,10 +361,6 @@ readLocal保护的变量，就像是子线程的本地变量一样。
 \end_layout
 
 \begin_layout Section
-ThreadLocal原理探秘（openjdk源码解析）
-\end_layout
-
-\begin_layout Section
 ThreadLocal的实际应用：Weld
 \begin_inset CommandInset label
 LatexCommand label
@@ -373,6 +369,25 @@ name "sec:ThreadLocal的实际应用：Weld"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+比如在weld-core中，http session是这样表达的：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/weld-core/modules/web/src/main/java/org/jboss/weld/servlet/SessionHolder.java"
+lstparams "caption={SessionHolder.java},label={SessionHolder.java}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+很明显，每个http请求需要保存自己的http session，这正是ThreadLocal的用武之地。
 \end_layout
 
 \begin_layout Section
