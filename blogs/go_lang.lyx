@@ -140,16 +140,20 @@ tcolorbox
 \begin_body
 
 \begin_layout Title
-go编程学习笔记
+go语言学习笔记
 \end_layout
 
 \begin_layout Standard
-现在每学习一种语言，都会迫使自己考虑，和Java语言相比怎样？有什么不同，有什么优点？也许是受java的“毒”太深，学习一下go解解毒。下面的内容只是go语言学
-习笔记，并不系统，不作为教程使用。
-\end_layout
+前些日子装了个gogs：
+\begin_inset CommandInset href
+LatexCommand href
+name "http://gogs.io"
+target "http://gogs.io"
 
-\begin_layout Standard
-一个衍生的有趣的问题：《学习Go语言》这本书的源代码在哪里？很感兴趣这样的代码解释是如何实现的。
+\end_inset
+
+作为git服务器，感觉不错。go语言自2009年google推出后，鲜见使用go语言编写的成熟产品，gogs提醒我，是时候认真的看看go了。下面的内容只是go语
+言学习笔记，并不系统，也难免谬误，不作为教程使用。
 \end_layout
 
 \begin_layout Section
@@ -687,12 +691,35 @@ go的接口命名规则似乎很有道理：Reader,Emitter等以er结尾的单�
 \end_layout
 
 \begin_layout Section
+go的并发编程和channel通讯机制
+\end_layout
+
+\begin_layout Standard
+goroutines & channel是go的宝贵资产，极大方便了并发编程和线程通讯。
+\end_layout
+
+\begin_layout Section
 其它问题
 \end_layout
 
 \begin_layout Standard
 go消除了java中著名的NPE问题吗？比如在java中obj1.obj2.obj3.method()，要注意obj1 or obj2 or obj3可能为null的
 情形，否则导致NPE。其实java可以这样处理类似的NPE：如果obj1 or obj2 or obj3为null，则整个表达式返回null以避免NPE？
+\end_layout
+
+\begin_layout Section
+小结
+\end_layout
+
+\begin_layout Standard
+go的突出优点是方便的goroutinues并发编程和channel通讯机制，这确实是java等不能比的，在这方面go真正实践了“更少的代码做更多的事情”的承诺
+。但是，go似乎刻意回避了面向对象的设计，所有面向对象的特征只依赖于struct和接口，没有明确的类、继承等基本的面向对象的概念，这既不同于java的传统面向对
+象设计，也不同于javascript的prototype机制。固然，go对接口的静态检查和动态转换提供了极大的灵活性，但总感觉go的面向对象特征不够明显，也许这
+就go的初衷：“胜过C语言”导致的？
+\end_layout
+
+\begin_layout Standard
+期望有机会拆解一个像模像样的go应用，加深对go的理解。
 \end_layout
 
 \end_body

@@ -68,10 +68,15 @@
         escapechar=|
 } 
 
+
 \usepackage{tikz}
 \usepackage{ifthen}
 \usepackage{coderemarks}
 \usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
 %% Style commands
 \newcommand{\func}[1]{\texttt{#1}}
 \newcommand{\key}[1]{\texttt{#1}}
@@ -173,18 +178,597 @@ tcolorbox
 \begin_body
 
 \begin_layout Title
-使用coderemarks更好的解释程序代码
+学习使用tikz宏包
 \end_layout
 
 \begin_layout Standard
-一直蛮欣赏图
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:coderemarks方式解释代码"
+tikz的介绍，在
+\begin_inset CommandInset href
+LatexCommand href
+name "http://www.tug.org/pracjourn/2007-1/mertz/mertz.pdf"
+target "http://www.tug.org/pracjourn/2007-1/mertz/mertz.pdf"
 
 \end_inset
 
-这样的代码解释方式：
+很全面了，值得仔细阅读，下面算是读书笔记:-)
+\end_layout
+
+\begin_layout Standard
+通过tikz的例子
+\begin_inset CommandInset citation
+LatexCommand cite
+key "tikz-examples"
+
+\end_inset
+
+学习tikz宏包也是个好主意。
+\end_layout
+
+\begin_layout Section
+tikz的基本概念
+\end_layout
+
+\begin_layout Standard
+tikz是PGF（Portable Graphics Format）的前端语言，使用tikz可以在tex/latex源文件中直截了当的嵌入漂亮的图形，最简单的形
+式如代码清单
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:包含tikz图形的基本tex文档"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=TeX"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+包含tikz图形的基本tex文档
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:包含tikz图形的基本tex文档"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+documentclass[11pt]{article}
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{tikz}
+\end_layout
+
+\begin_layout Plain Layout
+
+% Optional PGF libraries
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{pgflibraryarrows}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{pgflibrarysnakes}
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{document}
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{document}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+建议每个tikz图形用单独的文件存储，然后include到tex或者lyx文件中。配合sublime text和latexing(tikz)插件
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+参见：
+\begin_inset CommandInset href
+LatexCommand href
+name "http://dz.sdut.edu.cn/blog/subaochen/2016/02/sublime-text-3%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8%E7%BB%8F%E9%AA%8C/"
+target "http://dz.sdut.edu.cn/blog/subaochen/2016/02/sublime-text-3%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8%E7%BB%8F%E9%AA%8C/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+，建议将代码清单
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:demo.tex"
+
+\end_inset
+
+保存为demo.tex。
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+demo.tex
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:demo.tex"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+documentclass{article}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage[utf8]{inputenc}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{tikz}
+\end_layout
+
+\begin_layout Plain Layout
+
+% Optional PGF libraries
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{pgflibraryarrows}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{pgflibrarysnakes}
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{document}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+includegraphics{demo.pdf}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{document} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+同时将代码清单
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:demo.tikz"
+
+\end_inset
+
+作为基本的tikz测试文件。
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+demo.tikz
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:demo.tikz"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+% -*- root: demo.tex -*-
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[scale=.8, z={(-.707,-.3)}]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这样，一个完整的tikz测试学习环境就建立起来了，happy sublime + latex + tikz!
+\end_layout
+
+\begin_layout Section
+tikz的基本要素：点(Point)和路径(Path)
+\end_layout
+
+\begin_layout Standard
+先定义Point和Path，然后通过运算符把Point用指定的Path连接起来，就是一幅图形了。
+\end_layout
+
+\begin_layout Standard
+Point有三种表示形式：
+\end_layout
+
+\begin_layout Enumerate
+相对于原点的坐标，例如：
+\backslash
+path (0,1) coordinate (P)表示横坐标为0,总坐标为1的一个Point，以后可以通过P来引用这个Point。
+\end_layout
+
+\begin_layout Enumerate
+相对于原点的角坐标，例如：
+\backslash
+path (30:1cm) coordinate(Q)表示角度为30度，半径为1cm的一个Point
+\end_layout
+
+\begin_layout Enumerate
+相对坐标，例如：
+\backslash
+path(P)++(1,1) coordinate(P1)表示相对于P的横坐标和总坐标都增加1的Point，即点（1,2)，并且画图轨迹的当前点为P1。如果是
+\backslash
+path(P)+(1.1) coordinate(P1)则表示相对于P的横坐标和纵坐标都增加1的Point，即点(1,2)，但是画图轨迹的当前点为P。
+\end_layout
+
+\begin_layout Standard
+所谓路径（Path）即通过划线运算符--连接起来的轨迹，比如命令：
+\backslash
+draw (P)--(Q)--(R);表示从点P画线到Q，再从Q画线到R，并且当前点为R。
+\end_layout
+
+\begin_layout Section
+tikz的基本图形
+\end_layout
+
+\begin_layout Enumerate
+网格 
+\backslash
+draw (P) grid (Q)
+\end_layout
+
+\begin_layout Enumerate
+矩形 
+\backslash
+draw (P) rectangle (Q)
+\end_layout
+
+\begin_layout Enumerate
+园 
+\backslash
+draw (P) circle (rim)
+\end_layout
+
+\begin_layout Enumerate
+圆弧 
+\backslash
+draw (P) arc (𝛼:𝛽:rim)
+\end_layout
+
+\begin_layout Enumerate
+椭圆 
+\backslash
+draw (P) ellipse (r1,r2)
+\end_layout
+
+\begin_layout Enumerate
+贝叶斯曲线 
+\backslash
+draw (P)..
+ controls (C) and (D)..
+ (Q)
+\end_layout
+
+\begin_layout Standard
+注意基本图形不能当作Point使用，因此在路径中不能作为目标节点，比如代码清单
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:基本图形可以作为路径的起点"
+
+\end_inset
+
+是正确的，代码清单
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:基本图形不能作为目标节点"
+
+\end_inset
+
+是不正确的。
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+基本图形可以作为路径的起点
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:基本图形可以作为路径的起点"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw (0:1cm) -- (0:2cm)
+\end_layout
+
+\begin_layout Plain Layout
+
+          arc (0:60:2cm) -- (60:1cm)
+\end_layout
+
+\begin_layout Plain Layout
+
+          arc (60:0:1cm) -- cycle;
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+基本图形不能作为目标节点
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:基本图形不能作为目标节点"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw (0:1cm) -- (0:2cm) -- arc (0:60:2cm) -- (60:1cm) -- arc (60:0:1cm)
+ -- cycle;
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+没有三角形？
+\end_layout
+
+\begin_layout Section
+tikz的循环
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/bipartite.tikz"
+lstparams "caption={bipartite.tikz},label={bipartite.tikz}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+结果如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:有趣的tikz循环"
+
+\end_inset
+
+所示：
 \end_layout
 
 \begin_layout Standard
@@ -195,8 +779,8 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename ../imgs/coderemarks.png
-	width 60line%
+	filename /home/subaochen/git/blog/imgs/bipartite.pdf
+	width 80line%
 
 \end_inset
 
@@ -207,10 +791,10 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-coderemarks方式解释代码
+有趣的tikz循环
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:coderemarks方式解释代码"
+name "fig:有趣的tikz循环"
 
 \end_inset
 
@@ -222,99 +806,18 @@ name "fig:coderemarks方式解释代码"
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+结合gnuplot
 \end_layout
 
 \begin_layout Standard
-在阅读《学习Go语言》这本书时，意外学到了这种方式，原来早有大侠制作了方便的coderemarks.sty包，参见：
-\begin_inset CommandInset href
-LatexCommand href
-name "https://github.com/miekg/coderemarks"
-target "https://github.com/miekg/coderemarks"
-
-\end_inset
-
-。根据
-\begin_inset CommandInset href
-LatexCommand href
-name "http://dz.sdut.edu.cn/blog/subaochen/2016/02/lyx%E5%AE%89%E8%A3%85cls%E5%92%8Csty%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/"
-target "http://dz.sdut.edu.cn/blog/subaochen/2016/02/lyx%E5%AE%89%E8%A3%85cls%E5%92%8Csty%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/"
-
-\end_inset
-
-所述，在lyx中使用coderemarks的具体步骤如下：
-\end_layout
-
-\begin_layout Enumerate
-复制coderemarks.sty到/usr/share/texmf/tex/latex/coderemarks目录下
-\end_layout
-
-\begin_layout Enumerate
-执行texhash
-\end_layout
-
-\begin_layout Enumerate
-复制/usr/share/lyx/layouts/ctex-article.layout到.lyx/layouts/ctex-article-with-codere
-marks.layout,并修改第二行为：# 
-\backslash
-DeclareLaTeXClass[ctexart,savesym.sty,xeCJK.sty,coderemarks.sty]{Chinese Article
- (CTeX) with coderemarks}
-\end_layout
-
-\begin_layout Enumerate
-点击lyx的工具->重配置，等待配置完成，重启lyx
-\end_layout
-
-\begin_layout Enumerate
-创建新文件，选择文档类为Chinese Article (CTeX) with coderemarks，并在导言区（listing的定义后面）增加
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-
-\backslash
-usepackage{tikz}
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-usepackage{ifthen}
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-usepackage{coderemarks}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-此后，就可以通过如下的方法为代码增加注释了：
+首先要保证安装了gnuplot，并且允许tex调用gnuplot这个外部应用，debian/ubuntu下是在/etc/texmf/texmf.d/下面增加一个比
+如100shell_escape.cnf文件，内容为：
 \end_layout
 
 \begin_layout Standard
@@ -332,43 +835,37 @@ height_special "totalheight"
 status open
 
 \begin_layout Plain Layout
-
+shell_escape_commands = 
 \backslash
-begin{lstlisting}
+
 \end_layout
 
 \begin_layout Plain Layout
-func f(p I) {  |
+bibtex,bibtex8,bibtexu,pbibtex,upbibtex,biber,
 \backslash
-longremark{定义一个函数接受一个接口类型作为参数；}|
+
 \end_layout
 
 \begin_layout Plain Layout
-    fmt.Println(p.Get()) |
+kpsewhich,
 \backslash
-longremark{p实现了接口I，必须有 Get() 方法；}|
+
 \end_layout
 
 \begin_layout Plain Layout
-    p.Put(1) |
+makeindex,mendex,texindy,
 \backslash
-longremark{Put() 方法是类似的。}|
+
 \end_layout
 
 \begin_layout Plain Layout
-}
+mpost,pmpost,
+\backslash
+
 \end_layout
 
 \begin_layout Plain Layout
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-showremarks
+repstopdf,epspdf,extractbb,gnuplot
 \end_layout
 
 \end_inset
@@ -377,65 +874,37 @@ showremarks
 \end_layout
 
 \begin_layout Standard
-所展现出来的，就是图
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:coderemarks方式解释代码"
-
-\end_inset
-
-的样子，下面是真实的输出：
+然后执行update-texmf即可。
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
+比如下面的代码画正弦曲线：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
 status open
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-func f(p I) {  |
-\backslash
-longremark{定义一个函数接受一个接口类型作为参数；}|
-\end_layout
-
-\begin_layout Plain Layout
-
-    fmt.Println(p.Get()) |
-\backslash
-longremark{p实现了接口I，必须有 Get() 方法；}|
-\end_layout
-
-\begin_layout Plain Layout
-
-    p.Put(1) |
-\backslash
-longremark{Put() 方法是类似的。}|
-\end_layout
-
-\begin_layout Plain Layout
-
-}
+begin{tikzpicture}
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-end{lstlisting}
+draw[smooth,domain=0:6.5] plot function{sin(2*x)*exp(-x/4)};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-showremarks
+end{tikzpicture}
 \end_layout
 
 \end_inset
@@ -444,541 +913,15 @@ showremarks
 \end_layout
 
 \begin_layout Standard
-欧耶！
-\end_layout
-
-\begin_layout Standard
-更进一步，如果希望能够使用黑体字突出变量名、函数名，可以在导言区增加如下的声明：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-%% Style commands
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-newcommand{
-\backslash
-func}[1]{
-\backslash
-texttt{#1}}
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-newcommand{
-\backslash
-key}[1]{
-\backslash
-texttt{#1}}
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-newcommand{
-\backslash
-type}[1]{
-\backslash
-texttt{#1}}
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-newcommand{
-\backslash
-prog}[1]{
-\backslash
-texttt{#1}}
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-newcommand{
-\backslash
-flag}[1]{
-\backslash
-textit{#1}}
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-newcommand{
-\backslash
-dir}[1]{
-\backslash
-texttt{#1}}
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-newcommand{
-\backslash
-file}[1]{
-\backslash
-texttt{#1}}
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-newcommand{
-\backslash
-var}[1]{
-\backslash
-texttt{#1}}
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-newcommand{
-\backslash
-rem}[1]{
-\backslash
-texttt{
-\backslash
-textit{#1}}}
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-newcommand{
-\backslash
-package}[1]{{
-\backslash
-textit{#1}}}
-\end_layout
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "references"
+options "IEEEtran"
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-然后上面的代码就可以如下解释了：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-
-\backslash
-begin{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-func f(p I) { |
-\backslash
-longremark{定义一个函数接受一个接口类型作为参数；}|
-\end_layout
-
-\begin_layout Plain Layout
-fmt.Println(p.Get()) |
-\backslash
-longremark{
-\backslash
-var{p} 实现了接口 
-\backslash
-type{I}，
-\backslash
-emph{必须}有 
-\backslash
-func{Get()} 方法；}|
-\end_layout
-
-\begin_layout Plain Layout
-p.Put(1) |
-\backslash
-longremark{
-\backslash
-func{Put()} 方法是类似的。}|
-\end_layout
-
-\begin_layout Plain Layout
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-showremarks
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-结果如下：
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-func f(p I) {  |
-\backslash
-longremark{定义一个函数接受一个接口类型作为参数；}|
-\end_layout
-
-\begin_layout Plain Layout
-
-    fmt.Println(p.Get()) |
-\backslash
-longremark{
-\backslash
-var{p} 实现了接口 
-\backslash
-type{I}，必须有 
-\backslash
-func{Get()} 方法；}|
-\end_layout
-
-\begin_layout Plain Layout
-
-    p.Put(1) |
-\backslash
-longremark{
-\backslash
-func{Put()} 方法是类似的。}|
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-showremarks
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-如果经常这样解释代码，最好将代码（包含注释）放到独立的文件包含进来，也便于代码文件文件的维护。
-\end_layout
-
-\begin_layout Standard
-BTW，不要将coderemarks和coderemark混淆，coderemark是一个这样的定义：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-
-\backslash
-newcommand{
-\backslash
-coderemark}[1]{
-\backslash
-sffamily
-\backslash
-normalfont
-\backslash
-qquad$
-\backslash
-leftarrow 
-\backslash
-textit{
-\backslash
-footnotesize #1}$}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-coderemark一般用于程序执行结果的解释，见下例：
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{display}
-\end_layout
-
-\begin_layout Plain Layout
-
-I'm waiting         
-\backslash
-coderemark{立刻}
-\end_layout
-
-\begin_layout Plain Layout
-
-Coffee is ready!    
-\backslash
-coderemark{1 秒后}
-\end_layout
-
-\begin_layout Plain Layout
-
-Tea is ready!       
-\backslash
-coderemark{2 秒后}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{display}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-注意display不是latex的build in tag，定义如下：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-
-\backslash
-newenvironment{display}{
-\backslash
-def
-\backslash
-FrameCommand{
-\backslash
-hskip
-\backslash
-parindent}%%
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-MakeFramed{
-\backslash
-advance
-\backslash
-hsize-
-\backslash
-width
-\backslash
-FrameRestore}%%
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-vspace*{-2ex}
-\backslash
-small
-\backslash
-begin{alltt}}%
-\end_layout
-
-\begin_layout Plain Layout
-{
-\backslash
-end{alltt}
-\backslash
-vspace*{-2ex}
-\backslash
-endMakeFramed}
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-newenvironment{lbar}[1][]{%
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-def
-\backslash
-FrameCommand{
-\backslash
-rightskip=
-\backslash
-parindent
-\backslash
-hskip
-\backslash
-parindent
-\backslash
-vrule width 1pt 
-\backslash
-hspace{10pt}}%
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-MakeFramed{
-\backslash
-rightskip=
-\backslash
-parindent
-\backslash
-advance
-\backslash
-hsize-
-\backslash
-width
-\backslash
-FrameRestore
-\backslash
-noindent
-\backslash
-hskip-0.6ex}%
-\end_layout
-
-\begin_layout Plain Layout
-{%
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-ifthenelse{
-\backslash
-equal{#1}{}}{}{
-\backslash
-hskip0.6ex
-\backslash
-normalfont
-\backslash
-myfamily
-\backslash
-myheadseries{#1}
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-}}%
-\end_layout
-
-\begin_layout Plain Layout
-}%
-\end_layout
-
-\begin_layout Plain Layout
-{
-\backslash
-endMakeFramed}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-idea：最好定制一个专门展示console内容的标签，比如terminal?console?
 \end_layout
 
 \end_body
