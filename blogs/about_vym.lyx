@@ -68,15 +68,10 @@
         escapechar=|
 } 
 
-
 \usepackage{tikz}
 \usepackage{ifthen}
 \usepackage{coderemarks}
 \usepackage{alltt}
-% Optional PGF libraries
-\usepackage{pgflibraryarrows}
-\usepackage{pgflibrarysnakes}
-
 %% Style commands
 \newcommand{\func}[1]{\texttt{#1}}
 \newcommand{\key}[1]{\texttt{#1}}
@@ -178,74 +173,60 @@ tcolorbox
 \begin_body
 
 \begin_layout Title
-weld的编译和部署
-\end_layout
-
-\begin_layout Section
-准备环境
+一个好用的思维导图工具vym
 \end_layout
 
 \begin_layout Standard
-截止到2016年02月12日，本人在wildfly10和weld 2.3.3下测试通过，其中weld-core编译自源代码:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-$ git checkout 2.3
-\end_layout
+vym=view your mind，地址：
+\begin_inset CommandInset href
+LatexCommand href
+name "http://www.insilmaril.de/vym/"
+target "http://www.insilmaril.de/vym/"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Section
-编译
-\end_layout
-
-\begin_layout Standard
-根据网络速度的不同，编译可能花费相当长的时间
+，还是非常不错的，要胜于以前经常使用的freemind
 \begin_inset Foot
 status open
 
 \begin_layout Plain Layout
-我这里要花费9分钟左右
+http://freemind.sf.net
 \end_layout
 
 \end_inset
 
-。
+，Ubuntu/debian下面直接apt-get install vym安装即可。
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
+vym可以导出各种格式的文件，包括ascii/pdf/svg/png/latex/openoffice....，但是没看到传说中的tikz。
+\end_layout
+
+\begin_layout Standard
+附上一张刚画的思维导图供参考：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-$ mvn clean install
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/doctools.pdf
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+使用vym画的思维导图
 \end_layout
 
 \end_inset
@@ -253,191 +234,13 @@ $ mvn clean install
 
 \end_layout
 
-\begin_layout Standard
-如果只是做了小小的修改需要尽快查看效果，可以跳过clean和所有的测试
-\begin_inset Foot
-status open
-
 \begin_layout Plain Layout
-我这里大约耗时1分多钟
-\end_layout
 
-\end_inset
-
-：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-$ mvn clean install -DskipTests
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Section
-部署到wildfly
-\end_layout
-
-\begin_layout Standard
-首先创建JBOSS_HOME环境变量指向wildfy:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-$ export JBOSS_HOME=$HOME/devel/wildfly
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-然后执行部署任务即可：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-$ mvn package -Pupdate-jboss-as -f jboss-as/pom.xml -Dweld.update.version=${weld.ver
-sion}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-其中的weld.version可以查看jboss-as/pom.xml获得。
-\end_layout
-
-\begin_layout Standard
-也可以创建一个deploy.sh以简化此后的部署工作：
-\end_layout
-
-\begin_layout Standard
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-#!/bin/sh
-\end_layout
-
-\begin_layout Plain Layout
-
-mvn package -Pupdate-jboss-as -f jboss-as/pom.xml -Dweld.update.version=2.3.3-SNAPSHO
-T
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-测试一下
-\end_layout
-
-\begin_layout Standard
-首先要启动wildfly：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-$ $JBOSS_HOME/bin/standalone.sh
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-进入weld-core/examples/jsf/numberguess，然后执行：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-$ mvn clean package wildfly:deploy
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-然后访问：http://localhost:8080/numberguess即可。
 \end_layout
 
 \end_body

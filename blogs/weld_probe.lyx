@@ -1,0 +1,905 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass ctex-article-with-coderemarks
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{coderemarks}
+\usepackage{alltt}
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman 新宋体
+\font_sans 新宋体
+\font_typewriter 新宋体
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+weld probe介绍
+\end_layout
+
+\begin_layout Section
+概述
+\end_layout
+
+\begin_layout Standard
+老实说，CDI
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+http://cdi-spec.org
+\end_layout
+
+\end_inset
+
+的概念和用法还是比较复杂的，且不说新手，对于熟悉CDI的程序猿，尤其面对大型软件，心中不免疑惑：到底有多少组件？组件的生命周期啥样？组件之间的依赖关系咋样？好在
+从weld从3.0.0-alpha4开始（现在已经移植到了2.x版本了）支持weld probe，即通过一个类似于seam debug的界面可以综合了解weld组件的
+情况
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+本文部分内容来自weld reference
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Section
+启用weld probe
+\end_layout
+
+\begin_layout Standard
+以wildfly为例，目前从wildfly 10开始集成了weld probe，具体参见widfly10的modules/system/layers/base/
+org/jboss/weld/目录，和wildfly9比较起来多了一个probe子目录，就是它了。
+\end_layout
+
+\begin_layout Standard
+应用程序需要在web.xml中增加这样的设置开启weld probe支持：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+<context-param>
+\end_layout
+
+\begin_layout Plain Layout
+<param-name>org.jboss.weld.development</param-name>
+\end_layout
+
+\begin_layout Plain Layout
+<param-value>true</param-value>
+\end_layout
+
+\begin_layout Plain Layout
+</context-param>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+部署应用时，如果在wildfly的控制台看到这样的信息，就表示weld probe部署成功了：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+10:12:33,344 WARN [org.jboss.weld.probe.Probe] (MSC service thread 1-4) PROBE-000008
+: 
+\end_layout
+
+\begin_layout Plain Layout
+=====================================
+\end_layout
+
+\begin_layout Plain Layout
+Weld Development Mode: ENABLED
+\end_layout
+
+\begin_layout Plain Layout
+------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+Disable this mode in production - it may have negative impact on performance
+ and/or represent a potential security risk
+\end_layout
+
+\begin_layout Plain Layout
+=====================================
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+部署成功后，可以通过http://localhost:8080/weld-numberguess/weld-probe访问（用实际的项目名称替换到weld-nu
+mberguess）:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/Numberguess - Google Chrome_023.pdf
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+启用weld probe后的页面
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:启用weld-probe后的页面"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+weld-core自带的examples/jsf相关的示例默认都开启了weld probe。
+\end_layout
+
+\begin_layout Section
+weld probe的功能
+\end_layout
+
+\begin_layout Standard
+按照weld probe的菜单顺序，weld probe提供了以下的功能：
+\end_layout
+
+\begin_layout Subsection
+Bean Archives
+\end_layout
+
+\begin_layout Standard
+如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:bean-archives界面"
+
+\end_inset
+
+所示，Bean Archives给出了应用程序的war包相关信息。本例把隐含引用的war包也自动加载进来显示出来了，通过图形化的方式展示了war包之间的相互关系
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/weld-probe/Weld Probe - bean-archives.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+bean archives界面
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:bean-archives界面"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Beans
+\end_layout
+
+\begin_layout Standard
+如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:beans"
+
+\end_inset
+
+所示，Beans页面展示了所有的组件，通过Bean Archive下拉框可以筛选要显示哪个war包的组件。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/weld-probe/Weld Probe - beans.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+beans
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:beans"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+点击组件名称可以显示如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:bean-detail:详情"
+
+\end_inset
+
+的组件详情，包括Scope，Qualifier等：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/weld-probe/Weld Probe - bean-detail.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+bean detail:详情
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:bean-detail:详情"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在组件详情页面，也展示了组件的依赖关系，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:bean-detail:依赖关系"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/weld-probe/Weld Probe -bean-detail-dependency.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+bean detail:依赖关系
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:bean-detail:依赖关系"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Events
+\end_layout
+
+\begin_layout Standard
+如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:bean-events"
+
+\end_inset
+
+根据所在的包，展示定义了哪些Observer Methods。也可以选择展示Fired Events，即系统提供了哪些事件源可以监听。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/weld-probe/Weld Probe - events.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+bean events
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:bean-events"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Contexts
+\end_layout
+
+\begin_layout Standard
+可以根据生命周期筛选组件，比如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Contexts:ApplicationScoped"
+
+\end_inset
+
+展示了ApplicationScoped组件：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/weld-probe/Weld Probe - contexts.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Contexts:ApplicationScoped
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Contexts:ApplicationScoped"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Invocation Trees
+\end_layout
+
+\begin_layout Standard
+这个无需多说，见图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Invocation-Trees"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/weld-probe/Weld Probe - invocation-trees.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Invocation Trees
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Invocation-Trees"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+每个页面的业务逻辑是怎样的，即页面由哪些组件进行了处理，见图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:调用顺序"
+
+\end_inset
+
+，这个功能很实用！
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/weld-probe/Weld Probe - invocation-path.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+页面内部业务逻辑处理
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:调用顺序"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Weld Configuare
+\end_layout
+
+\begin_layout Standard
+如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:weld-configuration"
+
+\end_inset
+
+所示，集中展示了weld的配置选项。有两个问题：
+\end_layout
+
+\begin_layout Enumerate
+weld的配置选项从哪里设置？
+\end_layout
+
+\begin_layout Enumerate
+Weld Configuration页面也可以修改weld配置选项就完美了。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/weld-probe/Weld Probe - weld-configuration.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+weld configuration
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:weld-configuration"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+小结
+\end_layout
+
+\begin_layout Standard
+weld probe是了解CDI的好帮手，在调试应用程序时也可以帮助历清组件间的关系，值得一试。但是，weld probe给出的信息还是粗线条的，代替不了调试所
+给出的详细、定制的信息。
+\end_layout
+
+\end_body
+\end_document
