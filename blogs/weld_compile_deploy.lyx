@@ -2,7 +2,7 @@
 \lyxformat 474
 \begin_document
 \begin_header
-\textclass ctex-article-with-coderemarks
+\textclass ctex-article-coderemarks
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
 
@@ -214,6 +214,10 @@ $ git checkout 2.3
 
 \begin_layout Section
 编译
+\end_layout
+
+\begin_layout Standard
+运行weld测试用例的时候需要用到80端口，因此首先确保没有8080端口的应用在跑，比如tomcat,jboss啥的。如果跳过测试的话，这一条可以忽略。
 \end_layout
 
 \begin_layout Standard
@@ -438,6 +442,87 @@ $ mvn clean package wildfly:deploy
 
 \begin_layout Standard
 然后访问：http://localhost:8080/numberguess即可。
+\end_layout
+
+\begin_layout Section
+weld 3.0和wildfly10
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+参见：http://weld.cdi-spec.org/news/2016/02/04/weld-300Alpha15/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这里使用的是weld 3.0 alpha15版本，首先下载针对wildfly 10的patch，然后执行下面的命令给wildfly打补丁即可：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ ./jboss-cli.sh --command="patch apply /home/subaochen/downloads/wildfly-10.0.0.Fina
+l-weld-3.0.0.Alpha15-patch.zip"
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如果执行的结果是下面的样子就对了。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\begin_layout Plain Layout
+"outcome" : "success",
+\end_layout
+
+\begin_layout Plain Layout
+"result" : {}
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
