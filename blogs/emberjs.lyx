@@ -2,7 +2,7 @@
 \lyxformat 474
 \begin_document
 \begin_header
-\textclass ctex-article-coderemarks
+\textclass ctex-article-with-coderemarks
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
 
@@ -178,15 +178,36 @@ tcolorbox
 \begin_body
 
 \begin_layout Title
-ember.js框架学习笔记
+ember.js学习笔记
 \end_layout
 
 \begin_layout Standard
-因为weld probe的前端使用了ember.js，还是有必要了解一下ember.js框架是如何帮助实现单页面应用（SPA）的。
+因为weld probe的前端使用了ember.js，还是有必要了解一下ember.js框架是如何帮助实现单页面应用（SPA）的。emberjs的文档写的非常好，建
+议初学者顺序阅读
+\begin_inset CommandInset href
+LatexCommand href
+name "https://guides.emberjs.com/"
+target "https://guides.emberjs.com/"
+
+\end_inset
+
+。
 \end_layout
 
 \begin_layout Section
 安装
+\end_layout
+
+\begin_layout Standard
+如果还没有安装nodejs，需要首先从
+\begin_inset CommandInset href
+LatexCommand href
+name "http://nodejs.org"
+target "http://nodejs.org"
+
+\end_inset
+
+下载最新的稳定版或者LTS版本安装nodejs。如果debian/ubuntu自己带的nodejs版本较低，也建议安装最新的nodejs。
 \end_layout
 
 \begin_layout Standard
@@ -213,7 +234,11 @@ $ npm install -g ember-cli@beta
 \end_layout
 
 \begin_layout Section
-创建第一个ember应用
+emberjs快速入门
+\end_layout
+
+\begin_layout Subsection
+hello emberjs
 \end_layout
 
 \begin_layout Standard
@@ -237,6 +262,50 @@ $ ember new hello-ember
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+如果执行ember new时提示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Error creating new application.
+ Removing generated directory `./hello-ember`
+\end_layout
+
+\begin_layout Plain Layout
+EACCES: permission denied, mkdir '/home/subaochen/.npm/is-git-url/0.2.0'
+\end_layout
+
+\begin_layout Plain Layout
+Error: EACCES: permission denied, mkdir '/home/subaochen/.npm/is-git-url/0.2.0'
+\end_layout
+
+\begin_layout Plain Layout
+at Error (native)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+就需要仔细检查.npm目录下的文件和目录是否权限有问题。
 \end_layout
 
 \begin_layout Standard
@@ -271,7 +340,622 @@ $ ember serve
 \end_layout
 
 \begin_layout Standard
-然后访问http://localhost:4200，第一个ember应用就这样跑起来了！
+然后访问http://localhost:4200，第一个ember应用就这样跑起来了！见图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:welcome-to-ember"
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/ember_welcome.pdf
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+welcome to ember
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:welcome-to-ember"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+定义路由
+\end_layout
+
+\begin_layout Standard
+比如希望通过/langs显示语言列表，可以这样定义路由处理逻辑：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ ember generate route langs
+\end_layout
+
+\begin_layout Plain Layout
+installing route
+\end_layout
+
+\begin_layout Plain Layout
+create app/routes/langs.js
+\end_layout
+
+\begin_layout Plain Layout
+create app/templates/langs.hbs
+\end_layout
+
+\begin_layout Plain Layout
+updating router
+\end_layout
+
+\begin_layout Plain Layout
+add route langs
+\end_layout
+
+\begin_layout Plain Layout
+installing route-test
+\end_layout
+
+\begin_layout Plain Layout
+create tests/unit/routes/langs-test.js
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+指令的执行结果已经说的很清楚了，总共有四处改变：
+\end_layout
+
+\begin_layout Enumerate
+在routes增加一个langs.js文件
+\end_layout
+
+\begin_layout Enumerate
+在templates增加一个langs.hbs文件
+\end_layout
+
+\begin_layout Enumerate
+在router.js中增加了langs的映射（updating router）
+\end_layout
+
+\begin_layout Enumerate
+创建了langs路由的测试用例
+\end_layout
+
+\begin_layout Standard
+此时访问http://localhost:4200/langs，看到的还是图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:welcome-to-ember"
+
+\end_inset
+
+的样子：我们还没有在langs.hbs创建任何内容呢。
+\end_layout
+
+\begin_layout Subsection
+使用模板
+\end_layout
+
+\begin_layout Standard
+下面修改一下langs路由对应的模板：langs.hbs：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+langs.hbs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+{{outlet}}                   
+\end_layout
+
+\begin_layout Plain Layout
+
+<h2>list of languages</h2>    
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+访问http://localhost:4200/langs，立刻发现新添加的内容显示出来了，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:修改模板langs.hbs后的浏览器输出"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/ember_add_route.pdf
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+修改模板langs.hbs后的浏览器输出
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:修改模板langs.hbs后的浏览器输出"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后如下修改routes/langs.js：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+lang.js
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import Ember from 'ember';
+\end_layout
+
+\begin_layout Plain Layout
+
+     
+\end_layout
+
+\begin_layout Plain Layout
+
+  export default Ember.Route.extend({
+\end_layout
+
+\begin_layout Plain Layout
+
+      model(){
+\end_layout
+
+\begin_layout Plain Layout
+
+          return ['zh-CN','en-US','C'];
+\end_layout
+
+\begin_layout Plain Layout
+
+      } 
+\end_layout
+
+\begin_layout Plain Layout
+
+  }); 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+再在langs.hbs中展示从model获得的内容：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+langs.hbs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+{{outlet}}            
+\end_layout
+
+\begin_layout Plain Layout
+
+<h2>list of languages</h2>
+\end_layout
+
+\begin_layout Plain Layout
+
+<ul>                  
+\end_layout
+
+\begin_layout Plain Layout
+
+{{#each model as |lang|}}
+\end_layout
+
+\begin_layout Plain Layout
+
+  <li>{{lang}}</li>                                                    
+                                                                       
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+{{/each}}             
+\end_layout
+
+\begin_layout Plain Layout
+
+</ul> 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+立刻，浏览器展示了我们在langs.js中定义的语言列表
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+在route中直接返回供页面使用的数据应该不是一个好的设计风格，应该使用model类和模板绑定数据
+\end_layout
+
+\end_inset
+
+，如图所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/ember_template_langs.pdf
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+修改模板和langs.js后的浏览器输出
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+使用组件
+\end_layout
+
+\begin_layout Standard
+如果列出语言这个功能在多处用到，就有必要设计为一个组件（component）：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ ember generate component list-items
+\end_layout
+
+\begin_layout Plain Layout
+version: 2.3.0-beta.2
+\end_layout
+
+\begin_layout Plain Layout
+installing component
+\end_layout
+
+\begin_layout Plain Layout
+create app/components/list-items.js
+\end_layout
+
+\begin_layout Plain Layout
+create app/templates/components/list-items.hbs
+\end_layout
+
+\begin_layout Plain Layout
+installing component-test
+\end_layout
+
+\begin_layout Plain Layout
+create tests/integration/components/list-items-test.js
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+指令的执行结果已经说的很清楚了，下面修改一下list-items.hbs：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+list-items.hbs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<h2>{{title}}</h2>
+\end_layout
+
+\begin_layout Plain Layout
+
+<ul>                                                                   
+                                                                       
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+{{#each items as |item|}}
+\end_layout
+
+\begin_layout Plain Layout
+
+  <li>{{item}}</li>
+\end_layout
+
+\begin_layout Plain Layout
+
+{{/each}}
+\end_layout
+
+\begin_layout Plain Layout
+
+</ul>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后在langs.hbs模板使用list-items.hbs组件：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+langs.hbs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+{{outlet}}
+\end_layout
+
+\begin_layout Plain Layout
+
+{{list-items title="List of Languages" items=model}}   
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+浏览器的结果是一样的。
+\end_layout
+
+\begin_layout Section
+emberjs核心概念
+\end_layout
+
+\begin_layout Standard
+借用emberjs官网的一张图说明emberjs的核心概念和处理流程：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/ember-core-concepts.png
+	lyxscale 60
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+emberjs核心概念和流程
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -284,6 +968,14 @@ $ ember serve
 
 \begin_layout Section
 部署ember应用
+\end_layout
+
+\begin_layout Section
+小结
+\end_layout
+
+\begin_layout Standard
+由于emberjs是基于路由的事件处理，emberjs特别适合于RESTful编程实践。
 \end_layout
 
 \end_body
