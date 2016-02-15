@@ -213,6 +213,85 @@ target "https://packagecontrol.io/installation#st3"
 \end_layout
 
 \begin_layout Section
+基本用法
+\end_layout
+
+\begin_layout Subsection
+中文输入法支持
+\end_layout
+
+\begin_layout Standard
+默认安装在linux下面是不支持中文输入的，按照以下步骤操作：
+\end_layout
+
+\begin_layout Enumerate
+git clone https://github.com/subaochen/sublime_text_imfix
+\end_layout
+
+\begin_layout Enumerate
+cd sublime_text_imfix;gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-conf
+ig --libs --cflags gtk+-2.0` -fPIC
+\end_layout
+
+\begin_layout Enumerate
+cp libsublime-imfix.so /opt/sublime_text
+\end_layout
+
+\begin_layout Enumerate
+vi /usr/bin/subl，在exec一行前增加export LD_PRELOAD=/opt/sublime_text/libsublime-imfix.s
+o
+\end_layout
+
+\begin_layout Subsection
+vim模式
+\end_layout
+
+\begin_layout Standard
+打开setting-user，把ignored_packages中的vintags删除即可打开vim模式，这样就可以在sublime text中使用熟悉的vim
+键绑定了！
+\end_layout
+
+\begin_layout Subsection
+基本快捷键
+\end_layout
+
+\begin_layout Standard
+掌握下面的快捷键就可以跑起sublime了：
+\end_layout
+
+\begin_layout Itemize
+ctrl+P：综合搜索，默认打开指定的文件，@前导定位方法，#前导定位属性
+\end_layout
+
+\begin_layout Itemize
+ctrl+R：定位文件中的方法
+\end_layout
+
+\begin_layout Itemize
+ctrl+G：到指定的行
+\end_layout
+
+\begin_layout Itemize
+ctrl+F/ctrl+shift+F：搜索/替换
+\end_layout
+
+\begin_layout Itemize
+ctrl+pageDown：切换tab页
+\end_layout
+
+\begin_layout Itemize
+ctrl+K+B：侧边栏开启和关闭
+\end_layout
+
+\begin_layout Subsection
+java文件编译和执行
+\end_layout
+
+\begin_layout Standard
+如果在Packages目录下有Java.sublime-package，则Linux下面不需要修改就可以编译Java文件了，只需要呼出Ctrl+B即可。
+\end_layout
+
+\begin_layout Section
 通用插件
 \end_layout
 
@@ -350,8 +429,25 @@ name "fig:latexing开启tikz支持"
 java相关插件
 \end_layout
 
+\begin_layout Standard
+目前，sublime-text还不太适合java开发，缺少必要的代码补全、代码错误提示和代码格式化插件，这些对于java开发而言都是必须的。建议使用eclips
+e/netbeans/ideaJ等专业的IDE开发大型的java应用程序。当然，简单的写个类测试，用sublime还是可以的。
+\end_layout
+
 \begin_layout Section
 html/css相关插件
+\end_layout
+
+\begin_layout Section
+其他问题
+\end_layout
+
+\begin_layout Subsection
+保存sublime-text的配置和插件
+\end_layout
+
+\begin_layout Standard
+保存sublime-text的配置和相应插件以便方便在多地（多台电脑上）开发，避免重复配置和配置不一致。
 \end_layout
 
 \end_body
