@@ -1,0 +1,140 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%
+\usepackage{fontspec}
+\setmainfont[Mapping=tex-text]{文泉驿正黑} %这里是字体名
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt
+%%%%%%%%%%%%%%%%%%%%%%%
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language american
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index 索引
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+关于观察者模式的思考
+\end_layout
+
+\begin_layout Author
+宿宝臣
+\end_layout
+
+\begin_layout Abstract
+观察者模式的应用很广泛，也存在着对观察着模式的诸多误读和误用。本文旨在从实践的角度出发阐述观察者模式的意图和实践方法，给出了观察者模式的参考实现。
+\end_layout
+
+\begin_layout Section
+观察者模式的起源
+\end_layout
+
+\begin_layout Standard
+在软件设计实践中，经常需要表达和处理一对多的关系。比如一份报纸可以有多个订阅者，也可以有多种设备帮助用户阅读报纸（纸质报纸、电子报纸、大屏幕广告等等）。我们习惯
+上称订阅者为“观察着”(Observer)，被订阅者为“目标”(Subject)。为了增加软件的可扩展性，通常要求在增加观察着或者观察者的设备时，目标不需要在代
+码上做任何调整，如下图所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename ../../../docs/mangegment/papers/imgs/observer_pattern1.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+观察者模式的类图
+\end_layout
+
+\begin_layout Section
+观察者模式的常见实现及其误区
+\end_layout
+
+\begin_layout Section
+观察者模式的参考实现
+\end_layout
+
+\begin_layout Section
+观察者模式的变形实现
+\end_layout
+
+\begin_layout Bibliography
+\labelwidthstring References
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-2"
+
+\end_inset
+
+研磨设计模式
+\end_layout
+
+\end_body
+\end_document
