@@ -213,6 +213,63 @@ target "https://packagecontrol.io/installation#st3"
 \end_layout
 
 \begin_layout Section
+通用插件
+\end_layout
+
+\begin_layout Subsection
+sublimecodeintel
+\end_layout
+
+\begin_layout Standard
+预设多种语言的编程环境。
+\end_layout
+
+\begin_layout Subsection
+bracket hilighter
+\end_layout
+
+\begin_layout Standard
+在行号左边显示括号的匹配关系，可以方便的观察括号的匹配情况：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/sublime-bracket-hilighter.pdf
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+bracket hilighter
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 latex相关插件
 \end_layout
 
@@ -284,16 +341,8 @@ name "fig:latexing开启tikz支持"
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 
 \end_layout
 

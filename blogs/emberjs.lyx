@@ -2,7 +2,7 @@
 \lyxformat 474
 \begin_document
 \begin_header
-\textclass ctex-article-with-coderemarks
+\textclass ctex-article-coderemarks
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
 
@@ -385,10 +385,6 @@ name "fig:welcome-to-ember"
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -502,7 +498,6 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
 langs.hbs
 \end_layout
 
@@ -591,7 +586,6 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
 lang.js
 \end_layout
 
@@ -746,10 +740,6 @@ status open
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -824,7 +814,6 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
 list-items.hbs
 \end_layout
 
@@ -884,7 +873,6 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
 langs.hbs
 \end_layout
 
@@ -949,21 +937,77 @@ emberjs核心概念和流程
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
 \end_layout
 
-\begin_layout Section
-定义路由
+\begin_layout Standard
+emberjs的核心概念：
+\end_layout
+
+\begin_layout Itemize
+route
+\end_layout
+
+\begin_layout Itemize
+route handler
+\end_layout
+
+\begin_layout Itemize
+model
+\end_layout
+
+\begin_layout Itemize
+temlate,handlebars(hbs)
+\end_layout
+
+\begin_layout Itemize
+Comoponent
+\end_layout
+
+\begin_layout Itemize
+helper
 \end_layout
 
 \begin_layout Section
+一个更接近实际的案例
+\end_layout
+
+\begin_layout Subsection
+案例描述
+\end_layout
+
+\begin_layout Subsection
+定义路由
+\end_layout
+
+\begin_layout Subsection
+定义model
+\end_layout
+
+\begin_layout Subsection
+使用mirage提供fake数据
+\end_layout
+
+\begin_layout Standard
+this.store.findAll(“rental
+\begin_inset Quotes erd
+\end_inset
+
+)为什么会发送GET请求到/rentals呢？
+\end_layout
+
+\begin_layout Subsection
 界面
+\end_layout
+
+\begin_layout Subsection
+访问数据库
+\end_layout
+
+\begin_layout Standard
+一切不访问数据库的案例都是耍流氓:-)
 \end_layout
 
 \begin_layout Section
