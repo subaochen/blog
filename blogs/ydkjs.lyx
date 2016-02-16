@@ -301,13 +301,63 @@ name "fig:chrome开发工具帮助学习js"
 
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
 
+
+\end_layout
+
+\begin_layout Section
+几个我容易混淆和模糊的概念
+\end_layout
+
+\begin_layout Subsection
+var的作用范围
+\end_layout
+
+\begin_layout Subsection
+单引号和双引号
+\end_layout
+
+\begin_layout Standard
+没有任何区别，只是一个使用习惯问题，或者在某些场合下，混用才能过关，比如XHTML页面中。
+\end_layout
+
+\begin_layout Subsection
+动态类型
+\end_layout
+
+\begin_layout Standard
+JS的变量类型是动态的，即同一个变量在不同时刻可以存储不同类型的数值。不同于静态类型的编程语言（关心的是变量的类型），JS关心的是
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+数值的类型
 \end_layout
 
 \end_inset
 
+，而不是变量的类型。也许，JS的观点更接近编程的自然本质：变量的根本目的是存储数值， 因此数值的类型是更根本、更值得关注的问题。
+\end_layout
 
+\begin_layout Standard
+数值的类型是自然获得的。JS的数值共有7种类型（引用Type & Grammer），每种类型都是literal可以断定的。
+\end_layout
+
+\begin_layout Subsection
+常量
+\end_layout
+
+\begin_layout Standard
+ES6允许使用const定义常量。
+\end_layout
+
+\begin_layout Subsection
+boolean
+\end_layout
+
+\begin_layout Standard
+注意，0==true,“”==true，“0”==true的结果都是false
 \end_layout
 
 \end_body
