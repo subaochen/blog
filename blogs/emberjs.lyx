@@ -108,8 +108,11 @@
 \end_preamble
 \use_default_options true
 \begin_modules
-logicalmkup
 tcolorbox
+customHeadersFooters
+fix-cm
+multicol
+logicalmkup
 \end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
@@ -485,7 +488,17 @@ reference "fig:welcome-to-ember"
 \end_layout
 
 \begin_layout Standard
-下面修改一下langs路由对应的模板：langs.hbs：
+下面修改一下langs
+\begin_inset Flex Noun
+status open
+
+\begin_layout Plain Layout
+路由
+\end_layout
+
+\end_inset
+
+对应的模板：langs.hbs：
 \end_layout
 
 \begin_layout Standard
