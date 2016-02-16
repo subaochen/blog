@@ -187,19 +187,22 @@ notice
 \begin_body
 
 \begin_layout Title
-YDKJS:Up & Going读书笔记
+充电：Latex for Complate Novices
+\end_layout
+
+\begin_layout Standard
+下午写了个lyx的小module，发现几年不弄，latex的好多指令忘的差不多了！是时候充充电了。找了本最基础的书，还有比这个更基础的吗:-)
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/yknjs-on-going-cover.jpg
+	filename /home/subaochen/下载/cover.jpg
 	width 80line%
 
 \end_inset
@@ -211,89 +214,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Up & Going
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Up-&-Going"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-You don't know JS系列的写作风格很符合我的口味，挨个找来读读吧，先从最基本的开始。
-\end_layout
-
-\begin_layout Section
-学习js语法的好办法
-\end_layout
-
-\begin_layout Standard
-利用chrome的“开发工具”学习js语法是个好办法，尤其是类似这样的布局，简直就是一个所见即所得的学习环境！图
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:chrome开发工具帮助学习js"
-
-\end_inset
-
-左边显示的是Up&Going的github当前版本：
-\begin_inset CommandInset href
-LatexCommand href
-name "https://github.com/getify/You-Dont-Know-JS"
-target "https://github.com/getify/You-Dont-Know-JS"
-
-\end_inset
-
-，右边就是chrome开发工具的console窗口。
-\end_layout
-
-\begin_layout Notice
-在console中录入多行代码的方法是利用shift+Enter代替Enter，即一段代码的最后才用Enter结束。Shift+Enter常被称作软回车。
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/chrome_devtools_help_learning_js.pdf
-	width 90line%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-chrome开发工具帮助学习js
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:chrome开发工具帮助学习js"
-
-\end_inset
-
-
+latex for complate novices
 \end_layout
 
 \end_inset
