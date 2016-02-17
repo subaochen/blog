@@ -2,7 +2,7 @@
 \lyxformat 474
 \begin_document
 \begin_header
-\textclass ctex-article-with-coderemarks
+\textclass ctex-article-coderemarks
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
 
@@ -138,7 +138,7 @@ notice
 \graphics default
 \default_output_format pdf4
 \output_sync 0
-\bibtex_command default
+\bibtex_command bibtex8
 \index_command default
 \paperfontsize default
 \spacing single
@@ -306,12 +306,55 @@ name "fig:chrome开发工具帮助学习js"
 
 \end_layout
 
+\begin_layout Standard
+另外一个学习JavaScript的好办法是安装nodejs，这样可以直接在终端测试js脚本，无需依赖浏览器了。
+\end_layout
+
 \begin_layout Section
-几个我容易混淆和模糊的概念
+几个容易混淆和模糊的概念
 \end_layout
 
 \begin_layout Subsection
-var的作用范围
+变量的作用范围
+\end_layout
+
+\begin_layout Standard
+在函数外使用var定义的变量是全局的（从定义点开始生效）,在函数内部声明局部变量必须使用var（否则成为引用全局变量），在函数外部可以不使用var定义变量，但是
+未来的JS可能会不支持，因此要养成用var定义变量的习惯。
+\end_layout
+
+\begin_layout Standard
+let定义了块级scope，即在{}之间有效的变量scope。
+\end_layout
+
+\begin_layout Subsubsection
+hoisting
+\end_layout
+
+\begin_layout Standard
+下面的两段代码自解释了什么是变量和函数的hoisting。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/js/test_non_hoisting.js"
+lstparams "caption={hoisted function only}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/js/test_hoisting.js"
+lstparams "caption={hoisted variable and function}"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -337,11 +380,78 @@ status open
 
 \end_inset
 
-，而不是变量的类型。也许，JS的观点更接近编程的自然本质：变量的根本目的是存储数值， 因此数值的类型是更根本、更值得关注的问题。
+，而不是变量的类型。也许，JS的观点更接近编程的自然本质：变量的根本目的是存储数值， 因此
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+数值的类型
+\end_layout
+
+\end_inset
+
+是更根本、更值得关注的问题。
 \end_layout
 
 \begin_layout Standard
-数值的类型是自然获得的。JS的数值共有7种类型（引用Type & Grammer），每种类型都是literal可以断定的。
+数值的类型是自然获得的。JS的数值共有7种类型
+\begin_inset CommandInset citation
+LatexCommand cite
+key "yknjs-type-grammer"
+
+\end_inset
+
+，每种类型都是literal可以断定的，即通过字面意义即可以决定数值的类型（确定吗？需要举例说明）。
+\end_layout
+
+\begin_layout Standard
+JS的
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+数值
+\end_layout
+
+\end_inset
+
+可以有如下的7种类型：
+\end_layout
+
+\begin_layout Itemize
+null，but typeof(null) is 
+\begin_inset Quotes eld
+\end_inset
+
+object
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+undefined
+\end_layout
+
+\begin_layout Itemize
+boolean
+\end_layout
+
+\begin_layout Itemize
+number
+\end_layout
+
+\begin_layout Itemize
+string
+\end_layout
+
+\begin_layout Itemize
+symbol(in ES6)
+\end_layout
+
+\begin_layout Itemize
+object
 \end_layout
 
 \begin_layout Subsection
@@ -357,7 +467,122 @@ boolean
 \end_layout
 
 \begin_layout Standard
-注意，0==true,“”==true，“0”==true的结果都是false
+下列数值都是false（完整的列表）,除此之外都是true
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+（空字符串），‘’(空字符)
+\end_layout
+
+\begin_layout Itemize
+0,-0,NaN(invalid number)
+\end_layout
+
+\begin_layout Itemize
+null,undefined
+\end_layout
+
+\begin_layout Itemize
+false
+\end_layout
+
+\begin_layout Subsection
+函数function
+\end_layout
+
+\begin_layout Standard
+JS的函数可以嵌套定义，也可以定义的同时立刻执行（Immediately Invoked Funtion Expression，作为命名空间的函数
+\begin_inset CommandInset citation
+LatexCommand cite
+key "javascirpt-definitive-guide"
+
+\end_inset
+
+）。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/js/iife.js"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+==和===
+\end_layout
+
+\begin_layout Standard
+精辟的解释：==在比较时首先做可能的类型转换，而===在比较时不进行类型转换，比如下面的例子：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var a = "42";
+\end_layout
+
+\begin_layout Plain Layout
+
+var b = 42;
+\end_layout
+
+\begin_layout Plain Layout
+
+a == b; // true
+\end_layout
+
+\begin_layout Plain Layout
+
+a === b; // false
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在关系表达式两边的表达式的值可能为boolean或者0，-0,
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+,[]时，使用===进行比较，其他情况可以安全的使用==进行比较。
+\end_layout
+
+\begin_layout Subsection
+闭包
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/references"
+options "plain"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
