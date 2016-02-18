@@ -240,7 +240,7 @@ You don't know JS系列的写作风格很符合我的口味，挨个找来读读
 \end_layout
 
 \begin_layout Section
-学习js语法的好办法
+学习js的好办法
 \end_layout
 
 \begin_layout Standard
@@ -307,7 +307,15 @@ name "fig:chrome开发工具帮助学习js"
 \end_layout
 
 \begin_layout Standard
-另外一个学习JavaScript的好办法是安装nodejs，这样可以直接在终端测试js脚本，无需依赖浏览器了。
+另外一个学习JavaScript的好办法是安装nodejs，这样可以直接在终端测试js脚本，无需依赖浏览器了，具体参见
+\begin_inset CommandInset href
+LatexCommand href
+name "NodeJS的REPL"
+target "https://nodejs.org/dist/latest-v4.x/docs/api/repl.html"
+
+\end_inset
+
+。
 \end_layout
 
 \begin_layout Section
@@ -567,10 +575,6 @@ a === b; // false
 \end_inset
 
 ,[]时，使用===进行比较，其他情况可以安全的使用==进行比较。
-\end_layout
-
-\begin_layout Subsection
-闭包
 \end_layout
 
 \begin_layout Standard

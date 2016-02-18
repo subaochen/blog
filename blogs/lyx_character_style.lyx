@@ -316,5 +316,36 @@ logical markup模块提供了基本的字体样式可以选用：代码、强调
 件颇有成就感的事情，不是吗？
 \end_layout
 
+\begin_layout Standard
+下面是一个简单的文本样式的代码，复制到$HOME/.lyx/layouts/目录下即可：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/lyx-modules/samplecharstyle.module"
+lstparams "caption={lyx文本样式示例模块}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+更多代码请移步到：
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/subaochen/lyx-modules"
+target "https://github.com/subaochen/lyx-modules"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+更详细的创建自定义模块的方式参见Lyx的帮助文档：定制Lyx。
+\end_layout
+
 \end_body
 \end_document
