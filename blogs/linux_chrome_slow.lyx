@@ -68,10 +68,15 @@
         escapechar=|
 } 
 
+
 \usepackage{tikz}
 \usepackage{ifthen}
 \usepackage{coderemarks}
 \usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
 %% Style commands
 \newcommand{\func}[1]{\texttt{#1}}
 \newcommand{\key}[1]{\texttt{#1}}
@@ -100,21 +105,16 @@
 
 % 显示一个向左的箭头
 \newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
-
-
-%----------------------------------------------------------------------------------------
-%	REMARK ENVIRONMENT
-%----------------------------------------------------------------------------------------
-
-\newenvironment{remark}{\par\vspace{10pt}\small % Vertical white space above the remark and smaller font size
-\begin{list}{}{
-\leftmargin=35pt % Indentation on the left
-\rightmargin=25pt}\item\ignorespaces % Indentation on the right
-\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
-\node[draw=ocre!60,line width=1pt,circle,fill=ocre!25,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{R}};\end{tikzpicture}} % Orange R in a circle
-\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
 \end_preamble
 \use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+customHeadersFooters
+fix-cm
+multicol
+notice
+\end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
 \language_package default
@@ -182,169 +182,31 @@
 \begin_body
 
 \begin_layout Title
-JS的scope
+Linux下面chrome卡顿问题的解决方法
 \end_layout
 
 \begin_layout Standard
-考虑下面的代码：
-\end_layout
-
-\begin_layout Standard
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-function foo(a){
-\end_layout
-
-\begin_layout Plain Layout
-
-  console.log(a + b);
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-var b = 2;
-\end_layout
-
-\begin_layout Plain Layout
-
-foo(2);
-\end_layout
+自从装了debian8以后，chrome就一直不好使，具体说就是在地址栏输入网址的反映速度让人抓狂，点击搜索结果跳转页面时也卡的很，ubuntu
+ 15.10下的装的同一个版本的chrome就很正常，一直很奇怪，也没怎么在意，又不是只有一个chrome可以用。下午李松阳给了一张截图，居然可以设置字体解决这个
+问题。放狗一搜，原来如此！感谢牛牛大侠的研究精神，大家可以到这里探究具体的原因：
+\begin_inset CommandInset href
+LatexCommand href
+name "http://suselinks.us/how-to-fix-slow-typing-in-chrome-addressbar-in-linux/"
+target "http://suselinks.us/how-to-fix-slow-typing-in-chrome-addressbar-in-linux/"
 
 \end_inset
 
-
+。
 \end_layout
 
 \begin_layout Standard
-其结果将显示4。
+修复的具体办法是，启动gnome3的优化应用gnome-tweak-tool，然后只改动界面的字体即可，如图所示：
 \end_layout
 
 \begin_layout Standard
-但是下面的代码将显示NaN：
-\end_layout
-
-\begin_layout Standard
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-function foo(a){
-\end_layout
-
-\begin_layout Plain Layout
-
-  console.log(a + b);
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-foo(2);
-\end_layout
-
-\begin_layout Plain Layout
-
-var b = 2;
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-再考虑下面的代码，输出结果为4：
-\end_layout
-
-\begin_layout Standard
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-var b = 2;                                                             
-                                                                 
-\end_layout
-
-\begin_layout Plain Layout
-
-foo(2);
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-function foo(a) {
-\end_layout
-
-\begin_layout Plain Layout
-
-    console.log(a + b); 
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-下面的代码，输出结果为NaN：
-\end_layout
-
-\begin_layout Standard
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-foo(2);
-\end_layout
-
-\begin_layout Plain Layout
-
-var b = 2; 
-\end_layout
-
-\begin_layout Plain Layout
-
-function foo(a) {
-\end_layout
-
-\begin_layout Plain Layout
-
-    console.log(a + b); 
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/linux_chrome_slow_font.pdf
+	width 80line%
 
 \end_inset
 

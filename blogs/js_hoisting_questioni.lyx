@@ -351,5 +351,49 @@ function foo(a) {
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+foo(2);
+\end_layout
+
+\begin_layout Plain Layout
+
+var b; 
+\end_layout
+
+\begin_layout Plain Layout
+
+b = 2;
+\end_layout
+
+\begin_layout Plain Layout
+
+function foo(a) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    console.log(a + b); 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
 \end_body
 \end_document

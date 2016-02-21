@@ -191,11 +191,54 @@ JS的hoisting
 \end_layout
 
 \begin_layout Section
+hoisting现象
+\end_layout
+
+\begin_layout Standard
+举出所有可能存在hoisting的实例
+\end_layout
+
+\begin_layout Section
+hoisting规则
+\end_layout
+
+\begin_layout Standard
+总结hoisting规则
+\end_layout
+
+\begin_layout Section
+why hoisting？
+\end_layout
+
+\begin_layout Standard
+javascript引擎为什么要hoisting？
+\end_layout
+
+\begin_layout Section
 结论
 \end_layout
 
 \begin_layout Standard
-了解hoisting，但是避免使用hoisting！在代码块的开头定义变量、方法，符合大多数人的阅读习惯，何乐而不为呢？
+了解hoisting，但是尽量避免使用hoisting
+\begin_inset CommandInset citation
+LatexCommand cite
+key "javascript-var"
+
+\end_inset
+
+！在代码块（文件或者函数）的开头定义变量、方法，符合大多数人的阅读习惯，何乐而不为呢？
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/javascript"
+options "plain"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
