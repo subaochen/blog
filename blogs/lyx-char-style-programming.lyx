@@ -192,7 +192,7 @@ status open
 
 \begin_layout Plain Layout
 
-Format 7
+Format 49
 \end_layout
 
 \begin_layout Plain Layout
@@ -206,7 +206,7 @@ Format 7
 
 \begin_layout Plain Layout
 
-InsetLayout     CharStyle:Function
+InsetLayout    Flex:Function
 \end_layout
 
 \begin_layout Plain Layout
@@ -464,15 +464,58 @@ textit{#1}}}
 \end_layout
 
 \begin_layout Standard
-目前，这个模块还存在如下的问题：
+感谢PhlipPirrip的指正，lyx模块的开发有了新的进展和心得。开发lyx模块时可以在“本地布局”中测试（见图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:在本地布局中开发lyx模块"
+
+\end_inset
+
+），提供了语法验证（validate），甚至提供了将旧的格式转化为新版本的功能！
 \end_layout
 
-\begin_layout Itemize
-进一步定制显示效果
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/lyx-module-validate.pdf
+	width 80line%
+
+\end_inset
+
+
 \end_layout
 
-\begin_layout Itemize
-Format的版本最高可以设置到34,而目前lyx的module Format最高版本到49,需要进一步研究最新版本的lyx charstyle指令集。
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+在本地布局中开发lyx模块
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:在本地布局中开发lyx模块"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
