@@ -2,7 +2,7 @@
 \lyxformat 474
 \begin_document
 \begin_header
-\textclass ctex-article-coderemarks
+\textclass ctex-article
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
 
@@ -349,6 +349,31 @@ function foo(a) {
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+JS的三种scope
+\end_layout
+
+\begin_layout Standard
+global scope,function scope,block scope
+\end_layout
+
+\begin_layout Standard
+function scope成为js实现隐藏细节（即所谓的私有变量、私有方法）的唯一可行方法，即，function不仅仅是实现某个功能，在js中还担负着实现模块
+化编程以及模块的隔离功能。
+\end_layout
+
+\begin_layout Section
+基于语义的scope
+\end_layout
+
+\begin_layout Standard
+即，函数定义在什么位置，scope就从哪里开始。
+\end_layout
+
+\begin_layout Standard
+特例：hoisting
 \end_layout
 
 \end_body
