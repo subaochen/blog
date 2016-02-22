@@ -356,6 +356,10 @@ JS的三种scope
 \end_layout
 
 \begin_layout Standard
+画个xmind图。
+\end_layout
+
+\begin_layout Standard
 global scope,function scope,block scope
 \end_layout
 
@@ -374,6 +378,23 @@ function scope成为js实现隐藏细节（即所谓的私有变量、私有方�
 
 \begin_layout Standard
 特例：hoisting
+\end_layout
+
+\begin_layout Section
+scope的使用
+\end_layout
+
+\begin_layout Standard
+由于JavaScript缺少了类似于Java的类机制和成员分量的访问控制，在JavaScript中巧妙的使用scope来实现如下的要求：
+\end_layout
+
+\begin_layout Subsection
+防止污染全局命名空间
+\end_layout
+
+\begin_layout Standard
+一般是两种手段：通过函数scope营造一个命名空间和全局命名空间隔离开来；通过对象封装属性的方式，这样对象可以是全局的，但是，对象的属性只能通过key来引用，防
+止了污染全局命名空间。
 \end_layout
 
 \end_body
