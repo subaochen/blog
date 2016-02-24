@@ -470,6 +470,40 @@ console.log(a); // 2
 \end_layout
 
 \begin_layout Section
+IIFE构造单例模式
+\end_layout
+
+\begin_layout Standard
+JS的模块就是函数，最常见的模块定义如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/js/normal_module.js"
+lstparams "caption={常见的模块定义方法},label={normal_module}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如果需要一个单例模式的模块，那么可以利用IIFE：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/js/singleton_module.js"
+lstparams "caption={单例模式的模块定义},label={singleton_module}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 小结
 \end_layout
 

@@ -330,6 +330,82 @@ lstparams "caption={循环中的closoure：使用IIFE展开的形式},label={for
 \end_layout
 
 \begin_layout Standard
+可以看出，尽管我们通过IIFE的方式创建了新的scope，但是timer依然引用的是foo scope的变量i，而实际打印变量i的时候，i的值已经是3了！
+\end_layout
+
+\begin_layout Section
+搞定！
+\end_layout
+
+\begin_layout Standard
+看到这里，其实解决方案已经呼之欲出了！
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/js/for_timeout4.js"
+lstparams "caption={循环中的closure：解决方案},label={forloop_time4}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如代码清单
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "forloop_time4"
+
+\end_inset
+
+所示，通过IIFE创建新的scope，然后在这个新的scope中通过变量j保存当时i的值，这样就摆脱了foo scope对变量i下的魔咒了！
+\end_layout
+
+\begin_layout Standard
+代码清单
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "forloop_time4"
+
+\end_inset
+
+也可以简写为（更专业）：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/js/for_timeout5.js"
+lstparams "caption={循环中的closure：最终方案},label={forloop_time5}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+有更简单的办法吗？
+\end_layout
+
+\begin_layout Standard
+可以看出，问题的关键是，每次循环要创建一个独立的scope，那么ES6的block scope有帮助吗？答案是可以，但是必须使用JavaScript的stric
+t模式。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/js/for_timeout6.js"
+lstparams "caption={循环中的closure：使用block scope},label={forloop_timeout6}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \start_of_appendix
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
