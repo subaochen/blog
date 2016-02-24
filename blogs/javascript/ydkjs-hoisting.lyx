@@ -2,7 +2,7 @@
 \lyxformat 474
 \begin_document
 \begin_header
-\textclass ctex-article-with-coderemarks
+\textclass ctex-article
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
 
@@ -117,8 +117,8 @@
 \use_default_options true
 \begin_modules
 logicalmkup
-tcolorbox
 notice
+programming
 \end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
@@ -187,7 +187,7 @@ notice
 \begin_body
 
 \begin_layout Title
-JS的hoisting
+JS的hoisting魔法
 \end_layout
 
 \begin_layout Section

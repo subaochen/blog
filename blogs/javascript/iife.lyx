@@ -1,0 +1,497 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+multicol
+notice
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman 新宋体
+\font_sans 新宋体
+\font_typewriter 新宋体
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+说一说JS的IIFE
+\end_layout
+
+\begin_layout Section
+定义
+\end_layout
+
+\begin_layout Standard
+IIFE: Immediately Invoked Function Expression，意为立即调用的函数表达式，也就是说，声明函数的同时立即调用这个函数。
+\end_layout
+
+\begin_layout Standard
+对比一下，这是不采用IIFE时的函数声明和函数调用：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+function foo(){
+\end_layout
+
+\begin_layout Plain Layout
+
+  var a = 10;
+\end_layout
+
+\begin_layout Plain Layout
+
+  console.log(a);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+foo();
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+下面是IIFE形式的函数调用：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+(function foo(){
+\end_layout
+
+\begin_layout Plain Layout
+
+  var a = 10;
+\end_layout
+
+\begin_layout Plain Layout
+
+  console.log(a);
+\end_layout
+
+\begin_layout Plain Layout
+
+})();
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+函数的声明和IIFE的区别在于，在函数的声明中，我们首先看到的是function关键字，而IIFE我们首先看到的是左边的（。也就是说，使用一对（）将函数的声明括
+起来，使得JS编译器不再认为这是一个函数声明，而是一个IIFE，即需要立刻执行声明的函数。
+\end_layout
+
+\begin_layout Standard
+两者达到的目的是相同的，都是声明了一个函数foo并且随后调用函数foo。
+\end_layout
+
+\begin_layout Section
+为什么需要IIFE？
+\end_layout
+
+\begin_layout Standard
+如果只是为了立即执行一个函数，显然IIFE所带来的好处有限。实际上，IIFE的出现是为了弥补JS在scope方面的缺陷：JS只有全局作用域（global
+ scope）、函数作用域（function scope），从ES6开始才有块级作用域（block scope）。对比现在流行的其他面向对象的语言可以看出，JS
+在访问控制这方面是多么的脆弱！那么如何实现作用域的隔离呢？在JS中，只有function，只有function，只有function才能实现作用域隔离，因此如果
+要将一段代码中的变量、函数等的定义隔离出来，只能将这段代码封装到一个函数中。
+\end_layout
+
+\begin_layout Standard
+在我们通常的理解中，将代码封装到函数中的目的是为了复用。在JS中，当然声明函数的目的在大多数情况下也是为了复用，但是JS迫于作用域控制手段的贫乏，我们也经常看到
+只使用一次的函数：这通常的目的是为了隔离作用域了！既然只使用一次，那么立即执行好了！既然只使用一次，函数的名字也省掉了！这就是IIFE的由来。
+\end_layout
+
+\begin_layout Section
+IIFE的常见形式
+\end_layout
+
+\begin_layout Standard
+根据最后表示函数执行的一对（）位置的不同，常见的IIFE写法有两种，示例如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+IIFE写法一
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+(function foo(){
+\end_layout
+
+\begin_layout Plain Layout
+
+  var a = 10;
+\end_layout
+
+\begin_layout Plain Layout
+
+  console.log(a);
+\end_layout
+
+\begin_layout Plain Layout
+
+})();
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+IIFE写法二
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+(function foo(){
+\end_layout
+
+\begin_layout Plain Layout
+
+  var a = 10;
+\end_layout
+
+\begin_layout Plain Layout
+
+  console.log(a);
+\end_layout
+
+\begin_layout Plain Layout
+
+}());
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这两种写法效果完全一样，使用哪种写法取决于你的风格，貌似第一种写法比较常见。
+\end_layout
+
+\begin_layout Standard
+其实，IIFE不限于（）的表现形式
+\begin_inset CommandInset citation
+LatexCommand cite
+key "iife"
+
+\end_inset
+
+，但是还是遵守约定俗成的习惯比较好。
+\end_layout
+
+\begin_layout Section
+IIFE的函数名和参数
+\end_layout
+
+\begin_layout Standard
+根据《You Don't Know JS:Scope & Clouses》
+\begin_inset CommandInset citation
+LatexCommand cite
+key "scope-clousers"
+
+\end_inset
+
+的说法，尽量避免使用匿名函数。但是IIFE确实只执行一次，给IIFE起个名字有些画蛇添足了。如果非要给IIFE起个名字，干脆就叫IIFE好了。
+\end_layout
+
+\begin_layout Standard
+IIFE可以带（多个）参数，比如下面的形式：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var a = 2;
+\end_layout
+
+\begin_layout Plain Layout
+
+(function IIFE(global){
+\end_layout
+
+\begin_layout Plain Layout
+
+    var a = 3;
+\end_layout
+
+\begin_layout Plain Layout
+
+    console.log(a); // 3
+\end_layout
+
+\begin_layout Plain Layout
+
+    console.log(global.a); // 2
+\end_layout
+
+\begin_layout Plain Layout
+
+})(window);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+console.log(a); // 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+小结
+\end_layout
+
+\begin_layout Standard
+IIFE的目的是为了隔离作用域，防止污染全局命名空间。
+\end_layout
+
+\begin_layout Standard
+ES6以后也许有更好的访问控制手段（模块？类？），有待研究。
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "../../../bibref/javascript"
+options "IEEEtran"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

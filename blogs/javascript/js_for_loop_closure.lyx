@@ -1,0 +1,345 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+multicol
+notice
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman 新宋体
+\font_sans 新宋体
+\font_typewriter 新宋体
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+从一个简单的循环看JS的闭包（closure）
+\end_layout
+
+\begin_layout Standard
+在《You Don't Know JS:Scope & Closures》一书中有一个有趣的小例子
+\begin_inset CommandInset citation
+LatexCommand cite
+key "scope-clousers"
+
+\end_inset
+
+可以帮助我们理解JS的闭包，也很容易迷惑JS的初学者，值得深入的看一下。
+\end_layout
+
+\begin_layout Standard
+为了方便理解闭包，我对这个例子做了适当的修改，主要是将循环放到一个函数里面，并增加了一个全局变量作为比较，大家可以和原始的例子做个对比。
+\end_layout
+
+\begin_layout Section
+你答对了吗？
+\end_layout
+
+\begin_layout Standard
+下面这个循环的输出是什么？
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/js/for_timeout.js"
+lstparams "caption={循环中的closure},label={basic_for_timeout}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+我们期望每隔1秒分别输出1,2。
+\end_layout
+
+\begin_layout Standard
+但是，答案却是每隔1秒输出3！
+\end_layout
+
+\begin_layout Standard
+如果将这个循环还原为下面的形式，又如何呢？
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/js/for_timeout1.js"
+lstparams "caption={循环中的closure：展开的形式},label={for_timeout1}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+仔细想一下，代码清单
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "basic_for_timeout"
+
+\end_inset
+
+经过编译以后的形式不就是代码清单
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "for_timeout1"
+
+\end_inset
+
+吗？通过代码清单
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "for_timeout1"
+
+\end_inset
+
+怎么理解每隔1秒输出3这个结果呢？
+\end_layout
+
+\begin_layout Standard
+从代码清单
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "for_timeout1"
+
+\end_inset
+
+可以看出，变量i在foo函数所创建scope中（简称为foo scope），foo函数执行完毕后，i的值是3。由于三个timer方法中引用了变量i，因此time
+r方法是一个对foo scope的closure（即书中常说的closure over enclosing scope），即因为timer方法的存在，使得foo
+ scope即使在代码执行完毕后依然存在，因为timer要定时打印变量i的值啊！由此可以看出，当timer方法被定时执行时，变量i的值已经是3了。
+\end_layout
+
+\begin_layout Section
+改进一下
+\end_layout
+
+\begin_layout Standard
+问题的症结在于，变量i是一个foo scope的变量，如果每个timer能够有独立的scope并保存独立的i的值，问题是不是迎刃而解了呢？联想到IIFE
+\begin_inset CommandInset citation
+LatexCommand cite
+key "iife"
+
+\end_inset
+
+的主要目的就是隔离作用域，于是代码变为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/js/for_timeout2.js"
+lstparams "caption={循环中的closure：使用IIFE},label={forloop_timeout2}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+执行一下看看？并没有什么卵用！OMG！
+\end_layout
+
+\begin_layout Standard
+如果我们还原一下，代码清单
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "forloop_timeout2"
+
+\end_inset
+
+应该是这个样子的：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/js/for_timeout3.js"
+lstparams "caption={循环中的closoure：使用IIFE展开的形式},label={forloop_timeout3}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/javascript"
+options "IEEEtran"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
