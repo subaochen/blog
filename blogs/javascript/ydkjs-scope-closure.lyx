@@ -174,12 +174,65 @@ notice
 \begin_body
 
 \begin_layout Title
-YDKJS:Scope&Closures
+YDKJS:Scope&Closures读后感
 \end_layout
 
 \begin_layout Standard
-You Don't Know JS系列书的风格和《JavaScirpt权威指南》完全不同。权威指南试图将JavaScript分为一系列知识点，每一个知识点都尽量
-详细讲解并给出示例。权威指南当作一本工具书还是不错的，而YDKJS则是很好的循序渐进的系列教程。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/ydkjs_scope_closures_cover.jpg
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+You Don't Know JS:Scope & Closures
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+读完了You Don't Know JS系列的第二本《Scope & Closures》，确实喜欢上了这套书的风格，风趣，深入浅出。不过，这种风格也有一个不太好
+的地方：废话太多，比如这本《Scope & Closures》，个人感觉其实就讲了下面这几点，全是干货：
+\end_layout
+
+\begin_layout Itemize
+JS的scope就三种：global scope,function scope,block scope
+\end_layout
+
+\begin_layout Itemize
+scope hoisting只发生在变量和函数的声明，且hoisting只能提升到当前scope的开头
+\end_layout
+
+\begin_layout Itemize
+closure其实是一个scope的引用，即通过返回一个引用enclosing scope的函数，达到enclosing scope不会被GC的目的。
+\end_layout
+
+\begin_layout Standard
+理解了这三点，其他问题迎刃而解。
 \end_layout
 
 \end_body
