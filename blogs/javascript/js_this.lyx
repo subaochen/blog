@@ -248,6 +248,13 @@ key "nodejs-debugger"
 
 \begin_layout Section
 this绑定的规则
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:this绑定的规则"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -261,18 +268,8 @@ status open
 
 \end_inset
 
-。具体来说有四种情况，优先级由高到低分别是：default binding,implicit binding,implicit lost binding,exp
-licit binding
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-really?
-\end_layout
-
-\end_inset
-
-。
+。具体来说有四种情况，优先级由低到高分别是：default binding,implicit binding,explicit binding,new
+ binding。
 \end_layout
 
 \begin_layout Subsection
@@ -298,8 +295,8 @@ status open
 \begin_layout Plain Layout
 此段代码如果在nodejs中执行，需要去掉变量a前面的var。JS在这里有个坑，参见http://stackoverflow.com/questions/1985
 0234/node-js-variable-declaration-and-scope。简单的说，nodejs将每个js文件封装在自己的module
- scope中执行，因此在nodejs的js文件中使用var声明的变量其实不是全局变量，这和在chrome console中的情形不同。因此，在nodejs中使
-用this是一个需要更加谨慎对待的事情。
+ scope中执行，因此在nodejs的js文件中使用var声明的变量其实不是全局变量，而是一个模块的内部变量（不使用var声明的变量自动创建为global
+ scope的变量），这和在chrome console中的情形不同。因此，在nodejs中使用this是一个需要更加谨慎对待的事情。
 \end_layout
 
 \end_inset
@@ -345,7 +342,7 @@ status open
 ，因此函数foo中的this指向obj对象，this.a等同于obj.a。
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 implicitly lost binding
 \begin_inset Foot
 status open
@@ -401,7 +398,7 @@ lstparams "caption={explicit binding},label={explicit binding}"
 利用call/apply明确指定了this，因此称为hard binding。
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 hard binding
 \end_layout
 
@@ -417,7 +414,8 @@ lstparams "caption={hard binding},label={hard binding}"
 \end_layout
 
 \begin_layout Standard
-通过创建一个方法bar封装foo.call(obj)，使得任何时候调用方法bar实际上都明确了：this指向obj，这通常也是我们希望的结果。
+通过创建一个方法bar封装foo.call(obj)，使得任何时候调用方法bar实际上都明确了：this指向obj，这通常也是我们希望的结果。hard
+ binding实际上是explicit binding的一种加强形式而已。
 \end_layout
 
 \begin_layout Standard
@@ -432,6 +430,120 @@ filename "/home/subaochen/git/blog/src/js/this_hard_binding2.js"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+ES5之后的bind可以这样使用：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/js/this_hard_binding3.js"
+lstparams "caption={bind after es5},label={bind after es5}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+new binding
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/js/this_new_binding.js"
+lstparams "caption={new binding},label={new binding}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+使用new操作符创建函数对象和直接调用函数的区别在于，使用new操作符创建函数对象后，this指向了这个新建的函数对象，这似乎很自然。
+\end_layout
+
+\begin_layout Section
+this和scope
+\end_layout
+
+\begin_layout Standard
+在
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:this绑定的规则"
+
+\end_inset
+
+中可以看出，this是由函数的调用顺序来确定this的指向的：this永远指向函数的调用者。那么，this和scope有什么关系呢？
+\end_layout
+
+\begin_layout Subsection
+global scope
+\end_layout
+
+\begin_layout Standard
+在global scope中，this指向global object；如果在浏览器中，this指向window对象。下列示例来自
+\begin_inset CommandInset citation
+LatexCommand cite
+key "javascript-this-binding-rules"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+console.log(this.document === document); // true
+\end_layout
+
+\begin_layout Plain Layout
+console.log(this === window); // true
+\end_layout
+
+\begin_layout Plain Layout
+this.a = 10;
+\end_layout
+
+\begin_layout Plain Layout
+console.log(window.a); // 10
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+function scope
+\end_layout
+
+\begin_layout Standard
+在function scope中，this具体指向谁，就需要根据
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:this绑定的规则"
+
+\end_inset
+
+来判断了，不再赘述。
 \end_layout
 
 \begin_layout Standard

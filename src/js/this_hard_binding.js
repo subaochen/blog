@@ -10,4 +10,4 @@ var bar = function (){
 
 bar();
 setTimeout(bar,100);
-//bar.call(window); // node.js has not window obj
+//bar.call(window); // node.js has no window obj
