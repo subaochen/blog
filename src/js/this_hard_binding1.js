@@ -1,13 +1,14 @@
 function foo(something){
-    console.log(this.a + something);
+    //console.log(this.a + something);
     return this.a + something;
 }
 
 var obj = {a:2};
 
-var bar = function (arguments){
-    foo.apply(obj,arguments);
+var bar = function (){
+    return foo.apply(obj,arguments); // @TODO where arguments from?
 };
 
-console.log(bar(3));
-//console.log(bar());
+var baz = bar(3);
+console.log(baz);
+console.log(bar());
