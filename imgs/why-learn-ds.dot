@@ -1,0 +1,68 @@
+digraph G {
+    ds[label="数据结构与算法"];
+    os[label="操作系统"];
+    compile[label="编译原理"];
+    vbox[label="虚拟机"];
+    cache[label="缓存"];
+    network[label="网络"];
+    database[label="数据库"];
+    language[label="编程语言"];
+    framekwork_tools[label="框架与工具"];
+    distributed_system[label="分布式系统"];
+    framework_design[label="框架与设计"];
+    performance[label="性能"];
+    functions[label="功能"];
+
+
+//  性能节点
+    performance->os;
+    performance->ds;
+    performance->vbox;
+    performance->cache;
+    performance->network;
+    performance->database;
+    performance->language;
+    performance->framekwork_tools;
+    performance->distributed_system;
+    performance->framework_design;
+
+// 功能节点
+    functions->network;
+    functions->framework_design;
+    functions->framekwork_tools;
+    functions->language;
+    functions->database;
+    functions->ds;
+
+    framework_design->framekwork_tools;
+    framework_design->distributed_system;
+
+    distributed_system->cache;
+    distributed_system->network;
+    distributed_system->database;
+
+    framekwork_tools->ds;
+    framekwork_tools->language;
+
+    vbox->ds;
+    vbox->os;
+    vbox->compile;
+
+    cache->ds;
+
+    network->ds;
+    network->os;
+
+    database->ds;
+
+    language->ds;
+
+    os->ds;
+    compile->ds;
+
+    {rank=same;performance,functions;}
+    {rank=same;framekwork_tools,distributed_system;}
+    {rank=same;os,compile;}
+    {rank=same;vbox,cache,network,database,language;}
+
+}
