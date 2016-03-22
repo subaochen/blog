@@ -2,7 +2,7 @@
 \lyxformat 474
 \begin_document
 \begin_header
-\textclass ctex-article
+\textclass ctex-article-with-coderemarks
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
 
@@ -68,14 +68,10 @@
         escapechar=|
 } 
 
-
 \usepackage{tikz}
 \usepackage{ifthen}
+\usepackage{coderemarks}
 \usepackage{alltt}
-% Optional PGF libraries
-\usepackage{pgflibraryarrows}
-\usepackage{pgflibrarysnakes}
-
 %% Style commands
 \newcommand{\func}[1]{\texttt{#1}}
 \newcommand{\key}[1]{\texttt{#1}}
@@ -108,7 +104,7 @@
 \use_default_options true
 \begin_modules
 logicalmkup
-multicol
+tcolorbox
 notice
 \end_modules
 \maintain_unincluded_children false
@@ -178,192 +174,39 @@ notice
 \begin_body
 
 \begin_layout Title
-Lyx中使用beamer的一些小技巧
-\end_layout
-
-\begin_layout Author
-宿宝臣<subaochen@126.com>
+指定netbeans运行的jdk版本
 \end_layout
 
 \begin_layout Standard
-这里的描述针对lyx 2.1.x。
-\end_layout
-
-\begin_layout Section
-如何开始一个新的frame？
+在我的开发环境中，需要混合使用jdk6和jdk7（8），即jboss需要使用老旧的jdk6，而习惯了的netbeans 8.1需要jdk7以上版本，一番查找，原来
+在netbeans的etc目录有个netbeans.conf文件，里面设定了netbeans的jdk目录：
 \end_layout
 
 \begin_layout Standard
-有两种方式可以结束一个frame并开始一个新的frame：
-\end_layout
-
-\begin_layout Enumerate
-在当前frame的最后使用seperator样式，如图
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:使用seperator开始新的frame"
-
-\end_inset
-
-所示：
-\begin_inset Float figure
-wide false
-sideways false
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
 status open
 
 \begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/lyx-seperator.eps
-	scale 80
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-使用seperator开始新的frame
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:使用seperator开始新的frame"
-
-\end_inset
-
-
+netbeans_jdkhome="/home/subaochen/devel/jdk8"
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Enumerate
-使用Edit->Start New Environment或者快捷键Ctrl+Alt+P开始一个新的frame。但是这种方式在目前版本有时中支持中文不好，似乎无
-法输入中文的frame title。如图
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:使用Start-New-Environment开始新的frame"
-
-\end_inset
-
-所示：
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/llyx-start-new-enviroment.eps
-	scale 80
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-使用Start New Environment开始新的frame
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:使用Start-New-Environment开始新的frame"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-frame中的内容似乎总是跑到了下一页？
 \end_layout
 
 \begin_layout Standard
-在目前版本的lyx中，自动插入的
-\backslash
-end{frame}指令似乎有些怪异，如果frame的内容是item列表之类的，
-\backslash
-end{frame}会跑到列表前面，导致frame title和内容分成了两个页面。正确的处理方式是使用
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/lyx-right-indent-icon.ps
-
-\end_inset
-
-将内容“缩进”处理，缩进后的frame内容会被红色的标志线括起来，如图所示：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/lyx-after-indent-frame-content.png
-	scale 60
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-缩进处理后的frame内容
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-终极参考
-\end_layout
-
-\begin_layout Standard
-Lyx其实内置了beamer的详细使用指南，只是内容组织的感觉不是特别适合初学者：点击帮助菜单的“特别功能手册”->beamer presentations即可
-。
+在这里改为jdk8，一切相安无事了。
 \end_layout
 
 \end_body
