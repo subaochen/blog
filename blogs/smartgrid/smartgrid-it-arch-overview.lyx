@@ -206,27 +206,170 @@ key "smartgrid-it-archetecture"
 \end_layout
 
 \begin_layout Section
-一组惊人的数据
+一组数据
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 2008年北美电力系统的能源使用效率约为1/3，发电和输配电的能源损耗却占到2/3。
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 2008年，中国全社会用电量34268亿千瓦时，输电、配电和用户端损耗约为9％，数字真实吗？
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 65％的电力均来自石化能源。
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 2003年8月14日，北美地区发生有史以来最严重的大面积断电事故，这次大停电造成国内生产总值的损失，一天将是２５０亿美元至３００亿美元。
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 2006年11月4日，欧洲大停电半小时，影响千万人。
+\end_layout
+
+\begin_layout Section
+智能电网的特点
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+可观性强
+\end_layout
+
+\end_inset
+
+：相比传统电网的SCADA，智能电网目前采用的PMU（Phasor Measurement Unit）和WAMS（Wide Area Measurement
+ System）所采集的信息要快速和丰富，因而增强电网的可观性，为进一步更强、更灵活的控制（可控性）提供基础。
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+交互性好
+\end_layout
+
+\end_inset
+
+：传统电网的信息流是单向的，电力部门（电力公司）的管理也是单向的，比如拉闸限电。在智能电网中，用户采用智能电表可以加强对自我用电的监督，电力部门也藉此更好的了解
+用户的用电行为，借助电力大数据等手段可以更好的安排供电。
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+可靠性高：
+\end_layout
+
+\end_inset
+
+可以从震荡中自我恢复，对于系统失稳趋势提前报警（预警）及调整。
+\end_layout
+
+\begin_layout Section
+智能电网信息体系结构中的挑战
+\end_layout
+
+\begin_layout Standard
+智能电网正在更多的和计算机、网络、物联网技术结合在一起，软件技术、网络技术、物联网技术在智能电网中的应用越来越广泛，越来越深入。
+\end_layout
+
+\begin_layout Subsection
+软件技术在智能电网中的挑战
+\end_layout
+
+\begin_layout Standard
+各种协议(IEC 61850等）如何使用先进的软件技术表达和实施？具体的说是三个方面：
+\end_layout
+
+\begin_layout Enumerate
+协议的描述
+\end_layout
+
+\begin_layout Enumerate
+协议的参考实现：比如使用Java语言完整的实现协议，可以作为一个参考实现。当然，各个厂商可以有自己的具体实现，但是必须满足条件３．
+\end_layout
+
+\begin_layout Enumerate
+协议的一致性验证：即通过自动化的手段能够验证所实现的协议完全和定义相符（一致）。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+比较一下CDI的RI和TDK
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+网络技术在智能电网中的挑战
+\end_layout
+
+\begin_layout Subsubsection
+网络时延问题
+\end_layout
+
+\begin_layout Standard
+由于智能电网对实时性要求很高，当前TCP/IP体系的广域网通讯时延不能满足智能电网的要求。智能电网的网络时延要求在100ms-1s之内
+\begin_inset CommandInset citation
+LatexCommand cite
+after "P157"
+key "smartgrid-it-archetecture"
+
+\end_inset
+
+，如何降低网络时延是一个值得深入研究的问题。SGTP（Smart Grid Transport Protocal）是贝尔实验室研究网络时延的产物，但是似乎并没有
+获得广泛支持（在google的搜索结果极少，看起来只是发了一片论文？），似乎正在向在TCP/IP基础上完善，也就是说，如何让SGTP更加通用。
+\end_layout
+
+\begin_layout Subsubsection
+云存储
+\end_layout
+
+\begin_layout Standard
+智能电网的通讯数据十分巨大。OpenPDC在北美的120个PMU的数据信息，平均数据量为1.5G/h
+\begin_inset CommandInset citation
+LatexCommand cite
+after "P152"
+key "smartgrid-it-archetecture"
+
+\end_inset
+
+，而截止2009年底，我国在220kv电压等级以上电力系统部署的PMU就有1000多个，数据存储的压力可想而知。在这方面的挑战集中在以下几个方面：
+\end_layout
+
+\begin_layout Enumerate
+存储的容量：hadoop/mongoDb也许是值得尝试的思路。
+\end_layout
+
+\begin_layout Enumerate
+存储方式和格式：各种不同的PMU，有没有统一的数据格式？使用关系数据库存储还是NoSQL的基于文件的存储？
+\end_layout
+
+\begin_layout Enumerate
+数据的提取速度：更快的数据提取速速，保证及时响应和交互的实时性。
+\end_layout
+
+\begin_layout Subsection
+物联网技术在智能电网中的挑战
+\end_layout
+
+\begin_layout Subsubsection
+AMI中的物联网技术
 \end_layout
 
 \begin_layout Standard
