@@ -179,7 +179,7 @@ coderemarks
 \begin_body
 
 \begin_layout Title
-hadoop 2.x的安装
+hadoop 2.x的安装和实验
 \end_layout
 
 \begin_layout Standard
@@ -364,10 +364,6 @@ source $HOME/.bashrc
 
 \begin_layout Section
 单机安装
-\end_layout
-
-\begin_layout Standard
-
 \end_layout
 
 \begin_layout Section
@@ -1055,6 +1051,65 @@ hadoop管理端口
 
 \begin_layout Section
 分布式安装
+\end_layout
+
+\begin_layout Subsection
+环境说明
+\end_layout
+
+\begin_layout Standard
+图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:实验hadoop分布式安装网络环境"
+
+\end_inset
+
+中的三台电脑均为kvm管理下的虚拟机：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/basic_hadoop_network.eps
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+实验hadoop分布式安装网络环境
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:实验hadoop分布式安装网络环境"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
