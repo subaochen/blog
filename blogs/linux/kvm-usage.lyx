@@ -1,0 +1,521 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+multicol
+notice
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman 新宋体
+\font_sans 新宋体
+\font_typewriter 新宋体
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+使用kvm
+\end_layout
+
+\begin_layout Standard
+云计算时代的到来促成了虚拟机方案满天飞，kvm
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+http://www.linux-kvm.org/
+\end_layout
+
+\end_inset
+
+：Kernel-based Virtual Machine是Linux下面大家用的比较多的一种。自从kvm出世，貌似virtualbox的日子就不太好过，ora
+cle的银子是不是白花了？从名字上就可以看出，kvm方案应该是效率最高的？没有具体比较过其他虚拟机方案
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://en.wikipedia.org/wiki/Comparison_of_platform_virtualization_software
+\end_layout
+
+\end_inset
+
+的效率，这篇文章
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+http://domino.research.ibm.com/library/cyberdig.nsf/papers/0929052195DD819C85257D230
+0681E7B/$File/rc25482.pdf
+\end_layout
+
+\end_inset
+
+比较了kvm和docker方案，似乎docker方案胜出，有空值得看一下。
+\end_layout
+
+\begin_layout Section
+kvm和qemu
+\end_layout
+
+\begin_layout Standard
+kvm是linux内核的一个模块，但是终端用户要使用kvm需要借助于一个用户空间的工具，这就是kvm-qemu，也就是说，kvm借助于qemu的成果构建了kvm
+的管理工具。kvm和qemu的关系大致如图所示
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+http://yansu.org/2013/03/20/different-bewteen-kvm-xen-qemu.html
+\end_layout
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/tech-kvm-and-qemu.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+kvm和qemu的关系
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+安装kvm
+\end_layout
+
+\begin_layout Standard
+在debian stretch下很简单，直接下命令：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ aptitude install kvm qemu-kvm
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+使用kvm安装虚拟机
+\end_layout
+
+\begin_layout Subsection
+创建虚拟磁盘
+\end_layout
+
+\begin_layout Standard
+下面的命令使用qcow2文件格式创建了一个2G的虚拟磁盘，将来就在这个虚拟磁盘里面安装guest虚拟机。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ qemu-img create -f qcow2 debian.qcow2 2G
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+安装guest系统
+\end_layout
+
+\begin_layout Standard
+下面的命令使用debian.qcow2作为虚拟磁盘，debian-stable.iso作为光盘镜像安装虚拟机。安装的过程和在真机没有区别：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ kvm -hda debian.qcow2 -cdrom debian-stable.iso -boot d -m 512
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+运行guest系统
+\end_layout
+
+\begin_layout Standard
+安装完成后，下面的命令启动guest虚拟机：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ kvm debian.qcow2 -m 512
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+虚拟机的管理
+\end_layout
+
+\begin_layout Subsection
+使用virt-manager管理虚拟机
+\end_layout
+
+\begin_layout Standard
+virt-manager的用法和virtualbox、vmware很相似，也很好用，这里就不详细说了，图形用户界面的操作总是摸索一下就可以学会的，掌握了上面的基
+本概念没有啥悬念。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/virt-manager.pdf
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+virt-manager管理虚拟机
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+网卡的管理：使用bridge设备
+\end_layout
+
+\begin_layout Standard
+默认情况下，kvm使用NAT配置guest系统的网卡，虽然guest系统可以正常上网，但是guest和host通讯还是不太方便。因此一般情况下需要配置guest
+系统使用bridge方式，这样guest和host都在一个网段上，测试起来就方便多了。
+\end_layout
+
+\begin_layout Standard
+需要注意的是，linux的启动管理换到systemd后，网卡的命名规则改了，比如由eth0改到了enp2s0。
+\end_layout
+
+\begin_layout Standard
+首先在宿主系统增加一个bridge设备，编辑/etc/network/interfaces文件增加如下内容并重启电脑（or /etc/init.d/network
+ing restart）：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+auto br0
+\end_layout
+
+\begin_layout Plain Layout
+iface br0 inet dhcp
+\end_layout
+
+\begin_layout Plain Layout
+bridge_ports enp2s0
+\end_layout
+
+\begin_layout Plain Layout
+bridge_stp off
+\end_layout
+
+\begin_layout Plain Layout
+bridge_fd 0
+\end_layout
+
+\begin_layout Plain Layout
+bridge_maxwait 0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后在virt-manager中修改虚拟机的网卡为br0即可。
+\end_layout
+
+\end_body
+\end_document

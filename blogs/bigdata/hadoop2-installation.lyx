@@ -183,19 +183,16 @@ hadoop 2.x的安装
 \end_layout
 
 \begin_layout Standard
-hadoop的安装文档实在有些简陋，网上到处是坑！
+hadoop的安装文档实在有些简陋，网上到处是坑！因此将自己配置hadoop 2.x的过程记录下来备忘。
 \end_layout
 
 \begin_layout Section
-单机安装
+准备工作
 \end_layout
 
 \begin_layout Standard
-安装JDK
-\end_layout
-
-\begin_layout Section
-伪分布式安装
+以下的安装基于debian stretch，其他linux发布的安装方式应该很相似。在测试环境下也没有创建特别的hadoop运行用户，感觉没有必要，只有在严肃的
+生产环境下为了安全起见才需要创建独立的hadoop用户。
 \end_layout
 
 \begin_layout Subsection
@@ -203,7 +200,7 @@ hadoop的安装文档实在有些简陋，网上到处是坑！
 \end_layout
 
 \begin_layout Standard
-老生常谈，这里不细说了，关键是在$HOME/.bashrc中设置JAVA_HOME环境变量：
+hadoop是Java应用程序，因此需要安装JDK。老生常谈了，这里不细说，关键是在$HOME/.bashrc中设置JAVA_HOME环境变量：
 \end_layout
 
 \begin_layout Standard
@@ -253,20 +250,128 @@ height_special "totalheight"
 status open
 
 \begin_layout Plain Layout
-tar xzvf hadoop-2.6.4.tar.gz -C $/HOME/devel
+$ tar xzvf hadoop-2.6.4.tar.gz -C $/HOME/devel
 \end_layout
 
 \begin_layout Plain Layout
-cd ~/devel
+$ cd ~/devel
 \end_layout
 
 \begin_layout Plain Layout
-ln -s hadoop-2.6.4 hadoop
+$ ln -s hadoop-2.6.4 hadoop
 \end_layout
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+设置环境变量
+\end_layout
+
+\begin_layout Standard
+编辑$HOME/.bashrc文件，增加如下的环境变量设置：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+# hadoop setup
+\end_layout
+
+\begin_layout Plain Layout
+export HADOOP_PREFIX=$HOME/devel/hadoop
+\end_layout
+
+\begin_layout Plain Layout
+export HADOOP_HOME=$HOME/devel/hadoop
+\end_layout
+
+\begin_layout Plain Layout
+export HADOOP_MAPRED_HOME=$HOME/devel/hadoop
+\end_layout
+
+\begin_layout Plain Layout
+export HADOOP_COMMON_HOME=$HOME/devel/hadoop
+\end_layout
+
+\begin_layout Plain Layout
+export HADOOP_HDFS_HOME=$HOME/devel/hadoop
+\end_layout
+
+\begin_layout Plain Layout
+export YARN_HOME=$HOME/devel/hadoop
+\end_layout
+
+\begin_layout Plain Layout
+export HADOOP_CONF_DIR=$HOME/devel/hadoop/etc/hadoop # 特别提醒，有些教程漏掉了最后的hadoop，导致h
+adoop启动时找不到相应的配置文件！
+\end_layout
+
+\begin_layout Plain Layout
+export YARN_CONF_DIR=$HOME/devel/hadoop/etc/hadoop # 特别提醒，有些教程漏掉了最后的hadoop，导致had
+oop启动时找不到相应的配置文件！
+\end_layout
+
+\begin_layout Plain Layout
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+编辑完成后，使得环境变量立刻生效：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+source $HOME/.bashrc
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+单机安装
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Section
+伪分布式安装
 \end_layout
 
 \begin_layout Subsection
@@ -292,19 +397,46 @@ height_special "totalheight"
 status open
 
 \begin_layout Plain Layout
-ssh-keygen
+$ ssh-keygen
 \end_layout
 
 \begin_layout Plain Layout
-cd .ssh
+$ cd .ssh
 \end_layout
 
 \begin_layout Plain Layout
-cat id_rsa.pub >> authorized_keys
+$ cat id_rsa.pub >> authorized_keys
 \end_layout
 
 \begin_layout Plain Layout
-chmod 0600 authorized_keys
+$ chmod 0600 authorized_keys
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+测试一下ssh登录localhost，确保无密码访问localhost成功：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ ssh localhost
 \end_layout
 
 \end_inset
@@ -316,8 +448,609 @@ chmod 0600 authorized_keys
 编写配置文件
 \end_layout
 
+\begin_layout Subsubsection
+core-site.xml
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+完整定义参见：http://hadoop.apache.org/docs/r2.6.4/hadoop-project-dist/hadoop-common/core-d
+efault.xml
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+我的core-site.xml文件如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<configuration>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <property>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <name>hadoop.tmp.dir</name>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <value>/home/subaochen/hadoopdata/hdfs/tmp</value>
+\end_layout
+
+\begin_layout Plain Layout
+
+  </property>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <property>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <name>fs.default.name</name>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <value>hdfs://localhost:9000</value>
+\end_layout
+
+\begin_layout Plain Layout
+
+  </property>
+\end_layout
+
+\begin_layout Plain Layout
+
+</configuration>     
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+注意hadoop.tmp.dir一般要定义一下，否则默认的hadoop数据会存放到/tmp/hadoop-{username}目录下，在电脑重启时tmp目录会被清除
+，导致hadoop数据丢失。
+\end_layout
+
+\begin_layout Subsubsection
+hdfs-site.xml
+\end_layout
+
+\begin_layout Standard
+这里将dfs.replication设置为1，表示每份数据只有一份（没有备份），实验环境嘛！
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<configuration>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <property>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <name>dfs.replication></name>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <value>1</value>
+\end_layout
+
+\begin_layout Plain Layout
+
+  </property>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <property>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <name>dfs.namenode.name.dir</name>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <value>/home/subaochen/hadoopdata/hdfs/namenode</value>
+\end_layout
+
+\begin_layout Plain Layout
+
+  </property>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <property>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <name>dfs.datanode.data.dir</name>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <value>/home/subaochen/hadoopdata/hdfs/datanode</value>
+\end_layout
+
+\begin_layout Plain Layout
+
+  </property>
+\end_layout
+
+\begin_layout Plain Layout
+
+     
+\end_layout
+
+\begin_layout Plain Layout
+
+</configuration> 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+mapred-site.xml
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<configuration>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <property>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <name>mapreduce.framework.name</name>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <value>yarn</value>
+\end_layout
+
+\begin_layout Plain Layout
+
+  </property>
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+</configuration>   
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+yarn-site.xml
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<property>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <name>yarn.resourcemanager.hostname</name>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <value>localhost</value>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <description>The hostname of the ResourceManager</description>
+\end_layout
+
+\begin_layout Plain Layout
+
+</property>
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+<property>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <name>yarn.nodemanager.aux-services</name>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <value>mapreduce_shuffle</value>
+\end_layout
+
+\begin_layout Plain Layout
+
+</property>
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+<property>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+\end_layout
+
+\begin_layout Plain Layout
+
+</property>
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+</configuration> 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
-启动hdfs
+格式化hadoop
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ hdfs namenode -format
+\end_layout
+
+\begin_layout Plain Layout
+16/04/06 11:23:14 INFO common.Storage: Storage directory /home/subaochen/hadoopda
+ta/hdfs/namenode has been successfully formatted.
+\end_layout
+
+\begin_layout Plain Layout
+16/04/06 11:23:14 INFO namenode.NNStorageRetentionManager: Going to retain
+ 1 images with txid >= 0
+\end_layout
+
+\begin_layout Plain Layout
+16/04/06 11:23:14 INFO util.ExitUtil: Exiting with status 0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看到，在hdfs-site.xml中指定的namenode上已经格式化了存储目录了
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+使用了命令：ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^
+\backslash
+/]*
+\backslash
+//--/g' -e 's/^/ /' -e 's/-/|/'
+\end_layout
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+.
+\end_layout
+
+\begin_layout Plain Layout
+|-hdfs
+\end_layout
+
+\begin_layout Plain Layout
+|---datanode
+\end_layout
+
+\begin_layout Plain Layout
+|-----current
+\end_layout
+
+\begin_layout Plain Layout
+|-------BP-354265562-127.0.1.1-1459755274098
+\end_layout
+
+\begin_layout Plain Layout
+|---------current
+\end_layout
+
+\begin_layout Plain Layout
+|-----------finalized
+\end_layout
+
+\begin_layout Plain Layout
+|-----------rbw
+\end_layout
+
+\begin_layout Plain Layout
+|---------tmp
+\end_layout
+
+\begin_layout Plain Layout
+|---namenode
+\end_layout
+
+\begin_layout Plain Layout
+|-----current
+\end_layout
+
+\begin_layout Plain Layout
+|---tmp
+\end_layout
+
+\begin_layout Plain Layout
+|-----dfs
+\end_layout
+
+\begin_layout Plain Layout
+|-------namesecondary
+\end_layout
+
+\begin_layout Plain Layout
+|---------current
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+启动hadoop
+\end_layout
+
+\begin_layout Standard
+我们已经设置了PATH环境变量了，因此在任何目录下都可以执行start-dfs.sh启动hadoop：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ start-dfs.sh 
+\end_layout
+
+\begin_layout Plain Layout
+Starting namenodes on [localhost]
+\end_layout
+
+\begin_layout Plain Layout
+localhost: starting namenode, logging to /home/subaochen/devel/hadoop-2.6.4/logs/h
+adoop-subaochen-namenode-debian.out
+\end_layout
+
+\begin_layout Plain Layout
+localhost: starting datanode, logging to /home/subaochen/devel/hadoop-2.6.4/logs/h
+adoop-subaochen-datanode-debian.out
+\end_layout
+
+\begin_layout Plain Layout
+Starting secondary namenodes [0.0.0.0]
+\end_layout
+
+\begin_layout Plain Layout
+0.0.0.0: starting secondarynamenode, logging to /home/subaochen/devel/hadoop-2.6.4/lo
+gs/hadoop-subaochen-secondarynamenode-debian.out
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以通过jps验证一下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ jps
+\end_layout
+
+\begin_layout Plain Layout
+24384 Main
+\end_layout
+
+\begin_layout Plain Layout
+11361 Jps
+\end_layout
+
+\begin_layout Plain Layout
+2198 NutstoreGUI
+\end_layout
+
+\begin_layout Plain Layout
+11228 SecondaryNameNode
+\end_layout
+
+\begin_layout Plain Layout
+10958 NameNode
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也可以访问hadoop的管理端口：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/hadoop-Namenode-information.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+hadoop管理端口
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
