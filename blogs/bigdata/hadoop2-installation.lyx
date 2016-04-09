@@ -1058,7 +1058,7 @@ hadoop管理端口
 \end_layout
 
 \begin_layout Standard
-图
+我们使用三台电脑搭建分布式的hadoop测试环境，其中一台担当namenode，另外两台担当datanode。图
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:实验hadoop分布式安装网络环境"
@@ -1105,6 +1105,343 @@ name "fig:实验hadoop分布式安装网络环境"
 
 \begin_layout Plain Layout
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+在所有节点创建hadoop用户
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+# useradd -m hadoop -s /bin/bash
+\end_layout
+
+\begin_layout Plain Layout
+# passwd hadoop
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+更新所有节点的/etc/hosts文件
+\end_layout
+
+\begin_layout Standard
+根据各个节点的实际情况，更新节点的hosts文件。在namenode节点的host文件如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+127.0.0.1 localhost
+\end_layout
+
+\begin_layout Plain Layout
+192.168.1.183 localhost namenode
+\end_layout
+
+\begin_layout Plain Layout
+192.168.1.184 datanode2
+\end_layout
+
+\begin_layout Plain Layout
+192.168.1.108 datanode1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+通过ping测试所有节点均可以相互连通。
+\end_layout
+
+\begin_layout Subsection
+更新所有节点的sources.list文件
+\end_layout
+
+\begin_layout Standard
+为了后面的操作方便，三个节点的/etc/apt/sources.list文件更新为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+deb http://mirrors.sohu.com/debian/ lenny main non-free contrib
+\end_layout
+
+\begin_layout Plain Layout
+deb http://mirrors.sohu.com/debian/ lenny-proposed-updates main non-free contrib
+\end_layout
+
+\begin_layout Plain Layout
+deb-src http://mirrors.sohu.com/debian/ lenny main non-free contrib
+\end_layout
+
+\begin_layout Plain Layout
+deb-src http://mirrors.sohu.com/debian/ lenny-proposed-updates main non-free
+ contrib
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+在所有节点设置ssh无密码登录
+\end_layout
+
+\begin_layout Standard
+首先在所有节点执行：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ ssh-keygen -t rsa -P "" -f ~/.ssh/id_rsa 
+\end_layout
+
+\begin_layout Plain Layout
+$ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys 
+\end_layout
+
+\begin_layout Plain Layout
+$ ssh localhost
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后设置从namenode到datanode1/datanode2的无密码访问，在namenode执行以下命令：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop@datanode1
+\end_layout
+
+\begin_layout Plain Layout
+$ ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop@datanode2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+在所有节点安装jdk
+\end_layout
+
+\begin_layout Standard
+在所有节点执行以下命令安装jdk：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+# aptitude update
+\end_layout
+
+\begin_layout Plain Layout
+# aptitude install openjdk-7-jdk 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+在所有节点安装hadoop 2.x
+\end_layout
+
+\begin_layout Standard
+以下以hadoop用户身份操作：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ wget http://mirrors.hust.edu.cn/apache/hadoop/core/hadoop-2.6.4/hadoop-2.6.4.tar.gz
+\end_layout
+
+\begin_layout Plain Layout
+$ tar xzvf hadoop-2.6.4.tar.gz
+\end_layout
+
+\begin_layout Plain Layout
+$ ln -s hadoop-2.6.4 hadoop
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+设置所有节点的hadoop环境变量
+\end_layout
+
+\begin_layout Standard
+在所有节点编辑.bashrc文件，设置如下的hadoop环境变量：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+# hadoop setup
+\end_layout
+
+\begin_layout Plain Layout
+export JAVA_HOME=/usr
+\end_layout
+
+\begin_layout Plain Layout
+export HADOOP_PREFIX=$HOME/hadoop
+\end_layout
+
+\begin_layout Plain Layout
+export HADOOP_HOME=$HOME/hadoop
+\end_layout
+
+\begin_layout Plain Layout
+export HADOOP_MAPRED_HOME=$HOME/hadoop
+\end_layout
+
+\begin_layout Plain Layout
+export HADOOP_COMMON_HOME=$HOME/hadoop
+\end_layout
+
+\begin_layout Plain Layout
+export HADOOP_HDFS_HOME=$HOME/hadoop
+\end_layout
+
+\begin_layout Plain Layout
+export YARN_HOME=$HOME/hadoop
+\end_layout
+
+\begin_layout Plain Layout
+export HADOOP_CONF_DIR=$HOME/hadoop/etc/hadoop 
+\end_layout
+
+\begin_layout Plain Layout
+export YARN_CONF_DIR=$HOME/hadoop/etc/hadoop
+\end_layout
+
+\begin_layout Plain Layout
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 \end_layout
 
 \end_inset
