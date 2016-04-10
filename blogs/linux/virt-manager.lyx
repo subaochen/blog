@@ -1,0 +1,718 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+multicol
+notice
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman 新宋体
+\font_sans 新宋体
+\font_typewriter 新宋体
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+使用virt-manager安装和管理虚拟机
+\end_layout
+
+\begin_layout Section
+使用virt-manager安装虚拟机
+\end_layout
+
+\begin_layout Standard
+使用虚拟机经历了vmware到virtualbox，qemu倒是没有怎么认真的使用过。最近尝试了一下virt-manager，感觉确实比virtualbox要强
+一些。使用virt-manager安装虚拟机其实也很直观，下面大致说一下步骤：
+\end_layout
+
+\begin_layout Subsection
+新建虚拟机
+\end_layout
+
+\begin_layout Standard
+执行virt-manager，在界面选择“新建虚拟机”的菜单或者工具条即可弹出新建虚拟机的窗口，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:新建虚拟机步骤1"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/virt-manger-1.ps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+新建虚拟机步骤1
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:新建虚拟机步骤1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+一般的，在这里选择从iso映像安装比较方便。如果已经通过其他途径，比如kvm或者qemu安装了虚拟机，可以选择“导入现有磁盘映像”使用virt-manager接
+管虚拟机。
+\end_layout
+
+\begin_layout Subsection
+选择iso镜像文件
+\end_layout
+
+\begin_layout Standard
+这一步没有啥好说的，选择要安装的操作系统的iso映像即可，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:选择iso映像文件"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/virt-manager-2.ps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+选择iso映像文件
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:选择iso映像文件"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+选择虚拟机运行所需要的内存和cpu
+\end_layout
+
+\begin_layout Standard
+根据host主机的实际情况，分配虚拟机可用的cpu和内存，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:选择cpu和内存"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/virt-manager-3.ps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+选择cpu和内存
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:选择cpu和内存"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+创建虚拟磁盘
+\end_layout
+
+\begin_layout Standard
+默认情况下，virt-manager将虚拟机的虚拟磁盘存放到了/var/lib/libvirt/images目录下，这会涉及到权限问题，我个人的习惯是在自己的家
+创建一个虚拟机专用目录，比如k$HOME/kvm，因此在这一步需要选择自定义的存储，即
+\begin_inset Quotes erd
+\end_inset
+
+select or create custom storage，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:选择自定义的虚拟机磁盘目录"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/virt-manager-4.ps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+选择自定义的虚拟机磁盘目录
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:选择自定义的虚拟机磁盘目录"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在接下来选择存储卷的界面，点击“+”创建一个新的虚拟机磁盘映像，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:准备创建新的虚拟机磁盘映像"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/virt-manager-4-2.ps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+准备创建新的虚拟机磁盘映像
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:准备创建新的虚拟机磁盘映像"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+确定虚拟机磁盘映像的格式和大小，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:确定虚拟机磁盘映像的格式和大小"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/virt-manger-4-3.ps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+确定虚拟机磁盘映像的格式和大小
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:确定虚拟机磁盘映像的格式和大小"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+接下来就选择刚刚创建的虚拟机磁盘映像文件，准备安装虚拟机，点击“选择卷”即可，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:选择虚拟机磁盘映像"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/virt-manager-4-4.ps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+选择虚拟机磁盘映像
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:选择虚拟机磁盘映像"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+安装虚拟机
+\end_layout
+
+\begin_layout Standard
+一切准备就绪，给虚拟机起个合适的名字，选择网络类型，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:确定虚拟机名称"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/virt-manager-5.ps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+确定虚拟机名称
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:确定虚拟机名称"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+点击“完成”即进入虚拟机的安装界面，正常安装虚拟机即可，如图所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/virt-manager-6.ps
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+虚拟机安装界面
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:虚拟机安装界面"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+使用virt-manager管理虚拟机
+\end_layout
+
+\begin_layout Standard
+使用virt-manager管理虚拟机就无需赘言了，无非就是启动、停止、暂停、快照等。值得欣赏的是，使用kvm创建的虚拟机可以静默运行，即虚拟机终端关闭了或者v
+irt-manager关闭了，虚拟机仍然在后台运行着，这特别适合于不需要图形用户界面的linux服务器的管理。需要管理虚拟机的时候，把virt-manager呼
+唤出来即可。
+\end_layout
+
+\begin_layout Standard
+另外，virt-manager支持克隆虚拟机，比从头安装一个新的虚拟机要快的多。其实，直接复制一个虚拟机映像文件然后通过virt-manager管理起来，也许比
+virt-manager的克隆更快一些（也许只是感觉，本质上virt-manager的克隆就是复制虚拟机映像文件的）。比如在测试hadoop的分布式安装的时候，
+首先安装好一个虚拟机，在这个虚拟机中配置好基本的hadoop环境，然后直接克隆或者复制几个虚拟机出来，只需要修改一下hostname和hosts文件即可，确实非
+常方便。
+\end_layout
+
+\end_body
+\end_document
