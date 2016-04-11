@@ -366,6 +366,10 @@ source $HOME/.bashrc
 单机安装
 \end_layout
 
+\begin_layout Standard
+感觉这种安装方式没有多大用处？单机安装即无需安装，直接运行hadoop即可。
+\end_layout
+
 \begin_layout Section
 伪分布式安装
 \end_layout
@@ -1305,7 +1309,7 @@ $ ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop@datanode2
 \end_layout
 
 \begin_layout Subsection
-在所有节点安装jdk
+在所有节点安装jdk和rsync
 \end_layout
 
 \begin_layout Standard
@@ -1331,7 +1335,7 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-# aptitude install openjdk-7-jdk 
+# aptitude install openjdk-7-jdk rsync
 \end_layout
 
 \end_inset
@@ -1486,6 +1490,65 @@ $ mkdir -pv $HADOOP_HOME/data/namenode $HADOOP_HOME/logs
 \end_layout
 
 \begin_layout Subsubsection
+配置文件core-site.xml
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<?xml version="1.0" encoding="UTF-8"?>
+\end_layout
+
+\begin_layout Plain Layout
+
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+\end_layout
+
+\begin_layout Plain Layout
+
+<configuration>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <property>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <name>fs.defaultFS</name>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <value>hdfs://192.168.1.183:9000/</value>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <description>NameNode URI</description>
+\end_layout
+
+\begin_layout Plain Layout
+
+    </property>
+\end_layout
+
+\begin_layout Plain Layout
+
+</configuration>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
 配置文件hdfs-site.xml
 \end_layout
 
@@ -1493,6 +1556,16 @@ $ mkdir -pv $HADOOP_HOME/data/namenode $HADOOP_HOME/logs
 \begin_inset listings
 inline false
 status open
+
+\begin_layout Plain Layout
+
+<?xml version="1.0" encoding="UTF-8"?>
+\end_layout
+
+\begin_layout Plain Layout
+
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+\end_layout
 
 \begin_layout Plain Layout
 
@@ -1532,12 +1605,37 @@ status open
 
 \begin_layout Plain Layout
 
+        <name>dfs.datanode.data.dir</name>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <value>/home/hadoop/data/datanode</value>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <description>DataNode directory.</description>
+\end_layout
+
+\begin_layout Plain Layout
+
+    </property>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <property>
+\end_layout
+
+\begin_layout Plain Layout
+
         <name>dfs.replication</name>
 \end_layout
 
 \begin_layout Plain Layout
 
-        <value>1</value>
+        <value>2</value>
 \end_layout
 
 \begin_layout Plain Layout
@@ -1617,7 +1715,7 @@ status open
 
 \begin_layout Plain Layout
 
-         <value>192.168.1.184:50070</value>
+         <value>192.168.1.183:50070</value>
 \end_layout
 
 \begin_layout Plain Layout
@@ -1642,7 +1740,7 @@ status open
 
 \begin_layout Plain Layout
 
-         <value>192.168.1.184:50090</value>
+         <value>192.168.1.183:50090</value>
 \end_layout
 
 \begin_layout Plain Layout
@@ -1690,282 +1788,8 @@ status open
 
 \end_layout
 
-\begin_layout Subsection
-配置datanode
-\end_layout
-
 \begin_layout Subsubsection
-创建数据目录和logs目录
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-$ mkdir -pv $HADOOP_HOME/data/datanode $HADOOP_HOME/logs
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-配置hdfs-site.xml
-\end_layout
-
-\begin_layout Standard
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-<configuration>
-\end_layout
-
-\begin_layout Plain Layout
-
-    <property>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <name>dfs.datanode.data.dir</name>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <value>/home/hadoop/data/datanode</value>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <description>DataNode directory</description>
-\end_layout
-
-\begin_layout Plain Layout
-
-    </property>
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    <property>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <name>dfs.replication</name>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <value>1</value>
-\end_layout
-
-\begin_layout Plain Layout
-
-    </property>
-\end_layout
-
-\begin_layout Plain Layout
-
-    <property>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <name>dfs.permissions</name>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <value>false</value>
-\end_layout
-
-\begin_layout Plain Layout
-
-    </property>
-\end_layout
-
-\begin_layout Plain Layout
-
-    <property>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <name>dfs.datanode.use.datanode.hostname</name>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <value>false</value>
-\end_layout
-
-\begin_layout Plain Layout
-
-    </property>
-\end_layout
-
-\begin_layout Plain Layout
-
-    <property>
-\end_layout
-
-\begin_layout Plain Layout
-
-         <name>dfs.namenode.http-address</name>
-\end_layout
-
-\begin_layout Plain Layout
-
-         <value>192.168.1.108:50070</value>
-\end_layout
-
-\begin_layout Plain Layout
-
-         <description>Your NameNode hostname for http access(according to
- your respective datanode ip).</description>
-\end_layout
-
-\begin_layout Plain Layout
-
-    </property>
-\end_layout
-
-\begin_layout Plain Layout
-
-    <property>
-\end_layout
-
-\begin_layout Plain Layout
-
-         <name>dfs.namenode.secondary.http-address</name>
-\end_layout
-
-\begin_layout Plain Layout
-
-         <value>192.168.1.108:50090</value>
-\end_layout
-
-\begin_layout Plain Layout
-
-         <description>Your Secondary NameNode hostname for http access(according
- to your respective datanode ip).</description>
-\end_layout
-
-\begin_layout Plain Layout
-
-    </property>
-\end_layout
-
-\begin_layout Plain Layout
-
-</configuration>
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-在所有节点配置hadoop-env.sh/core-site.xml/mapred-site.xml/yarn-site.xml
-\end_layout
-
-\begin_layout Subsubsection
-hadoop-env.sh
-\end_layout
-
-\begin_layout Standard
-修改这个文件的主要目的是明确指定JAVA_HOME，防止hadoop运行时找不到JAVA_HOME环境变量。在hadoop-env.sh中修改JAVA_HOME为
-：
-\end_layout
-
-\begin_layout Standard
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-JAVA_HOME=/usr
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-core-site.xml
-\end_layout
-
-\begin_layout Standard
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-<configuration>
-\end_layout
-
-\begin_layout Plain Layout
-
-    <property>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <name>fs.defaultFS</name>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <value>hdfs://192.168.1.x/</value>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <description>Node URI（according to your respective ip addr）</description
->
-\end_layout
-
-\begin_layout Plain Layout
-
-    </property>
-\end_layout
-
-\begin_layout Plain Layout
-
-</configuration>
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-mapred-site.xml
+配置文件mapred-site.xml
 \end_layout
 
 \begin_layout Standard
@@ -2009,7 +1833,7 @@ status open
 \end_layout
 
 \begin_layout Subsubsection
-yarn-site.xml
+配置文件yarn-site.xml
 \end_layout
 
 \begin_layout Standard
@@ -2074,7 +1898,7 @@ status open
 
 \begin_layout Plain Layout
 
-        <value>192.168.1.158:8025</value>
+        <value>192.168.1.183:8020</value>
 \end_layout
 
 \begin_layout Plain Layout
@@ -2094,7 +1918,7 @@ status open
 
 \begin_layout Plain Layout
 
-        <value>192.168.1.158:8030</value>
+        <value>192.168.1.183:8030</value>
 \end_layout
 
 \begin_layout Plain Layout
@@ -2114,7 +1938,7 @@ status open
 
 \begin_layout Plain Layout
 
-        <value>192.168.1.158:8050</value>
+        <value>192.168.1.183:8050</value>
 \end_layout
 
 \begin_layout Plain Layout
@@ -2125,6 +1949,76 @@ status open
 \begin_layout Plain Layout
 
 </configuration>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+配置datanode
+\end_layout
+
+\begin_layout Subsubsection
+创建数据目录和logs目录
+\end_layout
+
+\begin_layout Standard
+在每个数据节点执行命令：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ mkdir -pv $HADOOP_HOME/data/datanode $HADOOP_HOME/logs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+数据节点的配置文件
+\end_layout
+
+\begin_layout Standard
+然后在namenode执行以下命令，将配置文件复制到数据节点（即，数据节点的配置文件和namenode节点的配置文件是一样的）：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ rsync -ravztopg $HADOOP/etc/hadoop/ datanode1:/home/hadoop/hadoop/etc/hadoop/
+\end_layout
+
+\begin_layout Plain Layout
+$ rsync -ravztopg $HADOOP/etc/hadoop/ datanode2:/home/hadoop/hadoop/etc/hadoop/
 \end_layout
 
 \end_inset
@@ -2180,7 +2074,7 @@ hadoop安装目录的/share/hadoop/mapreduce下面自带了一些mapreduce例子
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Frameless
+\begin_inset Box Shaded
 position "t"
 hor_pos "c"
 has_inner_box 1
@@ -2207,15 +2101,15 @@ hadoop jar $HADOOP/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.4.jar
 \end_layout
 
 \begin_layout Subsubsection
-wordcount
-\end_layout
-
-\begin_layout Subsubsection
-计算PI(使用16 maps和10000 samples per map）
+使用蒙特卡洛算法计算PI
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Frameless
+在namenode节点执行：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
 position "t"
 hor_pos "c"
 has_inner_box 1
@@ -2230,20 +2124,12 @@ status open
 
 \begin_layout Plain Layout
 hadoop jar $HADOOP_INSTALL/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.j
-ar pi 16 10000
+ar pi 5 10000
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Subsection
-可能的安装错误
-\end_layout
-
-\begin_layout Standard
-分布式安装可能出现的错误？
 \end_layout
 
 \end_body
