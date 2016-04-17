@@ -1,0 +1,516 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+multicol
+notice
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman 新宋体
+\font_sans 新宋体
+\font_typewriter 新宋体
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+使用蒙特卡罗方法计算圆周率pi
+\end_layout
+
+\begin_layout Section
+蒙特卡罗方法简介
+\end_layout
+
+\begin_layout Standard
+通常，我们解决问题的思路是把复杂问题简单化，把非线性问题线性化，而蒙特卡罗方法
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://en.wikipedia.org/wiki/Monte_Carlo_method
+\end_layout
+
+\end_inset
+
+创造性的把确定性问题转化为不确定性的问题：概率。随着计算机的发展，蒙特卡罗方法获得了广泛的应用，这里简单介绍一下如何使用蒙特卡罗方法求解圆周率。
+\end_layout
+
+\begin_layout Section
+使用蒙特卡罗方法计算𝝅的基本原理
+\end_layout
+
+\begin_layout Standard
+如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:蒙特卡罗方法计算pi的示意图"
+
+\end_inset
+
+所示(此图使用octave
+\begin_inset CommandInset citation
+LatexCommand cite
+key "octave"
+
+\end_inset
+
+画出)，正方形内部有一个内切圆，则正方形和内切圆的面积之比为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\frac{(2r)^{2}}{\pi r^{2}}=\frac{4}{\pi}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+因此，问题转化为计算正方形的面积和其内切圆的面积，而难点在于计算内切圆的面积。
+\end_layout
+
+\begin_layout Standard
+使用蒙特卡罗方法，假设有若干个随机的点分布在正方形内，则正方形内点的个数和内切圆内点的个数之比就近似与正方形和内切圆的面积之比。点数越多，结果越准确，图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:蒙特卡罗方法计算pi的示意图"
+
+\end_inset
+
+是1000个点时的情形。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/src/octave/montecarlo_pi.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+蒙特卡罗方法计算pi的示意图
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:蒙特卡罗方法计算pi的示意图"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Java实现
+\end_layout
+
+\begin_layout Standard
+基本思路是产生一系列[0,1]的随机数坐标(x,y)，然后判断点(x,y)是否落在内切圆内，判断的方法是随机点到圆心的距离小于0.5，即满足公式：
+\begin_inset Formula $\left(x-0.5\right)^{2}+\left(y-0.5\right)^{2}<0.25$
+\end_inset
+
+，因此有了下面的简单的java实现示例：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public class MonteCarloPi {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public static final int COUNTER = 1000;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public static void main(String[] argv) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        double x, y;
+\end_layout
+
+\begin_layout Plain Layout
+
+        double numInside = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        for (int j = 1; j < 8; j++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            numInside = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+            double totalDots = COUNTER * Math.pow(10, j);
+\end_layout
+
+\begin_layout Plain Layout
+
+            long beginTime = System.currentTimeMillis();
+\end_layout
+
+\begin_layout Plain Layout
+
+            for (double i = 0; i < totalDots; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+                x = Math.random();
+\end_layout
+
+\begin_layout Plain Layout
+
+                y = Math.random();
+\end_layout
+
+\begin_layout Plain Layout
+
+                if ((x - 0.5) * (x - 0.5) + (y - 0.5) * (y - 0.5) < 0.25) {
+\end_layout
+
+\begin_layout Plain Layout
+
+                    numInside++;
+\end_layout
+
+\begin_layout Plain Layout
+
+                }
+\end_layout
+
+\begin_layout Plain Layout
+
+            }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+            System.out.println("total dots:" + totalDots 
+\end_layout
+
+\begin_layout Plain Layout
+
+                    + ",numInside:" + numInside 
+\end_layout
+
+\begin_layout Plain Layout
+
+                    + ",PI=" + (4.0 * numInside) / totalDots 
+\end_layout
+
+\begin_layout Plain Layout
+
+                    + ",time(s):" + (System.currentTimeMillis() - beginTime)/1000.
+0);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+尝试改变随机点的数量，可以看出点数越多，计算得到的圆周率越准确：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+total dots:10000.0,numInside:7843.0,PI=3.1372,time(s):0.014
+\end_layout
+
+\begin_layout Plain Layout
+total dots:100000.0,numInside:78671.0,PI=3.14684,time(s):0.015
+\end_layout
+
+\begin_layout Plain Layout
+total dots:1000000.0,numInside:785316.0,PI=3.141264,time(s):0.053
+\end_layout
+
+\begin_layout Plain Layout
+total dots:1.0E7,numInside:7854690.0,PI=3.141876,time(s):0.492
+\end_layout
+
+\begin_layout Plain Layout
+total dots:1.0E8,numInside:7.8536026E7,PI=3.14144104,time(s):4.907
+\end_layout
+
+\begin_layout Plain Layout
+total dots:1.0E9,numInside:7.85402612E8,PI=3.141610448,time(s):49.016
+\end_layout
+
+\begin_layout Plain Layout
+total dots:1.0E10,numInside:7.853979761E9,PI=3.1415919044,time(s):489.65
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+没敢尝试更多的随机点，如果你的电脑足够强悍，可以尝试更多的随机点:-)
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/teaching"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
