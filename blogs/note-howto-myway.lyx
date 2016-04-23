@@ -179,27 +179,501 @@ coderemarks
 \begin_body
 
 \begin_layout Title
-我的笔记之道
+如何记笔记
 \end_layout
 
 \begin_layout Standard
-如何整理笔记，积累知识？
+人过中年，突然想认真的做点事情。你问我，早干吗去了？我也问过自己，从前不认真吗？的确不够认真，至少在知识积累这个方面走过了很多弯路，值得深刻反思。
 \end_layout
 
 \begin_layout Standard
-如何处理电子资料和纸质资料的关系？
+这里说的记笔记，泛指各种知识性材料，包括正式的文章、笔记、随笔等等，目的是通过长期的知识积累形成自己的风格和知识框架、体系。
+\end_layout
+
+\begin_layout Section
+记笔记的用途
 \end_layout
 
 \begin_layout Standard
-如何平衡博客和印象笔记的关系？
+每个人记笔记的用途不同，因而而已，下面图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:笔记的用途"
+
+\end_inset
+
+是我个人记笔记的用途，和大家分享：
 \end_layout
 
 \begin_layout Standard
-如何平衡精读和泛读的关系？
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/why-note.svg
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+笔记的用途
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:笔记的用途"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+纸质笔记还是电子笔记？
 \end_layout
 
 \begin_layout Standard
-如何进行文献管理？
+纸质笔记和电子笔记各有优缺点，如表
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:纸质笔记和电子笔记的对比"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top" width="40line%">
+<column alignment="center" valignment="top" width="40line%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+类型
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+优点
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+缺点
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+纸质笔记
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+\align left
+对眼睛的伤害小
+\end_layout
+
+\begin_layout Itemize
+\align left
+可以方便的在笔记上任意勾画标记
+\end_layout
+
+\begin_layout Itemize
+\align left
+制作纸质笔记可以帮助记忆
+\end_layout
+
+\begin_layout Itemize
+\align left
+纸质笔记更有成就感
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+\align left
+不方便搜索
+\end_layout
+
+\begin_layout Itemize
+\align left
+不方便建立索引
+\end_layout
+
+\begin_layout Itemize
+\align left
+不方便在网络上分享笔记
+\end_layout
+
+\begin_layout Itemize
+\align left
+不方便携带和共享到其他设备
+\end_layout
+
+\begin_layout Itemize
+\align left
+依赖于打印机等设备，需要耗材
+\end_layout
+
+\begin_layout Itemize
+\align left
+不易长久保存：不过，有多少需要流传后世的笔记？
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+电子笔记
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+\align left
+方便搜集、整理网络等电子材料
+\end_layout
+
+\begin_layout Itemize
+\align left
+可以方便的共享到手机、平板等其他设备
+\end_layout
+
+\begin_layout Itemize
+\align left
+可以方便的在网络上分享笔记
+\end_layout
+
+\begin_layout Itemize
+\align left
+可以方便的分类、打标签
+\end_layout
+
+\begin_layout Itemize
+\align left
+可以方便的搜索
+\end_layout
+
+\begin_layout Itemize
+\align left
+借助于OCR等可以将纸质材料扫描进电子笔记
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+\align left
+容易泛滥造成笔记垃圾
+\end_layout
+
+\begin_layout Itemize
+\align left
+寻找一个稳定、可靠的网络笔记平台不易
+\end_layout
+
+\begin_layout Itemize
+\align left
+在不能上网的环境下只能干着急
+\end_layout
+
+\begin_layout Itemize
+\align left
+如果网络笔记平台崩溃或者倒闭可能带来灾难性后果
+\end_layout
+
+\begin_layout Itemize
+\align left
+长期面对屏幕对眼睛的伤害大
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+纸质笔记和电子笔记的对比
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:纸质笔记和电子笔记的对比"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+鉴于以上的分析，个人还是持中立态度，即电子笔记和纸质笔记都使用，不同类型的笔记采用不同的存储和索引方式，在
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:记笔记的方式"
+
+\end_inset
+
+一节中会详细阐述不同的笔记类型采用什么样的存储和索引方式。
+\end_layout
+
+\begin_layout Section
+记笔记的方式
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:记笔记的方式"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+显然，不同类型、不同用途的笔记需要采用不同的方式。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/not-storage.svg
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+笔记的不同存储途径
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:笔记的不同存储途径"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+读书笔记
+\end_layout
+
+\begin_layout Standard
+养成写读书笔记的习惯还是很有好处的。我的读书笔记通常分为以下两个类型：
+\end_layout
+
+\begin_layout Itemize
+综述性读书笔记：记录书籍的总体轮廓和主要观点以及自己的心得体会，主要用于泛读性质的图书。
+\end_layout
+
+\begin_layout Itemize
+研读性笔记：需要精度的书，往往需要写多篇读书笔记，从综述到细节不等。这种读书笔记通常会随着自己认识的加深需要不断修改。
+\end_layout
+
+\begin_layout Standard
+读书笔记我通常放到博客分享出去。
+\end_layout
+
+\begin_layout Subsection
+文章搜集
+\end_layout
+
+\begin_layout Standard
+这里主要指网络上的文章，来源可能是平时的网络浏览、微信、电子邮件等等。此类的素材如果时间允许阅读后放到印象笔记并添加适当的标签，如果时间不允许就先保存到印象笔记
+，记得每天阅读和整理。
+\end_layout
+
+\begin_layout Standard
+这类素材往往来源多样化，内容零碎，需要极其耐心的分类整理。分类整理的主要原则是建立不同的笔记类型和添加合适的标签，关于如何分类和合适的标签，个人感觉
+\begin_inset CommandInset href
+LatexCommand href
+name "这样记笔记，可能改变你的一生"
+target "http://toutiao.com/i6262452804527325697/"
+
+\end_inset
+
+讲的不错，可以参考，重点是：
+\end_layout
+
+\begin_layout Itemize
+笔记本的层次要恰当，太深不方便浏览，太浅造成资料堆积。
+\end_layout
+
+\begin_layout Itemize
+标签不要过于具体，否则会造成标签泛滥，反而失去了标签的作用。
+\end_layout
+
+\begin_layout Standard
+由于我个人只是将印象笔记作为网络资料的收容所，并非重度印象笔记使用者，因此笔记本和标签的使用暂时比较简单。
+\end_layout
+
+\begin_layout Subsection
+教学素材
+\end_layout
+
+\begin_layout Standard
+无论从哪个途径获得有利于教学的素材，包括文章、图片、动画等等，一律放到印象笔记中保存整理。
+\end_layout
+
+\begin_layout Standard
+各种教学申报等资料，放到git仓库中保存起来，也便于版本控制。
+\end_layout
+
+\begin_layout Subsection
+学术素材
+\end_layout
+
+\begin_layout Standard
+这要分几种情况：
+\end_layout
+
+\begin_layout Itemize
+网络上的学术相关的素材，就放到印象笔记中保存整理。
+\end_layout
+
+\begin_layout Itemize
+需要认真研读的资料，一般打印出来放到快劳夹中分类整理。
+\end_layout
+
+\begin_layout Itemize
+所有学术相关的资料，一律及时建立文献索引条目，放到git仓库中保存整理。
+\end_layout
+
+\begin_layout Subsection
+技术心得
+\end_layout
+
+\begin_layout Standard
+这部分内容主要是通过lyx写出来，分享到博客了。
+\end_layout
+
+\begin_layout Subsection
+家庭教育
+\end_layout
+
+\begin_layout Standard
+这部分内容也是通过lyx写出来，分享到博客了。如果是网络收集的的资料，就放到印象笔记整理保存。如果需要给孩子看，就打印出来。
+\end_layout
+
+\begin_layout Subsection
+兴趣爱好
+\end_layout
+
+\begin_layout Standard
+主要是将搜集的资料整理到印象笔记中，部分自己编写的通过博客分享出去。
+\end_layout
+
+\begin_layout Section
+不同笔记材料的相互转化
+\end_layout
+
+\begin_layout Standard
+纸质材料和电子材料其实是可以相互转化的，也许将来全部采用电子笔记的形式？也许将来git仓库是唯一的笔记存储媒介（强大的find/grep赛过全文搜索）？也许可以
+利用大数据技术管理笔记？也许......
 \end_layout
 
 \end_body
