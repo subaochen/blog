@@ -1,0 +1,349 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+multicol
+notice
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman 新宋体
+\font_sans 新宋体
+\font_typewriter 新宋体
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+5月12日小组内部交流
+\end_layout
+
+\begin_layout Standard
+5月12日下午3点，本实验室在1号实验楼311进行了内部技术交流，也顺便谈了谈“人生”，主要内容如下：
+\end_layout
+
+\begin_layout Section
+关于二叉树的基本概念和C语言实现
+\end_layout
+
+\begin_layout Standard
+季福宇同学和雷雨辰同学分别就树、二叉树的基本概念和C语言实现做了1个小时左右的介绍（二人同时在讲台，有点说相声的感觉，如果达到说相声的效果就完美了）。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../../imgs/softlab-lecture/IMG_20160512_152200_HDR.jpg
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+季福宇同学介绍二叉树
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+实话说，树和二叉树的内容还是比较多的，在一个小时内讲完还是相当有挑战的，大家重点还是通过C语言的实现（递归和非递归的思路）理解二叉树的创建、遍历、搜索，这是一个
+很好的加深对递归的理解的地方。
+\end_layout
+
+\begin_layout Standard
+同时，对于“小老师”这种形式，也提出了进一步的要求：
+\end_layout
+
+\begin_layout Itemize
+提前做好简单的PPT，重点是把要介绍的内容提纲挈领的表达出来。
+\end_layout
+
+\begin_layout Itemize
+学会重点突出的介绍主要知识点。这要求你首先能够识别出哪些是重点，才能重点介绍。
+\end_layout
+
+\begin_layout Itemize
+特别强调要“刨根问底”，对于感兴趣的知识，一定要彻底搞清楚来龙去脉。
+\end_layout
+
+\begin_layout Section
+Linux下的常见画图工具
+\end_layout
+
+\begin_layout Standard
+介绍了三种在Linux下面的常见画图工具：
+\end_layout
+
+\begin_layout Itemize
+gimp，强大如PS，由于本人不熟悉PS，还有待各位同学自己探索。
+\end_layout
+
+\begin_layout Itemize
+dia，可以很方便的绘制流程图、示意图等，当然也有很多其他类型图形的工具箱，自行探索。
+\end_layout
+
+\begin_layout Itemize
+graphviz，编程方式的绘图，介绍了几个简单的使用dot创建图形的例子，建议进一步阅读：
+\begin_inset CommandInset href
+LatexCommand href
+name "softlab wiki"
+target "http://softlab.sdut.edu.cn/wiki/index.php?title=Graphviz"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+其实除了以上三种常见的绘图工具之外，Linux还有很多的优秀绘图工具，比如绘制电路图的electric，绘制UML的umbrello，绘制CAD的
+\begin_inset CommandInset href
+LatexCommand href
+name "免费linux CAD软件"
+target "http://blog.csdn.net/ngvjai/article/details/8228660"
+
+\end_inset
+
+等等：精彩的Linux世界等待你去发掘！
+\end_layout
+
+\begin_layout Section
+尽早确立努力的方向
+\end_layout
+
+\begin_layout Standard
+谈谈人生，老生常谈。
+\end_layout
+
+\begin_layout Standard
+花了不少的时间谈这个问题：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../../imgs/major-direction.png
+	width 90line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+个人发展方向
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+希望大家在暑假前后想清楚自己的发展道路，再找时间具体讨论。
+\end_layout
+
+\end_body
+\end_document
