@@ -264,5 +264,80 @@ reference "eq:1"
 
 \end_layout
 
+\begin_layout Section
+余弦定理和线性代数
+\end_layout
+
+\begin_layout Standard
+如果把三角形的三条边看做三个向量，则可以利用线性代数的知识证明余弦定理：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/math/cosine-vectore.eps
+	lyxscale 30
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+线性代数中的余弦定理
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:线性代数中的余弦定理"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:线性代数中的余弦定理"
+
+\end_inset
+
+中，向量c=a-b，因此有：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Vert c\Vert^{2}=\Vert a-b\Vert^{2}=(a-b)\cdot(a-b)=a\cdot a+b\cdot b-2a\cdot b=\Vert a\Vert^{2}+\Vert b\Vert^{2}-2\Vert a\Vert\Vert b\Vert cos\theta
+\]
+
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document
