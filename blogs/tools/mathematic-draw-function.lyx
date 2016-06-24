@@ -183,6 +183,22 @@ Mathematica画图
 \end_layout
 
 \begin_layout Section
+Mathemataica语法概要
+\end_layout
+
+\begin_layout Standard
+Mathematica语法和matlab还是有一些差别的，主要注意一下几点：
+\end_layout
+
+\begin_layout Itemize
+所有函数都是大写字母开头的，比如Sin,Pi。
+\end_layout
+
+\begin_layout Itemize
+函数的参数列表使用方括号。
+\end_layout
+
+\begin_layout Section
 画散列点
 \end_layout
 
