@@ -182,19 +182,32 @@ coderemarks
 浅析CDI 1.2的内置qualifier @Default和@Any
 \end_layout
 
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
 \begin_layout Section
 Qualifier的意义
 \end_layout
 
 \begin_layout Standard
-CDI 1.2（JSR-346)通过组件的类型而不是名称查找组件，这是实现loose coupling with strong typing的关键所在：CDI会在
-系统初始化阶段解析所有组件的注入请求，无论是组件无法找到还是根据组件的类型找到了多个组件，系统都会报错，从而避免了因为使用组件的名称而导致的运行时隐含错误。
+CDI 1.2（JSR-346)通过组件的
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+类型
+\end_layout
+
+\end_inset
+
+而不是名称查找组件，这是实现loose coupling with strong typing的关键所在：CDI会在系统初始化阶段解析所有组件的注入请求，无论是
+组件无法找到还是根据组件的类型找到了多个组件，系统都会报错，从而避免了因为使用组件的名称而导致的运行时隐含错误。
 \end_layout
 
 \begin_layout Standard
 但是，有时只通过组件的类型无法区分组件，比如一个接口的两个不同实现便就有重复的类型（相同的接口），因此CDI引入了qualifier，联合组件的类型一起决定组件
-的查找路径。也就是说，当仅凭组件的类型无法定位唯一的组件时，可以附加qualifier实现联合定位。一个组件可以使用多个qualifier来联合定位，称为“qu
-alifier列表”（没有官方的定义，我自己的说法）。
+的查找路径。一个组件可以使用多个qualifier来联合辅助定位，称为“qualifier列表”（没有官方的定义，我自己的说法）。
 \end_layout
 
 \begin_layout Standard
@@ -202,22 +215,1331 @@ CDI内置了两个特殊的qualifer：
 \end_layout
 
 \begin_layout Itemize
-@Default：如果组件没有显式设置任何的qualifier，则系统默认添加一个qualifier：@Default。
+@Default：如果组件没有显式设置任何的qualifier，则系统默认添加一个qualifier：@Default。也就是说，没有指定qualifier的组
+件定义和组件查询，默认其实使用@Default作为组件的qualifier。
 \end_layout
 
 \begin_layout Itemize
-@Any：如果组件显式设置了@Any，则会屏蔽默认的@Default，即组件的qualifier列表中存在@Any，但是没有@Default。如果组件没有设置@
-Any，则组件的qualifier列表中存在@Default，@Any。
+@Any：如果组件显式设置了任何qualifier则会屏蔽掉默认的@Default，即组件的qualifier列表中存在@Any，但是没有@Default。任何
+组件定义时的qualifier列表至少存在一个@Any。
 \end_layout
 
 \begin_layout Standard
-也就是说，如果组件没有显式配置任何qulifier，则其qualifier列表是@Default，@Any；如果组件配置了@Default，则其qualifie
-r列表是@Default，@Any+其他自定义qualifier；如果组件配置了@Any，则其qualifier列表是@Any+其他自定义qualifier，不
-包含@Default。
+@Default和@Any的用法总结如表
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:@Default和@Any的作用"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="35line%">
+<column alignment="left" valignment="top" width="35line%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+qualifiers
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+定义组件时的作用
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+请求组件时的作用
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@Default
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+如果没有为组件设置任何qualifier，则@Default有效；如果为组件设置了任何的qualifier，则@Default失效
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+没有指定qualifier则使用@Default请求组件
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@Any
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+无论是否为组件设置qualifier，@Any都有效
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+一般用于请求所有某种类型的组件
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+@Default和@Any的作用
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:@Default和@Any的作用"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+通常，在组件定义时没有必要使用@Default和@Any来修饰组件，只有在注入组件，即请求组件时才需要使用@Any或者@Default来辅助定位组件。其中，@D
+efault甚至在任何场合下都应该忽略掉，@Any一般只用于需要列出指定类型的所有组件时。
 \end_layout
 
 \begin_layout Section
 实战验证
+\end_layout
+
+\begin_layout Standard
+上面的定义也许比较抽象，下面通过实例逐步展开@Default和@Any的神秘面纱。也感谢Arun Gupta贡献了这个绝好的例子：
+\begin_inset CommandInset href
+LatexCommand href
+name "https://blogs.oracle.com/arungupta/entry/totd_161_java_ee_6"
+target "https://blogs.oracle.com/arungupta/entry/totd_161_java_ee_6"
+
+\end_inset
+
+，本人对这个实例做了进一步的完善，并说明了如何在weld 1.2/wildfly 10.0的环境下完整的实现和部署这个例子，以帮助读者能够亲身验证@Default和
+@Any的用法，更好的理解CDI组件的定位原则。本例的完整的代码请移步：
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/subaochen/weld-tutorial"
+target "https://github.com/subaochen/weld-tutorial"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Subsection
+只有SimpleGreeting的情形
+\end_layout
+
+\begin_layout Standard
+首先我们有一个Greeting接口：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+package cn.edu.sdut.r314;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public interface Greeting {
+\end_layout
+
+\begin_layout Plain Layout
+
+    public String greet(String name);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后给出一个简单的Greeting实现：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+package cn.edu.sdut.r314;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class SimpleGreeting implements Greeting {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public String greet(String name) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return "Hello " + name;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+一个GreetingController类，方便和WEB交互。在这里我们注入了Greeting组件：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+package cn.edu.sdut.r314;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import javax.inject.Inject;
+\end_layout
+
+\begin_layout Plain Layout
+
+import javax.inject.Named;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+@Named
+\end_layout
+
+\begin_layout Plain Layout
+
+public class GreetingController {
+\end_layout
+
+\begin_layout Plain Layout
+
+    // 等价于@Inject @Default Greeting greeting
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Inject Greeting greeting;
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void sayHello(String name){
+\end_layout
+
+\begin_layout Plain Layout
+
+        greeting.greet(name);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+到目前未知，我们的系统中只有两个组件：SimpleGreeting和GreetingController，见表
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:组件的基本属性"
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+名称
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+类型
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+qualifier
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+SimpleGreeting
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Object,Greeting,SimpleGreeting
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@Any,@Default
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GreetingController
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Object,GreetingController
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@Any,@Default
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+组件的基本属性
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:组件的基本属性"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+从表
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:组件的基本属性"
+
+\end_inset
+
+可以看出，根据类型Greeting和@Default定位组件时，只能够找到SimpleGreeting，因此@Inject Greeting greeting是
+安全的，不会产生歧义。
+\end_layout
+
+\begin_layout Standard
+再增加一个简单的xhtml页面：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<?xml version="1.0" encoding="UTF-8"?>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<!DOCTYPE html
+\end_layout
+
+\begin_layout Plain Layout
+
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+\end_layout
+
+\begin_layout Plain Layout
+
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+\end_layout
+
+\begin_layout Plain Layout
+
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+\end_layout
+
+\begin_layout Plain Layout
+
+<h:head>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <title>welcome to weld qualifiers demo</title>
+\end_layout
+
+\begin_layout Plain Layout
+
+</h:head>
+\end_layout
+
+\begin_layout Plain Layout
+
+<h:body>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <h:outputText value="#{greetingController.sayHello('su baochen')}"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+</h:body>
+\end_layout
+
+\begin_layout Plain Layout
+
+</html>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+现在可以部署到wildfly看一下效果了：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+subaochen@debian:~/git/weld-tutorial/qualifiers$ mvn clean wildfly:deploy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+见证奇迹的时刻到了，见图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:只有SimpleGreeting的情形"
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/cdi_hello.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+只有SimpleGreeting的情形
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:只有SimpleGreeting的情形"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出，虽然我们在注入组件的时候请求的是Greeting接口类型的组件，但是由于目前只有SimpleGreeting
+\end_layout
+
+\begin_layout Standard
+这一个Greeting接口的实现，因此容器能够安全的返回唯一的组件，即SimpleGreeting的一个实例。
+\end_layout
+
+\begin_layout Subsubsection
+进一步的变化
+\end_layout
+
+\begin_layout Standard
+根据@Default和@Any的定义，事实上下面的几种用法在上面的例子中都是等价的：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+@Inject @Default Greeting greeting;
+\end_layout
+
+\begin_layout Plain Layout
+
+@Inject @Any Greeting greeting;
+\end_layout
+
+\begin_layout Plain Layout
+
+@Inject @Default @Any Greeting greeting;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+存在两个Greeting实现的情形
+\end_layout
+
+\begin_layout Standard
+现在引入一个新的Greeting接口的实现：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+package cn.edu.sdut.r314;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class FancyGreeting implements Greeting {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public String greet(String name) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return "Nice to meet you, hello " + name;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如果直接部署应用，可以发现在终端提示如下的信息：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+[ERROR] Caused by: org.jboss.weld.exceptions.DeploymentException: WELD-001409:
+ Ambiguous dependencies for type Greeting with qualifiers @Default
+\end_layout
+
+\begin_layout Plain Layout
+[ERROR] at injection point [BackedAnnotatedField] @Inject cn.edu.sdut.r314.GreetingC
+ontroller.greeting
+\end_layout
+
+\begin_layout Plain Layout
+[ERROR] at cn.edu.sdut.r314.GreetingController.greeting(GreetingController.java:0)
+\end_layout
+
+\begin_layout Plain Layout
+[ERROR] Possible dependencies:
+\end_layout
+
+\begin_layout Plain Layout
+[ERROR] - Managed Bean [class cn.edu.sdut.r314.FancyGreeting] with qualifiers
+ [@Any @Default],
+\end_layout
+
+\begin_layout Plain Layout
+[ERROR] - Managed Bean [class cn.edu.sdut.r314.SimpleGreeting] with qualifiers
+ [@Any @Default]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，在解析@Inject Greeting greeting时，容器找到了两个组件SimpleGreeting和FancyGreeting的类型都是Gre
+eting，而两个组件的qualifier列表都是@Any,@Default，因此容器无法区分或者决定应该注入哪个组件，因此报告：Ambiguous
+ dependencies for type Greeting with qualifiers @Default。
+\end_layout
+
+\begin_layout Standard
+解决的办法是为两个Greeting的实现分别指定不同的qualifier（或者至少配置一个实现的qulifier），这样就可以根据不同的qualifier唯一定
+位组件了。比如，为FancyGreeting设计和指定一个qualifier：@Fancy，@Fancy定义如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+package cn.edu.sdut.r314;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import static java.lang.annotation.ElementType.FIELD;
+\end_layout
+
+\begin_layout Plain Layout
+
+import static java.lang.annotation.ElementType.METHOD;
+\end_layout
+
+\begin_layout Plain Layout
+
+import static java.lang.annotation.ElementType.PARAMETER;
+\end_layout
+
+\begin_layout Plain Layout
+
+import static java.lang.annotation.ElementType.TYPE;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.lang.annotation.Retention;
+\end_layout
+
+\begin_layout Plain Layout
+
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.lang.annotation.Target;
+\end_layout
+
+\begin_layout Plain Layout
+
+import javax.inject.Qualifier;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+/**
+\end_layout
+
+\begin_layout Plain Layout
+
+ *
+\end_layout
+
+\begin_layout Plain Layout
+
+ * @author subaochen
+\end_layout
+
+\begin_layout Plain Layout
+
+ */
+\end_layout
+
+\begin_layout Plain Layout
+
+@Qualifier
+\end_layout
+
+\begin_layout Plain Layout
+
+@Target({TYPE,METHOD,FIELD,PARAMETER})
+\end_layout
+
+\begin_layout Plain Layout
+
+@Retention(RUNTIME)
+\end_layout
+
+\begin_layout Plain Layout
+
+public @interface Fancy {
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后为FancyGreeting配置@Fancy qualifier：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+@Fancy
+\end_layout
+
+\begin_layout Plain Layout
+
+public class FancyGreeting implements Greeting {
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+再次表格列出目前的三个组件的类型和qualifier列表，如表
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:组件的类型和qualifier列表"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="3">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+组件
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+类型
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+qualifier列表
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+SimpleGreeting
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+SimpleGreeting,Greeting,Object
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@Default,@Any
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FancyGreeting
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FancyGreeting,Greeting,Object
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@Fancy,@Any
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GreetingController
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GreetingController,Object
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@Default,@Any
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+组件的类型和qualifier列表
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:组件的类型和qualifier列表"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+从表
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:组件的类型和qualifier列表"
+
+\end_inset
+
+我们一目了然可以看出，以下的组件请求都是安全的：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+// 返回FancyGreeting实例
+\end_layout
+
+\begin_layout Plain Layout
+
+@Inject @Fancy Greeting greeting;
+\end_layout
+
+\begin_layout Plain Layout
+
+// 返回FancyGreeting实例
+\end_layout
+
+\begin_layout Plain Layout
+
+@Inject @Fancy @Any Greeting greeting;
+\end_layout
+
+\begin_layout Plain Layout
+
+// 返回SimpleGreeting实例
+\end_layout
+
+\begin_layout Plain Layout
+
+@Inject Greeting greeting;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以实验在不同的组件请求方式下，浏览器的输出是不一样的。
+\end_layout
+
+\begin_layout Subsection
+@Any的常规用法
+\end_layout
+
+\begin_layout Standard
+到这里可以看出，任何时候组件都有一个@Any qualifier，因此配合组件的类型和@Any可以返回所有此种类型的组件，这在遍历组件的时候特别有用，比如我们可
+以通过下面的代码遍历所有Greeting类型的组件：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+    @Inject @Any Instance<Greeting> greetings;
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    public String hello(String name) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        String helloString = "";
+\end_layout
+
+\begin_layout Plain Layout
+
+        for(Greeting greeting:greetings) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            helloString += greeting.greet(name);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\end_layout
+
+\begin_layout Plain Layout
+
+        return helloString;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
