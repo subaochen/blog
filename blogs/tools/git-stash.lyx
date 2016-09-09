@@ -1,0 +1,923 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+multicol
+notice
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+git stash的用法小结
+\end_layout
+
+\begin_layout Section
+使用场景
+\end_layout
+
+\begin_layout Standard
+你正在featureX分支上奋力的开发，预计还需要一整天的时间才能完成，突然领导说有一个紧急的bug需要修复，而且这个bug还在另外的一个分支上（比如说mast
+er分支）！这就需要将当前的工作场景暂时保存下来，在bug修复完成后再切换回来，就像函数的调用一样：在调用函数之前要保护好调用点的“现场”，以便函数返回后能够“
+恢复现场”。学过单片机或者微机原理的童鞋对“现场保护”技术应该有很清晰的认识。
+\end_layout
+
+\begin_layout Standard
+git提供了方便的手段来完美的应对这个场景，主要通过git branch和git stash来实现。
+\end_layout
+
+\begin_layout Section
+案例说明
+\end_layout
+
+\begin_layout Standard
+假设我们创建一个测试目录git-test，并初始化git仓库：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git init
+\end_layout
+
+\begin_layout Plain Layout
+初始化空的 Git 仓库于 /home/subaochen/test/git-test/.git/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后在此目录编辑一个readme.txt文件并提交：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ cat readme.txt
+\end_layout
+
+\begin_layout Plain Layout
+init state
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git add readme.txt 
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git commit -m'init commit'
+\end_layout
+
+\begin_layout Plain Layout
+[master（根提交） 1bfb34b] init commit
+\end_layout
+
+\begin_layout Plain Layout
+1 file changed, 1 insertion(+)
+\end_layout
+
+\begin_layout Plain Layout
+create mode 100644 readme.txt
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后我们创建并切换到分支dev继续工作，在readme.txt中增加了一行：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git checkout -b dev
+\end_layout
+
+\begin_layout Plain Layout
+切换到一个新分支 'dev'
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ cat readme.txt 
+\end_layout
+
+\begin_layout Plain Layout
+init state
+\end_layout
+
+\begin_layout Plain Layout
+I'm working hard on dev branch
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这时，问题来了，老板突然说master分支需要修正一个bug，但是当下dev分支还不能提交，于是可以先这样把dev分支的当前场景暂时保存起来：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git stash
+\end_layout
+
+\begin_layout Plain Layout
+Saved working directory and index state WIP on dev: 1bfb34b init commit
+\end_layout
+
+\begin_layout Plain Layout
+HEAD 现在位于 1bfb34b init commit
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ cat readme.txt 
+\end_layout
+
+\begin_layout Plain Layout
+init state
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git branch
+\end_layout
+
+\begin_layout Plain Layout
+* dev
+\end_layout
+
+\begin_layout Plain Layout
+master
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出，执行git stash后，你在dev分支没有提交的修改暂时被“藏”了起来，看起来dev分支是干净的。但是，请一定注意，你还在dev分支！因为你需要切换
+到master分支去修改bug，因此此时需要切换到master分支（如果不执行git stash就切换到master分支是不行的：git会报告当前dev分支还存
+在未提交的修改，比如先提交才允许你切换分支，而出于各种原因，你还不能现在提交dev分支的内容，这就是git stash存在的价值）：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git checkout master
+\end_layout
+
+\begin_layout Plain Layout
+切换到分支 'master'
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后在master分支修改bug即可，比如在readme.txt文件增加一行：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ cat readme.txt 
+\end_layout
+
+\begin_layout Plain Layout
+init state,fixed the bug
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git add readme.txt 
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git commit -m'fix bug'
+\end_layout
+
+\begin_layout Plain Layout
+[master acc8f33] fix bug
+\end_layout
+
+\begin_layout Plain Layout
+1 file changed, 1 insertion(+), 1 deletion(-)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+ok，bug修复完了，现在可以找回修复bug之前的场景，返回到dev分支继续开发了。但是，且慢！首先看一下现在所处的分支：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git branch
+\end_layout
+
+\begin_layout Plain Layout
+dev
+\end_layout
+
+\begin_layout Plain Layout
+* master
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+因此需要首先切换到dev分支：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git checkout dev
+\end_layout
+
+\begin_layout Plain Layout
+切换到分支 'dev'
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后再恢复之前的场景：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git stash pop
+\end_layout
+
+\begin_layout Plain Layout
+位于分支 dev
+\end_layout
+
+\begin_layout Plain Layout
+尚未暂存以备提交的变更：
+\end_layout
+
+\begin_layout Plain Layout
+（使用 "git add <文件>..." 更新要提交的内容）
+\end_layout
+
+\begin_layout Plain Layout
+（使用 "git checkout -- <文件>..." 丢弃工作区的改动）
+\end_layout
+
+\begin_layout Plain Layout
+修改： readme.txt
+\end_layout
+
+\begin_layout Plain Layout
+修改尚未加入提交（使用 "git add" 和/或 "git commit -a"）
+\end_layout
+
+\begin_layout Plain Layout
+丢弃了 refs/stash@{0} (5a18c0e9f521c9e750ab492ef6e635c9c64c994b)
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ cat readme.txt 
+\end_layout
+
+\begin_layout Plain Layout
+init state
+\end_layout
+
+\begin_layout Plain Layout
+I'm working hard on dev branch
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出，通过git stash pop后，我们找回了没有提交的内容，可以在这个基础上继续开发了，比如增加一行：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ echo "working hard on dev branch again"
+ >> readme.txt
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也许现在是提交dev分支的时候了：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git add readme.txt 
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git commit -m'dev branch finished!'
+\end_layout
+
+\begin_layout Plain Layout
+[dev 3d9e97c] dev branch finished!
+\end_layout
+
+\begin_layout Plain Layout
+1 file changed, 2 insertions(+)
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git branch
+\end_layout
+
+\begin_layout Plain Layout
+* dev
+\end_layout
+
+\begin_layout Plain Layout
+master
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git log --oneline --decorate --graph --all
+\end_layout
+
+\begin_layout Plain Layout
+* 3d9e97c (HEAD -> dev) dev branch finished!
+\end_layout
+
+\begin_layout Plain Layout
+| * 6edc86c (master) fix the bug
+\end_layout
+
+\begin_layout Plain Layout
+|/ 
+\end_layout
+
+\begin_layout Plain Layout
+* 49192bd init commit
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如果dev分支要合并到master分支，会出现什么情况呢？
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git checkout master
+\end_layout
+
+\begin_layout Plain Layout
+切换到分支 'master'
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git merge dev
+\end_layout
+
+\begin_layout Plain Layout
+自动合并 readme.txt
+\end_layout
+
+\begin_layout Plain Layout
+冲突（内容）：合并冲突于 readme.txt
+\end_layout
+
+\begin_layout Plain Layout
+自动合并失败，修正冲突然后提交修正的结果。
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ cat readme.txt 
+\end_layout
+
+\begin_layout Plain Layout
+<<<<<<< HEAD
+\end_layout
+
+\begin_layout Plain Layout
+init state,fixed the bug
+\end_layout
+
+\begin_layout Plain Layout
+=======
+\end_layout
+
+\begin_layout Plain Layout
+init state
+\end_layout
+
+\begin_layout Plain Layout
+I'm working hard on dev branch
+\end_layout
+
+\begin_layout Plain Layout
+working hard on dev branch again
+\end_layout
+
+\begin_layout Plain Layout
+>>>>>>> dev
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+解决冲突后提交：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ cat readme.txt 
+\end_layout
+
+\begin_layout Plain Layout
+init state,fixed the bug
+\end_layout
+
+\begin_layout Plain Layout
+I'm working hard on dev branch
+\end_layout
+
+\begin_layout Plain Layout
+working hard on dev branch again
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git add readme.txt 
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git commit -m'fix the conflict on readme.txt'
+\end_layout
+
+\begin_layout Plain Layout
+[master 40b8e2f] fix the conflict on readme.txt
+\end_layout
+
+\begin_layout Plain Layout
+subaochen@debian:~/test/git-test$ git log --oneline --decorate --graph --all
+\end_layout
+
+\begin_layout Plain Layout
+* 40b8e2f (HEAD -> master) fix the conflict on readme.txt
+\end_layout
+
+\begin_layout Plain Layout
+|
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+| * 3d9e97c (dev) dev branch finished!
+\end_layout
+
+\begin_layout Plain Layout
+* | 6edc86c fix the bug
+\end_layout
+
+\begin_layout Plain Layout
+|/ 
+\end_layout
+
+\begin_layout Plain Layout
+* 49192bd init commit
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
