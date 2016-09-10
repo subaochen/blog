@@ -203,6 +203,10 @@ git提供了方便的手段来完美的应对这个场景，主要通过git bran
 \end_layout
 
 \begin_layout Standard
+一步步跟踪或者实作下面的操作，5分钟深刻理解git stash的妙处:-)
+\end_layout
+
+\begin_layout Standard
 假设我们创建一个测试目录git-test，并初始化git仓库：
 \end_layout
 
@@ -913,6 +917,47 @@ subaochen@debian:~/test/git-test$ git log --oneline --decorate --graph --all
 \begin_layout Plain Layout
 * 49192bd init commit
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+小结
+\end_layout
+
+\begin_layout Standard
+git stash用于隐藏未提交(commit)的变更，因此在使用时要注意以下几点：
+\end_layout
+
+\begin_layout Itemize
+要时刻注意当前处于哪个分支？只有在执行git stash命令的分支才可以执行git stash pop。
+\end_layout
+
+\begin_layout Itemize
+特别需要注意的是，git stash
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+只保存跟踪文件的快照
+\end_layout
+
+\end_inset
+
+，也就是说，如果没有使用git add跟踪需要保存的文件，git stash pop是没法恢复的！因此，执行git stash之前，应该使用git
+ status查看一下当前工作区的状态，是否还存在没有跟踪的文件。这似乎是git stash的一个“坑”，不要因此丢掉工作。不过，可以使用-u选项避免这个问题。
+为什么git stash不把-u作为默认设置呢？
+\end_layout
+
+\begin_layout Itemize
+git stash可以像栈一样“压入”多个“现场”保护起来，然后像栈的弹出一样依次“恢复现场”，看起来很酷，但是并不实用，因为一般情况下git
+ stash/git stash pop配合就足够应付了。如果你需要更复杂的git stash用法，可以git –help stash或者参见这篇文章：
+\begin_inset CommandInset href
+LatexCommand href
+name "https://www.atlassian.com/git/tutorials/git-stash/"
+target "https://www.atlassian.com/git/tutorials/git-stash/"
 
 \end_inset
 
