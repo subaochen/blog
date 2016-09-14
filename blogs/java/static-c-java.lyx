@@ -181,7 +181,7 @@ coderemarks
 \begin_body
 
 \begin_layout Title
-deltaspike的JPA支持
+漫谈C和Java的static
 \end_layout
 
 \begin_layout Author
@@ -189,11 +189,7 @@ deltaspike的JPA支持
 \end_layout
 
 \begin_layout Standard
-研究transactional和非transactional方法的区别（具体表现）
-\end_layout
-
-\begin_layout Standard
-JPA 2.1:https://jcp.org/en/jsr/detail?id=338
+通过对比c和java中static的不同用法，重点说明在Java中如何正确的使用static。
 \end_layout
 
 \end_body

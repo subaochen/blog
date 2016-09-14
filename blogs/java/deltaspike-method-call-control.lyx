@@ -181,19 +181,101 @@ coderemarks
 \begin_body
 
 \begin_layout Title
-deltaspike的JPA支持
+Deltaspike中控制Java类或者方法的调用
 \end_layout
 
-\begin_layout Author
-宿宝臣<subaochen@126.com>
-\end_layout
-
-\begin_layout Standard
-研究transactional和非transactional方法的区别（具体表现）
+\begin_layout Section
+应用场景
 \end_layout
 
 \begin_layout Standard
-JPA 2.1:https://jcp.org/en/jsr/detail?id=338
+很多时候，为了安全期间，我们需要限制某些类或者类中的某些方法仅供特定角色使用，比如管理员有添加用户的权利，普通用户只能更新用户信息。此种调用控制，以前我们只能通
+过在相应的方法中自己检查用户的身份来确认，代码冗长而笨重，如伪代码
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:传统的方法调用检查"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+传统的方法调用检查
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:传统的方法调用检查"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public void addUser(User user) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    // 检查用户的身份是否管理员
+\end_layout
+
+\begin_layout Plain Layout
+
+    if(operator is admin) add User;
+\end_layout
+
+\begin_layout Plain Layout
+
+    else return;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Deltaspike借助于拦截器和注解提供了更优雅的调用控制，参加
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:示例"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+示例
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:示例"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
