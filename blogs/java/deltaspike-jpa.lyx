@@ -189,6 +189,173 @@ deltaspike的JPA支持
 \end_layout
 
 \begin_layout Standard
+下面的描述基于以下的运行环境：
+\end_layout
+
+\begin_layout Itemize
+Java 8
+\end_layout
+
+\begin_layout Itemize
+wildfly 10.0.0.Final
+\end_layout
+
+\begin_layout Itemize
+Deltaspike 1.7.2-SNAPSHOT
+\end_layout
+
+\begin_layout Section
+环境配置
+\end_layout
+
+\begin_layout Standard
+JPA环境主要涉及到两个方面，datasource的设置和如何方便的获取EntityManager。下面的设置方法针对JavaEE环境，这也是Deltaspik
+e的主要使用场合。
+\end_layout
+
+\begin_layout Subsection
+设置datasource
+\end_layout
+
+\begin_layout Standard
+datasource的设置主要涉及到两个方面：容器管理的datasource和persistence.xml文件的编写。由于我们使用了wildfly已经自带的Ex
+ampleDS，因此第一个方面（容器管理的datasource）在这里可以省略，如果需要配置容器管理的datasource，可以参考：
+\begin_inset CommandInset href
+LatexCommand href
+name "jboss as 7配置postgresql数据源的方法"
+target "http://dz.sdut.edu.cn/blog/subaochen/2013/08/jboss-as-7%E9%85%8D%E7%BD%AEpostgresql%E6%95%B0%E6%8D%AE%E6%BA%90%E7%9A%84%E6%96%B9%E6%B3%95/"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+在项目的src/main/resources/META-INF目录创建文件persistence.xml，内容如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<?xml version="1.0" encoding="UTF-8"?>
+\end_layout
+
+\begin_layout Plain Layout
+
+<persistence version="2.0"
+\end_layout
+
+\begin_layout Plain Layout
+
+             xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w
+3.org/2001/XMLSchema-instance"
+\end_layout
+
+\begin_layout Plain Layout
+
+             xsi:schemaLocation="
+\end_layout
+
+\begin_layout Plain Layout
+
+        http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistenc
+e/persistence_2_0.xsd">
+\end_layout
+
+\begin_layout Plain Layout
+
+    <persistence-unit name="primary" transaction-type="JTA">
+\end_layout
+
+\begin_layout Plain Layout
+
+        <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <class>org.apache.deltaspike.example.Article</class>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        <properties>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+\end_layout
+
+\begin_layout Plain Layout
+
+            <property name="hibernate.show_sql" value="true" />
+\end_layout
+
+\begin_layout Plain Layout
+
+        </properties>
+\end_layout
+
+\begin_layout Plain Layout
+
+    </persistence-unit>
+\end_layout
+
+\begin_layout Plain Layout
+
+</persistence>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这里的要点是：
+\end_layout
+
+\begin_layout Itemize
+persistence-unit的名字在这个例子中并不重要，因为本例中只有一个persistence-unit，当我们@Produces EntityManag
+erFactory的时候，自然就只能从这个唯一的persistence-unit中获取相关信息。
+\end_layout
+
+\begin_layout Itemize
+注意persistence-unit的transaction-type要设置为JTA，否则默认为RESOURCE_LOCAL，在程序中无法使用@Transact
+ional了。
+\end_layout
+
+\begin_layout Itemize
+jta-data-source的内容要和$WILDFLY_HOME/standalone/configuration/standalone.xml文件中关于Exa
+mpleDS的定义一致。
+\end_layout
+
+\begin_layout Itemize
+这里使用了hibernate作为JPA provider，因此properties中设置了hibernate的相关属性。
+\end_layout
+
+\begin_layout Subsection
+获取EntityManager
+\end_layout
+
+\begin_layout Section
+需要进一步研究的问题
+\end_layout
+
+\begin_layout Standard
 研究transactional和非transactional方法的区别（具体表现）
 \end_layout
 
