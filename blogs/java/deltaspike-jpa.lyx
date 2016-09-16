@@ -241,6 +241,27 @@ status open
 
 \begin_layout Plain Layout
 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+persistence.xml
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:persistence.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
 <?xml version="1.0" encoding="UTF-8"?>
 \end_layout
 
@@ -335,7 +356,7 @@ erFactory的时候，自然就只能从这个唯一的persistence-unit中获取�
 
 \begin_layout Itemize
 注意persistence-unit的transaction-type要设置为JTA，否则默认为RESOURCE_LOCAL，在程序中无法使用@Transact
-ional了。
+ional来使用JPA的事务了。
 \end_layout
 
 \begin_layout Itemize
@@ -344,11 +365,278 @@ mpleDS的定义一致。
 \end_layout
 
 \begin_layout Itemize
-这里使用了hibernate作为JPA provider，因此properties中设置了hibernate的相关属性。
+这里使用了hibernate作为JPA provider，因此properties中设置了hibernate的相关属性。hibernate-hbm2ddl.aut
+o属性值为create时，每次部署应用程序都会重新创建数据表，方便录入测试数据。其他可选值为create-drop,validate,update。
+\end_layout
+
+\begin_layout Itemize
+注意jta-data-source/class的顺序，jta-data-source的定义在前，class的定义在后，如果弄反了不会报错，但是无法访问数据库（这
+貌似是一个bug?）。
+\end_layout
+
+\begin_layout Standard
+需要注意的是，网络上关于persistence.xml的格式五花八门，重点从以下几个方面鉴别你需要的格式：
+\end_layout
+
+\begin_layout Itemize
+JPA的版本号，1.0? 2.0? 也就是persistence_2_0.xsd中的数字要注意一下。
+\end_layout
+
+\begin_layout Itemize
+使用环境是JavaEE还是JavaSE？如果是JavaEE只能使用如
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:persistence.xml"
+
+\end_inset
+
+所示的容器管理的datasource，如果是JavaEE可以在persistence.xml中直接配置jdbc url/driver等属性，比如下面的配置写法只适
+应于JavaSE环境：
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+<properties>
+\end_layout
+
+\begin_layout Plain Layout
+<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"
+ />
+\end_layout
+
+\begin_layout Plain Layout
+<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"
+ />
+\end_layout
+
+\begin_layout Plain Layout
+<property name="hibernate.connection.username" value="root" />
+\end_layout
+
+\begin_layout Plain Layout
+<property name="hibernate.connection.password" value="root" />
+\end_layout
+
+\begin_layout Plain Layout
+<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/jpa?u
+seUnicode=true&amp;characterEncoding=UTF-8" />
+\end_layout
+
+\begin_layout Plain Layout
+<property name="hibernate.hbm2ddl.auto" value="update" /> 
+\end_layout
+
+\begin_layout Plain Layout
+</properties>
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
 获取EntityManager
+\end_layout
+
+\begin_layout Standard
+使用CDI获取EntityManager也是区分JavaEE环境和JavaSE，具体参见deltaspike JPA module的说明：我们这里使用JavaE
+E环境，因此编写Resources.java文件@Produces一个EntityManager，以便在其他组件中注入使用：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+Resources.java
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Resources.java"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class Resources
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @PersistenceUnit
+\end_layout
+
+\begin_layout Plain Layout
+
+    private EntityManagerFactory entityManagerFactory;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Produces
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Default
+\end_layout
+
+\begin_layout Plain Layout
+
+    @RequestScoped
+\end_layout
+
+\begin_layout Plain Layout
+
+    public EntityManager create()
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return this.entityManagerFactory.createEntityManager();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void dispose(@Disposes @Default EntityManager entityManager)
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (entityManager.isOpen())
+\end_layout
+
+\begin_layout Plain Layout
+
+        {
+\end_layout
+
+\begin_layout Plain Layout
+
+            entityManager.close();
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Produces
+\end_layout
+
+\begin_layout Plain Layout
+
+    @RequestScoped
+\end_layout
+
+\begin_layout Plain Layout
+
+    public FacesContext produceFacesContext()
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return FacesContext.getCurrentInstance();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
