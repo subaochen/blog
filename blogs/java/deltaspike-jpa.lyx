@@ -204,6 +204,10 @@ wildfly 10.0.0.Final
 Deltaspike 1.7.2-SNAPSHOT
 \end_layout
 
+\begin_layout Standard
+完整的案例源代码已经PR到了deltaspike/deltaspike/examples/jpa-examples。
+\end_layout
+
 \begin_layout Section
 环境配置
 \end_layout
@@ -244,7 +248,6 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
 persistence.xml
 \begin_inset CommandInset label
 LatexCommand label
@@ -469,7 +472,6 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
 Resources.java
 \begin_inset CommandInset label
 LatexCommand label
@@ -497,6 +499,17 @@ public class Resources
 
 \begin_layout Plain Layout
 
+    //在这里不需要使用unitName进一步明确说明PersistenceUnit的来源，
+\end_layout
+
+\begin_layout Plain Layout
+
+    //因为我们在persistence.xml中只定义了一个persistence-unit，
+\end_layout
+
+\begin_layout Plain Layout
+
+    //系统自动采用了这唯一的一个persistence-unit。
 \end_layout
 
 \begin_layout Plain Layout
@@ -639,16 +652,258 @@ public class Resources
 
 \end_layout
 
+\begin_layout Standard
+这样，我们就可以在事物逻辑处理代码中直接注入EntityManager了，比如在ArticleController中可以这样使用：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+@Named
+\end_layout
+
+\begin_layout Plain Layout
+
+@ViewScoped
+\end_layout
+
+\begin_layout Plain Layout
+
+@Transactional
+\end_layout
+
+\begin_layout Plain Layout
+
+public class ArticleController implements Serializable
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+    private Article article = new Article();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @HttpParam("aid") 
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Inject
+\end_layout
+
+\begin_layout Plain Layout
+
+    private String aid; // article id
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Inject
+\end_layout
+
+\begin_layout Plain Layout
+
+    private EntityManager em;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Article findArticleById(Long id)
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        article = em.find(Article.class, id);
+\end_layout
+
+\begin_layout Plain Layout
+
+        return article;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public String persist()
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        article.setDate(new Date());
+\end_layout
+
+\begin_layout Plain Layout
+
+        em.merge(this.article);
+\end_layout
+
+\begin_layout Plain Layout
+
+        facesContext.addMessage(null, new FacesMessage("article:" + article.getTit
+le() + " persisted"));
+\end_layout
+
+\begin_layout Plain Layout
+
+        return "persisted";
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    ......
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+注意到，我们在persist方法汇总使用了em.merge，而不是常见的em.persist方法，这是因为我们使用了@ViewScoped，尤其是从list.xhtm
+l跳转到add.xhtml编辑具体文章时，被编辑文章在保存时，文章对象已经detach了，因此需要使用EntityManger的merge方法把detached
+ entity找回来。如果组件的生命周期使用@RequestScoped则无需考虑detached entity问题。
+\end_layout
+
 \begin_layout Section
 需要进一步研究的问题
 \end_layout
 
-\begin_layout Standard
-研究transactional和非transactional方法的区别（具体表现）
+\begin_layout Subsection
+页面的初始化方法
 \end_layout
 
 \begin_layout Standard
-JPA 2.1:https://jcp.org/en/jsr/detail?id=338
+从文章列表list.xhtml点击edit链接跳转到add.xhtml页面时，需要在add.xhtml页面初始化articleController.article对象，
+以便显示被编辑文章的初始内容。本例采用了JSF的viewAction来实现页面的初始化，是否有更“优雅”的方式初始化页面中涉及的组件对象呢？
+\end_layout
+
+\begin_layout Standard
+一个思路是，设计一个叫做@PageAction的注解，将此注解和JSF生命周期的拦截器结合起来，即在JSF的合适生命周期调用使用@PageAction注解过的方
+法初始化页面组件，比如这样的用法：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+@PageAction(
+\begin_inset Quotes eld
+\end_inset
+
+add.xhtml
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+public void initPage(){
+\end_layout
+
+\begin_layout Plain Layout
+......
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+感觉这思路还不如直接使用JSF的ViewAction直观:-)
+\end_layout
+
+\begin_layout Subsection
+如何使用@RequestScoped编辑文章？
+\end_layout
+
+\begin_layout Standard
+在编辑文章时，由于article对象在保存时已经detach了，即显示和保存是分别由两个事务来完成的，因此@RequestScoped很难协调使得来自于两个事务
+的Article对象，这是本例使用@ViewScoped的原因：当使用@ViewScoped时，容器维护了article对象在当前页面的状态，因此保存文章时只需
+要merge进来被显示的article对象即可。也就是说，虽然article对象分别由两个事务处理（一个加载，一个保存），但是对象的状态是连续的。
+\end_layout
+
+\begin_layout Standard
+有没有好的办法可以基于@RequestScoped实现文章的编辑呢？
+\end_layout
+
+\begin_layout Subsection
+business logic需要分层设计吗？
+\end_layout
+
+\begin_layout Standard
+本例中，所有的business logic都封装在单一层ArticleController，有没有必要分成Bean层和Service层呢？思考中.....
 \end_layout
 
 \end_body
