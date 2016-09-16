@@ -522,7 +522,17 @@ name "fig:没有调整坐标轴时的图形"
 \end_layout
 
 \begin_layout Standard
-这个时候需要明确指定坐标轴的比例模式为Automatic：
+这个时候需要明确指定坐标轴的比例模式为Automatic
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+调整坐标轴的比例方法似乎在显示单个函数图形时无效？
+\end_layout
+
+\end_inset
+
+：
 \end_layout
 
 \begin_layout Standard
