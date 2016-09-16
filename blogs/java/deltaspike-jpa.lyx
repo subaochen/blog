@@ -1,7 +1,9 @@
-#LyX 2.1 created this file. For more info see http://www.lyx.org/
-\lyxformat 474
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
 \begin_document
 \begin_header
+\save_transient_properties true
+\origin unavailable
 \textclass ctex-article
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
@@ -117,16 +119,16 @@ coderemarks
 \language_package default
 \inputencoding utf8-plain
 \fontencoding global
-\font_roman 新宋体
-\font_sans 新宋体
-\font_typewriter 新宋体
-\font_math auto
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
 \font_default_family default
 \use_non_tex_fonts true
 \font_sc false
 \font_osf false
-\font_sf_scale 100
-\font_tt_scale 100
+\font_sf_scale 100 100
+\font_tt_scale 100 100
 \graphics default
 \default_output_format pdf4
 \output_sync 0
@@ -179,114 +181,74 @@ coderemarks
 \begin_body
 
 \begin_layout Title
-Mathematica画图
+deltaspike的JPA支持
 \end_layout
 
-\begin_layout Section
-Mathemataica语法概要
+\begin_layout Author
+宿宝臣<subaochen@126.com>
 \end_layout
 
 \begin_layout Standard
-Mathematica语法和matlab还是有一些差别的，主要注意一下几点：
+下面的描述基于以下的运行环境：
 \end_layout
 
 \begin_layout Itemize
-所有函数都是大写字母开头的，比如Sin,Pi。
+Java 8
 \end_layout
 
 \begin_layout Itemize
-函数的参数列表使用方括号。
+wildfly 10.0.0.Final
+\end_layout
+
+\begin_layout Itemize
+Deltaspike 1.7.2-SNAPSHOT
 \end_layout
 
 \begin_layout Section
-画散列点
+环境配置
 \end_layout
 
 \begin_layout Standard
-散列点的数据可以从csv，xls等导入：
+JPA环境主要涉及到两个方面，datasource的设置和如何方便的获取EntityManager。下面的设置方法针对JavaEE环境，这也是Deltaspik
+e的主要使用场合。
+\end_layout
+
+\begin_layout Subsection
+设置datasource
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
+datasource的设置主要涉及到两个方面：容器管理的datasource和persistence.xml文件的编写。由于我们使用了wildfly已经自带的Ex
+ampleDS，因此第一个方面（容器管理的datasource）在这里可以省略，如果需要配置容器管理的datasource，可以参考：
+\begin_inset CommandInset href
+LatexCommand href
+name "jboss as 7配置postgresql数据源的方法"
+target "http://dz.sdut.edu.cn/blog/subaochen/2013/08/jboss-as-7%E9%85%8D%E7%BD%AEpostgresql%E6%95%B0%E6%8D%AE%E6%BA%90%E7%9A%84%E6%96%B9%E6%B3%95/"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+在项目的src/main/resources/META-INF目录创建文件persistence.xml，内容如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
 status open
 
 \begin_layout Plain Layout
-data=Import[
-\begin_inset Quotes eld
-\end_inset
 
-/home/subaochen/docs/test.xlsx
-\begin_inset Quotes erd
-\end_inset
-
-]
-\end_layout
-
-\begin_layout Plain Layout
-{{{0.2, 1.8}, {0.65, 3.6}, {1.13, 5.4}, {2.55, 7.2}, {4., 9.}, {5.75, 
-\end_layout
-
-\begin_layout Plain Layout
-10.8}, {7.8, 12.6}, {10.2, 14.4}, {12.9, 16.2}, {16., 18.}, {18.4, 
-\end_layout
-
-\begin_layout Plain Layout
-19.8}}}
-\end_layout
-
-\begin_layout Plain Layout
-ListPlot[data]
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-效果大致如图
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:散列点"
-
-\end_inset
-
-所示：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/scatter-mm.eps
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-散列点
+
+persistence.xml
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:散列点"
+name "lis:persistence.xml"
 
 \end_inset
 
@@ -300,6 +262,82 @@ name "fig:散列点"
 
 \begin_layout Plain Layout
 
+<?xml version="1.0" encoding="UTF-8"?>
+\end_layout
+
+\begin_layout Plain Layout
+
+<persistence version="2.0"
+\end_layout
+
+\begin_layout Plain Layout
+
+             xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w
+3.org/2001/XMLSchema-instance"
+\end_layout
+
+\begin_layout Plain Layout
+
+             xsi:schemaLocation="
+\end_layout
+
+\begin_layout Plain Layout
+
+        http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistenc
+e/persistence_2_0.xsd">
+\end_layout
+
+\begin_layout Plain Layout
+
+    <persistence-unit name="primary" transaction-type="JTA">
+\end_layout
+
+\begin_layout Plain Layout
+
+        <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <class>org.apache.deltaspike.example.Article</class>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        <properties>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+\end_layout
+
+\begin_layout Plain Layout
+
+            <property name="hibernate.show_sql" value="true" />
+\end_layout
+
+\begin_layout Plain Layout
+
+        </properties>
+\end_layout
+
+\begin_layout Plain Layout
+
+    </persistence-unit>
+\end_layout
+
+\begin_layout Plain Layout
+
+</persistence>
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
@@ -308,250 +346,52 @@ name "fig:散列点"
 \end_layout
 
 \begin_layout Standard
-但是在线性或者非线性回归分析时，导入的数据总是多了一对{}，需要手工去掉，不知道为什么。
+这里的要点是：
 \end_layout
 
-\begin_layout Section
-画单个函数
+\begin_layout Itemize
+persistence-unit的名字在这个例子中并不重要，因为本例中只有一个persistence-unit，当我们@Produces EntityManag
+erFactory的时候，自然就只能从这个唯一的persistence-unit中获取相关信息。
+\end_layout
+
+\begin_layout Itemize
+注意persistence-unit的transaction-type要设置为JTA，否则默认为RESOURCE_LOCAL，在程序中无法使用@Transact
+ional来使用JPA的事务了。
+\end_layout
+
+\begin_layout Itemize
+jta-data-source的内容要和$WILDFLY_HOME/standalone/configuration/standalone.xml文件中关于Exa
+mpleDS的定义一致。
+\end_layout
+
+\begin_layout Itemize
+这里使用了hibernate作为JPA provider，因此properties中设置了hibernate的相关属性。hibernate-hbm2ddl.aut
+o属性值为create时，每次部署应用程序都会重新创建数据表，方便录入测试数据。其他可选值为create-drop,validate,update。
+\end_layout
+
+\begin_layout Itemize
+注意jta-data-source/class的顺序，jta-data-source的定义在前，class的定义在后，如果弄反了不会报错，但是无法访问数据库（这
+貌似是一个bug?）。
 \end_layout
 
 \begin_layout Standard
-这个就很直接了，见图
+需要注意的是，网络上关于persistence.xml的格式五花八门，重点从以下几个方面鉴别你需要的格式：
+\end_layout
+
+\begin_layout Itemize
+JPA的版本号，1.0? 2.0? 也就是persistence_2_0.xsd中的数字要注意一下。
+\end_layout
+
+\begin_layout Itemize
+使用环境是JavaEE还是JavaSE？如果是JavaEE只能使用如
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:单个函数的画法"
+reference "lis:persistence.xml"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-Plot[Sqrt[1-x],{x,-1,1}]
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/single-fucntion-mm.eps
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-单个函数的画法
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:单个函数的画法"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-同时画出多个函数
-\end_layout
-
-\begin_layout Standard
-同时画出多个函数可以使用Show函数，见图
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:同时画出多个函数"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-Plot[{2^x, 3^x, 10^x}, {x, -1, 1}, PlotLabels -> "Expressions"]
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/multi-functions-mm.eps
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-同时画出多个函数
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:同时画出多个函数"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-坐标轴比例的调整
-\end_layout
-
-\begin_layout Standard
-如果不定义坐标轴的比例，Mathemataica默认是以黄金分割的比例来显示的，有的时候会造成视觉的误导，比如函数Sqrt(x-1)和x^2+1互为反函数，但是
-命令：Plot[{Sqrt[x-1],x^2+1,x},{x,0,2},PlotLabels->“Expressions
-\begin_inset Quotes erd
-\end_inset
-
-]显示如图
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:没有调整坐标轴时的图形"
-
-\end_inset
-
-所示，显然这样的图形难以说明两个函数关于y=x对称的事实。
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/two-functions-aspection-no-adjust.eps
-	width 80line%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-没有调整坐标轴时的图形
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:没有调整坐标轴时的图形"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-这个时候需要明确指定坐标轴的比例模式为Automatic
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-调整坐标轴的比例方法似乎在显示单个函数图形时无效？
-\end_layout
-
-\end_inset
-
-：
-\end_layout
-
-\begin_layout Standard
+所示的容器管理的datasource，如果是JavaEE可以在persistence.xml中直接配置jdbc url/driver等属性，比如下面的配置写法只适
+应于JavaSE环境：
 \begin_inset Box Frameless
 position "t"
 hor_pos "c"
@@ -563,14 +403,46 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-Plot[{Sqrt[x - 1], x^2 + 1, x}, {x, 0, 2}, 
+<properties>
 \end_layout
 
 \begin_layout Plain Layout
-PlotLabels -> "Expressions", AspectRatio -> Automatic]
+<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"
+ />
+\end_layout
+
+\begin_layout Plain Layout
+<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"
+ />
+\end_layout
+
+\begin_layout Plain Layout
+<property name="hibernate.connection.username" value="root" />
+\end_layout
+
+\begin_layout Plain Layout
+<property name="hibernate.connection.password" value="root" />
+\end_layout
+
+\begin_layout Plain Layout
+<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/jpa?u
+seUnicode=true&amp;characterEncoding=UTF-8" />
+\end_layout
+
+\begin_layout Plain Layout
+<property name="hibernate.hbm2ddl.auto" value="update" /> 
+\end_layout
+
+\begin_layout Plain Layout
+</properties>
 \end_layout
 
 \end_inset
@@ -578,31 +450,34 @@ PlotLabels -> "Expressions", AspectRatio -> Automatic]
 
 \end_layout
 
-\begin_layout Standard
-显示出来的图形虽然大了些，但是更直观了，如图所示：
+\begin_layout Subsection
+获取EntityManager
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
+使用CDI获取EntityManager也是区分JavaEE环境和JavaSE，具体参见deltaspike JPA module的说明：我们这里使用JavaE
+E环境，因此编写Resources.java文件@Produces一个EntityManager，以便在其他组件中注入使用：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
 status open
 
 \begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/aspect-automatic-pics-mmm.eps
-	height 60pheight%
 
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-等比例显示的图形
+
+Resources.java
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Resources.java"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -612,92 +487,168 @@ status open
 
 \begin_layout Plain Layout
 
+public class Resources
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @PersistenceUnit
+\end_layout
+
+\begin_layout Plain Layout
+
+    private EntityManagerFactory entityManagerFactory;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Produces
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Default
+\end_layout
+
+\begin_layout Plain Layout
+
+    @RequestScoped
+\end_layout
+
+\begin_layout Plain Layout
+
+    public EntityManager create()
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return this.entityManagerFactory.createEntityManager();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void dispose(@Disposes @Default EntityManager entityManager)
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (entityManager.isOpen())
+\end_layout
+
+\begin_layout Plain Layout
+
+        {
+\end_layout
+
+\begin_layout Plain Layout
+
+            entityManager.close();
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Produces
+\end_layout
+
+\begin_layout Plain Layout
+
+    @RequestScoped
+\end_layout
+
+\begin_layout Plain Layout
+
+    public FacesContext produceFacesContext()
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return FacesContext.getCurrentInstance();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-遗憾的是，没有找到在哪里设置默认以Automatic的比例模式显示图形？有知道的麻烦告知一下，谢谢！
 \end_layout
 
 \begin_layout Section
-坐标箭头问题
+需要进一步研究的问题
 \end_layout
 
 \begin_layout Standard
-通常教材上的直角坐标是带箭头的，而mathematics默认画出的直角坐标是不带箭头的。如果要画出箭头，可以使用AxesStyle -> Arrowheads来
-定义箭头的方向和大小，比如：
+研究transactional和非transactional方法的区别（具体表现）
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-Plot[1/x, {x, -20, 20}, AxesStyle -> Arrowheads[{0.05, 0.05}]]
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-ArrowHeads的参数为正表示箭头方向符合常规，数值大小表示箭头的大小。实验表明数值取0.03~0.05时，箭头的大小比较合适，如图所示：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/function-pic-with-arrow.eps
-	width 70line%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-带箭头的直角坐标系
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-大概这几个函数教高中的孩子画函数图形应该够用了:-)
+JPA 2.1:https://jcp.org/en/jsr/detail?id=338
 \end_layout
 
 \end_body

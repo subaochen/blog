@@ -179,212 +179,181 @@ coderemarks
 \begin_body
 
 \begin_layout Title
-Mathematica画图
+deltaspike中的页面导航
 \end_layout
 
 \begin_layout Section
-Mathemataica语法概要
+type safe view config
 \end_layout
 
 \begin_layout Standard
-Mathematica语法和matlab还是有一些差别的，主要注意一下几点：
+在JSF中，大家习惯在face-config.xml中设置导航规则，而deltaspike提供了type-safe的页面导航设置方法。这里的关键词是type
+ safe，按照deltaspike自己的说法，type safe的view config有如下的好处：
 \end_layout
 
 \begin_layout Itemize
-所有函数都是大写字母开头的，比如Sin,Pi。
+It is type-safe
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+the Java compiler ensures that you do not have typos at the final usages
+ (and the rest can be checked during bootstrapping of the application)
 \end_layout
 
 \begin_layout Itemize
-函数的参数列表使用方括号。
+you can benefit from the auto.complete features of any modern Java IDE.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+If you change the name of a file/folder, you need only one (easy) code-change
+ in a single place and your (standard Java-) IDE will do the rest for you
+ (= update all usages) without a special plug-in
+\end_layout
+
+\begin_layout Itemize
+It is possible to restrict the navigation target → you can ensure that the
+ navigation target is still the intended one (e.g.
+ after a refactoring)
+\end_layout
+
+\begin_layout Itemize
+You can configure meta-data in a central place (which can get inherited
+ via multiple inheritance based on Java interfaces)
+\end_layout
+
+\begin_layout Itemize
+Easier for developers to find usages
+\end_layout
+
+\begin_layout Itemize
+Allows easy(er) refactorings and maintenance
+\end_layout
+
+\begin_layout Itemize
+You can use your IDE more efficiently especially in large projects (there
+ are some users who initially switched to it, because their tools for displaying
+ the config they had before open large config files very slowly…​)
+\end_layout
+
+\begin_layout Itemize
+Modern Java IDEs show inheritance of interfaces and classes in a nice way.
+ Since the view-config is based on standard classes and interfaces, you
+ can benefit from it easily.
+\end_layout
+
+\begin_layout Standard
+deltaspike中，使用接口来表示路径（Folder），使用类来表示具体的页面（view），一个简单的页面布局类似于下面的文件：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public interface Pages implements ViewConfig
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+    class Index implements Pages { }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    interface Admin extends ViewConfig
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        class Index implements Admin { }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+好用不好用，试过才知道，下面通过一个具体的实例看一下deltaspike的type safe view config能否解决页面导航的基本问题，参见：
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/subaochen/deltaspike-tutorial"
+target "https://github.com/subaochen/deltaspike-tutorial"
+
+\end_inset
+
+中的page-nav。
 \end_layout
 
 \begin_layout Section
-画散列点
+如何表示网站的首页？
 \end_layout
 
 \begin_layout Standard
-散列点的数据可以从csv，xls等导入：
+定义一个根目录下面的RootPages interface，设置Folder属性为“/”即可：
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
+\begin_inset listings
+inline false
 status open
 
 \begin_layout Plain Layout
-data=Import[
-\begin_inset Quotes eld
-\end_inset
 
-/home/subaochen/docs/test.xlsx
-\begin_inset Quotes erd
-\end_inset
-
-]
-\end_layout
-
-\begin_layout Plain Layout
-{{{0.2, 1.8}, {0.65, 3.6}, {1.13, 5.4}, {2.55, 7.2}, {4., 9.}, {5.75, 
-\end_layout
-
-\begin_layout Plain Layout
-10.8}, {7.8, 12.6}, {10.2, 14.4}, {12.9, 16.2}, {16., 18.}, {18.4, 
-\end_layout
-
-\begin_layout Plain Layout
-19.8}}}
-\end_layout
-
-\begin_layout Plain Layout
-ListPlot[data]
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-效果大致如图
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:散列点"
-
-\end_inset
-
-所示：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/scatter-mm.eps
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-散列点
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:散列点"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+@Folder(name="/")
 \end_layout
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-但是在线性或者非线性回归分析时，导入的数据总是多了一对{}，需要手工去掉，不知道为什么。
-\end_layout
-
-\begin_layout Section
-画单个函数
-\end_layout
-
-\begin_layout Standard
-这个就很直接了，见图
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:单个函数的画法"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-Plot[Sqrt[1-x],{x,-1,1}]
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/single-fucntion-mm.eps
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-单个函数的画法
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:单个函数的画法"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+public interface RootPages extends ViewConfig {
 \end_layout
 
 \begin_layout Plain Layout
 
+    public class Index implements RootPages{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    public class Other implements RootPages{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset
@@ -393,36 +362,26 @@ name "fig:单个函数的画法"
 \end_layout
 
 \begin_layout Section
-同时画出多个函数
+如何定义默认出错页面？
 \end_layout
 
 \begin_layout Standard
-同时画出多个函数可以使用Show函数，见图
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:同时画出多个函数"
-
-\end_inset
-
-
+首先要定义一个出错页面，deltaspike已经为我们创建一个模板，因此直接继承下来即可：
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
+\begin_inset listings
+inline false
 status open
 
 \begin_layout Plain Layout
-Plot[{2^x, 3^x, 10^x}, {x, -1, 1}, PlotLabels -> "Expressions"]
+
+    @View(name="error")
+\end_layout
+
+\begin_layout Plain Layout
+
+    public class ErrorPage extends DefaultErrorView {}
 \end_layout
 
 \end_inset
@@ -431,41 +390,32 @@ Plot[{2^x, 3^x, 10^x}, {x, -1, 1}, PlotLabels -> "Expressions"]
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
+然后在业务逻辑处理代码中，可以直接使用这个模板即可，deltaspike会自动根据上面的页面定义找到我们的默认出错页面：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
 status open
 
 \begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/multi-functions-mm.eps
 
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-同时画出多个函数
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:同时画出多个函数"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+    public Class<? extends ViewConfig> toErrorPage(){
 \end_layout
 
 \begin_layout Plain Layout
 
+        // 直接使用DefaultErrorView即可，无需记住真正的出错页面的名字
+\end_layout
+
+\begin_layout Plain Layout
+
+        return DefaultErrorView.class;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
 \end_layout
 
 \end_inset
@@ -474,230 +424,172 @@ name "fig:同时画出多个函数"
 \end_layout
 
 \begin_layout Section
-坐标轴比例的调整
+如何设置页面跳转为redirect？
 \end_layout
 
 \begin_layout Standard
-如果不定义坐标轴的比例，Mathemataica默认是以黄金分割的比例来显示的，有的时候会造成视觉的误导，比如函数Sqrt(x-1)和x^2+1互为反函数，但是
-命令：Plot[{Sqrt[x-1],x^2+1,x},{x,0,2},PlotLabels->“Expressions
-\begin_inset Quotes erd
-\end_inset
-
-]显示如图
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:没有调整坐标轴时的图形"
-
-\end_inset
-
-所示，显然这样的图形难以说明两个函数关于y=x对称的事实。
+在合适的位置（可以继承）这样设置，注意到navigation=REDIRECT：
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
+\begin_inset listings
+inline false
 status open
 
 \begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/two-functions-aspection-no-adjust.eps
-	width 80line%
 
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-没有调整坐标轴时的图形
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:没有调整坐标轴时的图形"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+@View(navigation=REDIRECT)
 \end_layout
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-这个时候需要明确指定坐标轴的比例模式为Automatic
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-调整坐标轴的比例方法似乎在显示单个函数图形时无效？
-\end_layout
-
-\end_inset
-
-：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Frameless
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-Plot[{Sqrt[x - 1], x^2 + 1, x}, {x, 0, 2}, 
+@Folder(name="/admin")
 \end_layout
 
 \begin_layout Plain Layout
-PlotLabels -> "Expressions", AspectRatio -> Automatic]
+
+public interface AdminPages extends ViewConfig{
+\end_layout
+
+\begin_layout Plain Layout
+
+    public class Index implements AdminPages {}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-显示出来的图形虽然大了些，但是更直观了，如图所示：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/aspect-automatic-pics-mmm.eps
-	height 60pheight%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-等比例显示的图形
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-遗憾的是，没有找到在哪里设置默认以Automatic的比例模式显示图形？有知道的麻烦告知一下，谢谢！
 \end_layout
 
 \begin_layout Section
-坐标箭头问题
+在页面中如何根据特定条件实现页面跳转？
 \end_layout
 
 \begin_layout Standard
-通常教材上的直角坐标是带箭头的，而mathematics默认画出的直角坐标是不带箭头的。如果要画出箭头，可以使用AxesStyle -> Arrowheads来
-定义箭头的方向和大小，比如：
+在后台Bean实现这个特定的业务逻辑即可，有两种基本的方法可以进行页面跳转：
+\end_layout
+
+\begin_layout Enumerate
+直接在业务逻辑方法中返回ViewConfig类型的对象（即页面）。
+\end_layout
+
+\begin_layout Enumerate
+通过ViewNavigationHandler帮助进行跳转。
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
+比如在DemoBean中演示了两种方法：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
 status open
 
 \begin_layout Plain Layout
-Plot[1/x, {x, -20, 20}, AxesStyle -> Arrowheads[{0.05, 0.05}]]
-\end_layout
 
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-ArrowHeads的参数为正表示箭头方向符合常规，数值大小表示箭头的大小。实验表明数值取0.03~0.05时，箭头的大小比较合适，如图所示：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/function-pic-with-arrow.eps
-	width 70line%
-
-\end_inset
-
-
+@Model
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption Standard
 
-\begin_layout Plain Layout
-带箭头的直角坐标系
-\end_layout
-
-\end_inset
-
-
+public class DemoBean {
 \end_layout
 
 \begin_layout Plain Layout
 
 \end_layout
 
-\end_inset
+\begin_layout Plain Layout
 
+    @Inject
+\end_layout
+
+\begin_layout Plain Layout
+
+    private ViewNavigationHandler viewNavigationHandler;
+\end_layout
+
+\begin_layout Plain Layout
 
 \end_layout
 
-\begin_layout Standard
-大概这几个函数教高中的孩子画函数图形应该够用了:-)
+\begin_layout Plain Layout
+
+    private void doSomeThing() {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // do something here
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Class<? extends ViewConfig> toOtherPage() {
+\end_layout
+
+\begin_layout Plain Layout
+
+        doSomeThing();
+\end_layout
+
+\begin_layout Plain Layout
+
+        return RootPages.Other.class;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void toAdminPage() {
+\end_layout
+
+\begin_layout Plain Layout
+
+        viewNavigationHandler.navigateTo(AdminPages.Index.class);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

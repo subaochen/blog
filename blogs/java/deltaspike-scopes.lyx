@@ -1,0 +1,1121 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+multicol
+notice
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman 新宋体
+\font_sans 新宋体
+\font_typewriter 新宋体
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+deltaspike中的scope
+\end_layout
+
+\begin_layout Section
+不同环境下scope的定义
+\end_layout
+
+\begin_layout Standard
+在JSF2，CDI 1.2，deltaspike（1.7.0）中均定义（实现）了不同的scope，如表
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:scope的不同定义"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="10" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top" width="20line%">
+<column alignment="center" valignment="top" width="5line%">
+<column alignment="center" valignment="top" width="5line%">
+<column alignment="center" valignment="top" width="10line%">
+<column alignment="center" valignment="top" width="60line%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+scope
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+JSF2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CDI 1.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Deltaspike
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+说明
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@Dependent
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CDI的默认scope，数据仅用一次，阅后即焚
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@RequestScoped
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+数据在一次交互中有效
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@ViewScoped
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+数据仅在当前页面有效，跳转到任何其他页面立刻失效
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@WindowScoped
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+数据绑定与于一个窗口/tab，只要窗口/tab不关闭则数据有效，无论该窗口显示哪个页面，相当于session per window
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@ViewAccessScoped
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+数据可以连续传递到引用该组件的下一个页面，直到碰到不再引用组件的页面为止（注意连续性，中间不得断开）。适合于wizard类似的场合。
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@ConversationScoped
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+自定义的有效期或者直到过期（过期时间取决于服务器设置）
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@GroupedConversationScoped
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@SessionScoped
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+数据在用户session期间有效，session周期取决于服务器设置
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@ApplicationScoped
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+√
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+数据在整个应用程序运行期间有效
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+scope的不同定义
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:scope的不同定义"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+scope的常见用法（实例）
+\end_layout
+
+\begin_layout Standard
+参见
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/subaochen/deltaspike-tutorial"
+target "https://github.com/subaochen/deltaspike-tutorial"
+
+\end_inset
+
+,可以改变beans.xml中的alternatives class的定义启用不同scope的组件，观察在不同页面切换、刷新当前页面时不同scope的组件是如何运
+转的。
+\end_layout
+
+\begin_layout Standard
+举例来说，如果启用ViewAccessScoped组件，则首先修改beans.xml文件内容如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+    <alternatives>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <class>cn.edu.sdut.r314.ViewAccessRegisterController</class>
+\end_layout
+
+\begin_layout Plain Layout
+
+    </alternatives>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后重新部署应用程序：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+$ mvn clean wildfly:deploy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在浏览器中访问 http://localhost:8080/scopes/，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ViewAccessScoped-Bean页面"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/deltaspike-scopes-1.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+ViewAccessScoped Bean页面
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:ViewAccessScoped-Bean页面"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+接着转换到控制台，查看wildfly的日志输出，可以看到：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+14:46:08,958 INFO [stdout] (default task-14) ViewAccessRegisterController
+ initializing,value=1467528368958
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，当访问index.xhtml时，ViewAccessRegisterController组件创建成功。
+\end_layout
+
+\begin_layout Standard
+接着在index.xhtml页面试着输入用户名和密码，点击reload page,ajax refresh，发现wildfly控制台的输出没有变化，即ViewAc
+cessRegisterController组件没有重新创建，也没有销毁，还是刚才那个。
+\end_layout
+
+\begin_layout Standard
+然后点击next进入下一个页面，如图所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/deltaspike-scopes-2.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+ViewAccess Scoped Bean的下一个页面
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:ViewAccess-Scoped-Bean的下一个页面"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看到，在ViewAccessScoped组件中，只要下一个页面依然引用（使用）了上一个页面的ViewAccessScoped范围的组件，数据顺利的传递到了下
+一个页面。此时，再点“prev page”返回上一个页面，会发现用户名被记住了（密码因为使用h:secret的缘故无法记住）。此时转到wildfly控制台，发现
+ViewAccessRegisterController组件依然是原来的那个！great！
+\end_layout
+
+\begin_layout Standard
+此时如果点击“other page”（这个页面没有引用viewAccessRegisterController组件），然后立刻转到wildfly控制台发现：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+14:46:08,958 INFO [stdout] (default task-14) ViewAccessRegisterController
+ initializing,value=1467528368958
+\end_layout
+
+\begin_layout Plain Layout
+14:55:07,058 INFO [stdout] (default task-23) ViewAccessRegisterController
+ destroyed,value=1467528368958
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+最初的viewAccessRegisterController组件被销毁了！是的，这就是ViewAccessScoped组件的含义：如果是在连续的页面中持续引用
+ViewAccessScoped组件，则组件一直有效，直到新的页面不再引用该组件为止。如果在other page点击“index page”重新回到首页，会发现
+容器创建了一个新的viewAccessRegisterController组件（value不同）：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+14:46:08,958 INFO [stdout] (default task-14) ViewAccessRegisterController
+ initializing,value=1467528368958
+\end_layout
+
+\begin_layout Plain Layout
+14:55:07,058 INFO [stdout] (default task-23) ViewAccessRegisterController
+ destroyed,value=1467528368958
+\end_layout
+
+\begin_layout Plain Layout
+15:00:48,744 INFO [stdout] (default task-24) ViewAccessRegisterController
+ initializing,value=1467529248744
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+scope用法小结
+\end_layout
+
+\begin_layout Standard
+可以看出，deltaspike对CDI和JSF2的scope做了有益的扩充，尤其是ViewAccessScoped，在很多场合方便了程序的编写。在传统的CDI编
+程中，通过ConversationScoped控制组件的生命周期时有两个有点“烦人”的问题：
+\end_layout
+
+\begin_layout Enumerate
+必须通过Inect Conversation获得conversation对象，并在合适的方法上明确调用conversation的begin和end方法确定Con
+versation的开始和结束，这对程序员而言有时是一种负担。
+\end_layout
+
+\begin_layout Enumerate
+Conversation存在过期问题，一旦过期数据就失效了。
+\end_layout
+
+\begin_layout Standard
+而ViewAccessScoped有效的克服了Conversation的以上两个问题。但是ViewAccessScoped也有缺陷，即一旦用户点击了其他没有引用
+ViewAccessScoped范围的组件，组件就失效了，因此使用ViewAccessScoped组件时要特别注意页面可点击链接、按钮的设计流程。
+\end_layout
+
+\begin_layout Section
+常见错误现象
+\end_layout
+
+\begin_layout Subsection
+pom.xml中引入deltaspike模块时的scope定义
+\end_layout
+
+\begin_layout Standard
+比如在测试ViewAccessScoped的时候，总是提示如下的错误信息：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Stack Trace
+\end_layout
+
+\begin_layout Plain Layout
+javax.servlet.ServletException: WELD-001303: No active contexts for scope
+ type org.apache.deltaspike.core.api.scope.ViewAccessScoped
+\end_layout
+
+\begin_layout Plain Layout
+javax.faces.webapp.FacesServlet.service(FacesServlet.java:671)
+\end_layout
+
+\begin_layout Plain Layout
+io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:85)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+百思不得其解，仔细检查发现是由于pom.xml文件中，deltaspike模块的scope写错了：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+        <dependency>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <groupId>org.apache.deltaspike.core</groupId>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <artifactId>deltaspike-core-impl</artifactId>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <scope>compile</scope>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <version>1.7.0</version>
+\end_layout
+
+\begin_layout Plain Layout
+
+        </dependency>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+注意到上面的dependency声明中，scope是compile，因此在部署时deltaspike core模块的实现不会一同复制到wildfly，这是导致运
+行时报告ViewAccessScoped找不到的原因。将上面的scope修改为runtime即可。
+\end_layout
+
+\end_body
+\end_document

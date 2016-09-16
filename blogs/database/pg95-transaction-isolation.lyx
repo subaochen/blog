@@ -1,0 +1,1296 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+multicol
+notice
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman 新宋体
+\font_sans 新宋体
+\font_typewriter 新宋体
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Postgresql 9.5的事务隔离级别
+\end_layout
+
+\begin_layout Section
+事务隔离级别的概念
+\end_layout
+
+\begin_layout Standard
+Postgresql 9.5的事务隔离级别比之前的版本有所不同，如表
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Postgresql-9.5的事务隔离级别"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top" width="15col%">
+<column alignment="center" valignment="top" width="17col%">
+<column alignment="center" valignment="top" width="17col%">
+<column alignment="center" valignment="top" width="17col%">
+<column alignment="center" valignment="top" width="17col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Isolation Level
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Dirty Read
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Nonrepeatable Read
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Phantom Read
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Serialization Anomaly
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Read uncommitted
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Allowed, but not in PG
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Possible
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Possible
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Possible
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Read committed
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Not possible
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Possible
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Possible
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Possible
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Repeatable read
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Not possible
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Not possible
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Allowed, but not in PG
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Possible
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Serializable
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Not possible
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Not possible
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Not possible
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Not possible
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Postgresql 9.5的事务隔离级别
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Postgresql-9.5的事务隔离级别"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，在PostgreSQL中提升了Read uncommitted隔离级别的效果，Read uncommitted和Read committed效果是一样
+的。
+\end_layout
+
+\begin_layout Section
+试验验证
+\end_layout
+
+\begin_layout Standard
+下面分四种情况验证Postgresql 9.5版本的隔离级别对于脏读、幻读、不可重复读分别是怎样的处理方式。
+\end_layout
+
+\begin_layout Standard
+首先创建测试数据表：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+create table salary(id integer,user_id integer,money integer);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+read uncommitted
+\end_layout
+
+\begin_layout Standard
+分别开启两个终端：终端1和终端2，每个终端执行一个事务，执行的顺序如下：
+\end_layout
+
+\begin_layout Enumerate
+在终端1执行以下命令，开始一个read uncommitted事务：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test# begin transaction isolation level read uncommitted;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+在终端2执行以下命令，开始一个read uncommitted事务：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test# begin transaction isolation level read uncommitted;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+在终端2查询salary数据表的内容，目前没有数据：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# select * from salary;
+\end_layout
+
+\begin_layout Plain Layout
+id | user_id | money 
+\end_layout
+
+\begin_layout Plain Layout
+----+---------+-------
+\end_layout
+
+\begin_layout Plain Layout
+(0 行记录)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+在终端1插入数据到salary：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# insert into salary(id,user_id,money) values(1,1,1000);
+\end_layout
+
+\begin_layout Plain Layout
+INSERT 0 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+在终端2查询salary数据表的内容，依然是
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+空的
+\end_layout
+
+\end_inset
+
+！
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# select * from salary;
+\end_layout
+
+\begin_layout Plain Layout
+id | user_id | money 
+\end_layout
+
+\begin_layout Plain Layout
+----+---------+-------
+\end_layout
+
+\begin_layout Plain Layout
+(0 行记录)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+在终端1执行commit命令提交事务:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# commit;
+\end_layout
+
+\begin_layout Plain Layout
+COMMIT
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+再次在终端2查询salary数据表的内容:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# select * from salary;
+\end_layout
+
+\begin_layout Plain Layout
+id | user_id | money 
+\end_layout
+
+\begin_layout Plain Layout
+----+---------+-------
+\end_layout
+
+\begin_layout Plain Layout
+1 | 1 | 1000
+\end_layout
+
+\begin_layout Plain Layout
+(1 行记录)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出,在PostgreSQL中,read uncommitted其实等价于read committed,也就是说，在事务2中，只能看到事务1已经提交的数据，
+事务1中没有提交的数据是看不到的，大多数情况下，这正是我们期望的结果。
+\end_layout
+
+\begin_layout Subsection
+read committed
+\end_layout
+
+\begin_layout Standard
+这是PostgreSQL默认的事务隔离级别 ，实验效果和read uncommitted完全一样，不再重复。
+\end_layout
+
+\begin_layout Subsection
+repeatable read
+\end_layout
+
+\begin_layout Enumerate
+在终端1开启一个reapable read事务1：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# begin transaction isolation level repeatable read;
+\end_layout
+
+\begin_layout Plain Layout
+BEGIN
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+在终端2开启一个reapable read事务2：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# begin transaction isolation level repeatable read;
+\end_layout
+
+\begin_layout Plain Layout
+BEGIN
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+检查事务2中salary表的当前内容：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# select * from salary;
+\end_layout
+
+\begin_layout Plain Layout
+id | user_id | money 
+\end_layout
+
+\begin_layout Plain Layout
+----+---------+-------
+\end_layout
+
+\begin_layout Plain Layout
+1 | 1 | 1000
+\end_layout
+
+\begin_layout Plain Layout
+(1 行记录)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+在事务1中插入一些数据：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# insert into salary(id,user_id,money) values(2,2,2000),(3,3,3000);
+\end_layout
+
+\begin_layout Plain Layout
+INSERT 0 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+在事务2中检查salary表的当前内容，看不到在事务1中新插入的数据：这很正常，repeatable read的隔离级别比read committed还要高，即
+便在read committed隔离级别中，也不应该看到事务1中还没有提交的内容，更何况repeatable read呢：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# select * from salary;
+\end_layout
+
+\begin_layout Plain Layout
+id | user_id | money 
+\end_layout
+
+\begin_layout Plain Layout
+----+---------+-------
+\end_layout
+
+\begin_layout Plain Layout
+1 | 1 | 1000
+\end_layout
+
+\begin_layout Plain Layout
+(1 行记录)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+在事务1中提交并结束事务：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# commit;
+\end_layout
+
+\begin_layout Plain Layout
+COMMIT
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+在事务2中检查salary表的内容，依然看不到在事务1中插入的数据，
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+即便事务1已经提交了
+\end_layout
+
+\end_inset
+
+！这是重点：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# select * from salary;
+\end_layout
+
+\begin_layout Plain Layout
+id | user_id | money 
+\end_layout
+
+\begin_layout Plain Layout
+----+---------+-------
+\end_layout
+
+\begin_layout Plain Layout
+1 | 1 | 1000
+\end_layout
+
+\begin_layout Plain Layout
+(1 行记录)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+在终端1中再次插入数据（默认是read committed事务隔离级别），此时在终端1我们可以看到salary表已经有4条记录了：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# insert into salary(id,user_id,money) values(4,4,4000);
+\end_layout
+
+\begin_layout Plain Layout
+INSERT 0 1
+\end_layout
+
+\begin_layout Plain Layout
+test=# select * from salary;
+\end_layout
+
+\begin_layout Plain Layout
+id | user_id | money 
+\end_layout
+
+\begin_layout Plain Layout
+----+---------+-------
+\end_layout
+
+\begin_layout Plain Layout
+1 | 1 | 1000
+\end_layout
+
+\begin_layout Plain Layout
+2 | 2 | 2000
+\end_layout
+
+\begin_layout Plain Layout
+3 | 3 | 3000
+\end_layout
+
+\begin_layout Plain Layout
+4 | 4 | 4000
+\end_layout
+
+\begin_layout Plain Layout
+(4 行记录)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+在事务2中检查salary表的当前内容，没有意外的，依然只能看到一条记录，即事务2开启时salary表是什么状态，在事务2的整个执行过程中，salary的状态保
+持不变，这样无论在事务2中执行多少次select查询，每次得到的结果都是一致的，并不受其他事务的任何影响，这就是repeatable read的含义。
+\end_layout
+
+\begin_layout Enumerate
+在事务2中如果只是执行select查询的话，repeatable read是完美的。但是，如果在事务2中要更新数据，会发生什么情况呢？我们首先在终端1中更新一下
+数据，制造一点小麻烦，即在事务2中看到的数据和事务1中看到的数据是不一致的：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# begin transaction isolation level repeatable read;
+\end_layout
+
+\begin_layout Plain Layout
+BEGIN
+\end_layout
+
+\begin_layout Plain Layout
+test=# update salary set money=2000 where id=1;
+\end_layout
+
+\begin_layout Plain Layout
+UPDATE 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+此时，在事务2中看到的salary表的id=1的记录中，money字段其实是1000，事务2并不知道在另外的事务中已经把这个数字修改成了2000了。我们在事务2
+中企图也更新这个数字,可以看到在事务2中的这个命令会一直等待下去，也就是说，因为我们在其他事务中已经更新了这条记录，事务2中的更新命令只能等待其他事务结束后才能
+继续执行：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# update salary set money=3000 where id=1;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+在事务1中提交事务：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# commit;
+\end_layout
+
+\begin_layout Plain Layout
+COMMIT
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+我们看到在事务2中显示出错信息：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+test=# update salary set money=3000 where id=1;
+\end_layout
+
+\begin_layout Plain Layout
+错误: 由于同步更新而无法串行访问
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+要解决这个问题，只有结束事务2并重新执行update操作。因此如果在应用中使用了repeatable read事务隔离级别，必须捕获并处理此种异常。
+\end_layout
+
+\begin_layout Subsection
+serializable
+\end_layout
+
+\begin_layout Section
+对象锁
+\end_layout
+
+\begin_layout Standard
+实验验证对象锁的效果：无法并行访问，对象锁使得访问变为串行操作，所以要谨慎使用。
+\end_layout
+
+\end_body
+\end_document

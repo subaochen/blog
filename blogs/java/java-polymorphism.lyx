@@ -1,0 +1,962 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+multicol
+notice
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+理解Java的多态
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Section
+多态的概念
+\end_layout
+
+\begin_layout Standard
+所谓多态，是指对象在不同阶段或者环境下有不同的行为特征，听起来是不是有点“变色龙”的味道？
+\end_layout
+
+\begin_layout Standard
+先看一个实例
+\begin_inset CommandInset citation
+LatexCommand cite
+key "java-chenweijun"
+
+\end_inset
+
+，假设有如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Animal类及其子类结构图"
+
+\end_inset
+
+所示的类层次结构：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/java-polymorphism.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Animal类及其子类结构图
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Animal类及其子类结构图"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，父类Animal有默认的hello()方法，三个子类Dog,Cat,Duke分别重写（overriding）了父类Animal的方法hello()。代
+码实现如代码列表所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+Animal.java
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Animal.java"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class Animal {
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void hello(){
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println("动物在打招呼");
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+Dog.java
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Dog.java"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class Dog extends Animal {
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void hello(){
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println("汪汪");
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+Cat.java
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Cat.java"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class Cat extends Animal{
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void hello(){
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println("喵喵");
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+Duke.java
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Duke.java"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class Duke extends Animal {
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void hello(){
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println("嘎嘎");
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+TestAnimal.java
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:TestAnimal.java"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class TestAnimal {
+\end_layout
+
+\begin_layout Plain Layout
+
+    public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        Animal[] animals = new Animal[3];
+\end_layout
+
+\begin_layout Plain Layout
+
+        animals[0] = new Dog();
+\end_layout
+
+\begin_layout Plain Layout
+
+        animals[1] = new Cat();
+\end_layout
+
+\begin_layout Plain Layout
+
+        animals[2] = new Duke();
+\end_layout
+
+\begin_layout Plain Layout
+
+        for(Animal animal:animals) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            animal.hello();
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在TestAnimal中，animals数组的每个元素是Animal类型的，貌似调用animal数组元素的hello方法应该打印出“动物在打招呼”，但是执行Te
+stAnimal会发现输出结果是：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+run:
+\end_layout
+
+\begin_layout Plain Layout
+汪汪
+\end_layout
+
+\begin_layout Plain Layout
+喵喵
+\end_layout
+
+\begin_layout Plain Layout
+嘎嘎
+\end_layout
+
+\begin_layout Plain Layout
+成功构建 (总时间: 0 秒)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，虽然我们调用的是父类对象的方法，但是其实真正执行的确是子类中的方法，这就是多态。
+\end_layout
+
+\begin_layout Standard
+但是，同一个对象，在不同的运行时间，怎么会有不同的行为呢？这一点是如何做到的？先从对象的存储说起。
+\end_layout
+
+\begin_layout Section
+从对象的存储说起
+\end_layout
+
+\begin_layout Standard
+在上面的例子中，Dog/Cat/Duke类的对象在内存中是如何存储的呢？比如当Dog dog = new Dog()创建了一个Dog类的实例，则在内存中的存储如
+图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Java对象在内存中的存储形式"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/java-instance-storage.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Java对象在内存中的存储形式
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Java对象在内存中的存储形式"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+其中，dog是对象的引用，即指针，指向对象在内存的起始地址。对象在内存中的存储分为两个部分：父类的属性和方法存储区域以及子类的属性和方法存储区域，也就是说，子类
+完全包含了父类的所有信息。因此可以看出，我们得到了一个指向子类的引用dog，这个引用dog即可以访问子类的方法和属性，也可以访问父类的方法和属性，无非是通过do
+g指针不同的偏移量指向不同的区域而已。
+\end_layout
+
+\begin_layout Standard
+那么Animal dog = new Dog()是什么意思呢？从图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Animal类及其子类结构图"
+
+\end_inset
+
+可以看出，此时的dog指针仍然是指向整个Dog对象的指针，但是指针的范围却局限于父类Animal的区域，也就是说，此时的dog指针只能调用父类Animal中的属
+性和方法，而不能调用Dog子类扩展了的属性和方法。
+\end_layout
+
+\begin_layout Standard
+如果子类没有重写（orverriding）父类的方法，子类和父类的存储是泾渭分明的。如果子类重写(orverriding）了父类中的方法，那么图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Animal类及其子类结构图"
+
+\end_inset
+
+中父类中被重写的方法同样会发生变化，即变的和子类中重写的方法一模一样，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:存在重写情况的类存储结构"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/java-instance-storage1.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+存在重写情况的类存储结构
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:存在重写情况的类存储结构"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出，当子类重写了父类中的方法时，父类存储区域中被重写的方法就变得和子类中的方法一模一样了，这样就能够理解本文刚开始的例子了：虽然animals数组的元素都
+是Animal类型的对象，但是由于这三个引用分别指向了Dog、Cat、Duke的对象，而Dog等对象重写了Animal中的hello方法，致使我们虽然调用的是父
+类中的方法，但是由于子类重写了父类中的这个方法，父类中的这个方法变得和子类中的方法一模一样了，
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+最终的效果和调用子类中的方法一模一样
+\end_layout
+
+\end_inset
+
+，这就是Java中的多态，其实也是我们期望发生的事情。
+\end_layout
+
+\begin_layout Section
+方法重载的情形
+\end_layout
+
+\begin_layout Standard
+在上例中，如果子类不是重写（overriding）父类的方法，而是重载（overloading）父类的方法，结果会怎样呢？比如，Cat类的hello方法改为（D
+og/Duke以此类推）：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+    public void hello(String name){
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println("喵喵" + name);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，Cat类的hello方法重载了父类的hello方法。执行TestAnimal的结果是：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+run:
+\end_layout
+
+\begin_layout Plain Layout
+动物在打招呼
+\end_layout
+
+\begin_layout Plain Layout
+动物在打招呼
+\end_layout
+
+\begin_layout Plain Layout
+动物在打招呼
+\end_layout
+
+\begin_layout Plain Layout
+成功构建 (总时间: 0 秒)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+根据图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:存在重载情况的类存储结构"
+
+\end_inset
+
+可自行分析执行结果。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/java-instance-storage2.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+存在重载情况的类存储结构
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:存在重载情况的类存储结构"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Java多态的使用方法
+\end_layout
+
+\begin_layout Standard
+从以上的分析可以看出，通常会利用方法的重写来达到简化代码的目的，即充分利用Java的多态特性。也就是说，在多态的帮助下，我们只需要调用父类的方法就可以了，具体执
+行的却是子类的对应方法。当然，这里有一个前提，即必须使用子类创建对象的引用，否则多态也就失效了。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+这里可以补充一些实际应用中的多态的例子。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/java"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

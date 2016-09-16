@@ -1,0 +1,1525 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+multicol
+notice
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+hibernate入门教程
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Section
+教程说明
+\end_layout
+
+\begin_layout Standard
+本教程不是hibernate的使用手册，不打算说明hibernate的完整特性，仅仅是帮助初学者快速上手。事实上，我写这个教程的一个重要原因是hibernate
+的官方教程中所给出的代码不能直接配合实用的数据库，比如mysql/postgresql使用，而hsqldb，尤其是JBoss AS/wildfly等自带的hsq
+ldb查看数据并不方便（也许是我没有找到更好的方法），比如直接使用mysql/postgresql来的直观和方便（更熟悉，更亲切）。
+\end_layout
+
+\begin_layout Standard
+本教程涉及到的代码在：
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/subaochen/hibernate-tutorials-with-postgresql"
+target "https://github.com/subaochen/hibernate-tutorials-with-postgresql"
+
+\end_inset
+
+，大部分内容受官方文档和示例的启发而作，欢迎批评指正！
+\end_layout
+
+\begin_layout Section
+hibernate的设计目的
+\end_layout
+
+\begin_layout Standard
+hibernate是大牛Gavin King
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Gavin King是《Hibernate in Action》一书的作者，也是JBoss Seam的创建者。目前，Gavin King又创造了一门新的语言：
+\begin_inset CommandInset href
+LatexCommand href
+name "http://ceylon-lang.org/"
+target "ceyon"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+在2001年创建的，当时Gavin King感觉EJB2操作数据库的方式很不爽，就自己写了一个ORM的东西，就是hibernate。
+\end_layout
+
+\begin_layout Standard
+目前Hibernate隶属于RedHat，最新版本是5.2.2。除了基本的ORM功能外，hibernate又发展了如下的功能
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+参见：
+\begin_inset CommandInset href
+LatexCommand href
+name "//http://hibernate.org/orm/"
+target "hibernate site"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout Itemize
+JPA provider：除了hibernate自己的数据操作API之外，hibernate也实现了JPA规范，因此hibernate可以看做一个JPA
+ provider，即通过hibernate来使用JPA规范所提供的功能。个人认为，JPA规范的操作方式更加容易理解。
+\end_layout
+
+\begin_layout Itemize
+Idiomatic persistence：Hibernate enables you to develop persistent classes
+ following natural Object-oriented idioms including inheritance, polymorphism,
+ association, composition, and the Java collections framework.
+ Hibernate requires no interfaces or base classes for persistent classes
+ and enables any class or data structure to be persistent.（怎么理解？）
+\end_layout
+
+\begin_layout Section
+hibernate的官方教程
+\end_layout
+
+\begin_layout Standard
+到目前为止，hibernate 5.2.2的官方入门(quickstart)最好参考5.0版本的，因为5.2版本的似乎不够完善，至少quickstart中包含的４个重要
+例程无法直接运行测试。hibernate的文档地址在：
+\begin_inset CommandInset href
+LatexCommand href
+name "http://docs.jboss.org/hibernate/orm/"
+target "http://docs.jboss.org/hibernate/orm/"
+
+\end_inset
+
+，可以从这个地址开始找到各个版本hibernate的文档。有效的hibernate 5.0+例程地址在：
+\begin_inset CommandInset href
+LatexCommand href
+name "http://docs.jboss.org/hibernate/orm/5.0/quickstart/en-US/html_single/files/"
+target "http://docs.jboss.org/hibernate/orm/5.0/quickstart/en-US/html_single/files/"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+使用mapping
+\end_layout
+
+\begin_layout Subsection
+.hbm.xml文件
+\end_layout
+
+\begin_layout Standard
+传统的，hibernate是使用xml方式描述数据表和Java类的映射关系，即mapping。比如下面的文件描述了Article.java类和article表的映
+射关系：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+Article.hbm.xml
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<?xml version="1.0"?>
+\end_layout
+
+\begin_layout Plain Layout
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+\end_layout
+
+\begin_layout Plain Layout
+
+                                   "http://www.hibernate.org/dtd/hibernate-mapping
+-3.0.dtd">
+\end_layout
+
+\begin_layout Plain Layout
+
+<hibernate-mapping package="cn.edu.sdut.softlab.hibernate.tutorial">
+\end_layout
+
+\begin_layout Plain Layout
+
+ <class name="Article" table="articles">
+\end_layout
+
+\begin_layout Plain Layout
+
+  <id column="id" name="id">
+\end_layout
+
+\begin_layout Plain Layout
+
+   <generator class="sequence"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+  </id>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <property column="time_created"  name="date" type="timestamp"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <property name="title"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+ </class>
+\end_layout
+
+\begin_layout Plain Layout
+
+</hibernate-mapping>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+关键点说明如下：
+\end_layout
+
+\begin_layout Enumerate
+每个数据表映射为一个Java类，因此每个这样的java类都有一个相应的.hbm.xml文件。
+\end_layout
+
+\begin_layout Enumerate
+一般的，需要给每个数据表定义一个id作为主键，这是一个好的设计习惯。
+\end_layout
+
+\begin_layout Enumerate
+如果在.hbm.xml文件中忽略了字段类型的映射，则在应用程序的启动阶段，hibernate会根据Java类的相应属性的类型“猜测”获得数据表的字段类型，这会相应的
+增加应用程序的启动时间。
+\end_layout
+
+\begin_layout Enumerate
+.hbm.xml文件可以和Java类放在同一个目录下，也可以放在一个独立的目录中，只要在pom.xml文件中设置一下resource的目录即可，参见pom.xml的相关
+解释。
+\end_layout
+
+\begin_layout Subsection
+hibernate.cfg.xml文件
+\end_layout
+
+\begin_layout Standard
+hibernate.cfg.xml文件设置了hibernate如何链接数据库：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+hibernate.cfg.xml
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<?xml version='1.0' encoding='utf-8'?>
+\end_layout
+
+\begin_layout Plain Layout
+
+<!DOCTYPE hibernate-configuration PUBLIC
+\end_layout
+
+\begin_layout Plain Layout
+
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+\end_layout
+
+\begin_layout Plain Layout
+
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<hibernate-configuration>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    <session-factory>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        <!-- Database connection settings -->
+\end_layout
+
+\begin_layout Plain Layout
+
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <property name="connection.url">jdbc:postgresql://localhost/hibernate-dem
+o</property>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <property name="connection.username">postgres</property>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <!-- we setup postgres with trust mode from local access, so password
+ is unnessesory -->
+\end_layout
+
+\begin_layout Plain Layout
+
+        <property name="connection.password"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        <!-- JDBC connection pool (use the built-in) -->
+\end_layout
+
+\begin_layout Plain Layout
+
+        <property name="connection.pool_size">1</property>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        <!-- SQL dialect -->
+\end_layout
+
+\begin_layout Plain Layout
+
+        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        <!-- Disable the second-level cache  -->
+\end_layout
+
+\begin_layout Plain Layout
+
+        <property name="cache.provider_class">org.hibernate.cache.internal.NoCachePro
+vider</property>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        <!-- Echo all executed SQL to stdout -->
+\end_layout
+
+\begin_layout Plain Layout
+
+        <property name="show_sql">true</property>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        <!-- Drop and re-create the database schema on startup -->
+\end_layout
+
+\begin_layout Plain Layout
+
+        <property name="hbm2ddl.auto">create</property>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        <mapping resource="cn/edu/sdut/softlab/hibernate/tutorial/Article.hbm.xml"
+/>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    </session-factory>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+</hibernate-configuration>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+关键点解释如下：
+\end_layout
+
+\begin_layout Enumerate
+这里我们使用postgresql数据库，因此在pom.xml中需要导入postgresql driver的依赖，参见pom.xml的相关注释。
+\end_layout
+
+\begin_layout Enumerate
+需要在postgresql中事先创建数据库hibernate-demo。
+\end_layout
+
+\begin_layout Enumerate
+注意到mapping的设置，如果有多个.hbm.xml文件，需要有相应的多个mapping设置。
+\end_layout
+
+\begin_layout Subsection
+测试客户端类Client.java
+\end_layout
+
+\begin_layout Standard
+这个类很容易理解，不多做解释：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+Client.java
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+package cn.edu.sdut.softlab.hibernate.tutorial;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.Date;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.List;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import org.hibernate.Session;
+\end_layout
+
+\begin_layout Plain Layout
+
+import org.hibernate.SessionFactory;
+\end_layout
+
+\begin_layout Plain Layout
+
+import org.hibernate.cfg.Configuration;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class Client{
+\end_layout
+
+\begin_layout Plain Layout
+
+    public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        SessionFactory sessionFactory = new Configuration()
+\end_layout
+
+\begin_layout Plain Layout
+
+                .configure() // configures settings from hibernate.cfg.xml
+\end_layout
+
+\begin_layout Plain Layout
+
+                .buildSessionFactory();
+\end_layout
+
+\begin_layout Plain Layout
+
+		// create a couple of articles...
+\end_layout
+
+\begin_layout Plain Layout
+
+		Session session = sessionFactory.openSession();
+\end_layout
+
+\begin_layout Plain Layout
+
+		session.beginTransaction();
+\end_layout
+
+\begin_layout Plain Layout
+
+		session.save( new Article( "Our very first article!", new Date() ) );
+\end_layout
+
+\begin_layout Plain Layout
+
+		session.save( new Article( "A follow up artcle",  new Date() ) );
+\end_layout
+
+\begin_layout Plain Layout
+
+        session.save( new Article( "A third article", new Date()));
+\end_layout
+
+\begin_layout Plain Layout
+
+		session.getTransaction().commit();
+\end_layout
+
+\begin_layout Plain Layout
+
+		session.close();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+		// now lets pull articles from the database and list them
+\end_layout
+
+\begin_layout Plain Layout
+
+		session = sessionFactory.openSession();
+\end_layout
+
+\begin_layout Plain Layout
+
+        session.beginTransaction();
+\end_layout
+
+\begin_layout Plain Layout
+
+        List result = session.createQuery( "from Article" ).list();
+\end_layout
+
+\begin_layout Plain Layout
+
+		for ( Article article : (List<Article>) result ) {
+\end_layout
+
+\begin_layout Plain Layout
+
+			System.out.println( article);
+\end_layout
+
+\begin_layout Plain Layout
+
+		}
+\end_layout
+
+\begin_layout Plain Layout
+
+        session.getTransaction().commit();
+\end_layout
+
+\begin_layout Plain Layout
+
+        session.close();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+		if ( sessionFactory != null ) {
+\end_layout
+
+\begin_layout Plain Layout
+
+			sessionFactory.close();
+\end_layout
+
+\begin_layout Plain Layout
+
+		}
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+运行测试
+\end_layout
+
+\begin_layout Standard
+在命令行执行如下指令即可：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+mvn clean package exec:java
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+使用annotation
+\end_layout
+
+\begin_layout Standard
+使用annotation可以代替.hbm.xml文件，因此和上面的例子相比，只是有两点变化：
+\end_layout
+
+\begin_layout Enumerate
+去掉了Article.hbm.xml文件。
+\end_layout
+
+\begin_layout Enumerate
+Article.java类使用annnotation表示java类和数据库的映射关系。
+\end_layout
+
+\begin_layout Standard
+下面是Article.java类的具体内容：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+Article.java
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+package cn.edu.sdut.softlab.hibernate.tutorial;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.Date;
+\end_layout
+
+\begin_layout Plain Layout
+
+import javax.persistence.Column;
+\end_layout
+
+\begin_layout Plain Layout
+
+import javax.persistence.Entity;
+\end_layout
+
+\begin_layout Plain Layout
+
+import javax.persistence.GeneratedValue;
+\end_layout
+
+\begin_layout Plain Layout
+
+import javax.persistence.Id;
+\end_layout
+
+\begin_layout Plain Layout
+
+import javax.persistence.Table;
+\end_layout
+
+\begin_layout Plain Layout
+
+import javax.persistence.Temporal;
+\end_layout
+
+\begin_layout Plain Layout
+
+import javax.persistence.TemporalType;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import org.hibernate.annotations.GenericGenerator;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+@Entity
+\end_layout
+
+\begin_layout Plain Layout
+
+@Table( name = "articles" )
+\end_layout
+
+\begin_layout Plain Layout
+
+public class Article {
+\end_layout
+
+\begin_layout Plain Layout
+
+    private Long id;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    private String title;
+\end_layout
+
+\begin_layout Plain Layout
+
+    private Date date;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // A must have!
+\end_layout
+
+\begin_layout Plain Layout
+
+	public Article() {
+\end_layout
+
+\begin_layout Plain Layout
+
+		// this form used by Hibernate
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	public Article(String title, Date date) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		// for application use, to create new articles
+\end_layout
+
+\begin_layout Plain Layout
+
+		this.title = title;
+\end_layout
+
+\begin_layout Plain Layout
+
+		this.date = date;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	@Id
+\end_layout
+
+\begin_layout Plain Layout
+
+	@GeneratedValue(generator="sequence")
+\end_layout
+
+\begin_layout Plain Layout
+
+	@GenericGenerator(name="sequence", strategy = "sequence")
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Long getId() {
+\end_layout
+
+\begin_layout Plain Layout
+
+		return id;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    private void setId(Long id) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		this.id = id;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	@Temporal(TemporalType.TIMESTAMP)
+\end_layout
+
+\begin_layout Plain Layout
+
+	@Column(name = "time_created")
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Date getDate() {
+\end_layout
+
+\begin_layout Plain Layout
+
+		return date;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void setDate(Date date) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		this.date = date;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public String getTitle() {
+\end_layout
+
+\begin_layout Plain Layout
+
+		return title;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void setTitle(String title) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		this.title = title;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	@Override
+\end_layout
+
+\begin_layout Plain Layout
+
+	public String toString() {
+\end_layout
+
+\begin_layout Plain Layout
+
+		return "Article [id=" + id + ", title=" + title + ", date=" + date + "]";
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+需要特别说明的是，目前版本的hibernate(大概从3.5版本以后)，采用标准的JPA注解，而不是hibernate自己的注解。根据hibernate的java
+doc，hibernate从4.1开始标记自己的注解为depricated。也就是说，JPA采纳了hibernate的一套注解，hibernate从民间走向了官方
+。JPA 2.1的完整说明请参见：
+\begin_inset CommandInset href
+LatexCommand href
+name "JSR 338"
+target "https://jcp.org/aboutJava/communityprocess/final/jsr338/index.html"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+hibernate作为JPA的provider
+\end_layout
+
+\begin_layout Standard
+借用hibernate user guide中的一张图说明一下JDBC/hibernate/JPA之间的关系：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/data_access_layers.svg.png
+	width 70line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+hibernate作为JPA的provider
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，hibernate完整了实现了JPA规范（注意，JPA的参考实现是EclipseLink），即，hibernate即提供了自己操作数据库的一套接口，也
+提供了JPA方式操作数据库的接口。如此，通过hibernate操作数据库，你可以根据自己的口味自由的选择不同的API。
+\end_layout
+
+\begin_layout Standard
+当通过JPA访问数据库时，根据JPA的规范，需要定义persitence.xml来设置数据库相关属性，这样就不需要hibernate.cfg.xml文件了。同样，由于
+使用了JPA的annotation来表示数据表和Java类的映射关系，也不需要.hbm.xml文件。也就是说，将hibernate作为JPA的provider，只需
+要定义persistence.xml文件即可：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+persistence.xml
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+\end_layout
+
+\begin_layout Plain Layout
+
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+\end_layout
+
+\begin_layout Plain Layout
+
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://jav
+a.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+\end_layout
+
+\begin_layout Plain Layout
+
+             version="2.0">
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    <persistence-unit name="hibernate.tutorial.jpa">
+\end_layout
+
+\begin_layout Plain Layout
+
+        <description>
+\end_layout
+
+\begin_layout Plain Layout
+
+            Persistence unit for the JPA tutorial of the Hibernate Getting
+ Started Guide
+\end_layout
+
+\begin_layout Plain Layout
+
+        </description>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        <class>cn.edu.sdut.softlab.hibernate.tutorial.Article</class>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        <properties>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driv
+er" />
+\end_layout
+
+\begin_layout Plain Layout
+
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://lo
+calhost/hibernate-demo" />
+\end_layout
+
+\begin_layout Plain Layout
+
+            <property name="javax.persistence.jdbc.user" value="postgres" />
+\end_layout
+
+\begin_layout Plain Layout
+
+            <property name="javax.persistence.jdbc.password" value="" />
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+            <property name="hibernate.show_sql" value="true" />
+\end_layout
+
+\begin_layout Plain Layout
+
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+\end_layout
+
+\begin_layout Plain Layout
+
+        </properties>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    </persistence-unit>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+</persistence>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+关键点说明如下：
+\end_layout
+
+\begin_layout Enumerate
+persistence-unit定义了数据库的引用名称，我们在代码中使用persistence-unit来创建一个EntityManagerFactory，从而
+获得一个EntityManager：
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactor
+y( "hibernate.tutorial.jpa" );
+\end_layout
+
+\begin_layout Plain Layout
+
+EntityManager entityManager = entityManagerFactory.createEntityManager();
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+每个模型类（数据表的映射类），需要通过<class></class>在persistence.xml中列出。
+\end_layout
+
+\end_body
+\end_document
