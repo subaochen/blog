@@ -1,0 +1,882 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+multicol
+notice
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Deltaspike的Data module用法介绍
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Section
+Data module简介
+\end_layout
+
+\begin_layout Standard
+Deltaspike data module封装了大部分关于数据库的操作，你可以通过简单的定义一个Entity的Repository，就可以自动获得了大部分常见
+的操作：保存、删除、编辑、根据主键查找、查找所有记录等。使用Data module可以消除持续层的很多重复代码，也大大简化了事务逻辑处理部分的代码量。
+\end_layout
+
+\begin_layout Standard
+下面是一个简单的比较，可以看出，使用了Data module之后，简单的持续层操作就用不到EntityManager了。
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+没有使用Deltaspike data module的持续层逻辑处理代码
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Inject
+\end_layout
+
+\begin_layout Plain Layout
+
+    private EntityManager em;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Article findArticleById(Long id)
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        article = em.find(Article.class, id);
+\end_layout
+
+\begin_layout Plain Layout
+
+        return article;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public List<Article> getAllArticles()
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return em.createQuery("from Article a order by a.id desc").getResultList();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+使用Deltaspike data module的持续层逻辑处理代码
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   @Inject
+\end_layout
+
+\begin_layout Plain Layout
+
+   private ArticleRepository articles;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Article findArticleById(Long id)
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        article = articles.findBy(id);
+\end_layout
+
+\begin_layout Plain Layout
+
+        return article;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   public List<Article> getAllArticles()
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return articles.findAll();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+环境配置
+\end_layout
+
+\begin_layout Standard
+以运行在wildfly 10.0.0的JavaEE应用为例，首先在pom.xml文件中导入data module的依赖：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+pom.xml
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+      <dependency>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <groupId>org.apache.deltaspike.modules</groupId>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <artifactId>deltaspike-data-module-api</artifactId>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <version>1.7.1</version>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <scope>compile</scope>
+\end_layout
+
+\begin_layout Plain Layout
+
+        </dependency>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        <dependency>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <groupId>org.apache.deltaspike.modules</groupId>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <artifactId>deltaspike-data-module-impl</artifactId>
+\end_layout
+
+\begin_layout Plain Layout
+
+             <version>1.7.1</version>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <scope>runtime</scope>
+\end_layout
+
+\begin_layout Plain Layout
+
+        </dependency>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+其次要记得在META-INF/apache-deltaspike.properties文件中添加以下的内容：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+apache-deltaspike.properties
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+globalAlternatives.org.apache.deltaspike.jpa.spi.transaction.TransactionStrategy=org.apa
+che.deltaspike.jpa.impl.transaction.BeanManagedUserTransactionStrategy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这是因为我们在persistence.xml中定义的数据源使用JTA，而deltaspike的JPA默认的事务管理器是RESOURCE_LOCAL，因此需要使用a
+lternative技术将事务管理方式切换为BeanManaged。有些困惑的是，通常是在beans.xml中定义alternatives，但是实验表明
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+切换事务管理方式在beans.xmlz中定义不会生效
+\end_layout
+
+\end_inset
+
+，只能在apache-deltaspike.properties中声明全局的alternatives。也许是因为beans.xml和apache-deltaspik
+e.properties两个文件的解析时机不同造成的，没有深究下去。
+\end_layout
+
+\begin_layout Section
+第一个小例子
+\end_layout
+
+\begin_layout Standard
+本例的完整的代码位于
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/subaochen/deltaspike-tutorial.git"
+target "https://github.com/subaochen/deltaspike-tutorial.git"
+
+\end_inset
+
+的very-beginning-data-example分支，可以通过下面的命令获取代码：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+git clone https://github.com/subaochen/deltaspike-tutorial.git
+\end_layout
+
+\begin_layout Plain Layout
+git checkout very-beginning-data-example
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在运行这个例子之前，首先要启动wildfly：在wildfly/bin目录下执行standalone.sh即可。
+\end_layout
+
+\begin_layout Standard
+然后进入data-examples目录，执行以下命令：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+mvn clean install wildfly:deploy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+打开浏览器，访问：http://localhost:8080/data-examples，就可以测试这个简单的小例子了，演示了文章的增加、修改、编辑和列表功能。
+\end_layout
+
+\begin_layout Section
+第一个小例子的进一步解释
+\end_layout
+
+\begin_layout Standard
+这个小例子的关键是ArticleRepository接口：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+ArticleRepository.java
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:ArticleRepository.java"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+@Repository
+\end_layout
+
+\begin_layout Plain Layout
+
+public interface ArticleRepository extends EntityRepository<Article,Long>
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+其中，@Repository注解告诉容器，这是一个关于Entity的持续层接口，其中的每一个方法都会自动扩展为真实的数据库调用。而EntityRepositor
+y则是Deltaspike data module提供的一个Repository默认版本，其中定义了常见的数据库操作。通过继承EntityRepository，
+ArticleRepository就自动拥有了基本的数据库操作能力了，就这么简单！
+\end_layout
+
+\begin_layout Standard
+看一下EntityRepository是如何定义的，了解ArticleRepository现在具有哪些能力：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+EntityRepository.java
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public interface EntityRepository<E extends Object, PK extends Serializable>
+ extends EntityPersistenceRepository<E, PK>, EntityCountRepository<E>
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public E findBy(PK pk);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public List<E> findAll();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public List<E> findAll(int i, int i1);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public List<E> findBy(E e, SingularAttribute<E, ?>[] sas);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public List<E> findBy(E e, int i, int i1, SingularAttribute<E, ?>[]
+ sas);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public List<E> findByLike(E e, SingularAttribute<E, ?>[] sas);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public List<E> findByLike(E e, int i, int i1, SingularAttribute<E, ?>[]
+ sas);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+除了EntityRepository外，Data module还提供了AbstractEntityRepository、FullEntityRepository
+等基础类或者接口，具体参考Deltaspike Data Module文档：
+\begin_inset CommandInset href
+LatexCommand href
+name "http://deltaspike.apache.org/documentation/data.html"
+target "http://deltaspike.apache.org/documentation/data.html"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Section
+Data module的方法“糖”
+\end_layout
+
+\begin_layout Standard
+Data module定义了一系列的方法命名规则，只要你遵循这些关于方法的命名规则定义Repository中的方法，容器就能够自动生成访问数据库的相关代码，Da
+ta module称这些“方法糖”为“方法表达式”（Method Expression）。
+\end_layout
+
+\begin_layout Standard
+方法表达式的具体规则有如下的几条：
+\end_layout
+
+\begin_layout Itemize
+方法使用驼峰命名法，以findBy(findAll,findOptionBy,findAnyBy,findFirst,findTop),removeBy/del
+eteBy开头。
+\end_layout
+
+\begin_layout Itemize
+可以使用Or/And连接多个方法表达式。
+\end_layout
+
+\begin_layout Itemize
+目前（1.7.1）支持的比较操作符是：Equal/NotEqual/Like/GreaterThan/GreaterThanEqauls/LessThan/Less
+ThanEquals/Between/IsNull/IsNotNull。其他不多解释，和数据库的操作符是一一对应的。只有Like需要特别注意，如果需要模糊匹配，
+Like的参数应该自己手工增加%。
+\end_layout
+
+\begin_layout Itemize
+使用OrderBy进行查询结果的排序。
+\end_layout
+
+\begin_layout Itemize
+使用findTopN/findFirstN的方式返回指定数目的记录，显然需要配合OrderBy使用。
+\end_layout
+
+\begin_layout Itemize
+使用@Query自定义查询语句，适合于复杂条件的查询。
+\end_layout
+
+\begin_layout Standard
+举个例子：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+// 根据指定的用户名、年龄范围、性别搜索，结果按照年龄逆序排列，只返回前20个记录
+\end_layout
+
+\begin_layout Plain Layout
+
+List<Person> findTop20ByNameLikeAndAgeBetweenAndGenderOrderByAgeDesc(String
+ name, int minAge, int maxAge, Gender gender);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+使用方法表达式命名的方法尽管冗长但是很容易读懂，好在有IDE的支持，在使用这些方法时还算方便。
+\end_layout
+
+\end_body
+\end_document
