@@ -17,7 +17,8 @@ digraph G {
     create_branch->coding;
     coding->code_review[label="git commit;arc diff"];
     code_review->code_merge[label="审核过关: arc land"];
-    code_merge->remove_branch->close_issue;
+    code_merge->remove_branch[label="git branch -d task#N"];
+    remove_branch->close_issue;
 
     code_review->coding[label="审核未通过"];
 
