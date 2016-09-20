@@ -1,12 +1,13 @@
 digraph G {
     begin[label = "开始", shape=Mdiamond];
     local_repo[label = "建立本地仓库"];
-    create_issue[label = "提报issue"];
-    create_branch[label = "创建分支task#N"];
+    create_issue[label = "提报task(on phabricator)"];
+    create_branch[label = "创建分支task#N",color="lightblue",style=filled];
     coding[label="编码"];
-    code_review[label = "代码审核(on phabircator)",shape=diamond];
+    code_review[label = "代码审核(on phabircator)",shape=diamond,color="lightblue",style=filled];
     code_merge[label = "代码合并入库"];
-    remove_branch[label="删除分支task#N",shape=box];
+    remove_branch[label="删除分支task#N"];
+    close_issue[label="关闭task(on phabricator)"];
 
 
 
@@ -16,7 +17,7 @@ digraph G {
     create_branch->coding;
     coding->code_review[label="git commit;arc diff"];
     code_review->code_merge[label="审核过关: arc land"];
-    code_merge->remove_branch;
+    code_merge->remove_branch->close_issue;
 
     code_review->coding[label="审核未通过"];
 
