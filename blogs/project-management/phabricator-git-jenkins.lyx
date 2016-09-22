@@ -181,7 +181,7 @@ coderemarks
 \begin_body
 
 \begin_layout Title
-基于Centos搭建完整的软件开发流程管理环境
+基于ubuntu搭建完整的软件开发流程管理环境
 \end_layout
 
 \begin_layout Standard
@@ -208,12 +208,982 @@ phabricator
 jenkins
 \end_layout
 
-\begin_layout Itemize
-gitlab? gogs?
+\begin_layout Standard
+目标是搭建一个完整的类似于github，支持分布式开发和code view、ci的完整软件开发流程管理平台。
+\end_layout
+
+\begin_layout Section
+基础软件安装
 \end_layout
 
 \begin_layout Standard
-目标是搭建一个完整的类似于github，支持分布式开发和code view、ci的完整软件开发流程管理平台。
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+sudo apt-get install aptitude 
+\end_layout
+
+\begin_layout Plain Layout
+sudo aptitude update
+\end_layout
+
+\begin_layout Plain Layout
+sudo aptitude dist-upgrade
+\end_layout
+
+\begin_layout Plain Layout
+sudo reboot
+\end_layout
+
+\begin_layout Plain Layout
+sudo aptitude install nginx mysql-server
+\end_layout
+
+\begin_layout Plain Layout
+sudo aptitude install php5 php5-fpm php5-curl php5-gd php5-mysql php5-apcu
+ php-pear php-apc postfix git gitweb tomcat8
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+nginx/php/mysql环境配置
+\end_layout
+
+\begin_layout Standard
+主要是nginx的配置，编辑/etc/nginx/sites-enabled/default文件内容如下即可（jenkins如果没有安装，可以先注释掉关于jen
+kins的配置）：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+        # phabricator sshd service
+\end_layout
+
+\begin_layout Plain Layout
+
+        /usr/sbin/sshd -f /etc/sshd/sshd_config.phabricator
+\end_layout
+
+\begin_layout Plain Layout
+
+        # phabricator phd service
+\end_layout
+
+\begin_layout Plain Layout
+
+        /var/www/phabricator/bin/phd start
+\end_layout
+
+\begin_layout Plain Layout
+
+        location  ^~ /jenkins/ {
+\end_layout
+
+\begin_layout Plain Layout
+
+                root /var/lib/tomcat8/webapps/jenkins;
+\end_layout
+
+\begin_layout Plain Layout
+
+                index index.jsp;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                proxy_pass http://localhost:8080;
+\end_layout
+
+\begin_layout Plain Layout
+
+                proxy_redirect     default;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                sendfile off;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                proxy_set_header   Host             $host;
+\end_layout
+
+\begin_layout Plain Layout
+
+                proxy_set_header   X-Real-IP        $remote_addr;
+\end_layout
+
+\begin_layout Plain Layout
+
+                proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+\end_layout
+
+\begin_layout Plain Layout
+
+                proxy_max_temp_file_size 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                #this is the maximum upload size
+\end_layout
+
+\begin_layout Plain Layout
+
+                client_max_body_size       64m;
+\end_layout
+
+\begin_layout Plain Layout
+
+                client_body_buffer_size    128k;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                proxy_connect_timeout      90;
+\end_layout
+
+\begin_layout Plain Layout
+
+                proxy_send_timeout         90;
+\end_layout
+
+\begin_layout Plain Layout
+
+                proxy_read_timeout         90;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                proxy_buffer_size          4k;
+\end_layout
+
+\begin_layout Plain Layout
+
+                proxy_buffers              4 32k;
+\end_layout
+
+\begin_layout Plain Layout
+
+                proxy_busy_buffers_size    64k;
+\end_layout
+
+\begin_layout Plain Layout
+
+                proxy_temp_file_write_size 64k;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+phabricator安装
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+cd /tmp
+\end_layout
+
+\begin_layout Plain Layout
+git clone https://github.com/phacility/libphutil.git
+\end_layout
+
+\begin_layout Plain Layout
+git clone https://github.com/phacility/arcanist.git
+\end_layout
+
+\begin_layout Plain Layout
+git clone https://github.com/phacility/phabricator.git
+\end_layout
+
+\begin_layout Plain Layout
+sudo mv libphutil arcanlit phabricator /var/www
+\end_layout
+
+\begin_layout Plain Layout
+cd /var/www/phabricator
+\end_layout
+
+\begin_layout Plain Layout
+sudo ./bin/config mysql.user root
+\end_layout
+
+\begin_layout Plain Layout
+sudo ./bin/config mysql.pass xxxx
+\end_layout
+
+\begin_layout Plain Layout
+sudo ./bin/storage upgrade
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+phabricator配置
+\end_layout
+
+\begin_layout Standard
+phabricator的配置过程有些繁琐，主要分为以下的几个部分：
+\end_layout
+
+\begin_layout Subsection
+解决访问http://phabricator.domain.com 解决提示的所有问题
+\end_layout
+
+\begin_layout Standard
+基本上就是修改php.ini和mysql.cf文件，一步一步跟着提示走下来就可以了。
+\end_layout
+
+\begin_layout Subsection
+设置phd和git专用账户
+\end_layout
+
+\begin_layout Standard
+phabricator一般需要三个账户：
+\end_layout
+
+\begin_layout Enumerate
+phabricator的守护进程phd，本文中此账户名是phabricator。
+\end_layout
+
+\begin_layout Enumerate
+web服务器的运行用户，在ubuntu/debian系统中一般是www-data，而且安装nginx的时候已经自动创建好了，这个不需要额外处理。
+\end_layout
+
+\begin_layout Enumerate
+通过ssh协议操作仓库的账户。由于一般我们使用git clone git@phabricator.xxxx.com/这样的URL操作远程仓库，因此这个账户一般是gi
+t。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+sudo useradd git
+\end_layout
+
+\begin_layout Plain Layout
+sudo useradd phabricator
+\end_layout
+
+\begin_layout Plain Layout
+cd /var/www/phabricator
+\end_layout
+
+\begin_layout Plain Layout
+sudo ./bin/phd stop
+\end_layout
+
+\begin_layout Plain Layout
+sudo ./bin/config set phd.user phabricator
+\end_layout
+
+\begin_layout Plain Layout
+sudo ./bin/phd start
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+为了让www-data和git账户能够以phabricator身份运行基本的命令，以root身份编辑/etc/sudoers.d/phabricator，内容如下
+：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+www-data ALL=(phabricator) SETENV: NOPASSWD: /usr/bin/git, /usr/bin/git-http-bac
+kend, /usr/bin/ssh 
+\end_layout
+
+\begin_layout Plain Layout
+git ALL=(phabricator) SETENV: NOPASSWD: /bin/ls, /usr/bin/git, /usr/bin/git-uplo
+ad-pack, /usr/bin/git-receive-pack, /usr/bin/ssh
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+设置ssh认证服务
+\end_layout
+
+\begin_layout Standard
+这是最容易出错的一步。如果出错，请认证检查或者重新做一遍。
+\end_layout
+
+\begin_layout Subsubsection
+git账户设置
+\end_layout
+
+\begin_layout Standard
+确定git账户允许登录，但是不允许使用密码登录，即只能通过ssh key登录。
+\end_layout
+
+\begin_layout Standard
+/etc/shadow文件中，git账户的第二栏位修改为NP。
+\end_layout
+
+\begin_layout Standard
+/etc/passwd文件中，git账户的登录shell设置为/bin/bash。
+\end_layout
+
+\begin_layout Subsubsection
+产生git账户的ssh key，并上传到phabricator
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+su - git
+\end_layout
+
+\begin_layout Plain Layout
+ssh-keygen
+\end_layout
+
+\begin_layout Plain Layout
+cd .ssh
+\end_layout
+
+\begin_layout Plain Layout
+cat id_rsa.pub
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+把屏幕打印出来的key添加到phabricator的账户管理中，如图所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/project-management/ssh-pubkey-upload-phabricator.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+上传git账户公钥到phabricator
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+创建phabricator的sshd认证服务
+\end_layout
+
+\begin_layout Standard
+在/etc/ssh目录创建文件sshd_config.phabricator:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# NOTE: You must have OpenSSHD 6.2 or newer; support for AuthorizedKeysCommand
+\end_layout
+
+\begin_layout Plain Layout
+
+# was added in this version.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# NOTE: Edit these to the correct values for your setup.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+AuthorizedKeysCommand /usr/local/bin/phabricator-ssh-hook.sh
+\end_layout
+
+\begin_layout Plain Layout
+
+AuthorizedKeysCommandUser git
+\end_layout
+
+\begin_layout Plain Layout
+
+AllowUsers git
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# You may need to tweak these options, but mostly they just turn off everything
+\end_layout
+
+\begin_layout Plain Layout
+
+# dangerous.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Port 2222
+\end_layout
+
+\begin_layout Plain Layout
+
+Protocol 2
+\end_layout
+
+\begin_layout Plain Layout
+
+PermitRootLogin no
+\end_layout
+
+\begin_layout Plain Layout
+
+AllowAgentForwarding no
+\end_layout
+
+\begin_layout Plain Layout
+
+AllowTcpForwarding no
+\end_layout
+
+\begin_layout Plain Layout
+
+PrintMotd no
+\end_layout
+
+\begin_layout Plain Layout
+
+PrintLastLog no
+\end_layout
+
+\begin_layout Plain Layout
+
+PasswordAuthentication no
+\end_layout
+
+\begin_layout Plain Layout
+
+AuthorizedKeysFile none
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+PidFile /var/run/sshd-phabricator.pid
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+注意，这里的Port暂时设置为2222，后面会更换为22。
+\end_layout
+
+\begin_layout Standard
+在/usr/local/bin/下创建文件phabricator-ssh-hook.sh：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#!/bin/sh
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# NOTE: Replace this with the username that you expect users to connect
+ with.
+\end_layout
+
+\begin_layout Plain Layout
+
+VCSUSER="git"
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# NOTE: Replace this with the path to your Phabricator directory.
+\end_layout
+
+\begin_layout Plain Layout
+
+ROOT="/var/www/phabricator"
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+if [ "$1" != "$VCSUSER" ];
+\end_layout
+
+\begin_layout Plain Layout
+
+then
+\end_layout
+
+\begin_layout Plain Layout
+
+  exit 1
+\end_layout
+
+\begin_layout Plain Layout
+
+fi
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+exec "$ROOT/bin/ssh-auth" $@
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+设置phabricator参数：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+sudo ./bin/config set diffusion.ssh-port 2222
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+测试ssh认证
+\end_layout
+
+\begin_layout Standard
+现在可以启动phabricator的sshd认证服务进行测试了：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+sudo /usr/sbin/sshd -f /etc/ssh/sshd_config.phabricator
+\end_layout
+
+\begin_layout Plain Layout
+su - git
+\end_layout
+
+\begin_layout Plain Layout
+echo {} | ssh git@phabricator.yourcompany.com conduit conduit.ping
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如果最后的命令给出了如下的结果，就表示配置成功了：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+{"result":"phabricator.yourcompany.com","error_code":null,"error_info":null}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+迁移ssh的默认端口
+\end_layout
+
+\begin_layout Standard
+修改/etc/ssh/sshd_config，将其中的port 22修改为port 2222，然后重启sshd服务：service sshd restart。
+\end_layout
+
+\begin_layout Standard
+然后在/etc/ssh/sshd_config.phabricator修改phabricator的sshd端口为22，并设置到phabricator:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+sudo ./bin/config set diffusion.ssh-port 22
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+自启动phabricator服务
+\end_layout
+
+\begin_layout Standard
+在/etc/init.d/bootmisc.sh的do_start方法的最后添加：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+        # phabricator sshd service
+\end_layout
+
+\begin_layout Plain Layout
+
+        /usr/sbin/sshd -f /etc/sshd/sshd_config.phabricator
+\end_layout
+
+\begin_layout Plain Layout
+
+        # phabricator phd service
+\end_layout
+
+\begin_layout Plain Layout
+
+        /var/www/phabricator/bin/phd start
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+安装jenkins
+\end_layout
+
+\begin_layout Standard
+jenkins是一个java应用，因此和安装其他java web应用是一样的，这里不再赘述。
+\end_layout
+
+\begin_layout Section
+jenkins和phabricator的整合
 \end_layout
 
 \end_body
