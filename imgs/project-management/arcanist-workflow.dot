@@ -1,0 +1,12 @@
+digraph G {
+    local_repo[label="本地仓库"];
+    remote_repo[label="中央仓库on phabricator"];
+    arcanist[label="arcanist"];
+    phabricator[label="代码审核on phabricator"];
+
+    local_repo->arcanist[label="git add\ngit commit"];
+    arcanist->phabricator[label="arc diff"];
+    phabricator->local_repo[label="审核未通过\n回炉"];
+    local_repo->remote_repo[label="审核通过\narc land"];
+
+}
