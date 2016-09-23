@@ -5,7 +5,7 @@ digraph G {
     phabricator[label="代码审核on phabricator"];
 
     local_repo->arcanist[label="git add\ngit commit"];
-    arcanist->phabricator[label="arc diff"];
+    arcanist->phabricator[label="arc diff\narc diff --update D#"];
     phabricator->local_repo[label="审核未通过\n回炉"];
     local_repo->remote_repo[label="审核通过\narc land"];
 
