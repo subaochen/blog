@@ -244,6 +244,99 @@ name "fig:arcanist的作用"
 \end_layout
 
 \begin_layout Section
+安装arcanist前的准备工作
+\end_layout
+
+\begin_layout Standard
+在安装arcanist之前，确保已经将你的ssh-key上传到了phabricator：将$HOME/.ssh/id_rsa.pub文件的内容粘贴到phabrica
+tor的Setting>Personal Settings>Authentication>SSH public key中，这样你才能有权限的clone基于ssh
+协议的远程仓库：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+git clone ssh://git@phabricator.youdomain.com/diffusion/P/youproject.git
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+具体可以参考phabricator的仓库详情页，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:仓库详情"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/project-management/git-clone-repos-phabricator.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+仓库详情
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:仓库详情"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 arcanist的安装
 \end_layout
 

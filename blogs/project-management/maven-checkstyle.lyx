@@ -203,6 +203,16 @@ key "google-java-style-guide"
 
 \end_inset
 
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+中文版参见：
+\end_layout
+
+\end_inset
+
 并获得了广泛支持，因此一般在项目中借用google的java编码规范进行代码风格检查。
 \end_layout
 
@@ -217,7 +227,22 @@ status open
 
 \begin_layout Plain Layout
 
-      <plugin>
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+<plugins>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <!-- other plugins -->
+\end_layout
+
+\begin_layout Plain Layout
+
+    <plugin>
 \end_layout
 
 \begin_layout Plain Layout
@@ -337,7 +362,12 @@ status open
 
 \begin_layout Plain Layout
 
-      </plugin>
+    </plugin>
+\end_layout
+
+\begin_layout Plain Layout
+
+<plugins>
 \end_layout
 
 \end_inset
@@ -356,7 +386,17 @@ status open
 
 \begin_layout Plain Layout
 
-    <plugins>
+<reporting> 
+\end_layout
+
+\begin_layout Plain Layout
+
+  <!-- other plugins -->
+\end_layout
+
+\begin_layout Plain Layout
+
+  <plugins>
 \end_layout
 
 \begin_layout Plain Layout
@@ -429,6 +469,11 @@ status open
     </plugins>
 \end_layout
 
+\begin_layout Plain Layout
+
+</reporting>
+\end_layout
+
 \end_inset
 
 
@@ -437,6 +482,19 @@ status open
 \begin_layout Standard
 这样，在项目的validate阶段就会触发代码的风格检查，并在target中给出风格检查的结果。如果代码有不符合规定的地方，则mvn clean
  install 会失败，宝宝再也不用担心混乱的代码风格了:-)
+\end_layout
+
+\begin_layout Standard
+完整的google styleguide请参见：
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/google/styleguide"
+target "https://github.com/google/styleguide"
+
+\end_inset
+
+，其中的eclipse-java-google-style.xml可以导入到eclipse中，intellij-java-google-style.xml可以导入到
+ideal中。
 \end_layout
 
 \begin_layout Standard
