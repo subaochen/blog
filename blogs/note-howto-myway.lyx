@@ -676,5 +676,18 @@ target "http://toutiao.com/i6262452804527325697/"
 利用大数据技术管理笔记？也许......
 \end_layout
 
+\begin_layout Section
+小结
+\end_layout
+
+\begin_layout Standard
+这是我个人的方法，优点是大部分资料可以保证永不丢失，而且保留了版本历史。比如存放到git仓库的资料，由于git仓库分布式的特点，在办公室电脑、家里电脑、服务器至
+少有三个copy，即使有一处损坏也可以轻易恢复起来。但是这种方式大概只适合于程序员，或者将git溶于日常生活的童鞋。
+\end_layout
+
+\begin_layout Standard
+如果不使用git保存个人的大部分笔记，建议将笔记通过类似于坚果云或者印象笔记这样的载体同步起来，即方便了不同设备访问笔记，也顺便形成了笔记的多个备份。
+\end_layout
+
 \end_body
 \end_document
