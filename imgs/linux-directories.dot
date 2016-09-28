@@ -1,0 +1,43 @@
+graph G {
+    node[shape="box"];
+    root[label="/"];
+    usr_bin[label="bin"];
+    usr_local_bin[label="bin"];
+    usr_lib[label="lib"];
+    init_d[label="init.d"];
+    logrotated_d[label="logrotated.d"];
+    root--home;
+    root--opt;
+    root--tmp;
+    root--usr;
+    root--etc;
+    root--boot;
+    root--bin;
+    root--sbin;
+    root--var;
+
+    usr--local--usr_local_bin;
+    usr--usr_bin;
+    usr--share--doc;
+    share--fonts;
+    usr--usr_lib;
+
+    home--zhangsan--devel;
+    zhangsan--docs;
+    zhangsan--download;
+    home--ftp--pub;
+    ftp--private;
+    
+    var--www--html;
+    www--redmine;
+    var--log--mail;
+    log--apache;
+    var--spool;
+
+    etc--init_d;
+    etc--logrotated_d;
+
+    {rank=same;home,usr,etc;}
+    {rank=same;local,usr_bin,share,usr_lib}
+
+}
