@@ -209,6 +209,14 @@ status open
 
 \begin_layout Plain Layout
 中文版参见：
+\begin_inset CommandInset href
+LatexCommand href
+name "http://www.hawstein.com/posts/google-java-style.html"
+target "http://www.hawstein.com/posts/google-java-style.html"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

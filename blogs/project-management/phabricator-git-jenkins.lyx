@@ -184,34 +184,6 @@ coderemarks
 基于ubuntu搭建完整的软件开发流程管理环境
 \end_layout
 
-\begin_layout Standard
-安装软件列表：
-\end_layout
-
-\begin_layout Itemize
-git
-\end_layout
-
-\begin_layout Itemize
-maven/jdk
-\end_layout
-
-\begin_layout Itemize
-wildfly/tomcat
-\end_layout
-
-\begin_layout Itemize
-phabricator
-\end_layout
-
-\begin_layout Itemize
-jenkins
-\end_layout
-
-\begin_layout Standard
-目标是搭建一个完整的类似于github，支持分布式开发和code view、ci的完整软件开发流程管理平台。
-\end_layout
-
 \begin_layout Section
 基础软件安装
 \end_layout
@@ -1184,6 +1156,18 @@ jenkins是一个java应用，因此和安装其他java web应用是一样的，�
 
 \begin_layout Section
 jenkins和phabricator的整合
+\end_layout
+
+\begin_layout Standard
+这部分内容可以参见：
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/uber/phabricator-jenkins-plugin"
+target "https://github.com/uber/phabricator-jenkins-plugin"
+
+\end_inset
+
+，已经讲的很详细清楚了。不过，这里有个很大的坑：PHID是必须这样写的，不能写成PH_ID，jenkins的phabricator插件似乎内部写死了。
 \end_layout
 
 \end_body
