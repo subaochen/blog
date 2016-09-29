@@ -1,0 +1,28 @@
+digraph G {
+    //rankdir=LR;
+    node[fontsize=12,style="filled",color="skyblue"];
+    edge[fontsize=12,color="darkgreen"];
+    begin[shape="circle", color="black", style="filled", label="",fixedsize="true"];
+    local_repo[label="本地仓库"];
+    task[label="task on phabricator"];
+    devel_branch[label="开发分支"];
+    remote_repo[label="中央仓库on phabricator"];
+    arcanist[label="arcanist"];
+    phabricator[label="代码审核on phabricator"];
+    jenkins;
+
+    begin->local_repo[label="git clone"];
+    begin->task[label="创建task"];
+    local_repo->devel_branch[label="git checkout -b T#"];
+    devel_branch->arcanist[label="git add\ngit commit"];
+    arcanist->jenkins[label="arc diff\narc diff --preview\narc diff --update D#"];
+    jenkins->phabricator[label="CI"]
+    phabricator->devel_branch[label="审核未通过\n回炉修改"];
+    local_repo->remote_repo[label="审核通过\narc land"];
+    phabricator->task[label="审核通过，关闭task"];
+
+    task->devel_branch[label="task id:T#",style="dashed",color="green"];
+
+    {rank=same;devel_branch,task}
+
+}
