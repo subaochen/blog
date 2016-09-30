@@ -181,38 +181,75 @@ coderemarks
 \begin_body
 
 \begin_layout Title
-maven项目支持代码风格检查
+Netbeans的JPA Modeler插件介绍
 \end_layout
 
 \begin_layout Standard
-首先聊一下为什么要进行代码的风格检查：统一团队成员的代码风格，迫使团队成员养成良好的编码习惯，提高代码的可读性和质量。
+观看了
+\begin_inset CommandInset href
+LatexCommand href
+name "JPA Modeler"
+target "http://jpamodeler.github.io/"
+
+\end_inset
+
+演示视频，貌似棒极了，于是装起来体验了一把，下面是体验记录，好不好各位自己判断:-)
+\end_layout
+
+\begin_layout Section
+安装
 \end_layout
 
 \begin_layout Standard
-maven的插件maven-checkstyle-plugin支持代码风格检查，目前版本2.17支持sun-checks.xml和google-checks.xml
-\begin_inset CommandInset citation
-LatexCommand cite
-key "maven-checkstyle-plugin"
+从Netbeans的插件中心选择安装即可，不再赘述。
+\end_layout
+
+\begin_layout Section
+创建数据库的结构图（E-R图）
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:创建数据库的结构图（E-R图）"
 
 \end_inset
 
-。由于google在2014年发布了自己的Java编码规范
-\begin_inset CommandInset citation
-LatexCommand cite
-key "google-java-style-guide"
+
+\end_layout
+
+\begin_layout Standard
+新建一个数据库结构图，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:准备新建数据库的结构图"
 
 \end_inset
 
+所示：
+\end_layout
 
-\begin_inset Foot
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-中文版参见：
-\begin_inset CommandInset href
-LatexCommand href
-name "http://www.hawstein.com/posts/google-java-style.html"
-target "http://www.hawstein.com/posts/google-java-style.html"
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/tools/jpa-modeler-new-scheme-1.png
+	width 70line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+准备新建数据库的结构图
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:准备新建数据库的结构图"
 
 \end_inset
 
@@ -221,11 +258,212 @@ target "http://www.hawstein.com/posts/google-java-style.html"
 
 \end_inset
 
-并获得了广泛支持，因此一般在项目中借用google的java编码规范进行代码风格检查。
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-配置方法很简单，在项目的pom.xml文件的build块添加如下的内容即可：
+简单的拖拖拉拉后，就创建好了数据库的结构图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:创建好的数据库结构图"
+
+\end_inset
+
+了：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/tools/jpa-modeler-new-scheme-2.png
+	width 70line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+创建好的数据库结构图
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:创建好的数据库结构图"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+常见的，需要对外键或者引用特别设置一下，主要是比如Student中的courses引用，一般需要设置为lazy加载CascadeType为All，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:设置外部引用的属性"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/tools/jpa-modeler-new-scheme-3.png
+	width 70line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+设置外部引用的属性
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:设置外部引用的属性"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+同样的道理，将id字段的Id Generator设置为Auto，如图所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/tools/jpa-modeler-new-scheme-5.png
+	width 70line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+id generator设置为Auto
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这是面向对象的方式的数据表结构设计，看一下真实的数据库长的什么样子：右键选择Generate Source Code：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/tools/jpa-modeler-new-scheme-4.png
+	width 70line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+生成Entity代码
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+检查一下生成的两个Entity类，还不错：
 \end_layout
 
 \begin_layout Standard
@@ -235,147 +473,150 @@ status open
 
 \begin_layout Plain Layout
 
-   
+@Entity
 \end_layout
 
 \begin_layout Plain Layout
 
-<plugins>
+public class Student implements Serializable {
 \end_layout
 
 \begin_layout Plain Layout
 
-    <!-- other plugins -->
 \end_layout
 
 \begin_layout Plain Layout
 
-    <plugin>
+  @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, targetEntity
+ = Course.class)
 \end_layout
 
 \begin_layout Plain Layout
 
-        <groupId>org.apache.maven.plugins</groupId>
+  private List<Course> courses;
 \end_layout
 
 \begin_layout Plain Layout
 
-        <artifactId>maven-checkstyle-plugin</artifactId>
 \end_layout
 
 \begin_layout Plain Layout
 
-        <version>2.17</version>
+  @Basic
 \end_layout
 
 \begin_layout Plain Layout
 
-        <configuration>
+  private String password;
 \end_layout
 
 \begin_layout Plain Layout
 
-          <configLocation>google_checks.xml</configLocation>
 \end_layout
 
 \begin_layout Plain Layout
 
-          <encoding>UTF-8</encoding>
+  @Id
 \end_layout
 
 \begin_layout Plain Layout
 
-          <consoleOutput>true</consoleOutput>
+  @GeneratedValue(strategy = GenerationType.AUTO)
 \end_layout
 
 \begin_layout Plain Layout
 
-          <failsOnError>true</failsOnError>
+  private Long id;
 \end_layout
 
 \begin_layout Plain Layout
 
-          <failOnViolation>true</failOnViolation>
 \end_layout
 
 \begin_layout Plain Layout
 
-          <!--
+  @Basic
 \end_layout
 
 \begin_layout Plain Layout
 
-          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+  private String email;
 \end_layout
 
 \begin_layout Plain Layout
 
-          <linkXRef>true</linkXRef>
 \end_layout
 
 \begin_layout Plain Layout
 
-          -->
+  @Basic
 \end_layout
 
 \begin_layout Plain Layout
 
-        </configuration>
+  private String username;
 \end_layout
 
 \begin_layout Plain Layout
 
-        <executions>
+......
 \end_layout
 
 \begin_layout Plain Layout
 
-          <execution>
 \end_layout
 
 \begin_layout Plain Layout
 
-            <id>checkstyle</id>
+@Entity
 \end_layout
 
 \begin_layout Plain Layout
 
-            <phase>validate</phase>
+public class Course implements Serializable {
 \end_layout
 
 \begin_layout Plain Layout
 
-            <goals>
 \end_layout
 
 \begin_layout Plain Layout
 
-              <goal>check</goal>
+  @Basic
 \end_layout
 
 \begin_layout Plain Layout
 
-            </goals>
+  private String name;
 \end_layout
 
 \begin_layout Plain Layout
 
-          </execution>
 \end_layout
 
 \begin_layout Plain Layout
 
-        </executions>
+  @Column(unique = true)
 \end_layout
 
 \begin_layout Plain Layout
 
-    </plugin>
+  @Id
 \end_layout
 
 \begin_layout Plain Layout
 
-<plugins>
+  @GeneratedValue(strategy = GenerationType.AUTO)
+\end_layout
+
+\begin_layout Plain Layout
+
+  private Long id;
+\end_layout
+
+\begin_layout Plain Layout
+
+......
 \end_layout
 
 \end_inset
@@ -384,7 +625,55 @@ status open
 \end_layout
 
 \begin_layout Standard
-在pom.xml的reporting块增加：
+右键选择“Visualize DB”，即可看到真实的数据表是什么样子了：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/tools/jpa-modeler-new-scheme-6.png
+	width 70line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Visualize DB
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Visualize-DB"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在图所示的界面右键选择“View SQL”即可查看生成数据库的SQL了：
 \end_layout
 
 \begin_layout Standard
@@ -394,92 +683,95 @@ status open
 
 \begin_layout Plain Layout
 
-<reporting> 
+CREATE TABLE STUDENT_COURSE (Student_ID BIGINT NOT NULL, courses_ID BIGINT
+ NOT NULL, PRIMARY KEY (Student_ID, courses_ID));
 \end_layout
 
 \begin_layout Plain Layout
 
-  <!-- other plugins -->
+CREATE TABLE STUDENT (ID BIGINT NOT NULL, EMAIL VARCHAR(255), PASSWORD VARCHAR(2
+55), USERNAME VARCHAR(255), PRIMARY KEY (ID));
 \end_layout
 
 \begin_layout Plain Layout
 
-  <plugins>
+CREATE TABLE COURSE (ID BIGINT NOT NULL, NAME VARCHAR(255), PRIMARY KEY
+ (ID));
 \end_layout
 
 \begin_layout Plain Layout
 
-      <plugin>
+ALTER TABLE STUDENT_COURSE ADD CONSTRAINT FK_STUDENT_COURSE_courses_ID FOREIGN
+ KEY (courses_ID) REFERENCES COURSE (ID);
 \end_layout
 
 \begin_layout Plain Layout
 
-        <groupId>org.apache.maven.plugins</groupId>
+ALTER TABLE STUDENT_COURSE ADD CONSTRAINT FK_STUDENT_COURSE_Student_ID FOREIGN
+ KEY (Student_ID) REFERENCES STUDENT (ID);
 \end_layout
 
 \begin_layout Plain Layout
 
-        <artifactId>maven-checkstyle-plugin</artifactId>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+从数据库创建结构图
+\end_layout
+
+\begin_layout Standard
+如果数据已经存在了，JPA Modeler可以读取数据库并自动创建ER图，只需要在选择新建持续层时，从数据库创建即可，见图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:从数据库创建持续层"
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/tools/jpa-modeler-new-scheme-7.png
+	width 70line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+从数据库创建持续层
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:从数据库创建持续层"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
 
-        <version>2.17</version>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <configuration>
-\end_layout
-
-\begin_layout Plain Layout
-
-          <!-- check rules, licence header and etc -->
-\end_layout
-
-\begin_layout Plain Layout
-
-        </configuration>
-\end_layout
-
-\begin_layout Plain Layout
-
-      </plugin>
-\end_layout
-
-\begin_layout Plain Layout
-
-      <plugin>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <groupId>org.apache.maven.plugins</groupId>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <artifactId>maven-jxr-plugin</artifactId>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <version>2.1</version>
-\end_layout
-
-\begin_layout Plain Layout
-
-      </plugin>
-\end_layout
-
-\begin_layout Plain Layout
-
-    </plugins>
-\end_layout
-
-\begin_layout Plain Layout
-
-</reporting>
 \end_layout
 
 \end_inset
@@ -488,45 +780,14 @@ status open
 \end_layout
 
 \begin_layout Standard
-这样，在项目的validate阶段就会触发代码的风格检查，并在target中给出风格检查的结果。如果代码有不符合规定的地方，则mvn clean
- install 会失败，宝宝再也不用担心混乱的代码风格了:-)
-\end_layout
-
-\begin_layout Standard
-完整的google styleguide请参见：
-\begin_inset CommandInset href
-LatexCommand href
-name "https://github.com/google/styleguide"
-target "https://github.com/google/styleguide"
+然后一步一步的创建数据库连接读取数据库，获得的数据库结构图和
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:创建数据库的结构图（E-R图）"
 
 \end_inset
 
-，其中的eclipse-java-google-style.xml可以导入到eclipse中，intellij-java-google-style.xml可以导入到
-ideal中。
-\end_layout
-
-\begin_layout Standard
-sun的编码规范要比google严格，详情参见
-\begin_inset CommandInset href
-LatexCommand href
-name "http://www.oracle.com/technetwork/java/codeconvtoc-136057.html"
-target "http://www.oracle.com/technetwork/java/codeconvtoc-136057.html"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\start_of_appendix
-\begin_inset CommandInset bibtex
-LatexCommand bibtex
-bibfiles "/home/subaochen/git/bibref/java"
-options "IEEEtranS"
-
-\end_inset
-
-
+部分的差不多，就不再赘述了。
 \end_layout
 
 \end_body

@@ -181,336 +181,46 @@ coderemarks
 \begin_body
 
 \begin_layout Title
-maven项目支持代码风格检查
+HTML5页面获取服务器更新的方法
 \end_layout
 
 \begin_layout Standard
-首先聊一下为什么要进行代码的风格检查：统一团队成员的代码风格，迫使团队成员养成良好的编码习惯，提高代码的可读性和质量。
+HTML5对服务器发送事件（server-sent event）的支持如此强大，允许页面获取来自服务器的更新。传统上，页面要获取服务器的更新必须首先向服务器发送
+请求，也就是说，页面是主动方，服务器是被动方。HTML5的服务器发送事件使得页面变成了被动方，服务器成为主动方，于是像版本更新、最新文章、最新赛事结果等推送就变
+得非常方便了。
 \end_layout
 
 \begin_layout Standard
-maven的插件maven-checkstyle-plugin支持代码风格检查，目前版本2.17支持sun-checks.xml和google-checks.xml
-\begin_inset CommandInset citation
-LatexCommand cite
-key "maven-checkstyle-plugin"
-
-\end_inset
-
-。由于google在2014年发布了自己的Java编码规范
-\begin_inset CommandInset citation
-LatexCommand cite
-key "google-java-style-guide"
-
-\end_inset
-
-
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-中文版参见：
 \begin_inset CommandInset href
 LatexCommand href
-name "http://www.hawstein.com/posts/google-java-style.html"
-target "http://www.hawstein.com/posts/google-java-style.html"
+name "https://github.com/subaochen/sse-demo"
+target "https://github.com/subaochen/sse-demo"
 
 \end_inset
 
-
-\end_layout
-
-\end_inset
-
-并获得了广泛支持，因此一般在项目中借用google的java编码规范进行代码风格检查。
+示例演示了服务器如何推送当前时间到页面。
 \end_layout
 
 \begin_layout Standard
-配置方法很简单，在项目的pom.xml文件的build块添加如下的内容即可：
+参考资料：
 \end_layout
 
 \begin_layout Standard
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-   
-\end_layout
-
-\begin_layout Plain Layout
-
-<plugins>
-\end_layout
-
-\begin_layout Plain Layout
-
-    <!-- other plugins -->
-\end_layout
-
-\begin_layout Plain Layout
-
-    <plugin>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <groupId>org.apache.maven.plugins</groupId>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <artifactId>maven-checkstyle-plugin</artifactId>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <version>2.17</version>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <configuration>
-\end_layout
-
-\begin_layout Plain Layout
-
-          <configLocation>google_checks.xml</configLocation>
-\end_layout
-
-\begin_layout Plain Layout
-
-          <encoding>UTF-8</encoding>
-\end_layout
-
-\begin_layout Plain Layout
-
-          <consoleOutput>true</consoleOutput>
-\end_layout
-
-\begin_layout Plain Layout
-
-          <failsOnError>true</failsOnError>
-\end_layout
-
-\begin_layout Plain Layout
-
-          <failOnViolation>true</failOnViolation>
-\end_layout
-
-\begin_layout Plain Layout
-
-          <!--
-\end_layout
-
-\begin_layout Plain Layout
-
-          <includeTestSourceDirectory>true</includeTestSourceDirectory>
-\end_layout
-
-\begin_layout Plain Layout
-
-          <linkXRef>true</linkXRef>
-\end_layout
-
-\begin_layout Plain Layout
-
-          -->
-\end_layout
-
-\begin_layout Plain Layout
-
-        </configuration>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <executions>
-\end_layout
-
-\begin_layout Plain Layout
-
-          <execution>
-\end_layout
-
-\begin_layout Plain Layout
-
-            <id>checkstyle</id>
-\end_layout
-
-\begin_layout Plain Layout
-
-            <phase>validate</phase>
-\end_layout
-
-\begin_layout Plain Layout
-
-            <goals>
-\end_layout
-
-\begin_layout Plain Layout
-
-              <goal>check</goal>
-\end_layout
-
-\begin_layout Plain Layout
-
-            </goals>
-\end_layout
-
-\begin_layout Plain Layout
-
-          </execution>
-\end_layout
-
-\begin_layout Plain Layout
-
-        </executions>
-\end_layout
-
-\begin_layout Plain Layout
-
-    </plugin>
-\end_layout
-
-\begin_layout Plain Layout
-
-<plugins>
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-在pom.xml的reporting块增加：
-\end_layout
-
-\begin_layout Standard
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-<reporting> 
-\end_layout
-
-\begin_layout Plain Layout
-
-  <!-- other plugins -->
-\end_layout
-
-\begin_layout Plain Layout
-
-  <plugins>
-\end_layout
-
-\begin_layout Plain Layout
-
-      <plugin>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <groupId>org.apache.maven.plugins</groupId>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <artifactId>maven-checkstyle-plugin</artifactId>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <version>2.17</version>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <configuration>
-\end_layout
-
-\begin_layout Plain Layout
-
-          <!-- check rules, licence header and etc -->
-\end_layout
-
-\begin_layout Plain Layout
-
-        </configuration>
-\end_layout
-
-\begin_layout Plain Layout
-
-      </plugin>
-\end_layout
-
-\begin_layout Plain Layout
-
-      <plugin>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <groupId>org.apache.maven.plugins</groupId>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <artifactId>maven-jxr-plugin</artifactId>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <version>2.1</version>
-\end_layout
-
-\begin_layout Plain Layout
-
-      </plugin>
-\end_layout
-
-\begin_layout Plain Layout
-
-    </plugins>
-\end_layout
-
-\begin_layout Plain Layout
-
-</reporting>
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-这样，在项目的validate阶段就会触发代码的风格检查，并在target中给出风格检查的结果。如果代码有不符合规定的地方，则mvn clean
- install 会失败，宝宝再也不用担心混乱的代码风格了:-)
-\end_layout
-
-\begin_layout Standard
-完整的google styleguide请参见：
 \begin_inset CommandInset href
 LatexCommand href
-name "https://github.com/google/styleguide"
-target "https://github.com/google/styleguide"
+name "https://html.spec.whatwg.org/multipage/comms.html#server-sent-events"
+target "https://html.spec.whatwg.org/multipage/comms.html#server-sent-events"
 
 \end_inset
 
-，其中的eclipse-java-google-style.xml可以导入到eclipse中，intellij-java-google-style.xml可以导入到
-ideal中。
+
 \end_layout
 
 \begin_layout Standard
-sun的编码规范要比google严格，详情参见
 \begin_inset CommandInset href
 LatexCommand href
-name "http://www.oracle.com/technetwork/java/codeconvtoc-136057.html"
-target "http://www.oracle.com/technetwork/java/codeconvtoc-136057.html"
+name "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events"
+target "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events"
 
 \end_inset
 
@@ -518,11 +228,21 @@ target "http://www.oracle.com/technetwork/java/codeconvtoc-136057.html"
 \end_layout
 
 \begin_layout Standard
-\start_of_appendix
-\begin_inset CommandInset bibtex
-LatexCommand bibtex
-bibfiles "/home/subaochen/git/bibref/java"
-options "IEEEtranS"
+\begin_inset CommandInset href
+LatexCommand href
+name "http://www.w3school.com.cn/html5/html_5_serversentevents.asp"
+target "http://www.w3school.com.cn/html5/html_5_serversentevents.asp"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/subaochen/sse-demo"
+target "https://github.com/subaochen/sse-demo"
 
 \end_inset
 
