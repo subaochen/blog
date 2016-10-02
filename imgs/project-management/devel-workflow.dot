@@ -14,7 +14,7 @@ digraph G {
     begin->local_repo[label="git clone"];
     local_repo->task[label="在phabricator创建task"];
     task->devel_branch[label="git checkout -b T##",color="red"];
-    devel_branch->arcanist[label="本机测试通过后\ngit add\ngit commit",color="red"];
+    devel_branch->arcanist[label="本机测试通过后\ngit add\ngit commit\n严禁commit -a!!",color="red"];
     arcanist->jenkins[label="arc diff --preview",color="red"];
     jenkins->phabricator[label="CI过关",color="red"];
     jenkins->devel_branch[label="CI失败\n回炉检查"];
