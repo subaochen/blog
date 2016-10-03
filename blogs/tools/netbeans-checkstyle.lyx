@@ -181,107 +181,32 @@ coderemarks
 \begin_body
 
 \begin_layout Title
-arcanist的用法简介
-\end_layout
-
-\begin_layout Section
-arcanist的作用
+NetBeans安装使用checkstyle插件
 \end_layout
 
 \begin_layout Standard
-arcanist是phabricator创建的代码审核辅助工具，其作用参见图
+checkstyle插件可以根据一定的规则（代码规范）检查代码的合理性，目前常用的代码规范是google和sun的，参见：
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/checkstyle/checkstyle"
+target "https://github.com/checkstyle/checkstyle"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+不知道为什么，Netbeans的checkstyle插件没有在默认的plugins中心列表中，即在Netbeans的默认插件中搜不到checkstyle插件，安
+装方法如下：
+\end_layout
+
+\begin_layout Standard
+打开Netbeans的插件管理器（工具->插件)，在“设置”中点击添加一个插件安装和更新的URL，在URL填写checkstyle插件的URL：http://w
+ww.sickboy.cz/checkstyle/autoupdate/autoupdate-3.xml，如图
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:arcanist的作用"
-
-\end_inset
-
-：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename ../../imgs/project-management/arcanist-workflow.png
-	width 80line%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-arcanist的作用
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:arcanist的作用"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-安装arcanist前的准备工作
-\end_layout
-
-\begin_layout Standard
-在安装arcanist之前，确保已经将你的ssh-key上传到了phabricator：将$HOME/.ssh/id_rsa.pub文件的内容粘贴到phabrica
-tor的Setting>Personal Settings>Authentication>SSH public key中，这样你才能有权限的clone基于ssh
-协议的远程仓库：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Frameless
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
-status open
-
-\begin_layout Plain Layout
-git clone ssh://git@phabricator.youdomain.com/diffusion/P/youproject.git
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-具体可以参考phabricator的仓库详情页，如图
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:仓库详情"
+reference "fig:checkstyle的插件更新URL"
 
 \end_inset
 
@@ -296,7 +221,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/project-management/git-clone-repos-phabricator.png
+	filename ../../imgs/tools/netbeans-checkstyle-1.png
 	width 80line%
 
 \end_inset
@@ -308,10 +233,10 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-仓库详情
+checkstyle的插件更新URL
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:仓库详情"
+name "fig:checkstyle的插件更新URL"
 
 \end_inset
 
@@ -323,40 +248,67 @@ name "fig:仓库详情"
 
 \end_layout
 
-\end_inset
-
+\begin_layout Plain Layout
 
 \end_layout
 
-\begin_layout Section
-arcanist的安装
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-这里假设已经安装好了php系统。如果还没有安装php环境，请首先执行：
+然后在“可用插件”中就可以搜索到checkstyle插件了，按照常规的插件安装方法安装checkstyle插件即可。
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
+安装checkstyle插件后，打开工具->选项，配置checkstyle插件的configuration file为google_check.xml，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:配置checkstyle插件"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-sudo apt-get install php5
+\begin_inset Graphics
+	filename ../../imgs/tools/netbeans-checkstyle-2.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+配置checkstyle插件
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:配置checkstyle插件"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
@@ -365,118 +317,53 @@ sudo apt-get install php5
 \end_layout
 
 \begin_layout Standard
-然后在某个目录，比如$HOME/devel下面执行下面的两个命令，将arcanist和libphutil同步到本地：
+我的google_check.xml直接fork自checkstyle的github项目，也可以将google_check.xml下载下来放到自己指定的目录里面。
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
+打开一个java文件，会发现checkstyle起作用了，入图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:checkstyle插件的提示"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-git clone https://github.com/phacility/libphutil.git
-\end_layout
-
-\begin_layout Plain Layout
-git clone https://github.com/phacility/arcanist.git
-\end_layout
+\begin_inset Graphics
+	filename ../../imgs/tools/netbeans-checkstyle-3.png
+	width 80line%
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-然后将$HOME/devel/arcanist/bin加入到PATH环境变量即可，这样arcanist就算安装成功了，测试一下：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
-status open
+\begin_layout Plain Layout
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
-arc --version
-\end_layout
-
-\begin_layout Plain Layout
-arcanist 9e82ef979e8148c43b9b8439025d505b1219e213 (25 Aug 2016)
-\end_layout
-
-\begin_layout Plain Layout
-libphutil fa6519f4cea1c059bd381c20971cac413cc4760e (15 Sep 2016)
-\end_layout
+checkstyle插件的提示
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:checkstyle插件的提示"
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Section
-arcanist的配置
-\end_layout
-
-\begin_layout Standard
-首先在项目的根目录下创建文件.arcconfig
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-.arcconfig文件也要提交到仓库中
-\end_layout
-
 \end_inset
 
-，主要是设置phabricator.url属性：
-\end_layout
 
-\begin_layout Standard
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-{                                                                      
-                                                                 
-\end_layout
-
-\begin_layout Plain Layout
-
-    "phabricator.uri" : "http://phabricator.youdomain.com/"
-\end_layout
-
-\begin_layout Plain Layout
-
-}
 \end_layout
 
 \begin_layout Plain Layout
@@ -489,93 +376,16 @@ status open
 \end_layout
 
 \begin_layout Standard
-然后在项目根目录执行：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Frameless
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
-status open
-
-\begin_layout Plain Layout
-arc install-certificate
-\end_layout
+剩下的工作，就是消灭checkstyle给出的提示了。在NetBeans消灭了checkstyle给出的提示，在maven进行checkstyle检查时就可以轻
+松过关了。maven中的checksytle配置方法参见：
+\begin_inset CommandInset href
+LatexCommand href
+name "maven中配置checkstyle进行代码风格检查"
+target "http://dz.sdut.edu.cn/blog/subaochen/2016/09/maven%E9%A1%B9%E7%9B%AE%E6%94%AF%E6%8C%81%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC%E6%A3%80%E6%9F%A5/"
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-会提示打开一个网址，照办后复制给出的token喂给arc install-certificate，配置就算完成了。
-\end_layout
-
-\begin_layout Standard
-注意，arc install-certificate命令每个用户每个项目只需要执行一次。
-\end_layout
-
-\begin_layout Section
-arcanist的使用
-\end_layout
-
-\begin_layout Subsection
-arc diff
-\end_layout
-
-\begin_layout Standard
-对项目做了一些修改后，首先git add/git commit将修改放进暂存区（stage area），然后执行arc diff命令，会提示填写下面的信息：
-\end_layout
-
-\begin_layout Itemize
-Test Plan - 必填，详细说明你的测试计划； 
-\end_layout
-
-\begin_layout Itemize
-Reviewers - 必填，执行代码审核人的账户，多个使用","隔开； 
-\end_layout
-
-\begin_layout Itemize
-Subscribers - 非必填，订阅人，能够收到代码变更的邮件通知，多个使用","隔开；
-\end_layout
-
-\begin_layout Standard
-提交后，代码即进入phabricator的Differential，并生成一个代号D#（＃为具体的数字），代码审核人就能够审阅你的代码了。
-\end_layout
-
-\begin_layout Standard
-如果审核未通过，修改代码后继续使用arc diff　–update D#，表示更新D#这个Differential，审核人可以继续就D#进行审核，提出审核意见。
-\end_layout
-
-\begin_layout Standard
-如果审核通过，在本地执行arc land即可将代码push到中央仓库。如果存在开发分支，arc land也会将开发分支合并到master，并删除开发分支（合并和
-删除开发分支待验证）。
-\end_layout
-
-\begin_layout Standard
-arc diff –preview允许在phabricator界面创建Diff，在更新Diff时可能更加方便，值得尝试。
-\end_layout
-
-\begin_layout Subsection
-arc land
-\end_layout
-
-\begin_layout Standard
-代码审核通过后，可以执行arc land将代码提交进中央仓库。arc land自动执行git push并且squash log ,默认情况下也删除了开发分支。a
-rc land –keep-branch应该可以保留开发分支，此功能待验证。
 \end_layout
 
 \end_body

@@ -117,11 +117,6 @@
 \advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
 \end_preamble
 \use_default_options true
-\begin_modules
-logicalmkup
-tcolorbox
-notice
-\end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
 \language_package default
@@ -291,7 +286,7 @@ name "fig:代码审核流程"
 不要直接git push代码，要通过arc diff提交代码审核，审核通过后arc land提交代码到中央仓库。关于arc的使用请参见：
 \begin_inset CommandInset href
 LatexCommand href
-name "http://dz.sdut.edu.cn/blog/subaochen/2016/09/arcanist%E7%9A%84%E7%94%A8%E6%B3%95%E7%AE%80%E4%BB%8B/"
+name "arcanist使用方法"
 target "http://dz.sdut.edu.cn/blog/subaochen/2016/09/arcanist%E7%9A%84%E7%94%A8%E6%B3%95%E7%AE%80%E4%BB%8B/"
 
 \end_inset
