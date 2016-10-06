@@ -1,0 +1,992 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+multicol
+notice
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+sloccount介绍
+\end_layout
+
+\begin_layout Section
+sloccount简介
+\end_layout
+
+\begin_layout Standard
+sloccount（source line of code）是一款代码行数统计工具，可以帮助项目管理人员了解项目规模和代码规模的变化趋势，对于评估代码的价值也有
+一定的帮助。
+\end_layout
+
+\begin_layout Standard
+sloccount的安装很简单，在debian/ubuntu系统下直接运行：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+sudo apt-get install sloccount
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+sloccount用法
+\end_layout
+
+\begin_layout Subsection
+简单代码行数统计
+\end_layout
+
+\begin_layout Standard
+sloccount的用法也很直接，一般的用法是项目根目录下运行：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+sloccount –duplicates –wide –details ./src > ./sloccount.sc
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+其中：
+\end_layout
+
+\begin_layout Standard
+–duplicates: 重复文件重复统计
+\end_layout
+
+\begin_layout Standard
+–wide: 等价于details?
+\end_layout
+
+\begin_layout Standard
+–details: 给出4栏的详细信息，包括SLOC、语言类型、所在目录等。
+\end_layout
+
+\begin_layout Standard
+–cached：可以利用缓存数据加快统计分析。
+\end_layout
+
+\begin_layout Standard
+–addlang：增加被忽略的语言，比如sql，makefile等。
+\end_layout
+
+\begin_layout Standard
+–addlangall：增加sql，makefile，html。
+\end_layout
+
+\begin_layout Subsection
+软件价值评估
+\end_layout
+
+\begin_layout Standard
+sloccount采用
+\begin_inset CommandInset href
+LatexCommand href
+name "COCOMO"
+target "https://en.wikipedia.org/wiki/COCOMO"
+
+\end_inset
+
+来进行软件的价值评估，其中的影响因子设定方法如下：
+\end_layout
+
+\begin_layout Standard
+–effect F E: 计算公式为F*(SLOC/1000)^E，因此如果程序员每月的产能为2 KSLOC/月，则F=0.5 月/KSLOC，E=1（线性产能模
+式）。
+\end_layout
+
+\begin_layout Standard
+–personcost: 平均年薪，暂时可以按照中值10万/年估算。
+\end_layout
+
+\begin_layout Standard
+–overhead：调整参数，一个很难评估的参数，暂时可以在2-4之间选择。
+\end_layout
+
+\begin_layout Standard
+经验取值如下表所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+项目类型
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+–effect F
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+–effect E
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+–schedule F
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+–schedule E
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+基础项目
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.05
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.38
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+半独立项目
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.12
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.38
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+嵌入式项目
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3.6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.32
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+注意，以上选项遵循Linux的常规用法，前面都是双短横线。
+\end_layout
+
+\begin_layout Standard
+sloccount的价值评估未必准确，按照此公式给程序员开工资责任自负:-)
+\end_layout
+
+\begin_layout Section
+sloccount报告解读
+\end_layout
+
+\begin_layout Standard
+只是简单的运行sloccount –addlangall.，sloccount生成的报告样本如下(我们以前做过的一个电商的项目)：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+SLOC Directory SLOC-by-Language (Sorted)
+\end_layout
+
+\begin_layout Plain Layout
+55854 src_hot java=55854
+\end_layout
+
+\begin_layout Plain Layout
+32467 docs sql=31024,php=877,xml=347,sh=219
+\end_layout
+
+\begin_layout Plain Layout
+20385 src_main java=20385
+\end_layout
+
+\begin_layout Plain Layout
+10984 view xml=7550,jsp=3434
+\end_layout
+
+\begin_layout Plain Layout
+4333 resources sql=2231,xml=2102
+\end_layout
+
+\begin_layout Plain Layout
+2819 src_test java=2435,xml=384
+\end_layout
+
+\begin_layout Plain Layout
+2542 top_dir lisp=1778,xml=714,sql=49,sh=1
+\end_layout
+
+\begin_layout Plain Layout
+1581 bootstrap xml=1581
+\end_layout
+
+\begin_layout Plain Layout
+166 nbproject xml=166
+\end_layout
+
+\begin_layout Plain Layout
+0 lib (none)
+\end_layout
+
+\begin_layout Plain Layout
+Totals grouped by language (dominant language first):
+\end_layout
+
+\begin_layout Plain Layout
+java: 78674 (60.00%)
+\end_layout
+
+\begin_layout Plain Layout
+sql: 33304 (25.40%)
+\end_layout
+
+\begin_layout Plain Layout
+xml: 12844 (9.79%)
+\end_layout
+
+\begin_layout Plain Layout
+jsp: 3434 (2.62%)
+\end_layout
+
+\begin_layout Plain Layout
+lisp: 1778 (1.36%)
+\end_layout
+
+\begin_layout Plain Layout
+php: 877 (0.67%)
+\end_layout
+
+\begin_layout Plain Layout
+sh: 220 (0.17%)
+\end_layout
+
+\begin_layout Plain Layout
+Total Physical Source Lines of Code (SLOC) = 131,131
+\end_layout
+
+\begin_layout Plain Layout
+Development Effort Estimate, Person-Years (Person-Months) = 33.47 (401.61)
+\end_layout
+
+\begin_layout Plain Layout
+(Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+\end_layout
+
+\begin_layout Plain Layout
+Schedule Estimate, Years (Months) = 2.03 (24.40)
+\end_layout
+
+\begin_layout Plain Layout
+(Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+\end_layout
+
+\begin_layout Plain Layout
+Estimated Average Number of Developers (Effort/Schedule) = 16.46
+\end_layout
+
+\begin_layout Plain Layout
+Total Estimated Cost to Develop = $ 4,520,977
+\end_layout
+
+\begin_layout Plain Layout
+(average salary = $56,286/year, overhead = 2.40).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+由于sloccount年事已高（2004年作品），目前似乎没法统计xhtml和js文件。尽管如此，上面的统计结果还是吓我一跳：就算把程序员年薪降低3倍（10万/
+年），这个项目也价值150万美元了。如果算上xhtml文件和js文件，估计价值还要高出一大块，好值钱啊，可是企业老板不这样想:-(。
+\end_layout
+
+\begin_layout Standard
+跑了一下wildfly的代码，结果显示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Totals grouped by language (dominant language first):
+\end_layout
+
+\begin_layout Plain Layout
+java: 414603 (69.63%)
+\end_layout
+
+\begin_layout Plain Layout
+xml: 178379 (29.96%)
+\end_layout
+
+\begin_layout Plain Layout
+sh: 2273 (0.38%)
+\end_layout
+
+\begin_layout Plain Layout
+jsp: 147 (0.02%)
+\end_layout
+
+\begin_layout Plain Layout
+Total Physical Source Lines of Code (SLOC) = 595,402
+\end_layout
+
+\begin_layout Plain Layout
+Development Effort Estimate, Person-Years (Person-Months) = 163.90 (1,966.81)
+\end_layout
+
+\begin_layout Plain Layout
+(Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+\end_layout
+
+\begin_layout Plain Layout
+Schedule Estimate, Years (Months) = 3.72 (44.62)
+\end_layout
+
+\begin_layout Plain Layout
+(Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+\end_layout
+
+\begin_layout Plain Layout
+Estimated Average Number of Developers (Effort/Schedule) = 44.08
+\end_layout
+
+\begin_layout Plain Layout
+Total Estimated Cost to Develop = $ 22,140,755
+\end_layout
+
+\begin_layout Plain Layout
+(average salary = $56,286/year, overhead = 2.40).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+sloccount和Jenkins的整合
+\end_layout
+
+\begin_layout Standard
+Jenkins的SLOCcount Plugin可以很好的解读sloccount的统计结果。首先要安装SLOCcount Plugin，直接到Jenkins的插
+件管理中搜索安装即可。然后配置构建任务，主要是两点：
+\end_layout
+
+\begin_layout Enumerate
+构建时运行sloccount创建sloccount报告，参见图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:构建时运行sloccount"
+
+\end_inset
+
+：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/project-management/sloccount-jenkins-1.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+构建时运行sloccount
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:构建时运行sloccount"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+构建后调用SLOCcount Plugin Report分析解读sloccount报告，见图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:构建后调用SLOCcount分析报告"
+
+\end_inset
+
+：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/project-management/sloccount-jenkins-2.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+构建后调用SLOCcount分析报告
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:构建后调用SLOCcount分析报告"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+当运行构建后，可以在项目界面查看SLOCcount的分析报告，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:项目界面的sloccount分析简报"
+
+\end_inset
+
+所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/project-management/sloccount-jenkins-3.png
+	width 90line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+项目界面的sloccount分析简报
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:项目界面的sloccount分析简报"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+点击“SLOCCount Results”，可以查看sloccount的分析报告详情，见图：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/project-management/sloccount-jenkins-4.png
+	width 90line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+sloccount分析报告详情
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+参考资料
+\end_layout
+
+\begin_layout Itemize
+sloccount的家：
+\begin_inset CommandInset href
+LatexCommand href
+name "http://www.dwheeler.com/sloccount/sloccount.html"
+target "http://www.dwheeler.com/sloccount/sloccount.html"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+2016中国程序员薪酬报告：http://www.chengxuyuan.com/post/673.html
+\end_layout
+
+\end_body
+\end_document
