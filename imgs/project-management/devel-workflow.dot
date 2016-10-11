@@ -11,20 +11,24 @@ digraph G {
     phabricator[label="代码审核on phabricator"];
     phab_diff[label="Diff on phabricator"];
     jenkins[label="Jenkins持续集成"];
-
+    arc_diff_comment[label="在一个Diff没有关闭时\n尽量只更新当前Diff\n尽量不要开新的Diff\n",
+      shape="record",style="dotted",color="red"];
     begin->local_repo[label="git clone"];
     local_repo->task[label="在phabricator创建task"];
     task->devel_branch[label="git pull --rebase\ngit checkout -b T##",color="red"];
     devel_branch->phab_diff[label="本机测试通过后\ngit status\ngit add\ngit commit\narc diff --preview",color="red"];
+    phab_diff->arc_diff_comment[style="dashed"];
     //arcanist->phab_diff[label="arc diff --preview",color="red"];
-    phab_diff->jenkins[label="触发CI",color="red"];
+    phab_diff->jenkins[label="触发CI\nJenkins持续集成",color="red"];
     jenkins->phabricator[label="CI过关(passed)",color="red"];
     jenkins->devel_branch[label="CI失败(failed)\n回炉检查"];
     phabricator->devel_branch[label="审核未通过\n回炉修改"];
     phabricator->remote_repo[label="审核通过\narc land",color="red"];
     remote_repo->task[label="关闭task",color="red"];
+    remote_repo->phab_diff[label="关闭相应的Diff\n如果arc land没有自动关闭的话",color="red"];
 
     //task->devel_branch[label="task id:T#",style="dashed",color="green"];
     {rank=same;devel_branch,remote_repo}
+    {rank=same;phab_diff,arc_diff_comment}
 
 }
