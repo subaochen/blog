@@ -13,6 +13,7 @@ digraph G {
     jenkins[label="Jenkins持续集成"];
     arc_diff_comment[label="在一个Diff没有关闭时\n尽量只更新当前Diff\n尽量不要开新的Diff\n",
       shape="record",style="dotted",color="red"];
+    line_color_comment[label="红色线表示正常流程",shape="plaintext",style="" fontsize=18,fontcolor="red"];
     begin->local_repo[label="git clone"];
     local_repo->task[label="在phabricator创建task"];
     task->devel_branch[label="git pull --rebase\ngit checkout -b T##",color="red"];
