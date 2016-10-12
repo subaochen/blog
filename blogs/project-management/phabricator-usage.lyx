@@ -316,24 +316,58 @@ target "http://dz.sdut.edu.cn/blog/subaochen/2016/09/arcanist%E7%9A%84%E7%94%A8%
 \end_layout
 
 \begin_layout Standard
-项目和仓库是完全分离的两个概念，一般的通过Task把项目和仓库联系起来，如
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-figureName
-\end_layout
+项目和仓库是完全分离的两个概念，一般的通过Task把项目和仓库联系起来，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:task的重要性"
 
 \end_inset
 
 所示：
 \end_layout
 
-\begin_layout Section
-Diff和Task的关系
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/project-management/project-repo.png
+	width 50line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+task的重要性
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:task的重要性"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -358,6 +392,10 @@ Diff和Task的关系
 
 \begin_layout Section
 尽量保持单一的Diff
+\end_layout
+
+\begin_layout Standard
+在一个审核（Diff）没有通过之前，尽量不要创建新的Diff。如果是针对一个Task的修改，可以不断更新当前这个Diff即可。
 \end_layout
 
 \end_body
