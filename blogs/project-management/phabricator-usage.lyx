@@ -398,5 +398,14 @@ name "fig:task的重要性"
 在一个审核（Diff）没有通过之前，尽量不要创建新的Diff。如果是针对一个Task的修改，可以不断更新当前这个Diff即可。
 \end_layout
 
+\begin_layout Section
+老生常谈：先更新，后工作
+\end_layout
+
+\begin_layout Standard
+在开始coding之前，总是先在你的master分支上git pull –rebase，然后再创建feature分支，继续coding。这样避免过多的落后于ma
+ster分支，减少将来冲突的几率。
+\end_layout
+
 \end_body
 \end_document
