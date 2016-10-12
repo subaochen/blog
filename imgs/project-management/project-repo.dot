@@ -1,0 +1,12 @@
+digraph G {
+    rankdir=LR;
+    node[style="filled",color="skyblue"];
+    project[label="项目"];
+    repo[label="仓库"];
+    task[label="任务",color="red"];
+    branch[label="分支"];
+
+    task->branch[label="分支名"];
+    branch->repo[label="提交"];
+    task->project[label="属于"];
+}

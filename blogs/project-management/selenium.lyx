@@ -4,7 +4,7 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass ctex-article
+\textclass ctex-article-with-coderemarks
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
 
@@ -117,6 +117,11 @@
 \advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
 \end_preamble
 \use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+notice
+\end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
 \language_package default
@@ -184,180 +189,23 @@
 \begin_body
 
 \begin_layout Title
-phabricator使用要点
-\end_layout
-
-\begin_layout Standard
-phabricator的设计很有特色，初次接触可能会有些不太适用。实验室决定将phabricator作为日常管理、教学管理和项目管理的重要平台，因此大家有必要尽
-快熟悉起来，下面是一些重要的提示。
+selenium介绍
 \end_layout
 
 \begin_layout Section
-登录频次
+selenium IDE
 \end_layout
 
 \begin_layout Standard
-作为日常的管理平台，大家需要至少在早、晚各登录一次。早登录主要关注今天应该完成哪些工作，包括：有没有“任务”需要认领，有没有代码需要进行审核，或者查看提交审核的
-代码状态，在“房间”有没有消息需要阅读等等。在登录phabricator首页，基本已经列出了这些“待办事务”。晚登录主要是总结当天的工作，提交当天的代码、文档。
-\end_layout
-
-\begin_layout Standard
-phabricator的UI设计是“响应式”的，即能够适用于不同屏幕尺寸，包括大屏幕显示器、手机和平板。
-\end_layout
-
-\begin_layout Section
-关于项目
-\end_layout
-
-\begin_layout Standard
-目前没有开放项目的创建权限，待时机合适再做决定。
-\end_layout
-
-\begin_layout Standard
-对于项目，大家主要是关注是否要参与到项目中？如果希望参与项目，主动“join”到项目。如果仅仅想知道项目的动态，“watch”项目即可。比如“WEB开发技术研究
-”这个项目，我会不断列出一些“任务”，希望大家尽量参与进来，主动认领任务，主动去研究。未来还会不断设立新的项目。
-\end_layout
-
-\begin_layout Section
-关于代码审核
-\end_layout
-
-\begin_layout Standard
-这是phabricator的主要功能特色，流程如图
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:代码审核流程"
-
-\end_inset
-
-所示：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/project-management/devel-workflow.png
-	width 80line%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-代码审核流程
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:代码审核流程"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-以上流程需要重点注意的几点是：
-\end_layout
-
-\begin_layout Itemize
-一定要根据task id建立开发分支，严禁直接操作master分支。phabricator现在似乎不具备保护master分支的功能，目前只能依靠大家养成良好的流
-程习惯。
-\end_layout
-
-\begin_layout Itemize
-不要直接git push代码，要通过arc diff提交代码审核，审核通过后arc land提交代码到中央仓库。关于arc的使用请参见：
+selenium IDE只支持Firefox，从这里安装到Firefox：
 \begin_inset CommandInset href
 LatexCommand href
-name "arcanist使用方法"
-target "http://dz.sdut.edu.cn/blog/subaochen/2016/09/arcanist%E7%9A%84%E7%94%A8%E6%B3%95%E7%AE%80%E4%BB%8B/"
+name "https://addons.mozilla.org/en-US/firefox/addon/selenium-ide/"
+target "https://addons.mozilla.org/en-US/firefox/addon/selenium-ide/"
 
 \end_inset
 
-。
-\end_layout
 
-\begin_layout Itemize
-红色线标出了一个顺利的流程。
-\end_layout
-
-\begin_layout Standard
-目前整个流程已经建立起来，在很多一段时间内，大家需要把reviewer（代码审核人）填写我的名字，即指定我来审核大家的代码，相信这是快速提高大家编码能力的一种很
-好的方式。
-\end_layout
-
-\begin_layout Section
-项目和仓库的关系
-\end_layout
-
-\begin_layout Standard
-项目是一个表达想法的地方，在项目的workboard中可以方便的管理本项目的Task。
-\end_layout
-
-\begin_layout Standard
-仓库是一个存储代码的地方，即代码仓库。
-\end_layout
-
-\begin_layout Standard
-项目和仓库是完全分离的两个概念，一般的通过Task把项目和仓库联系起来，如
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-figureName
-\end_layout
-
-\end_inset
-
-所示：
-\end_layout
-
-\begin_layout Section
-Diff和Task的关系
-\end_layout
-
-\begin_layout Section
-尽量保持清爽的待办事务列表
-\end_layout
-
-\begin_layout Itemize
-及时关闭没有自动关闭的Task/Diff
-\end_layout
-
-\begin_layout Itemize
-及时arc land已经审核通过的Diff
-\end_layout
-
-\begin_layout Itemize
-及时审核Diff
-\end_layout
-
-\begin_layout Itemize
-及时反馈和更新Diff
-\end_layout
-
-\begin_layout Section
-尽量保持单一的Diff
 \end_layout
 
 \end_body
