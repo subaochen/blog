@@ -185,5 +185,210 @@ coderemarks
 理解CDI中的Nonbinding
 \end_layout
 
+\begin_layout Standard
+在CDI中，qualifier的参数可以通过设置为@Nonbinding来告诉容器，该参数不参与组件的解析，即根据组件的qualifier列表解析组件的时候，设
+置为Nonbinding的参数可以忽略，这实际上等于放宽了组件解析的限制。比如获取HTTP请求参数，在CDI中是这样处理的：
+\end_layout
+
+\begin_layout Standard
+首先定义一个qualifier叫做HttpParam：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+HttpParam.java
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+@Qualifier
+\end_layout
+
+\begin_layout Plain Layout
+
+@Retention(RUNTIME)
+\end_layout
+
+\begin_layout Plain Layout
+
+@Target({TYPE, METHOD, FIELD, PARAMETER})
+\end_layout
+
+\begin_layout Plain Layout
+
+public @interface HttpParam {
+\end_layout
+
+\begin_layout Plain Layout
+
+   @Nonbinding public String value();
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后定义一个处理HTTP请求的Produces方法：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+HttpParams.java
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+class HttpParams {
+\end_layout
+
+\begin_layout Plain Layout
+
+   @Produces @HttpParam("") 
+\end_layout
+
+\begin_layout Plain Layout
+
+   String getParamValue(InjectionPoint ip) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      ServletRequest request = (ServletRequest) FacesContext.getCurrentInstance().
+getExternalContext().getRequest();
+\end_layout
+
+\begin_layout Plain Layout
+
+      return request.getParameter(ip.getAnnotated().getAnnotation(HttpParam.class).va
+lue());
+\end_layout
+
+\begin_layout Plain Layout
+
+   }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+有了HttpParam和HttpParams，我们就可以这样获取HTTP的请求参数：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+Client.java
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+@HttpParam("username") @Inject String username;
+\end_layout
+
+\begin_layout Plain Layout
+
+@HttpParam("password") @Inject String password;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+注意到，在Client.java中，我们期望通过@HttpParam(
+\begin_inset Quotes eld
+\end_inset
+
+username
+\begin_inset Quotes erd
+\end_inset
+
+)来@Inject请求参数username的值，即Produces方法getParamValue的返回值。可以看出，如果在定义HttpParam时不使用Nonb
+inding，则@HttpParam(
+\begin_inset Quotes eld
+\end_inset
+
+username
+\begin_inset Quotes erd
+\end_inset
+
+)会根据HttpParam及其参数value=“username
+\begin_inset Quotes erd
+\end_inset
+
+共同解析组件，这就会造成HttpParams类很不灵活。但是如果HttpParam中使用Nonbinding声明value不参与组件解析，则@HttpParam
+(
+\begin_inset Quotes eld
+\end_inset
+
+username
+\begin_inset Quotes erd
+\end_inset
+
+)只会根据HttpParam来解析组件，这和Produces方法getParamValue中的声明一致，实现了HttpParams类可以灵活的处理不同的Http
+请求参数。
+\end_layout
+
+\begin_layout Standard
+小结：Nonbinding的参数只是不参与组件解析，其他情况下使用照旧。
+\end_layout
+
 \end_body
 \end_document
