@@ -230,7 +230,6 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
 Preferred PaymentStrategy
 \begin_inset CommandInset label
 LatexCommand label
@@ -518,8 +517,18 @@ status open
 也就是说，TaskProducers只被调用了一次（getTask called只输出了一次），然后在整个session有效期内就可以直接用了。
 \end_layout
 
+\begin_layout Subsection
+SessionScoped的特别提醒
+\end_layout
+
+\begin_layout Standard
+如果Prouces method的生命周期是SessionScoped，则其创建的组件必须实现Serializable接口，原因是SessionScoped的组
+件可能会被序列化到磁盘或者通过网络传输，因此这算是强制要求了。如果不实现Seriablizable接口在部署的时候会报错，CDI在这方面做的真不错，严格的检查保
+证了系统更安全、健壮。
+\end_layout
+
 \begin_layout Section
-可能存在的风险及其解决方法
+能存在的风险及其解决方法
 \end_layout
 
 \begin_layout Standard
