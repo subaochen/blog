@@ -1,0 +1,581 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{alltt}
+% Optional PGF libraries
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+multicol
+notice
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Produces method的生命周期
+\end_layout
+
+\begin_layout Section
+为什么要使用Produces method？
+\end_layout
+
+\begin_layout Standard
+在CDI环境中，可以通过@Inject从容器申请静态的资源，即容器能够根据qualifier列表静态确定的组件，但是有些情况下组件是需要动态确定的，CDI规范中
+这样规定Produces method：
+\end_layout
+
+\begin_layout Quote
+A producer method acts as a source of objects to be injected, where:
+\end_layout
+
+\begin_layout Quote
+the objects to be injected are not required to be instances of beans, or
+\end_layout
+
+\begin_layout Quote
+the concrete type of the objects to be injected may vary at runtime, or
+\end_layout
+
+\begin_layout Quote
+the objects require some custom initialization that is not performed by
+ the bean constructor.
+\end_layout
+
+\begin_layout Subsection
+组件的初始化（注入）依赖于外部条件
+\end_layout
+
+\begin_layout Standard
+比如需要根据用户的输入或者设置来确定注入组件的类型，典型的如使用什么方式支付，用户可能选择信用卡，也可能选择借贷卡，或者支付宝等等，我们无法事先获知应该使用哪个
+组件，只能根据用户的选择来决定注入组件的类型。Weld User Guide（8.2）中给出了一个很好的例子：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+Preferred PaymentStrategy
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Preferred-PaymentStrategy"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+@Produces @Preferred
+\end_layout
+
+\begin_layout Plain Layout
+
+public PaymentStrategy getPaymentStrategy(CreditCardPaymentStrategy ccps,
+\end_layout
+
+\begin_layout Plain Layout
+
+                                          CheckPaymentStrategy cps,
+\end_layout
+
+\begin_layout Plain Layout
+
+                                          PayPalPaymentStrategy ppps) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   switch (paymentStrategy) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      case CREDIT_CARD: return ccps;
+\end_layout
+
+\begin_layout Plain Layout
+
+      case CHEQUE: return cps;
+\end_layout
+
+\begin_layout Plain Layout
+
+      case PAYPAL: return ppps;
+\end_layout
+
+\begin_layout Plain Layout
+
+      default: return null;
+\end_layout
+
+\begin_layout Plain Layout
+
+   }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+容器无法直接创建组件
+\end_layout
+
+\begin_layout Standard
+比如在JavaEE环境下，JPA的EntityManager往往需要通过EntityMangerFactory获取EntityManger。也就是说，我们首先通
+过容器注入一个EntityMangerFactory，然后才能创建合适的EntityManager：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+@PersistenceUnit
+\end_layout
+
+\begin_layout Plain Layout
+
+private EntityManagerFactory entityManagerFactory;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+@Produces
+\end_layout
+
+\begin_layout Plain Layout
+
+public EntityManager create(){
+\end_layout
+
+\begin_layout Plain Layout
+
+    return this.entityManagerFactory.createEntityManager();
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Produces method的生命周期
+\end_layout
+
+\begin_layout Standard
+既然Produces method的输出是组件，自然涉及到组件的生命周期。Produces method的生命周期默认是@Dependent的。Produces
+ method、容器、包含produces method的组件、组件的使用者这四者之间的关系如图所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/produces-method.png
+	width 90line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+produces method和容器的关系
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，
+\begin_inset Flex Noun
+status open
+
+\begin_layout Plain Layout
+produces method
+\end_layout
+
+\end_inset
+
+的生命周期是独立与包含它的组件的，换句话说，
+\begin_inset Flex Noun
+status open
+
+\begin_layout Plain Layout
+produces method
+\end_layout
+
+\end_inset
+
+的生命周期和
+\begin_inset Flex Noun
+status open
+
+\begin_layout Plain Layout
+包含它的组件
+\end_layout
+
+\end_inset
+
+的生命周期没有任何关系。当produces method第一次被调用时，produces method所创建的组件及其生命周期就被容器接管了，
+\begin_inset Flex Noun
+status open
+
+\begin_layout Plain Layout
+包含produces method的组件
+\end_layout
+
+\end_inset
+
+在其中只是扮演了一个“代孕”的角色而已，不客气的说，对于produces method而言，“代孕”是过河拆桥，用完即弃的:-)。
+\end_layout
+
+\begin_layout Standard
+produces method生命周期的演示请参照 
+\begin_inset CommandInset href
+LatexCommand href
+name "weld tutorial"
+target "https://github.com/subaochen/weld-tutorial"
+
+\end_inset
+
+中的produces模块，尤其是要注意，当改变TaskProducers的生命周期，比如从@RequestScoped修改为SessionScoped/Appl
+icationScoped后（假设TaskProduces的生命周期一直是@RequestScoped），终端输出的变化情况：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+08:22:42,939 INFO [stdout] (default task-17) GreetingController post construct......
+\end_layout
+
+\begin_layout Plain Layout
+08:22:42,940 INFO [stdout] (default task-17) TaskProducers constructor called
+\end_layout
+
+\begin_layout Plain Layout
+08:22:42,941 INFO [stdout] (default task-17) getTask called......
+\end_layout
+
+\begin_layout Plain Layout
+08:22:42,944 INFO [stdout] (default task-17) GreetingController pre destroy......
+\end_layout
+
+\begin_layout Plain Layout
+08:22:43,918 INFO [stdout] (default task-20) GreetingController post construct......
+\end_layout
+
+\begin_layout Plain Layout
+08:22:43,920 INFO [stdout] (default task-20) GreetingController pre destroy......
+\end_layout
+
+\begin_layout Plain Layout
+08:22:44,882 INFO [stdout] (default task-23) GreetingController post construct......
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，TaskProducers只被调用了一次（getTask called只输出了一次），然后在整个session有效期内就可以直接用了。
+\end_layout
+
+\begin_layout Section
+可能存在的风险及其解决方法
+\end_layout
+
+\begin_layout Standard
+通常来讲，如果保持Produces method的默认生命周期@Dependent是没有什么风险的，毕竟@Dependent是最短的生命周期，也就意味着每次使用
+组件的时候都调用Produces method重新获取组件。但是，如果我们改变produces method的默认生命周期为更长久一些的生命周期，比如@Sess
+ionScoped等，就要格外小心了。比如在代码列表
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Preferred-PaymentStrategy"
+
+\end_inset
+
+中，如果修改produces method的生命周期为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+@Produces @Preferred @SessionScoped
+\end_layout
+
+\begin_layout Plain Layout
+
+public PaymentStrategy getPaymentStrategy(CreditCardPaymentStrategy ccps,
+\end_layout
+
+\begin_layout Plain Layout
+
+......
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+则存在如下的风险：如果CreditCardPaymentStrategy等组件的生命周期是@RequestScoped的，Produces method起到了“
+提升”组件生命周期的效果。即容器在一次Request/Response交互后即销毁了组件CreditCardPaymentStrategy，但是Produces
+ method的使用者获得是Session范围的组件，在Session范围内一直拥有PaymentStrategy的一个引用，而这个引用已经被容器销毁了！这是一
+个潜在的风险，需要特别注意，
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Prouces method的生命周期不要比组件（指Produces method创建的组件）本身的生命周期长
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\end_body
+\end_document

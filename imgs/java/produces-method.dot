@@ -1,0 +1,21 @@
+digraph G {
+    rankdir=LR;
+    // 允许cluster和node连线
+    compound=true;
+    node[fontsize=12,style="filled",color="skyblue"];
+    edge[fontsize=12,color="darkgreen"];
+    container[label="容器",shape="polygon",sides=6,width=2,height=1];
+    client[label="组件的使用者"];
+
+    subgraph cluster_produces_method {
+        label="包含produces method的组件";
+        other_method[label="other methods"];
+        produces_method[label="produces method",shape="record"];
+    }
+
+    produces_method->container[label="@SomeQualifier @SessionScoped"];
+    other_method->container[ltail=cluster_produces_method,label="@RequestScoped"];
+    container->client[label="@Inject @SomeQualifier"];
+
+
+}
