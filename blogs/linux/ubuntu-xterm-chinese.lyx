@@ -1,0 +1,427 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article-with-coderemarks
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内
+        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        showspaces=false,%
+        showstringspaces=false,%
+        numbers=left,%
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,%
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        captionpos=t,%
+        xleftmargin=1em,%
+        xrightmargin=\fboxsep,
+        escapechar=|
+} 
+
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{coderemarks}
+\usepackage{alltt}
+%% Style commands
+\newcommand{\func}[1]{\texttt{#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\flag}[1]{\textit{#1}}
+\newcommand{\dir}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\newcommand{\rem}[1]{\texttt{\textit{#1}}}
+\newcommand{\package}[1]{{\textit{#1}}}
+
+% 用于显示终端命令的执行结果
+\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%%
+\vspace*{-2ex}\small\begin{alltt}}%
+{\end{alltt}\vspace*{-2ex}\endMakeFramed}
+
+\newenvironment{lbar}[1][]{%
+\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
+\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
+{%
+\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
+}%
+{\endMakeFramed}
+
+% 显示一个向左的箭头
+\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
+
+
+%----------------------------------------------------------------------------------------
+%	REMARK ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+\newenvironment{remark}{\par\vspace{10pt}\small % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+\leftmargin=35pt % Indentation on the left
+\rightmargin=25pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+\node[draw=ocre!60,line width=1pt,circle,fill=ocre!25,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{R}};\end{tikzpicture}} % Orange R in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+ubuntu下XTerm的中文设置
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset href
+LatexCommand href
+name "debian下面设置XTerm"
+target "http://dz.sdut.edu.cn/blog/subaochen/2015/12/xterm%E7%9A%84%E4%B8%AD%E6%96%87%E6%98%BE%E7%A4%BA%E5%92%8C%E8%BE%93%E5%85%A5%E9%97%AE%E9%A2%98/"
+
+\end_inset
+
+的经验居然在ubuntu下面失效了，有些奇怪。好在万能的网络给出了解决方案，需要修改/etc/X11/app-defaults/XTerm，在最后增加如下的内容
+：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Xft.dpi:96 
+\end_layout
+
+\begin_layout Plain Layout
+xpdf.title: PDF 
+\end_layout
+
+\begin_layout Plain Layout
+XTerm*faceSize: 10 
+\end_layout
+
+\begin_layout Plain Layout
+XTerm*faceSize1: 10 
+\end_layout
+
+\begin_layout Plain Layout
+XTerm*faceSize2: 10 
+\end_layout
+
+\begin_layout Plain Layout
+XTerm*faceSize3: 10 
+\end_layout
+
+\begin_layout Plain Layout
+XTerm*faceSize4: 10 
+\end_layout
+
+\begin_layout Plain Layout
+XTerm*faceSize5: 10 
+\end_layout
+
+\begin_layout Plain Layout
+XTerm*faceSize6: 10 
+\end_layout
+
+\begin_layout Plain Layout
+XTerm*jumpScroll: true 
+\end_layout
+
+\begin_layout Plain Layout
+xterm.termName: xterm-256color 
+\end_layout
+
+\begin_layout Plain Layout
+xterm.geometry: 80x36 
+\end_layout
+
+\begin_layout Plain Layout
+xterm*scrollBar: false 
+\end_layout
+
+\begin_layout Plain Layout
+xterm*rightScrollBar: true 
+\end_layout
+
+\begin_layout Plain Layout
+xterm*loginshell: true 
+\end_layout
+
+\begin_layout Plain Layout
+xterm*cursorBlink: true 
+\end_layout
+
+\begin_layout Plain Layout
+xterm*background: black 
+\end_layout
+
+\begin_layout Plain Layout
+xterm*foreground: gray 
+\end_layout
+
+\begin_layout Plain Layout
+xterm.borderLess: true 
+\end_layout
+
+\begin_layout Plain Layout
+xterm.cursorBlink: true 
+\end_layout
+
+\begin_layout Plain Layout
+xterm*colorUL: yellow 
+\end_layout
+
+\begin_layout Plain Layout
+xterm*colorBD: white 
+\end_layout
+
+\begin_layout Plain Layout
+!fix alt key input 
+\end_layout
+
+\begin_layout Plain Layout
+xterm*eightBitInput: false 
+\end_layout
+
+\begin_layout Plain Layout
+xterm*altSendsEscape: true 
+\end_layout
+
+\begin_layout Plain Layout
+!mouse selecting to copy, ctrl-v to paste 
+\end_layout
+
+\begin_layout Plain Layout
+!Ctrl p to print screen content to file 
+\end_layout
+
+\begin_layout Plain Layout
+XTerm*VT100.Translations: #override 
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Ctrl <KeyPress> V: insert-selection(CLIPBOARD,PRIMARY,CUT_BUFFER0) 
+\backslash
+n
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+<BtnUp>: select-end(CLIPBOARD,PRIMARY,CUT_BUFFER0) 
+\backslash
+n
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Ctrl <KeyPress> P: print() 
+\backslash
+n 
+\end_layout
+
+\begin_layout Plain Layout
+!font and locale 
+\end_layout
+
+\begin_layout Plain Layout
+!xterm*locale: true 
+\end_layout
+
+\begin_layout Plain Layout
+!xterm.utf8: true 
+\end_layout
+
+\begin_layout Plain Layout
+!xterm*utf8Title: true 
+\end_layout
+
+\begin_layout Plain Layout
+xterm*fontMenu*fontdefault*Label: Default 
+\end_layout
+
+\begin_layout Plain Layout
+xterm*faceName:DejaVu Sans Mono:antialias=True:pixelsize=16 
+\end_layout
+
+\begin_layout Plain Layout
+!xterm*faceName: monofur:antialias=True:pixelsize=20 
+\end_layout
+
+\begin_layout Plain Layout
+xter*boldFont: Bitstream Vera Sans Mono:style=Bold:pixelsize=15 
+\end_layout
+
+\begin_layout Plain Layout
+xterm*faceNameDoublesize:WenQuanYi Zen Hei:antialias=True:pixelsize=15 
+\end_layout
+
+\begin_layout Plain Layout
+xterm*xftAntialias: true 
+\end_layout
+
+\begin_layout Plain Layout
+xterm.cjkWidth:true 
+\end_layout
+
+\begin_layout Plain Layout
+XTerm*inputMethod: ibus 
+\end_layout
+
+\begin_layout Plain Layout
+XTerm*preeditType: Root 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在ubuntu 15.10测试通过。
+\end_layout
+
+\end_body
+\end_document
