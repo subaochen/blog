@@ -4,7 +4,7 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass ctex-article-with-coderemarks
+\textclass ctex-article
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
 
@@ -120,9 +120,6 @@
 \begin_modules
 logicalmkup
 tcolorbox
-note-inset
-tip-inset
-warning-inset
 \end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
@@ -144,7 +141,6 @@ warning-inset
 \output_sync 0
 \bibtex_command default
 \index_command default
-\float_placement tbph
 \paperfontsize default
 \spacing single
 \use_hyperref false
@@ -192,227 +188,25 @@ warning-inset
 \begin_body
 
 \begin_layout Title
-ubuntu下XTerm的中文设置
+lyx中强制切换环境的方法
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset href
-LatexCommand href
-name "debian下面设置XTerm"
-target "http://dz.sdut.edu.cn/blog/subaochen/2015/12/xterm%E7%9A%84%E4%B8%AD%E6%96%87%E6%98%BE%E7%A4%BA%E5%92%8C%E8%BE%93%E5%85%A5%E9%97%AE%E9%A2%98/"
-
+今天在写一篇稿子时用到了
+\begin_inset Quotes erd
 \end_inset
 
-的经验居然在ubuntu下面失效了，有些奇怪。好在万能的网络给出了解决方案，需要修改/etc/X11/app-defaults/XTerm，在最后增加如下的内容
-：
+Theorems
+\begin_inset Quotes erd
+\end_inset
+
+模块，但是顺序插入的“例子”，“证明”啥的序号不能自动递增，如下图所示：
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
-status open
-
-\begin_layout Plain Layout
-Xft.dpi:96 
-\end_layout
-
-\begin_layout Plain Layout
-xpdf.title: PDF 
-\end_layout
-
-\begin_layout Plain Layout
-XTerm*faceSize: 10 
-\end_layout
-
-\begin_layout Plain Layout
-XTerm*faceSize1: 10 
-\end_layout
-
-\begin_layout Plain Layout
-XTerm*faceSize2: 10 
-\end_layout
-
-\begin_layout Plain Layout
-XTerm*faceSize3: 10 
-\end_layout
-
-\begin_layout Plain Layout
-XTerm*faceSize4: 10 
-\end_layout
-
-\begin_layout Plain Layout
-XTerm*faceSize5: 10 
-\end_layout
-
-\begin_layout Plain Layout
-XTerm*faceSize6: 10 
-\end_layout
-
-\begin_layout Plain Layout
-XTerm*jumpScroll: true 
-\end_layout
-
-\begin_layout Plain Layout
-xterm.termName: xterm-256color 
-\end_layout
-
-\begin_layout Plain Layout
-xterm.geometry: 80x36 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*scrollBar: false 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*rightScrollBar: true 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*loginshell: true 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*cursorBlink: true 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*background: black 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*foreground: gray 
-\end_layout
-
-\begin_layout Plain Layout
-xterm.borderLess: true 
-\end_layout
-
-\begin_layout Plain Layout
-xterm.cursorBlink: true 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*colorUL: yellow 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*colorBD: white 
-\end_layout
-
-\begin_layout Plain Layout
-!fix alt key input 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*eightBitInput: false 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*altSendsEscape: true 
-\end_layout
-
-\begin_layout Plain Layout
-!mouse selecting to copy, ctrl-v to paste 
-\end_layout
-
-\begin_layout Plain Layout
-!Ctrl p to print screen content to file 
-\end_layout
-
-\begin_layout Plain Layout
-XTerm*VT100.Translations: #override 
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-Ctrl <KeyPress> V: insert-selection(CLIPBOARD,PRIMARY,CUT_BUFFER0) 
-\backslash
-n
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-<BtnUp>: select-end(CLIPBOARD,PRIMARY,CUT_BUFFER0) 
-\backslash
-n
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-Ctrl <KeyPress> P: print() 
-\backslash
-n 
-\end_layout
-
-\begin_layout Plain Layout
-!font and locale 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*locale: true 
-\end_layout
-
-\begin_layout Plain Layout
-xterm.utf8: true 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*utf8Title: true 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*fontMenu*fontdefault*Label: Default 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*faceName:DejaVu Sans Mono:antialias=True:pixelsize=16 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*faceName: monofur:antialias=True:pixelsize=20 
-\end_layout
-
-\begin_layout Plain Layout
-xter*boldFont: Bitstream Vera Sans Mono:style=Bold:pixelsize=15 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*faceNameDoublesize:WenQuanYi Zen Hei:antialias=True:pixelsize=15 
-\end_layout
-
-\begin_layout Plain Layout
-xterm*xftAntialias: true 
-\end_layout
-
-\begin_layout Plain Layout
-xterm.cjkWidth:true 
-\end_layout
-
-\begin_layout Plain Layout
-XTerm*inputMethod: ibus 
-\end_layout
-
-\begin_layout Plain Layout
-XTerm*preeditType: Root 
-\end_layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/switch-env-1.png
+	width 80col%
 
 \end_inset
 
@@ -420,7 +214,22 @@ XTerm*preeditType: Root
 \end_layout
 
 \begin_layout Standard
-在ubuntu 15.10测试通过。
+试了好多办法都不行，查看source pane，发现生成的lyx代码是正常的，但是xetex代码却把三个exercise都放到一个exa环境中了。绝望之际突然想
+起在beamer中可以使用Alt+p分割frame，于是在exercise1后面按了一下alt+p，果然有效！
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/switch-env-2.png
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Alt+p，居然有这个效果，应该在很多需要切换环境的地方都可以。
 \end_layout
 
 \end_body
