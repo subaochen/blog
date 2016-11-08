@@ -4,7 +4,7 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass ctex-article-with-coderemarks
+\textclass ctex-article
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
 
@@ -69,57 +69,9 @@
         xrightmargin=\fboxsep,
         escapechar=|
 } 
-
-\usepackage{tikz}
-\usepackage{ifthen}
-\usepackage{coderemarks}
-\usepackage{alltt}
-%% Style commands
-\newcommand{\func}[1]{\texttt{#1}}
-\newcommand{\key}[1]{\texttt{#1}}
-\newcommand{\type}[1]{\texttt{#1}}
-\newcommand{\prog}[1]{\texttt{#1}}
-\newcommand{\flag}[1]{\textit{#1}}
-\newcommand{\dir}[1]{\texttt{#1}}
-\newcommand{\file}[1]{\texttt{#1}}
-\newcommand{\var}[1]{\texttt{#1}}
-\newcommand{\rem}[1]{\texttt{\textit{#1}}}
-\newcommand{\package}[1]{{\textit{#1}}}
-
-% 用于显示终端命令的执行结果
-\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
-\MakeFramed{\advance\hsize-\width\FrameRestore}%%
-\vspace*{-2ex}\small\begin{alltt}}%
-{\end{alltt}\vspace*{-2ex}\endMakeFramed}
-
-\newenvironment{lbar}[1][]{%
-\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
-\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
-{%
-\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
-}%
-{\endMakeFramed}
-
-% 显示一个向左的箭头
-\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
-
-
-%----------------------------------------------------------------------------------------
-%	REMARK ENVIRONMENT
-%----------------------------------------------------------------------------------------
-
-\newenvironment{remark}{\par\vspace{10pt}\small % Vertical white space above the remark and smaller font size
-\begin{list}{}{
-\leftmargin=35pt % Indentation on the left
-\rightmargin=25pt}\item\ignorespaces % Indentation on the right
-\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
-\node[draw=ocre!60,line width=1pt,circle,fill=ocre!25,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{R}};\end{tikzpicture}} % Orange R in a circle
-\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
 \end_preamble
 \use_default_options true
 \begin_modules
-logicalmkup
-tcolorbox
 note-inset
 tip-inset
 warning-inset
@@ -223,6 +175,19 @@ warning-inset
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/latex/listing-float.png
 	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Warning
+status open
+
+\begin_layout Plain Layout
+如果代码跨页了，不要使用float，否则只能显示第一页代码。
+\end_layout
 
 \end_inset
 
