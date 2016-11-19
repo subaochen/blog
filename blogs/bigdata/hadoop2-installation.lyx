@@ -1,7 +1,9 @@
-#LyX 2.1 created this file. For more info see http://www.lyx.org/
-\lyxformat 474
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
 \begin_document
 \begin_header
+\save_transient_properties true
+\origin unavailable
 \textclass ctex-article
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
@@ -109,24 +111,26 @@
 \begin_modules
 logicalmkup
 multicol
-notice
 coderemarks
+note-inset
+tip-inset
+warning-inset
 \end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
 \language_package default
 \inputencoding utf8-plain
 \fontencoding global
-\font_roman 新宋体
-\font_sans 新宋体
-\font_typewriter 新宋体
-\font_math auto
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
 \font_default_family default
 \use_non_tex_fonts true
 \font_sc false
 \font_osf false
-\font_sf_scale 100
-\font_tt_scale 100
+\font_sf_scale 100 100
+\font_tt_scale 100 100
 \graphics default
 \default_output_format pdf4
 \output_sync 0
@@ -215,6 +219,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -247,6 +256,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -286,6 +300,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -351,6 +370,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -394,6 +418,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -433,6 +462,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -446,6 +480,37 @@ $ ssh localhost
 
 \begin_layout Subsection
 编写配置文件
+\end_layout
+
+\begin_layout Standard
+配置文件在$HADOOP_CONF_DIR目录下。
+\end_layout
+
+\begin_layout Subsubsection
+编写hadoop-env.sh
+\end_layout
+
+\begin_layout Standard
+在hadoop-env.sh中设置JAVA_HOME：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+export JAVA_HOME=$HOME/devel/jdk
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这里有点奇怪的是，在.bashrc中已经设置了JAVA_HOME环境变量，hadoop-env.sh中却访问不了，暂时不知道啥原因，只好在这里写死了。
 \end_layout
 
 \begin_layout Subsubsection
@@ -685,6 +750,11 @@ status open
 
 \begin_layout Plain Layout
 
+<configuration>
+\end_layout
+
+\begin_layout Plain Layout
+
 <property>
 \end_layout
 
@@ -789,6 +859,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -824,7 +899,7 @@ status open
 \backslash
 /]*
 \backslash
-//--/g' -e 's/^/ /' -e 's/-/|/'
+//–/g' -e 's/^/ /' -e 's/-/|/'
 \end_layout
 
 \end_inset
@@ -844,6 +919,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -855,55 +935,55 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-|---datanode
+|—datanode
 \end_layout
 
 \begin_layout Plain Layout
-|-----current
+|—–current
 \end_layout
 
 \begin_layout Plain Layout
-|-------BP-354265562-127.0.1.1-1459755274098
+|——-BP-354265562-127.0.1.1-1459755274098
 \end_layout
 
 \begin_layout Plain Layout
-|---------current
+|———current
 \end_layout
 
 \begin_layout Plain Layout
-|-----------finalized
+|———–finalized
 \end_layout
 
 \begin_layout Plain Layout
-|-----------rbw
+|———–rbw
 \end_layout
 
 \begin_layout Plain Layout
-|---------tmp
+|———tmp
 \end_layout
 
 \begin_layout Plain Layout
-|---namenode
+|—namenode
 \end_layout
 
 \begin_layout Plain Layout
-|-----current
+|—–current
 \end_layout
 
 \begin_layout Plain Layout
-|---tmp
+|—tmp
 \end_layout
 
 \begin_layout Plain Layout
-|-----dfs
+|—–dfs
 \end_layout
 
 \begin_layout Plain Layout
-|-------namesecondary
+|——-namesecondary
 \end_layout
 
 \begin_layout Plain Layout
-|---------current
+|———current
 \end_layout
 
 \end_inset
@@ -931,6 +1011,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -981,6 +1066,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1132,6 +1222,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1167,6 +1262,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1214,6 +1314,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1258,6 +1363,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1293,6 +1403,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1328,6 +1443,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1363,6 +1483,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1402,6 +1527,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1478,6 +1608,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1980,6 +2115,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -2011,6 +2151,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -2046,6 +2191,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -2085,6 +2235,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -2120,6 +2275,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
