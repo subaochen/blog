@@ -1,0 +1,445 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+%\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内                                                                           
+        showspaces=false,%
+        showstringspaces=false,%不显示代码字符串中间的空格标记
+        numbers=left,%左侧显示行号
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,% 对过长的代码自动换行
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        %escapebegin=\begin{CJK*}{GBK}{hei},escapeend=\end{CJK*},
+        aboveskip=1em, %代码块边框
+        captionpos=t,%
+        %% added by http://bbs.ctex.org/viewthread.php?tid=53451
+        %fontadjust,
+        xleftmargin=1em, xrightmargin=\fboxsep,%设定listing左右的空白
+        %texcl=true,
+        % 设定中文冲突，断行，列模式，数学环境输入，listing数字的样式
+        extendedchars=false,columns=flexible,mathescape=true,
+        escapechar=|
+} 
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-bytype
+theorems-chap-bytype
+coderemarks
+note-inset
+tip-inset
+warning-inset
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #d8daeb
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+dia增加自定义图形组件
+\end_layout
+
+\begin_layout Standard
+dia自带了不少的组件库，如果能够自己绘制或者获得svg图形，给dia增加自定义组件也很方便，步骤如下：
+\end_layout
+
+\begin_layout Section
+绘制或者获得svg文件
+\end_layout
+
+\begin_layout Standard
+如果绘制svg图形，建议使用inkscape或者gimp。比如在inkscape中绘制一个3d的盒子。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/tools/incscape-3d-box.png
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+绘制完成后，保存为svg格式的文件，同时导出为png格式一份备用。需要注意的是，保存图形文件之前要在文档属性中选择“缩放页面到绘图或者选区”，否则默认的svg图
+形是A4幅面的，多半不是你想要的效果:-)
+\end_layout
+
+\begin_layout Section
+编写sheet文件
+\end_layout
+
+\begin_layout Standard
+在$HOME/.dia/sheets目录下增加一个关于自定义图形库的索引文件，比如叫做3d.sheet：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+\end_layout
+
+\begin_layout Plain Layout
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+\end_layout
+
+\begin_layout Plain Layout
+<!--Dia-Version: 0.97-->
+\end_layout
+
+\begin_layout Plain Layout
+<name>3d Shapes</name>
+\end_layout
+
+\begin_layout Plain Layout
+<description>3d Shapes</description>
+\end_layout
+
+\begin_layout Plain Layout
+<contents>
+\end_layout
+
+\begin_layout Plain Layout
+<!--dia shapes here-->
+\end_layout
+
+\begin_layout Plain Layout
+<object name="3d cube">
+\end_layout
+
+\begin_layout Plain Layout
+<description>3d cube</description>
+\end_layout
+
+\begin_layout Plain Layout
+</object>
+\end_layout
+
+\begin_layout Plain Layout
+</contents>
+\end_layout
+
+\begin_layout Plain Layout
+</sheet> 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这个文件只是增加了图形库的分类（3d Shapes）和其中包含的组件（目前只有一个3d cube）。当dai启动的时候，会自动扫描sheets目录下的所有she
+et文件，将sheet声明的所有自定义组件加载进来。
+\end_layout
+
+\begin_layout Section
+编写shape文件
+\end_layout
+
+\begin_layout Standard
+在$HOME/.dia/shapes增加一个目录，比如叫做3d，然后将在第一步中创建的cube.svg和cube.png文件复制到$HOME/.dia/shapes/3
+d目录下，在这个目录下编辑一个cube.shape文件，内容如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+<?xml version="1.0"?>
+\end_layout
+
+\begin_layout Plain Layout
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+\end_layout
+
+\begin_layout Plain Layout
+xmlns:svg="http://www.w3.org/2000/svg">
+\end_layout
+
+\begin_layout Plain Layout
+<name>3d cube</name>
+\end_layout
+
+\begin_layout Plain Layout
+<icon>cube.png</icon>
+\end_layout
+
+\begin_layout Plain Layout
+<connections>
+\end_layout
+
+\begin_layout Plain Layout
+<point x="0" y="25"/>
+\end_layout
+
+\begin_layout Plain Layout
+<point x="50" y="0"/>
+\end_layout
+
+\begin_layout Plain Layout
+<point x="100" y="25"/>
+\end_layout
+
+\begin_layout Plain Layout
+<point x="50" y="50"/>
+\end_layout
+
+\begin_layout Plain Layout
+</connections>
+\end_layout
+
+\begin_layout Plain Layout
+<aspectratio type="free"/>
+\end_layout
+
+\begin_layout Plain Layout
+<textbox resize= "no" x1="15" y1="40" x2="70" y2="15"/> 
+\end_layout
+
+\begin_layout Plain Layout
+<svg:svg>
+\end_layout
+
+\begin_layout Plain Layout
+<svg:image width="100" height="50" xlink:href="cube.svg"/>
+\end_layout
+
+\begin_layout Plain Layout
+</svg:svg>
+\end_layout
+
+\begin_layout Plain Layout
+</shape>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在cube.shape文件中，定义了3d cube的下列属性：
+\end_layout
+
+\begin_layout Itemize
+name：叫做3d cube，注意要和3d.sheet文件中的定义一致。
+\end_layout
+
+\begin_layout Itemize
+connections：在dia绘图中，连接线的自动“焊点”坐标，可以定义任意多个。
+\end_layout
+
+\begin_layout Itemize
+aspectration：是否允许改变图形比例，取值可以为fixed（不允许改变比例），free（允许改变比例）。
+\end_layout
+
+\begin_layout Itemize
+textbox：图形中的文本框位置，其中(x1,y1)为文本框左上角坐标，(x2,y2)为文本框右下角坐标。
+\end_layout
+
+\begin_layout Itemize
+svg:image：需要载入的svg图形。
+\end_layout
+
+\begin_layout Standard
+经过以上三步后，重新启动dia即可自动识别加入的定制图形了，如图所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/tools/dia-custom-shape-exampe.png
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+参考资料
+\end_layout
+
+\begin_layout Itemize
+本文涉及到的3d shapes组件已经放到了github，请访问：
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/subaochen/dia-shapes"
+target "https://github.com/subaochen/dia-shapes"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+http://dia-installer.de/doc/en/custom-shapes-chapter.html
+\end_layout
+
+\begin_layout Itemize
+http://www.togaware.com/linux/survivor/Walkthrough_Creating0.html
+\end_layout
+
+\begin_layout Itemize
+http://ahninniah.blogspot.jp/2013/04/isometric-projection-in-inkscape.html
+\end_layout
+
+\begin_layout Itemize
+https://janvandevoort.files.wordpress.com/2010/05/creating-high-quality-3d-custom-s
+hapes-for-dia3.pdf
+\end_layout
+
+\end_body
+\end_document

@@ -13,7 +13,7 @@
 \XeTeXlinebreakskip = 0pt plus 1pt 
 
 % 标题左对齐
-\usepackage[raggedright]{titlesec} 
+%\usepackage[raggedright]{titlesec} 
 
 % 页边距设置
 \usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
@@ -39,6 +39,8 @@
 \definecolor{colString}{rgb}{0,0.5,0}
 \AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
 
+
+
  
 \lstset{%
         language=Java,%
@@ -53,76 +55,37 @@
         frame=tb,% 顶部和底部加横线
         %frame=shadowbox,
         framerule=1pt,
-        framexleftmargin=2em, % 行号包含在代码区域内
-        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
+        framexleftmargin=2em, % 行号包含在代码区域内                                                                           
         showspaces=false,%
-        showstringspaces=false,%
-        numbers=left,%
+        showstringspaces=false,%不显示代码字符串中间的空格标记
+        numbers=left,%左侧显示行号
         numberstyle=\tiny\ttfamily,%
         numbersep=1em,%
-        breaklines=true,%
+        breaklines=true,% 对过长的代码自动换行
         breakindent=10pt,%
         backgroundcolor=\color{hellgelb},%
         breakautoindent=true,%
+        %escapebegin=\begin{CJK*}{GBK}{hei},escapeend=\end{CJK*},
+        aboveskip=1em, %代码块边框
         captionpos=t,%
-        xleftmargin=1em,%
-        xrightmargin=\fboxsep,
+        %% added by http://bbs.ctex.org/viewthread.php?tid=53451
+        %fontadjust,
+        xleftmargin=1em, xrightmargin=\fboxsep,%设定listing左右的空白
+        %texcl=true,
+        % 设定中文冲突，断行，列模式，数学环境输入，listing数字的样式
+        extendedchars=false,columns=flexible,mathescape=true,
         escapechar=|
 } 
-
-\usepackage{tikz}
-\usepackage{ifthen}
-\usepackage{coderemarks}
-\usepackage{alltt}
-%% Style commands
-\newcommand{\func}[1]{\texttt{#1}}
-\newcommand{\key}[1]{\texttt{#1}}
-\newcommand{\type}[1]{\texttt{#1}}
-\newcommand{\prog}[1]{\texttt{#1}}
-\newcommand{\flag}[1]{\textit{#1}}
-\newcommand{\dir}[1]{\texttt{#1}}
-\newcommand{\file}[1]{\texttt{#1}}
-\newcommand{\var}[1]{\texttt{#1}}
-\newcommand{\rem}[1]{\texttt{\textit{#1}}}
-\newcommand{\package}[1]{{\textit{#1}}}
-
-% 用于显示终端命令的执行结果
-\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
-\MakeFramed{\advance\hsize-\width\FrameRestore}%%
-\vspace*{-2ex}\small\begin{alltt}}%
-{\end{alltt}\vspace*{-2ex}\endMakeFramed}
-
-\newenvironment{lbar}[1][]{%
-\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
-\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
-{%
-\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
-}%
-{\endMakeFramed}
-
-% 显示一个向左的箭头
-\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
-
-
-%----------------------------------------------------------------------------------------
-%	REMARK ENVIRONMENT
-%----------------------------------------------------------------------------------------
-
-\newenvironment{remark}{\par\vspace{10pt}\small % Vertical white space above the remark and smaller font size
-\begin{list}{}{
-\leftmargin=35pt % Indentation on the left
-\rightmargin=25pt}\item\ignorespaces % Indentation on the right
-\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
-\node[draw=ocre!60,line width=1pt,circle,fill=ocre!25,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{R}};\end{tikzpicture}} % Orange R in a circle
-\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
 \end_preamble
 \use_default_options true
 \begin_modules
-logicalmkup
-tcolorbox
+theorems-bytype
+theorems-chap-bytype
+coderemarks
 note-inset
 tip-inset
 warning-inset
+logicalmkup
 \end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
@@ -144,7 +107,6 @@ warning-inset
 \output_sync 0
 \bibtex_command default
 \index_command default
-\float_placement tbph
 \paperfontsize default
 \spacing single
 \use_hyperref false
@@ -169,7 +131,7 @@ warning-inset
 \suppress_date false
 \justification true
 \use_refstyle 1
-\boxbgcolor #dad3d7
+\boxbgcolor #d8daeb
 \index Index
 \shortcut idx
 \color #008000
@@ -192,69 +154,109 @@ warning-inset
 \begin_body
 
 \begin_layout Title
-lambda表达式
-\end_layout
-
-\begin_layout Section
-lambda表达式给Java带来了什么？即为什么引入lambda表达式？
+kvm安装win7虚拟机
 \end_layout
 
 \begin_layout Standard
-正式介绍lambda表达式之前，我们先看一个常见的情形，假设有类定义如
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstlistingname
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "Student.java"
-
-\end_inset
-
-所示。
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand lstinputlisting
-filename "/home/subaochen/git/java-tutorial-examples/lambda/src/cn/edu/sdut/softlab/lambda/Student.java"
-lstparams "caption={Student.java},label={Student.java}"
-
-\end_inset
-
-
+在kvm上安装win7虚拟机其实和安装linux虚拟机步骤类似，只有一点不同：如果使用的是ghost安装版，一定要先格式化虚拟机磁盘，因为ghost是不会自动格
+式化磁盘的。如果从安装版开始装wind7虚拟机则没有这个问题，win7的安装程序会自动格式化磁盘的。下面以ghost版win7为例，具体安装步骤如下：
 \end_layout
 
 \begin_layout Section
-lambda表达式的长期目标
-\end_layout
-
-\begin_layout Section
-集合的流式处理
-\end_layout
-
-\begin_layout Section*
-参考资料
+下载合适的win7镜像
 \end_layout
 
 \begin_layout Standard
+随便一个win7 ghost镜像即可。
+\end_layout
+
+\begin_layout Section
+创建虚拟机
+\end_layout
+
+\begin_layout Standard
+请参考
 \begin_inset CommandInset href
 LatexCommand href
-name "http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html"
-target "http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html"
+name "http://dz.sdut.edu.cn/blog/subaochen/2016/04/%E4%BD%BF%E7%94%A8virt-manager%E5%AE%89%E8%A3%85%E5%92%8C%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E6%9C%BA/"
+target "http://dz.sdut.edu.cn/blog/subaochen/2016/04/%E4%BD%BF%E7%94%A8virt-manager%E5%AE%89%E8%A3%85%E5%92%8C%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E6%9C%BA/"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Section
+设置虚拟机从光驱启动
+\end_layout
+
+\begin_layout Standard
+在所创建的虚拟机里，设置IDE CDROM为下载的win7镜像，并设置启动顺序为优先从CDROM启动。
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/linux/virt-win7-boot-option.png
+	width 80line%
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+格式化虚拟机磁盘
+\end_layout
+
+\begin_layout Standard
+采用ghost镜像提供的任意磁盘分区工具，将虚拟磁盘分区并格式化。
+\end_layout
+
+\begin_layout Section
+配置虚拟机的磁盘总线驱动方式
+\end_layout
+
+\begin_layout Standard
+这一步是为了提高虚拟机的运行效率，选择虚拟磁盘的磁盘总线为VirtIO：
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/linux/virt-win7-advance.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+正常安装
+\end_layout
+
+\begin_layout Standard
+格式化磁盘后，重新启动虚拟机，选择“安装系统到第一个分区”，略等30分钟左右即可，如下图所示：
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/linux/virt-win7-installation.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+修改启动顺序
+\end_layout
+
+\begin_layout Standard
+安装完成后，修改虚拟机的启动顺序，设置从IDE Disk首先启动即可。
 \end_layout
 
 \end_body
