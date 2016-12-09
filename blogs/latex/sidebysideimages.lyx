@@ -154,38 +154,24 @@ logicalmkup
 \begin_body
 
 \begin_layout Title
-wildfly配置PostgreSQL数据源
+测试文件
 \end_layout
 
 \begin_layout Standard
-很久以前写过在
-\begin_inset CommandInset href
-LatexCommand href
-name "JBoss AS7上如何配置PostgreSQL数据源"
-target "http://dz.sdut.edu.cn/blog/subaochen/2013/08/jboss-as-7%E9%85%8D%E7%BD%AEpostgresql%E6%95%B0%E6%8D%AE%E6%BA%90%E7%9A%84%E6%96%B9%E6%B3%95/"
+\begin_inset Float figure
+wide false
+sideways false
+status open
 
-\end_inset
-
-，此方法在wildfly上依然有效。不过，通过wildfly的命令行工具可以有更简单的配置方法，步骤如下：
-\end_layout
-
-\begin_layout Section
-下载postgresql jdbc driver
-\end_layout
-
-\begin_layout Standard
-我把postgresql jdbc driver放到了$HOME/devel/lib目录下，因此：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
+\begin_layout Plain Layout
+\begin_inset Box Frameless
 position "t"
 hor_pos "c"
 has_inner_box 1
 inner_pos "t"
 use_parbox 0
 use_makebox 0
-width "100col%"
+width "45col%"
 special "none"
 height "1in"
 height_special "totalheight"
@@ -197,15 +183,21 @@ backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-cd $HOME/devel/lib
+\align center
+\begin_inset Graphics
+	filename ../../../javabook/imgs/io/linux-directory-tree.eps
+	width 100col%
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
-wget http://jdbc.postgresql.org/download/postgresql-9.4.1212.jar
-\end_layout
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
-ln -s postgresql-9.4.1212.jar postgresql.jar
+示例图
 \end_layout
 
 \end_inset
@@ -213,19 +205,21 @@ ln -s postgresql-9.4.1212.jar postgresql.jar
 
 \end_layout
 
-\begin_layout Section
-启动wildfly
-\end_layout
+\end_inset
 
-\begin_layout Standard
-\begin_inset Box Shaded
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
 position "t"
 hor_pos "c"
 has_inner_box 1
 inner_pos "t"
 use_parbox 0
 use_makebox 0
-width "100col%"
+width "45col%"
 special "none"
 height "1in"
 height_special "totalheight"
@@ -237,11 +231,21 @@ backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-cd $JBOSS_HOME/bin
+\align center
+\begin_inset Graphics
+	filename ../../../javabook/imgs/io/linux-directory-tree.eps
+	width 100col%
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
-./standalone.sh
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+示例图
 \end_layout
 
 \end_inset
@@ -249,92 +253,47 @@ cd $JBOSS_HOME/bin
 
 \end_layout
 
-\begin_layout Section
-添加postgresql支持到wildfly
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-执行以下命令（注意–name前面是两个短横杠）：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-cd $JBOSS_HOME/bin
-\end_layout
-
-\begin_layout Plain Layout
-$ ./jboss-cli.sh
-\end_layout
-
-\begin_layout Plain Layout
-[standalone@localhost:9990 /] module add --name=org.postgresql --slot=main
- --resources=/home/subaochen/devel/lib/postgresql.jar --dependencies=javax.api,jav
-ax.transaction.api
-\end_layout
-
-\begin_layout Plain Layout
-[standalone@localhost:9990 /] /subsystem=datasources/jdbc-driver=postgres:add(dr
-iver-name="postgres",driver-module-name="org.postgresql",driver-class-name=org.pos
-tgresql.Driver)
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-增加wildfly数据源
-\end_layout
-
-\begin_layout Standard
-继续在jboss-cli命令行下执行（替换为你的数据源名称、用户名和密码即可）：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-[standalone@localhost:9990 /] data-source add --name=labDS --jndi-name=java:jbos
-s/labDS --driver-name=postgres --connection-url=jdbc:postgresql://localhost:5432
-/lab --user-name=postgres --password=111111 --validate-on-match=true --backgroun
-d-validation=false --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.
-extensions.postgres.PostgreSQLValidConnectionChecker --exception-sorter-class-name
-=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter
+\begin_inset Graphics
+	filename ../../../javabook/imgs/io/linux-directory-tree.eps
+	width 45col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+子图1
 \end_layout
 
 \end_inset
@@ -342,147 +301,37 @@ extensions.postgres.PostgreSQLValidConnectionChecker --exception-sorter-class-na
 
 \end_layout
 
-\begin_layout Standard
-列出当前wildfly的数据源：
+\end_inset
+
+
 \end_layout
 
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
+\begin_layout Plain Layout
+\align center
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-[standalone@localhost:9990 /] /subsystem=datasources:installed-drivers-list
+\begin_inset Graphics
+	filename ../../../javabook/imgs/io/linux-directory-tree.eps
+	width 45col%
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
-{
-\end_layout
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
-"outcome" => "success",
-\end_layout
-
-\begin_layout Plain Layout
-"result" => [
-\end_layout
-
-\begin_layout Plain Layout
-{
-\end_layout
-
-\begin_layout Plain Layout
-"driver-name" => "postgres",
-\end_layout
-
-\begin_layout Plain Layout
-"deployment-name" => undefined,
-\end_layout
-
-\begin_layout Plain Layout
-"driver-module-name" => "org.postgresql",
-\end_layout
-
-\begin_layout Plain Layout
-"module-slot" => "main",
-\end_layout
-
-\begin_layout Plain Layout
-"driver-datasource-class-name" => "",
-\end_layout
-
-\begin_layout Plain Layout
-"driver-xa-datasource-class-name" => "",
-\end_layout
-
-\begin_layout Plain Layout
-"driver-class-name" => "org.postgresql.Driver",
-\end_layout
-
-\begin_layout Plain Layout
-"driver-major-version" => 9,
-\end_layout
-
-\begin_layout Plain Layout
-"driver-minor-version" => 4,
-\end_layout
-
-\begin_layout Plain Layout
-"jdbc-compliant" => false
-\end_layout
-
-\begin_layout Plain Layout
-},
-\end_layout
-
-\begin_layout Plain Layout
-{
-\end_layout
-
-\begin_layout Plain Layout
-"driver-name" => "h2",
-\end_layout
-
-\begin_layout Plain Layout
-"deployment-name" => undefined,
-\end_layout
-
-\begin_layout Plain Layout
-"driver-module-name" => "com.h2database.h2",
-\end_layout
-
-\begin_layout Plain Layout
-"module-slot" => "main",
-\end_layout
-
-\begin_layout Plain Layout
-"driver-datasource-class-name" => "",
-\end_layout
-
-\begin_layout Plain Layout
-"driver-xa-datasource-class-name" => "org.h2.jdbcx.JdbcDataSource",
-\end_layout
-
-\begin_layout Plain Layout
-"driver-class-name" => "org.h2.Driver",
-\end_layout
-
-\begin_layout Plain Layout
-"driver-major-version" => 1,
-\end_layout
-
-\begin_layout Plain Layout
-"driver-minor-version" => 3,
-\end_layout
-
-\begin_layout Plain Layout
-"jdbc-compliant" => true
-\end_layout
-
-\begin_layout Plain Layout
-}
-\end_layout
-
-\begin_layout Plain Layout
-]
-\end_layout
-
-\begin_layout Plain Layout
-}
+子图2
 \end_layout
 
 \end_inset
@@ -490,16 +339,30 @@ status open
 
 \end_layout
 
-\begin_layout Section*
-参考资料
+\begin_layout Plain Layout
+
 \end_layout
 
-\begin_layout Itemize
-jboss-cli的命令参考：
-\begin_inset CommandInset href
-LatexCommand href
-name "https://developer.jboss.org/wiki/GenericTypeCLICommands"
-target "https://developer.jboss.org/wiki/GenericTypeCLICommands"
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+示意图
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
 
 \end_inset
 

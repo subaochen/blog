@@ -1,0 +1,278 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+%%%%%%%%%%%%%%%%%%                                                                                                                                                           
+
+%中文断行
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+% 标题左对齐
+%\usepackage[raggedright]{titlesec} 
+
+% 页边距设置
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+% 页眉页脚设置
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                                                  % 清空页眉页脚
+\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
+\fancyhead[RE]{\leftmark}                                   % 偶数页右
+\fancyhead[LO]{\rightmark}                                  % 奇数页左
+\fancypagestyle{plain}{
+    \fancyhf{}                                                  % 重定义plain页面样式
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
+
+
+
+ 
+\lstset{%
+        language=Java,%
+        float=hbp,%
+        basicstyle=\footnotesize\ttfamily,%
+        identifierstyle=\color{colIdentifier},%
+        keywordstyle=\color{colKeys},%
+        stringstyle=\color{colString},%
+        commentstyle=\itshape\color{colComments},%
+        columns=fixed,
+        tabsize=4,%
+        frame=tb,% 顶部和底部加横线
+        %frame=shadowbox,
+        framerule=1pt,
+        framexleftmargin=2em, % 行号包含在代码区域内                                                                           
+        showspaces=false,%
+        showstringspaces=false,%不显示代码字符串中间的空格标记
+        numbers=left,%左侧显示行号
+        numberstyle=\tiny\ttfamily,%
+        numbersep=1em,%
+        breaklines=true,% 对过长的代码自动换行
+        breakindent=10pt,%
+        backgroundcolor=\color{hellgelb},%
+        breakautoindent=true,%
+        %escapebegin=\begin{CJK*}{GBK}{hei},escapeend=\end{CJK*},
+        aboveskip=1em, %代码块边框
+        captionpos=t,%
+        %% added by http://bbs.ctex.org/viewthread.php?tid=53451
+        %fontadjust,
+        xleftmargin=1em, xrightmargin=\fboxsep,%设定listing左右的空白
+        %texcl=true,
+        % 设定中文冲突，断行，列模式，数学环境输入，listing数字的样式
+        extendedchars=false,columns=flexible,mathescape=true,
+        escapechar=|
+} 
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-bytype
+theorems-chap-bytype
+coderemarks
+note-inset
+tip-inset
+warning-inset
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #d8daeb
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Lyx中图片并排显示的设置方式
+\end_layout
+
+\begin_layout Standard
+有两种方式可以实现图片的并排显示。
+\end_layout
+
+\begin_layout Section
+使用minipage
+\end_layout
+
+\begin_layout Standard
+其要点是minipage可以设置宽度，因此如果在一行中要并排显示两张图片，只要先插入2个minipage，宽度总和不超过100即可。这样，在每个minipage
+中再插入float figure，每个float figure可以设置单独的标题，效果如下图所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx-images-side-by-side1.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+步骤：
+\end_layout
+
+\begin_layout Enumerate
+添加一个float figure
+\end_layout
+
+\begin_layout Enumerate
+删除float figure的标题（如果需要可以保留）
+\end_layout
+
+\begin_layout Enumerate
+在float figure内部添加两个minipage，分别设置两个minipage的宽度百分比不要超过100
+\end_layout
+
+\begin_layout Enumerate
+在两个minipage之间添加水平填充（插入：格式：水平间隔：水平填充）
+\end_layout
+
+\begin_layout Enumerate
+设置两个minipage的段落居中显示
+\end_layout
+
+\begin_layout Enumerate
+在两个minipage分别插入图片，图片的宽度设置为100%列宽，并另起一行插入标题
+\end_layout
+
+\begin_layout Standard
+pdf效果如下图所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx-images-side-by-side2.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+使用float figure
+\end_layout
+
+\begin_layout Standard
+其要点是每个float figure中的图片宽度之和不要超过页宽的100%，lyx中的效果如下图所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx-images-side-by-side3.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+步骤如下：
+\end_layout
+
+\begin_layout Enumerate
+插入一个float figure作为最外层的float figure
+\end_layout
+
+\begin_layout Enumerate
+在float figure内部再插入两个并排的float figure
+\end_layout
+
+\begin_layout Enumerate
+在内部的两个float figure之间插入一个水平填充符，设置此水平填充符为居中显示（似乎第一次生成pdf的时候图片不会并排显示，如果不设置为居中显示的话）
+\end_layout
+
+\begin_layout Enumerate
+在每个内部float figure内部插入图片，并设置图片的宽度为45%的行宽
+\end_layout
+
+\begin_layout Standard
+pdf效果如下图所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx-images-side-by-side4.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
