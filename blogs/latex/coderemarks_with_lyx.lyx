@@ -1,8 +1,10 @@
-#LyX 2.1 created this file. For more info see http://www.lyx.org/
-\lyxformat 474
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
 \begin_document
 \begin_header
-\textclass ctex-article-with-coderemarks
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
 
@@ -111,16 +113,16 @@ tcolorbox
 \language_package default
 \inputencoding utf8-plain
 \fontencoding global
-\font_roman 新宋体
-\font_sans 新宋体
-\font_typewriter 新宋体
-\font_math auto
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
 \font_default_family default
 \use_non_tex_fonts true
 \font_sc false
 \font_osf false
-\font_sf_scale 100
-\font_tt_scale 100
+\font_sf_scale 100 100
+\font_tt_scale 100 100
 \graphics default
 \default_output_format pdf4
 \output_sync 0
@@ -174,6 +176,10 @@ tcolorbox
 
 \begin_layout Title
 使用coderemarks更好的解释程序代码
+\end_layout
+
+\begin_layout Section
+起因
 \end_layout
 
 \begin_layout Standard
@@ -263,8 +269,10 @@ target "http://dz.sdut.edu.cn/blog/subaochen/2016/02/lyx%E5%AE%89%E8%A3%85cls%E5
 复制/usr/share/lyx/layouts/ctex-article.layout到.lyx/layouts/ctex-article-with-codere
 marks.layout,并修改第二行为：# 
 \backslash
-DeclareLaTeXClass[ctexart,savesym.sty,xeCJK.sty,coderemarks.sty]{Chinese Article
- (CTeX) with coderemarks}
+Declare\SpecialChar LaTeX
+Class[ctexart,savesym.sty,xeCJK.sty,coderemarks.sty]{Chinese Article
+ (C\SpecialChar TeX
+) with coderemarks}
 \end_layout
 
 \begin_layout Enumerate
@@ -272,7 +280,8 @@ DeclareLaTeXClass[ctexart,savesym.sty,xeCJK.sty,coderemarks.sty]{Chinese Article
 \end_layout
 
 \begin_layout Enumerate
-创建新文件，选择文档类为Chinese Article (CTeX) with coderemarks，并在导言区（listing的定义后面）增加
+创建新文件，选择文档类为Chinese Article (C\SpecialChar TeX
+) with coderemarks，并在导言区（listing的定义后面）增加
 \begin_inset Newline newline
 \end_inset
 
@@ -288,6 +297,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -329,6 +343,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -463,6 +482,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -592,6 +616,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -741,6 +770,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -836,6 +870,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -979,6 +1018,18 @@ endMakeFramed}
 
 \begin_layout Standard
 idea：最好定制一个专门展示console内容的标签，比如terminal?console?
+\end_layout
+
+\begin_layout Section
+使用coderemarks可能存在的坑
+\end_layout
+
+\begin_layout Itemize
+在程序的注释中不能存在$符号
+\end_layout
+
+\begin_layout Itemize
+至少要存在一个longremark
 \end_layout
 
 \end_body
