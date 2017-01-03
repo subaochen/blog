@@ -498,12 +498,12 @@ public class MyList<E> extends ArrayList<E> {
 
 \begin_layout Plain Layout
 
-        sb.delete(sb.length() - 2, sb.length());
+        sb.delete(sb.length() - 2, sb.length()).append("]");
 \end_layout
 
 \begin_layout Plain Layout
 
-        return sb.append("]").toString();
+        return sb.toString();
 \end_layout
 
 \begin_layout Plain Layout
@@ -530,7 +530,53 @@ public class MyList<E> extends ArrayList<E> {
 \end_layout
 
 \begin_layout Standard
-TBD。
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+    public String toString( ) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        if(this.isEmpty()) return "[]";
+\end_layout
+
+\begin_layout Plain Layout
+
+        StringBuilder sb = new StringBuilder();
+\end_layout
+
+\begin_layout Plain Layout
+
+        sb.append("[");
+\end_layout
+
+\begin_layout Plain Layout
+
+        this.stream().forEach(p->{sb.append(p); sb.append(", ");});
+\end_layout
+
+\begin_layout Plain Layout
+
+        sb.delete(sb.length() - 2, sb.length()).append("]");
+\end_layout
+
+\begin_layout Plain Layout
+
+        return sb.toString();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

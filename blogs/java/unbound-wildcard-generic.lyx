@@ -6,115 +6,7 @@
 \origin unavailable
 \textclass ctex-article
 \begin_preamble
-%%%%%%%%%%%%%%%%%%                                                                                                                                                           
-
-%中文断行
-\XeTeXlinebreaklocale "zh"
-\XeTeXlinebreakskip = 0pt plus 1pt 
-
-% 标题左对齐
-\usepackage[raggedright]{titlesec} 
-
-% 页边距设置
-\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
-% 页眉页脚设置
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}                                                  % 清空页眉页脚
-\fancyhead[LE,RO]{\thepage}                                 % 偶数页左,奇数页右
-\fancyhead[RE]{\leftmark}                                   % 偶数页右
-\fancyhead[LO]{\rightmark}                                  % 奇数页左
-\fancypagestyle{plain}{
-    \fancyhf{}                                                  % 重定义plain页面样式
-    \renewcommand{\headrulewidth}{0pt}
-}
-
-
-\usepackage{listings}
-\usepackage{color}
-\definecolor{hellgelb}{rgb}{1,1,0.85}
-\definecolor{colKeys}{rgb}{0,0,1}
-\definecolor{colIdentifier}{rgb}{0,0,0}
-\definecolor{colComments}{rgb}{1,0,0}
-\definecolor{colString}{rgb}{0,0.5,0}
-\AtBeginDocument{\renewcommand\lstlistingname{代码清单}}
-
- 
-\lstset{%
-        language=Java,%
-        float=hbp,%
-        basicstyle=\footnotesize\ttfamily,%
-        identifierstyle=\color{colIdentifier},%
-        keywordstyle=\color{colKeys},%
-        stringstyle=\color{colString},%
-        commentstyle=\itshape\color{colComments},%
-        columns=fixed,
-        tabsize=4,%
-        frame=tb,% 顶部和底部加横线
-        %frame=shadowbox,
-        framerule=1pt,
-        framexleftmargin=2em, % 行号包含在代码区域内
-        extendedchars=false,%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题                                                                              
-        showspaces=false,%
-        showstringspaces=false,%
-        numbers=left,%
-        numberstyle=\tiny\ttfamily,%
-        numbersep=1em,%
-        breaklines=true,%
-        breakindent=10pt,%
-        backgroundcolor=\color{hellgelb},%
-        breakautoindent=true,%
-        captionpos=t,%
-        xleftmargin=1em,%
-        xrightmargin=\fboxsep,
-        escapechar=|
-} 
-
-\usepackage{tikz}
-\usepackage{ifthen}
-\usepackage{coderemarks}
-\usepackage{alltt}
-%% Style commands
-\newcommand{\func}[1]{\texttt{#1}}
-\newcommand{\key}[1]{\texttt{#1}}
-\newcommand{\type}[1]{\texttt{#1}}
-\newcommand{\prog}[1]{\texttt{#1}}
-\newcommand{\flag}[1]{\textit{#1}}
-\newcommand{\dir}[1]{\texttt{#1}}
-\newcommand{\file}[1]{\texttt{#1}}
-\newcommand{\var}[1]{\texttt{#1}}
-\newcommand{\rem}[1]{\texttt{\textit{#1}}}
-\newcommand{\package}[1]{{\textit{#1}}}
-
-% 用于显示终端命令的执行结果
-\newenvironment{display}{\def\FrameCommand{\hskip\parindent}%%
-\MakeFramed{\advance\hsize-\width\FrameRestore}%%
-\vspace*{-2ex}\small\begin{alltt}}%
-{\end{alltt}\vspace*{-2ex}\endMakeFramed}
-
-\newenvironment{lbar}[1][]{%
-\def\FrameCommand{\rightskip=\parindent\hskip\parindent\vrule width 1pt \hspace{10pt}}%
-\MakeFramed{\rightskip=\parindent\advance\hsize-\width\FrameRestore\noindent\hskip-0.6ex}%
-{%
-\ifthenelse{\equal{#1}{}}{}{\hskip0.6ex\normalfont\myfamily\myheadseries{#1}\\\\}}%
-}%
-{\endMakeFramed}
-
-% 显示一个向左的箭头
-\newcommand{\coderemark}[1]{\sffamily\normalfont\qquad$\leftarrow \textit{\footnotesize #1}$}
-
-
-%----------------------------------------------------------------------------------------
-%	REMARK ENVIRONMENT
-%----------------------------------------------------------------------------------------
-
-\newenvironment{remark}{\par\vspace{10pt}\small % Vertical white space above the remark and smaller font size
-\begin{list}{}{
-\leftmargin=35pt % Indentation on the left
-\rightmargin=25pt}\item\ignorespaces % Indentation on the right
-\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
-\node[draw=ocre!60,line width=1pt,circle,fill=ocre!25,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{R}};\end{tikzpicture}} % Orange R in a circle
-\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
 \end_preamble
 \use_default_options true
 \begin_modules
@@ -123,6 +15,7 @@ tcolorbox
 note-inset
 tip-inset
 warning-inset
+coderemarks
 \end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
@@ -192,11 +85,18 @@ warning-inset
 \begin_body
 
 \begin_layout Title
-Java泛型的无限制通配符
+Java泛型中的无限制通配符
 \end_layout
 
 \begin_layout Section
 问题导入
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:问题导入"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -205,88 +105,11 @@ Java泛型的无限制通配符
 status open
 
 \begin_layout Plain Layout
-事实上，System.out.println可以直接打印任何List/Map对象的，参见AbstractConnection<E>的toString方法：
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-    public String toString() {
-\end_layout
-
-\begin_layout Plain Layout
-
-        Iterator<E> it = iterator();
-\end_layout
-
-\begin_layout Plain Layout
-
-        if (! it.hasNext())
-\end_layout
-
-\begin_layout Plain Layout
-
-            return "[]";
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-        StringBuilder sb = new StringBuilder();
-\end_layout
-
-\begin_layout Plain Layout
-
-        sb.append('[');
-\end_layout
-
-\begin_layout Plain Layout
-
-        for (;;) {
-\end_layout
-
-\begin_layout Plain Layout
-
-            E e = it.next();
-\end_layout
-
-\begin_layout Plain Layout
-
-            sb.append(e == this ? "(this Collection)" : e); 
-\end_layout
-
-\begin_layout Plain Layout
-
-            if (! it.hasNext())
-\end_layout
-
-\begin_layout Plain Layout
-
-                return sb.append(']').toString();
-\end_layout
-
-\begin_layout Plain Layout
-
-            sb.append(',').append(' ');
-\end_layout
-
-\begin_layout Plain Layout
-
-        }   
-\end_layout
-
-\begin_layout Plain Layout
-
-    } 
-\end_layout
+事实上，System.out.println是可以直接打印任何List/Map对象的，参见：
+\begin_inset CommandInset href
+LatexCommand href
+name "http://dz.sdut.edu.cn/blog/subaochen/2017/01/println-list-analyse/"
+target "http://dz.sdut.edu.cn/blog/subaochen/2017/01/println-list-analyse/"
 
 \end_inset
 
@@ -298,12 +121,441 @@ status open
 ，可能会尝试下面的方法：
 \end_layout
 
-\begin_layout Section
-无限制通配符的使用场合
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public void printList(List<Object> list) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for(Object e : list) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println(e);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+但是这个尝试是失败的，因为List<Integer>, List<String>等不是List<Object>的子类型，根据“子类替换原则”
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+参见：
+\begin_inset CommandInset href
+LatexCommand href
+name "http://dz.sdut.edu.cn/blog/subaochen/2017/01/subtypes-substitutation/"
+target "http://dz.sdut.edu.cn/blog/subaochen/2017/01/subtypes-substitutation/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+，List<Integer>, List<String>等就不能作为printList方法的参数，因而这样设计的printList方法只能接受List<Obje
+ct>类型的参数，偏离了我们当初设定的目标。
+\end_layout
+
+\begin_layout Standard
+通过以上的分析，问题就转化为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box ovalbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+什么是List<Integer>, List<String>, List<Object>等集合的父类型，也就是说，什么是任何List集合的父类型？
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+根据Java的泛型规则，我们有下面的四种选择
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+which is the best practise?
+\end_layout
+
+\end_inset
+
+，均能实现我们的目标：
+\end_layout
+
+\begin_layout Subsection
+List<T extends Object>
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:List<T-extends-Object>"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，printList方法可以设计为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public static <T extends Object> void printList(List<T> list){
+\end_layout
+
+\begin_layout Plain Layout
+
+    for(T e : list) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println(e);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+实际上，这种写法和
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:List<T>"
+
+\end_inset
+
+是一样的，即<T extends Object> 和 <T> 没有区别。
+\end_layout
+
+\begin_layout Standard
+但是，下面的写法是错误的：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public static <T> void printList(List<T extends Object> list){ // 语法错误，
+ 方法的泛型参数的类型必须是唯一确定的， 如果需要限定参数的上下界，需要在类型参数列表中限定。
+\end_layout
+
+\begin_layout Plain Layout
+
+    for(T e : list) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println(e);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+跟类型擦除有关系？需要理解类型擦除的原理和方法
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+List<? extends Object>
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:List<?-extends-Object>"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public static void printList(List<? extends Object> list){
+\end_layout
+
+\begin_layout Plain Layout
+
+    for(Object e : list) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println(e);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+List<T>
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:List<T>"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public static <T> void printList(List<T> list){
+\end_layout
+
+\begin_layout Plain Layout
+
+    for(T e : list) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println(e);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+List<?>
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:List<?>"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public static void printList(List<?> list){
+\end_layout
+
+\begin_layout Plain Layout
+
+    for(Object e : list) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println(e);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
-无限制通配符的使用注意事项
+无限制通配符的最佳实践
+\end_layout
+
+\begin_layout Standard
+可以看出，其实
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:List<?-extends-Object>"
+
+\end_inset
+
+的写法相当于
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:List<T-extends-Object>"
+
+\end_inset
+
+的简化，
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:List<?>"
+
+\end_inset
+
+的写法其实相当于
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:List<T>"
+
+\end_inset
+
+的简化。也就是说，在泛型方法中使用通配符，可以省略类型参数列表，这也是容易理解的：通配符?本意就表示符合条件的任意一个对象。比较一下另外一个通配符*，它表示符合
+条件的所有对象的集合，似乎在Java泛型中没有什么场合需要通配符*
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+未来的Java版本中，泛型会加入通配符*的支持吗？maybe。
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+显然，在
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:问题导入"
+
+\end_inset
+
+中提出的问题，
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:List<?>"
+
+\end_inset
+
+是最简洁易懂的方案，因此在编程实践中，推荐
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:List<?>"
+
+\end_inset
+
+作为最佳实践。
 \end_layout
 
 \end_body
