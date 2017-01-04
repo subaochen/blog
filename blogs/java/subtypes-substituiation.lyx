@@ -191,6 +191,13 @@ Java语言子类型的3种情形
 
 \begin_layout Subsection
 子类
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:子类"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -200,6 +207,13 @@ ype）要更宽泛一下，除了包括“子类”之外，还包括下面的�
 
 \begin_layout Subsection
 接口
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:接口"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -267,6 +281,107 @@ test(bar1);
 
 \begin_layout Standard
 这是子类型最复杂的部分，我们分以下几种情况讨论：
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+类型参数相同时，子类型的判别规则参照子类和接口
+\end_layout
+
+\end_inset
+
+。这其实就是子类和接口实现扩展到了范型而已，比如下例，MyList<E>是ArrayList<E>的子类型：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public class MyList<E> extends ArrayList<E> {...}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+通配符?是一切对象的父类型
+\end_layout
+
+\end_inset
+
+。这里有个前提，即只是变化类型参数，比如：List<?>是List<Integer>、List<String>的父类型。
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Foo<? extends Bar>是所有Foo<ClassExtendsBar>的父类型
+\end_layout
+
+\end_inset
+
+。比如List<? extends Number>是List<Integer>，List<Double>的父类型。
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+类型参数不同且不使用通配符，不构成子类型关系
+\end_layout
+
+\end_inset
+
+。比如List<Inteter>不是List<Number>的子类型，也不是Collection<Number>的子类型，尽管List是Collection的子
+类型，Integer是Number的子类型。我们可以通过假设的方式证明这一点：假设Collection<Number>是List<Integer>的父类型，那么
+有下面的悖论：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Collection<Number> c;
+\end_layout
+
+\begin_layout Plain Layout
+
+List<Integer> list = Arrays.asList(1,2,3);
+\end_layout
+
+\begin_layout Plain Layout
+
+c = list; // 编译错误！
+\end_layout
+
+\begin_layout Plain Layout
+
+c.add(1.2); // 如果上面一行允许的话，则会导致我们可以向list中添加float/double类型的数据，这是不合理的。
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
