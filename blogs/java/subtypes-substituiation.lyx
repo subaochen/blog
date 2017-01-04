@@ -157,5 +157,117 @@ logicalmkup
 子类型和子类型替换原则
 \end_layout
 
+\begin_layout Section
+问题导入
+\end_layout
+
+\begin_layout Standard
+在面向对象编程实践中，会经常遇到“向上转型”的类型转换，这是安全的，因此有了下面的
+\begin_inset Flex Noun
+status open
+
+\begin_layout Plain Layout
+“子类型替换原则”
+\end_layout
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout Definition
+在使用Java对象的地方，可以使用该对象的子类型替代之。
+\end_layout
+
+\begin_layout Definition
+“子类型替换原则”是面向对象编程的“普适”原则，Java语言自然是支持的。用好“子类型替换原则”的关键是彻底了解“子类型”（subtype）是如何规定的，这样才
+能自如的找到合适的子类型进行替换。但是每种面向对象编程语言对于“子类型”的定义方式可能有差别，因此在Java中要用好“子类型替换原则”，就需要了解Java语言的
+“子类型”是如何规定的。
+\end_layout
+
+\begin_layout Section
+Java语言子类型的3种情形
+\end_layout
+
+\begin_layout Subsection
+子类
+\end_layout
+
+\begin_layout Standard
+这是最容易理解的“子类型”了，但是要注意区分这两个概念：“子类”（subclass）是指一个类的子类，即我们通过extends继承下来的类。“子类型”（subt
+ype）要更宽泛一下，除了包括“子类”之外，还包括下面的两种类型。
+\end_layout
+
+\begin_layout Subsection
+接口
+\end_layout
+
+\begin_layout Standard
+如果一个类实现了某个接口，则这个接口就是这个类的“子类型”（subtype）。如果一个类实现了多个接口，则这个类就拥有多个子类型。比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public class Foo implements Bar1, Bar2, Bar3 {
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+我们可以说，Bar1, Bar2, Bar3都是Foo类的子类型，在任何使用Foo的地方，都可以使用Bar1或者Bar2,或者Bar3替代，比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public void test (Foo foo) { ...
+ }
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+Bar1 bar1 = new Foo();
+\end_layout
+
+\begin_layout Plain Layout
+
+test(bar1);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+范型中的子类型
+\end_layout
+
+\begin_layout Standard
+这是子类型最复杂的部分，我们分以下几种情况讨论：
+\end_layout
+
 \end_body
 \end_document
