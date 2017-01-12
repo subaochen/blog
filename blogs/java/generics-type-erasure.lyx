@@ -114,7 +114,7 @@ Java泛型是在编译阶段进行处理的，即所谓的“类型擦除”（T
 \end_layout
 
 \begin_layout Standard
-当类定义中的类型参数没有任何限制时，在类型擦除中直接被替换为Object，见
+当类定义中的类型参数没有任何限制时，在类型擦除中直接被替换为Object，即形如<T>和<?>的类型参数都被替换为Object，参见
 \begin_inset ERT
 status open
 
@@ -187,7 +187,8 @@ name "fig:擦除类定义中的类型参数"
 \end_layout
 
 \begin_layout Standard
-当类定义中的类型参数存在限制（上下界）时，在类型擦除中替换为类型参数的上界或者下界，见
+当类定义中的类型参数存在限制（上下界）时，在类型擦除中替换为类型参数的上界或者下界，比如形如<T extends Number>和<? extends
+ Number>的类型参数被替换为Number，<? super Number>被替换为Object，参见
 \begin_inset ERT
 status open
 
@@ -328,6 +329,32 @@ status open
 \begin_layout Plain Layout
 通过jad反编译后的结果可以对照一下？
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+参考资料
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset href
+LatexCommand href
+name "http://docs.oracle.com/javase/tutorial/java/generics/index.html"
+target "http://docs.oracle.com/javase/tutorial/java/generics/index.html"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset href
+LatexCommand href
+name "http://docs.oracle.com/javase/tutorial/extra/generics/index.html"
+target "http://docs.oracle.com/javase/tutorial/extra/generics/index.html"
 
 \end_inset
 
