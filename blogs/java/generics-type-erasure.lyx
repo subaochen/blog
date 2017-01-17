@@ -89,12 +89,31 @@ Java泛型的类型擦除
 \end_layout
 
 \begin_layout Standard
-Java泛型是在编译阶段进行处理的，即所谓的“类型擦除”（Type Erasure），将所有的泛型表示（尖括号中的内容）都替换为具体的类型，就像完全没有泛型一样
-。类型擦除的原则是：
+Java泛型这个特性是从JDK 1.5才开始加入的，因此为了兼容之前的版本，Java泛型的实现采取了“伪泛型”的策略，即Java在语法上支持泛型，但是在编译阶段会
+进行所谓的“类型擦除”（Type Erasure），将所有的泛型表示（尖括号中的内容）都替换为具体的类型（其对应的原生态类型），就像完全没有泛型一样。理解类型擦
+除对于用好泛型是很有帮助的，尤其是一些看起来“疑难杂症”的问题，弄明白了类型擦除也就迎刃而解了。
+\end_layout
+
+\begin_layout Standard
+泛型的类型擦除原则是：
 \end_layout
 
 \begin_layout Itemize
-根据类型参数的上下界推断并替换所有的类型参数为真实的类型。如果类型参数是无限制通配符则类型替换为Object。
+消除类型参数声明，即删除<>及其包围的部分。
+\end_layout
+
+\begin_layout Itemize
+根据类型参数的上下界推断并替换所有的类型参数为原生态类型：如果类型参数是无限制通配符或没有上下界限定则替换为Object，如果存在上下界限定则根据子类替换原则
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+此处插入子类替换原则的引用
+\end_layout
+
+\end_inset
+
+取类型参数的最左边限定类型（即父类）。
 \end_layout
 
 \begin_layout Itemize
@@ -102,7 +121,17 @@ Java泛型是在编译阶段进行处理的，即所谓的“类型擦除”（T
 \end_layout
 
 \begin_layout Itemize
-自动产生“bridge method”以保证擦除类型后的代码仍然具有泛型的“多态性”。
+自动产生“桥接方法”以保证擦除类型后的代码仍然具有泛型的“多态性”。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+似乎有问题？
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
