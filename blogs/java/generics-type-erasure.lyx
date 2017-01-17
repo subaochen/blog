@@ -372,6 +372,151 @@ status open
 \end_layout
 
 \begin_layout Section
+桥接方法和泛型的多态
+\end_layout
+
+\begin_layout Standard
+考虑下面的代码：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public interface Info<T> {
+\end_layout
+
+\begin_layout Plain Layout
+
+    // just return var:-) 
+\end_layout
+
+\begin_layout Plain Layout
+
+    T info(T var); 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+public class BridgeMethodTest implements Info<Integer> {
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Integer info(Integer var) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return var;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+按照我们之前类型擦除的经验，在擦除类型后的代码应该是这个样子的：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public interface Info {
+\end_layout
+
+\begin_layout Plain Layout
+
+    // just return var
+\end_layout
+
+\begin_layout Plain Layout
+
+    Object info(Object var);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class BridgeMethodTest implements Info {
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Integer info(Integer var) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return var;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+但是，明显这样擦除类型后的代码语法上是错误的：BridgeMethodTest类中虽然存在一个info方法，但是和Info接口要求覆盖的info方法不一致：参数
+类型不一致。
+\end_layout
+
+\begin_layout Section
 Java多态对泛型的影响
 \end_layout
 
