@@ -274,6 +274,13 @@ figurename
 
 \end_inset
 
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:擦除泛型方法中的类型参数"
+
+\end_inset
+
 。
 \end_layout
 
