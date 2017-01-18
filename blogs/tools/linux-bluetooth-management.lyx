@@ -1,0 +1,518 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-bytype
+theorems-chap-bytype
+coderemarks
+note-inset
+tip-inset
+warning-inset
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #d8daeb
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\lang english
+linux下管理蓝牙设备
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+不知道为什么，小米的蓝牙鼠标在linux下面安装不是很顺利，系统能够识别出蓝牙鼠标，但是自作多情的识别出了一堆，如图所示：
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\lang english
+\begin_inset Graphics
+	filename ../../imgs/tools/bluetooth-list.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+看着不爽啊，怎么办？祭出bluetoothctl大法，下面是bluetoothctl的执行过程：
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\lang english
+$ bluetoothctl
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[NEW] Controller A0:C5:89:35:05:CE mibuntu [default]
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[NEW] Device FE:8F:AC:55:93:48 MiMouse
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[NEW] Device CE:55:BA:B8:65:B9 MiMouse
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[NEW] Device EA:36:73:C7:64:C5 MiMouse
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[NEW] Device 74:23:44:45:9B:FB 红米手机
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[NEW] Device FD:90:32:24:D4:04 MiMouse
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[NEW] Device D6:B4:84:9A:05:87 MiMouse
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[bluetooth]# help
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+Available commands:
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+list List available controllers
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+show [ctrl] Controller information
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+select <ctrl> Select default controller
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+devices List available devices
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+paired-devices List paired devices
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+power <on/off> Set controller power
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+pairable <on/off> Set controller pairable mode
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+discoverable <on/off> Set controller discoverable mode
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+agent <on/off/capability> Enable/disable agent with given capability
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+default-agent Set agent as the default one
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+set-scan-filter-uuids [uuid1 uuid2 ...] Set scan filter uuids
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+set-scan-filter-rssi [rssi] Set scan filter rssi, and clears pathloss
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+set-scan-filter-pathloss [pathloss] Set scan filter pathloss, and clears
+ rssi
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+set-scan-filter-transport [transport] Set scan filter transport
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+set-scan-filter-clear Clears discovery filter.
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+scan <on/off> Scan for devices
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+info [dev] Device information
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+pair [dev] Pair with device
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+trust [dev] Trust device
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+untrust [dev] Untrust device
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+block [dev] Block device
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+unblock [dev] Unblock device
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+remove <dev> Remove device
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+connect <dev> Connect device
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+disconnect [dev] Disconnect device
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+list-attributes [dev] List attributes
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+select-attribute <attribute> Select attribute
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+attribute-info [attribute] Select attribute
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+read Read attribute value
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+write <data=[xx xx ...]> Write attribute value
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+notify <on/off> Notify attribute value
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+register-profile <UUID ...> Register profile to connect
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+unregister-profile Unregister profile
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+version Display version
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+quit Quit program
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[bluetooth]# remove D6:B4:84:9A:05:87
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[DEL] Device D6:B4:84:9A:05:87 MiMouse
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+Device has been removed
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[bluetooth]# remove FD:90:32:24:D4:04
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[DEL] Device FD:90:32:24:D4:04 MiMouse
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+Device has been removed
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[bluetooth]# remove EA:36:73:C7:64:C5
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[DEL] Device EA:36:73:C7:64:C5 MiMouse
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+Device has been removed
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[bluetooth]# remove CE:55:BA:B8:65:B9
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[DEL] Device CE:55:BA:B8:65:B9 MiMouse
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+Device has been removed
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+[bluetooth]# devices
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+Device FE:8F:AC:55:93:48 MiMouse
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+Device 74:23:44:45:9B:FB 红米手机
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+全部删除MiMouse设备，然后重新发现和连接即可。
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+小经验：最好通过bluetoothctl执行trust指令将MiMouse加入信任设备列表，这样配对的时候不需要验证。
+\end_layout
+
+\end_body
+\end_document
