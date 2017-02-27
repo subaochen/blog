@@ -1,0 +1,200 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-bytype
+theorems-chap-bytype
+coderemarks
+note-inset
+tip-inset
+warning-inset
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #d8daeb
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+彩色绘图还是黑白绘图？
+\end_layout
+
+\begin_layout Section
+悲惨经历
+\end_layout
+
+\begin_layout Standard
+把书稿打印出来才发现，原先彩色绘出的图形，打印出来惨不忍睹！
+\end_layout
+
+\begin_layout Standard
+下面是原彩色图：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/generic-method.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+使用convert转换为灰度黑白图的效果：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/generic-method-gray.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+原彩色图打印出来后的效果：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/generic-method-printed.png
+	lyxscale 30
+	width 70line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+彩色图转换为灰度图后打印效果：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/generic-method-gray-printed.png
+	lyxscale 30
+	width 70line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+经过转换后的灰度图有两个缺点：
+\end_layout
+
+\begin_layout Enumerate
+有些彩色转换成灰度以后几乎看不清楚，尤其是彩色渐变色；
+\end_layout
+
+\begin_layout Enumerate
+矢量图转换成灰度后变成了非矢量图！
+\end_layout
+
+\begin_layout Standard
+因此，使用黑白两色表现思想才是王道！上百张图片要重新画....
+\end_layout
+
+\begin_layout Section
+黑白艺术
+\end_layout
+
+\begin_layout Standard
+黑白两色的艺术，要点在：
+\end_layout
+
+\begin_layout Itemize
+线条适当加粗，譬如上面几张图片中带箭头的线条；
+\end_layout
+
+\begin_layout Itemize
+使用虚线和实线区分不同的范围；
+\end_layout
+
+\begin_layout Itemize
+使用不同粗细的线条区分线条的用途；
+\end_layout
+
+\begin_layout Itemize
+使用普通文字标注，使用加粗黑体表现重点的文字；
+\end_layout
+
+\begin_layout Itemize
+使用不同颜色表现不同的透明度的方法在黑白世界依然有效，但是避免使用过浅的渐变色；
+\end_layout
+
+\end_body
+\end_document
