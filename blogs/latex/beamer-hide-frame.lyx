@@ -88,37 +88,39 @@ coderemarks
 \begin_body
 
 \begin_layout Title
-食
+beamer隐藏frame的方法
 \end_layout
 
 \begin_layout Standard
-这字乍看有点别扭，好像有点歪。但是仔细一端详，内有玄机啊！
+有时需要暂时隐藏一些frame，即暂时不要在pdf中展示其中的某些frame，但是又不想在beamer文档中删除，可以在相应的frame中插入options，选
+项为：
 \end_layout
 
-\begin_layout Standard
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/handwriting/liang-orig.png
-	lyxscale 30
-	width 50line%
+\begin_layout Itemize
+所有模式下都不显示这一帧，最常用的情形：all:0
+\end_layout
+
+\begin_layout Itemize
+在幻灯模式不显示：presentation:0
+\end_layout
+
+\begin_layout Itemize
+在分发（打印）模式
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+所谓分发模式，是指本来分页显示的内容集中到一个页面显示（去掉overlay效果），便于打印分发。在lyx的文档类定制选项中填写handout即可生成分发版的pd
+f
+\end_layout
 
 \end_inset
 
-
+不显示：handout:0
 \end_layout
 
-\begin_layout Standard
-比划了半天，还是不像：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/handwriting/liang.png
-	lyxscale 30
-	width 50line%
-
-\end_inset
-
-
+\begin_layout Itemize
+没搞清楚这个选项的意思？beamer:0
 \end_layout
 
 \end_body
