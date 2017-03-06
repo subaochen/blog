@@ -1,0 +1,196 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\use_default_options true
+\begin_modules
+logicalmkup
+multicol
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 1
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+JVM运行时数据区的粗浅理解
+\end_layout
+
+\begin_layout Standard
+如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Java虚拟机运行时数据区"
+
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+根据原图重绘，原图参见：《深入理解Java虚拟机-JVM高级特性与最佳实践》之第二章：JVM内存区域与内存溢出异常。
+\end_layout
+
+\end_inset
+
+所示，Java虚拟机的运行时数据区分为两类区域：
+\end_layout
+
+\begin_layout Enumerate
+所有线程共享的数据区，即当一个应用程序运行起来后，所有线程都可以访问的区域。这个区域又分为两个部分：
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+方法区：存放ClassLoader加载的类信息、常量、静态变量等。也就是说，如果各个对象共享的数据，都放到方法区。方法区的提法感觉有点容易造成误解，似乎改叫“声
+明区”更加合理？或者遵循C语言的习惯，干脆叫做“静态区”。这块区域在应用程序加载后，应该变化很小。
+\end_layout
+
+\begin_layout Enumerate
+堆：存放对象实例，即应用程序运行时创建的所有对象实例都存放在堆中。显然，这是一块动态变化的内存区域，不仅仅是应用程序运行时创建的对象实例会不断变化，GC的主要工
+作也是这一块，也会导致堆的内容不断变化。
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+线程隔离的数据区。这块区域是为了保存每个线程执行过程中的临时数据，比如指令序号、局部变量、方法调用栈等，分为以下三个部分：
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+程序计数器：很小的一个内存区域，保存线程执行时的程序指针。
+\end_layout
+
+\begin_layout Enumerate
+虚拟机栈：类似于单片机中的函数调用栈的作用，保存线程运行时的局部变量、参数、返回出口等。
+\end_layout
+
+\begin_layout Enumerate
+本地方法栈：因为Java虚拟机中有部分代码使用了本地方法（native method），因此本地方法栈为本地方法服务。在HotSpot虚拟机实现中，本地方法栈和
+虚拟机栈是合二为一的。
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../../imgs/java/jvm-runtime_area.eps
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Java虚拟机运行时数据区
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Java虚拟机运行时数据区"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
