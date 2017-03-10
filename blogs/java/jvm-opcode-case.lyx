@@ -88,138 +88,187 @@ coderemarks
 \begin_body
 
 \begin_layout Title
-学几个JVM字节码指令
+解读字节码指令案例
 \end_layout
 
 \begin_layout Standard
-为了更好的读懂《深入理解Java虚拟机》
+在《深入理解Java虚拟机》
 \begin_inset CommandInset citation
 LatexCommand cite
+after "p161"
 key "jvm-advanced-features"
 
 \end_inset
 
-，下载了JVM规范
-\begin_inset CommandInset citation
-LatexCommand cite
-key "jls-jvm-homepage"
+中举了下面一个例子：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/java/OpCodeTest.java"
+lstparams "caption={OpCodeTest.java},label={OpCodeTest.java}"
 
 \end_inset
 
-，学习几个简单的字节码指令。
-\end_layout
 
-\begin_layout Section
-iload n/istore n
 \end_layout
 
 \begin_layout Standard
-iload n和istore n是一对相反的操作，iload n将局部变量数组中的第n个元素(必须是int)推送到栈顶，istore n将栈顶数据（必须是int
-）保存到局部变量数组的第n个元素中。
-\end_layout
-
-\begin_layout Section
-iload_<n>/istore_<n>
+感觉作者的解释有些模糊（也许是JDK版本不同造成的？），决定重新解释一下。
 \end_layout
 
 \begin_layout Standard
-iload_0等价于iload 0，同理，iload_1等价与iload 1......
+经过javap -verbose OpCodeTest后，test方法相关的字节码指令为：
 \end_layout
 
 \begin_layout Standard
-istore_0等价于istore 0，同理，istore_1等价于istore 1......
-\end_layout
-
-\begin_layout Standard
-JVM规范只定义了iload_0到iload_3，istore_0到istore_3。
-\end_layout
-
-\begin_layout Section
-aload/astore
-\end_layout
-
-\begin_layout Standard
-理解了iload，aload就很容易理解了。iload表示将一个整数推送到栈顶，aload表示将一个引用推送到栈顶。同样的，还有fload（推送float），d
-load（推送double），lload（推送long）指令。
-\end_layout
-
-\begin_layout Section
-aload_<n>/astore_<n>
-\end_layout
-
-\begin_layout Standard
-aload_0等价于aload 0，以此类推。同样的，还有fload_<n>，lload_<n>，dload_<n>。
-\end_layout
-
-\begin_layout Section
-ireturn
-\end_layout
-
-\begin_layout Standard
-从方法返回一个int，此int是从栈顶弹出的。
-\end_layout
-
-\begin_layout Standard
-同样的，还有freturn，lreturn，dreturn，areturn，return（返回void）。
-\end_layout
-
-\begin_layout Section
-athrow
-\end_layout
-
-\begin_layout Standard
-从栈顶弹出一个引用（必须是Throwable的子类对象）并抛出。
-\end_layout
-
-\begin_layout Section
-整数入栈指令
-\end_layout
-
-\begin_layout Standard
-总体来说
-\begin_inset Foot
+\begin_inset listings
+inline false
 status open
 
 \begin_layout Plain Layout
-Java为什么采用此种策略？数值的划分依据又是什么？值得继续关注。
+
+  public int test();
+\end_layout
+
+\begin_layout Plain Layout
+
+    descriptor: ()I
+\end_layout
+
+\begin_layout Plain Layout
+
+    flags: ACC_PUBLIC
+\end_layout
+
+\begin_layout Plain Layout
+
+    Code:
+\end_layout
+
+\begin_layout Plain Layout
+
+      stack=1, locals=5, args_size=1
+\end_layout
+
+\begin_layout Plain Layout
+
+         0: iconst_1
+\end_layout
+
+\begin_layout Plain Layout
+
+         1: istore_1
+\end_layout
+
+\begin_layout Plain Layout
+
+         2: iload_1
+\end_layout
+
+\begin_layout Plain Layout
+
+         3: istore_2
+\end_layout
+
+\begin_layout Plain Layout
+
+         4: iconst_3
+\end_layout
+
+\begin_layout Plain Layout
+
+         5: istore_1
+\end_layout
+
+\begin_layout Plain Layout
+
+         6: iload_2
+\end_layout
+
+\begin_layout Plain Layout
+
+         7: ireturn
+\end_layout
+
+\begin_layout Plain Layout
+
+         8: astore_2
+\end_layout
+
+\begin_layout Plain Layout
+
+         9: iconst_2
+\end_layout
+
+\begin_layout Plain Layout
+
+        10: istore_1
+\end_layout
+
+\begin_layout Plain Layout
+
+        11: iload_1
+\end_layout
+
+\begin_layout Plain Layout
+
+        12: istore_3
+\end_layout
+
+\begin_layout Plain Layout
+
+        13: iconst_3
+\end_layout
+
+\begin_layout Plain Layout
+
+        14: istore_1
+\end_layout
+
+\begin_layout Plain Layout
+
+        15: iload_3
+\end_layout
+
+\begin_layout Plain Layout
+
+        16: ireturn
+\end_layout
+
+\begin_layout Plain Layout
+
+        17: astore        4
+\end_layout
+
+\begin_layout Plain Layout
+
+        19: iconst_3
+\end_layout
+
+\begin_layout Plain Layout
+
+        20: istore_1
+\end_layout
+
+\begin_layout Plain Layout
+
+        21: aload         4
+\end_layout
+
+\begin_layout Plain Layout
+
+        23: athrow
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
 
-，当int取值-1~5采用iconst指令，取值-128~127采用bipush指令，取值-32768~32767采用sipush指令，取值-214748364
-8~2147483647采用 ldc 指令。
-\end_layout
 
-\begin_layout Subsection
-iconst_<n>
-\end_layout
-
-\begin_layout Standard
-将常量-1,0,1...5推送到栈顶，分别使用iconst_ml, iconst_0,iconst_1...iconst_5。
-\end_layout
-
-\begin_layout Subsection
-bipush byte
-\end_layout
-
-\begin_layout Standard
-将 -127<byte<127推送到栈顶。
-\end_layout
-
-\begin_layout Subsection
-sipush
-\end_layout
-
-\begin_layout Standard
-当int取值-32768~32767时，JVM采用sipush指令将常量压入栈中。
-\end_layout
-
-\begin_layout Subsection
-ldc
-\end_layout
-
-\begin_layout Standard
-当int取值-2147483648~2147483647时，JVM采用ldc指令将常量压入栈中。
 \end_layout
 
 \begin_layout Standard
