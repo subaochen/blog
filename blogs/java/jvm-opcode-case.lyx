@@ -95,7 +95,7 @@ theorems-sec-bytype
 \begin_body
 
 \begin_layout Title
-解读字节码指令案例
+解读字节码指令案例一则
 \end_layout
 
 \begin_layout Standard
@@ -176,22 +176,22 @@ status open
 
 \begin_layout Plain Layout
 
-         3: istore_2 // 弹出栈顶数据（1）保存到Slot 2, 假设名为returnValue,方法返回时会用到
+         3: istore_2 // 弹出栈顶数据（1）保存到Slot 2
 \end_layout
 
 \begin_layout Plain Layout
 
-         4: iconst_3 // 将常量3入栈
+         4: iconst_3 // 执行finally块，将常量3入栈
 \end_layout
 
 \begin_layout Plain Layout
 
-         5: istore_1 // 弹出栈顶数据（3）,保存到x（局部变量1）
+         5: istore_1 // 继续执行finally块，弹出栈顶数据（3）,保存到Slot 1， 即x=1
 \end_layout
 
 \begin_layout Plain Layout
 
-         6: iload_2 // returnValue（=1,参见第3步）入栈，下一步ireturn从栈顶弹出数据返回
+         6: iload_2 // Slot 2数据（=1,参见第3步）入栈，下一步ireturn从栈顶弹出数据返回
 \end_layout
 
 \begin_layout Plain Layout
@@ -206,8 +206,15 @@ status open
 
 \begin_layout Plain Layout
 
-         8: astore_2 // jvm捕获到Exception异常，执行catch块，将Exception异常对象的引用入栈，这里将异常对象的引
-用保存到Slot 2。注意到在第3步曾经使用过Slot 2,这里因为已经走到了异常处理流程，可以复用Slot 2
+///////////////////////////////////////////////////////////////////////////////
+\end_layout
+
+\begin_layout Plain Layout
+
+         8: astore_2 // jvm捕获到Exception异常，执行catch块。JVM会将Exception异常对象的引用入栈，这里将异常
+对象的引用再保存到Slot 2（但是，由于这个简单的例子中并没有进一步使用Exception对象，因此保存到Slot 2的异常对象引用没有发挥作用。读者可以尝试
+在catch块增加e.printStackTrace()再次尝试分析产生的字节码）。注意到在第3步曾经使用过Slot 2,这里因为已经走到了异常处理流程，可以复用
+Slot 2
 \end_layout
 
 \begin_layout Plain Layout
@@ -257,27 +264,63 @@ status open
 
 \begin_layout Plain Layout
 
-        17: astore        4
+///////////////////////////////////////////////////////////////////////////////
 \end_layout
 
 \begin_layout Plain Layout
 
-        19: iconst_3
+        17: astore        4 // 如果遇到非Exception类型的异常，则走这里：将异常对象的引用保存到Slot
+ 4
 \end_layout
 
 \begin_layout Plain Layout
 
-        20: istore_1
+        19: iconst_3 // 常量3入栈
 \end_layout
 
 \begin_layout Plain Layout
 
-        21: aload         4
+        20: istore_1 // 弹出栈顶数据（3），保存到Slot 1， 即x=3
 \end_layout
 
 \begin_layout Plain Layout
 
-        23: athrow
+        21: aload         4 // 异常对象的引用入栈，准备抛出异常
+\end_layout
+
+\begin_layout Plain Layout
+
+        23: athrow // 弹出异常对象引用， 抛出异常
+\end_layout
+
+\begin_layout Plain Layout
+
+      Exception table:
+\end_layout
+
+\begin_layout Plain Layout
+
+         from    to  target type
+\end_layout
+
+\begin_layout Plain Layout
+
+             0     4     8   Class java/lang/Exception
+\end_layout
+
+\begin_layout Plain Layout
+
+             0     4    17   any
+\end_layout
+
+\begin_layout Plain Layout
+
+             8    13    17   any
+\end_layout
+
+\begin_layout Plain Layout
+
+            17    19    17   any
 \end_layout
 
 \begin_layout Plain Layout
@@ -287,6 +330,153 @@ status open
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+也就是说，
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "OpCodeTest.java"
+
+\end_inset
+
+的执行分为三种情况（流程）：
+\end_layout
+
+\begin_layout Enumerate
+正常流程，即没有异常时，执行0-7步。可以看出，虽然此时也要执行finally块，将x的值修改为3，但是由于在跳转到finally块之前x的值已经保存到了Slo
+t 2（步骤3），在方法返回之前恢复了跳转到finally之前的x值（步骤6），因此最终的方法返回值是1。
+\end_layout
+
+\begin_layout Enumerate
+发生类型为Exception或其子类异常时，执行8-16步。和正常流程很类似，虽然也执行了finally块，但是最终方法的返回值是2。
+\end_layout
+
+\begin_layout Enumerate
+发生异常，但不是Exception类型时，执行17-23步，方法抛出了异常，没有返回值。
+\end_layout
+
+\begin_layout Standard
+特别的，根据异常表，异常处理的流程是这样的：
+\end_layout
+
+\begin_layout Enumerate
+如果在正常流程中发生了Exception类型的异常，则跳转到第8行执行catch块。
+\end_layout
+
+\begin_layout Enumerate
+如果在正常流程中发生了非Exception类型的其他异常，则跳转到第17行执行finally块并抛出异常。
+\end_layout
+
+\begin_layout Enumerate
+如果在catch块执行过程中发生了任何异常，则跳转到第17行执行finally块并抛出异常。
+\end_layout
+
+\begin_layout Enumerate
+如果在finally块执行过程中发生了任何异常，则跳转到第17行执行finally块并抛出异常。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Notice
+status open
+
+\begin_layout Plain Layout
+在非静态方法中，aload_0永远是将this入栈，也就是说，Slot 0永远保存的是this：指向当前对象的引用。这从类的构造方法也可以得到验证：
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+  public OpCodeTest();
+\end_layout
+
+\begin_layout Plain Layout
+
+    descriptor: ()V
+\end_layout
+
+\begin_layout Plain Layout
+
+    flags: ACC_PUBLIC
+\end_layout
+
+\begin_layout Plain Layout
+
+    Code:
+\end_layout
+
+\begin_layout Plain Layout
+
+      stack=1, locals=1, args_size=1
+\end_layout
+
+\begin_layout Plain Layout
+
+         0: aload_0 // 将Slot 0中的this入栈
+\end_layout
+
+\begin_layout Plain Layout
+
+         1: invokespecial #1                  // Method java/lang/Object."<init>"
+:()V
+\end_layout
+
+\begin_layout Plain Layout
+
+         4: return
+\end_layout
+
+\begin_layout Plain Layout
+
+      LineNumberTable:
+\end_layout
+
+\begin_layout Plain Layout
+
+        line 1: 0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+以下问题还没有搞清楚：
+\end_layout
+
+\begin_layout Itemize
+根据异常表，第4种情况是否会造成死循环？
+\end_layout
+
+\begin_layout Itemize
+javap没有给出第18和22行的字节码，不知何故？
 \end_layout
 
 \begin_layout Standard
