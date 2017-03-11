@@ -114,8 +114,22 @@ iload n/istore n
 \end_layout
 
 \begin_layout Standard
-iload n和istore n是一对相反的操作，iload n将局部变量数组中的第n个元素(必须是int)推送到栈顶，istore n将栈顶数据（必须是int
-）保存到局部变量数组的第n个元素中。
+iload n和istore n是一对相反的操作，iload n将局部变量数组中的第n个元素(必须是int)推送（push）到栈顶，istore
+ n
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+弹出
+\end_layout
+
+\end_inset
+
+（pop）栈顶数据（必须是int）并保存到局部变量数组的第n个元素中。
+\end_layout
+
+\begin_layout Standard
+同样的，还有fload（推送float），dload（推送double），lload（推送long）指令。
 \end_layout
 
 \begin_layout Section
@@ -131,16 +145,33 @@ istore_0等价于istore 0，同理，istore_1等价于istore 1......
 \end_layout
 
 \begin_layout Standard
-JVM规范只定义了iload_0到iload_3，istore_0到istore_3。
+JVM规范只定义了iload_0到iload_3，istore_0到istore_3
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+有意思的规定？but why？
 \end_layout
 
-\begin_layout Section
-aload/astore
+\end_inset
+
+。
 \end_layout
 
 \begin_layout Standard
-理解了iload，aload就很容易理解了。iload表示将一个整数推送到栈顶，aload表示将一个引用推送到栈顶。同样的，还有fload（推送float），d
-load（推送double），lload（推送long）指令。
+同样的，还有fload_<n>, dload_<n>, lload_<n>，0 <= n <= 3。
+\end_layout
+
+\begin_layout Section
+aload n/astore n
+\end_layout
+
+\begin_layout Standard
+理解了iload，aload就很容易理解了。iload表示将一个整数推送到栈顶，aload表示将一个引用推送到栈顶。
+\end_layout
+
+\begin_layout Standard
+astore弹出栈顶引用并保存到局部变量的第n个元素中。
 \end_layout
 
 \begin_layout Section
@@ -148,7 +179,7 @@ aload_<n>/astore_<n>
 \end_layout
 
 \begin_layout Standard
-aload_0等价于aload 0，以此类推。同样的，还有fload_<n>，lload_<n>，dload_<n>。
+aload_0等价于aload 0，以此类推。
 \end_layout
 
 \begin_layout Section

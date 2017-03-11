@@ -5,11 +5,18 @@
 \save_transient_properties true
 \origin unavailable
 \textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
 \use_default_options true
 \begin_modules
 logicalmkup
-multicol
 coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+theorems-sec-bytype
 \end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
@@ -45,7 +52,7 @@ coderemarks
 \pdf_backref false
 \pdf_pdfusetitle true
 \papersize default
-\use_geometry true
+\use_geometry false
 \use_package amsmath 1
 \use_package amssymb 1
 \use_package cancel 1
@@ -62,7 +69,7 @@ coderemarks
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
-\suppress_date false
+\suppress_date true
 \justification true
 \use_refstyle 1
 \boxbgcolor #dad3d7
@@ -115,7 +122,7 @@ lstparams "caption={OpCodeTest.java},label={OpCodeTest.java}"
 \end_layout
 
 \begin_layout Standard
-感觉作者的解释有些模糊（也许是JDK版本不同造成的？），决定重新解释一下。
+感觉作者的解释有些模糊（也许是JDK版本不同造成的？），决定重新解释一下。以下内容基于JDK 1.8。
 \end_layout
 
 \begin_layout Standard
@@ -134,7 +141,7 @@ status open
 
 \begin_layout Plain Layout
 
-    descriptor: ()I
+    descriptor: ()I // 参数为空，返回值为int的方法
 \end_layout
 
 \begin_layout Plain Layout
@@ -154,87 +161,98 @@ status open
 
 \begin_layout Plain Layout
 
-         0: iconst_1
+         0: iconst_1 // 将常量1入栈
 \end_layout
 
 \begin_layout Plain Layout
 
-         1: istore_1
+         1: istore_1 // 弹出栈顶元素（1）到Slot 1, 即x=1
 \end_layout
 
 \begin_layout Plain Layout
 
-         2: iload_1
+         2: iload_1 // 将Slot 1，即x（=1）的值入栈
 \end_layout
 
 \begin_layout Plain Layout
 
-         3: istore_2
+         3: istore_2 // 弹出栈顶数据（1）保存到Slot 2, 假设名为returnValue,方法返回时会用到
 \end_layout
 
 \begin_layout Plain Layout
 
-         4: iconst_3
+         4: iconst_3 // 将常量3入栈
 \end_layout
 
 \begin_layout Plain Layout
 
-         5: istore_1
+         5: istore_1 // 弹出栈顶数据（3）,保存到x（局部变量1）
 \end_layout
 
 \begin_layout Plain Layout
 
-         6: iload_2
+         6: iload_2 // returnValue（=1,参见第3步）入栈，下一步ireturn从栈顶弹出数据返回
 \end_layout
 
 \begin_layout Plain Layout
 
-         7: ireturn
+         7: ireturn // 弹出栈顶数据，方法返回，参见第6步，返回值=1	
 \end_layout
 
 \begin_layout Plain Layout
 
-         8: astore_2
+/////////华丽丽的分割线：以上为正常流程//////////////////////////////////////////////
 \end_layout
 
 \begin_layout Plain Layout
 
-         9: iconst_2
+         8: astore_2 // jvm捕获到Exception异常，执行catch块，将Exception异常对象的引用入栈，这里将异常对象的引
+用保存到Slot 2。注意到在第3步曾经使用过Slot 2,这里因为已经走到了异常处理流程，可以复用Slot 2
 \end_layout
 
 \begin_layout Plain Layout
 
-        10: istore_1
+         9: iconst_2 // 执行catch块， 常量2入栈
 \end_layout
 
 \begin_layout Plain Layout
 
-        11: iload_1
+        10: istore_1 // 弹出栈顶数据（2），保存到Slot1, 即x=2
 \end_layout
 
 \begin_layout Plain Layout
 
-        12: istore_3
+        11: iload_1 // Slot 1数据入栈，即此时栈顶数据=2
 \end_layout
 
 \begin_layout Plain Layout
 
-        13: iconst_3
+        12: istore_3 // 弹出栈顶数据（2）保存到Slot 3
 \end_layout
 
 \begin_layout Plain Layout
 
-        14: istore_1
+        13: iconst_3 // 执行finally块，常量3入栈
 \end_layout
 
 \begin_layout Plain Layout
 
-        15: iload_3
+        14: istore_1 // 继续执行finally块，弹出栈顶数据（3）到Slot 1, 即x=3
 \end_layout
 
 \begin_layout Plain Layout
 
-        16: ireturn
+        15: iload_3 // Slot 3数据入栈，此时栈顶=2
+\end_layout
+
+\begin_layout Plain Layout
+
+        16: ireturn // 弹出栈顶数据，方法返回2
+\end_layout
+
+\begin_layout Plain Layout
+
+/////////华丽丽的分割线：以上为处理异常Excpetion流程/////////////////////////////////
 \end_layout
 
 \begin_layout Plain Layout
