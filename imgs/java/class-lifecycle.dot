@@ -1,0 +1,29 @@
+digraph G {
+    size="6.9,9.8"; // B5 size
+    ratio=compress;
+    //rankdir=LR;
+    newrank=true; // 使得subgraph能够和node使用rank=same
+    splines=Ortho; // 线条钝化(直角)
+    compound=true; // 允许cluster和node连线
+    node[fontsize=12,style="filled",color="skyblue"];
+    edge[fontsize=12,color="darkgreen"];
+    loading[label="加载\nLoading"];
+    initialization[label="初始化\nInitialazation"];
+    using[label="使用\nUsing"];
+    unloading[label="卸载\nUnloading"];
+
+    subgraph cluster_linking {
+        label="链接(Linking)";
+        style=filled;
+        color=lightgrey;
+        verification[label="验证\nVerfication"];
+        preparation[label="准备\nPreparation"];
+        resolution[label="解析\nResolution"];
+    }
+
+    loading->verification->preparation->resolution->initialization->using->unloading;
+
+    {rank=same;resolution;initialization}
+    {rank=same;preparation;using}
+    {rank=same;verification;unloading}
+}
