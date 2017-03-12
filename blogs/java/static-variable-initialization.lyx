@@ -110,6 +110,65 @@ lstparams "caption={ClassInitTest.java},label={ClassInitTest.java}"
 \end_layout
 
 \begin_layout Standard
+最终的执行结果是什么呢？这取决于：
+\end_layout
+
+\begin_layout Itemize
+子类和父类静态变量的初始化顺序。和对象的初始化不同的是，类的初始化方法<clinit>是虚拟机自动执行的，并且是先执行父类的<clinit>方法再执行子类的<c
+linit>的顺序的，因此对于本例并没有什么影响。
+\end_layout
+
+\begin_layout Itemize
+SuperClass中VER这个静态变量是如何初始化的：是先执行static块，还是先执行static int VER = 1呢？
+\end_layout
+
+\begin_layout Standard
+首先复习以下Java类的生命周期，分为如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Java类的生命周期"
+
+\end_inset
+
+所示的7个阶段
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jvm-advanced-feature"
+
+\end_inset
+
+，其中有两个阶段和静态变量有关系：
+\end_layout
+
+\begin_layout Itemize
+准备阶段：在这个阶段，会在“方法区”为SuperClass类的静态变量分配空间并设置默认的初始值，int类型的默认初始值是0。注意到尽管SuperClass中定
+义VER时有一个赋值的操作，但是在准备阶段并不会执行这个赋值操作，赋值操作会延迟到初始化阶段。
+\end_layout
+
+\begin_layout Itemize
+初始化阶段：主要是做两方面的工作，首先是<clinit>方法（类的初始化方法）会收集所有静态变量并根据声明的顺序逐一执行赋值操作，接着再执行静态块。也就是说，对
+于SuperClass而言，首先在<clinit>方法中对SuperClass.VER执行了赋值操作，此时VER=1，接着在static块中将VER修改为2，因此
+SuperClass初始化完成后，Super.VER = 2。
+\end_layout
+
+\begin_layout Standard
+综上所述，最终的输出为2。
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -118,7 +177,8 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename ../../imgs/java/class-lifecycle.svg
+	filename ../../imgs/java/class-lifecycle.eps
+	lyxscale 200
 	scale 50
 
 \end_inset
@@ -148,6 +208,18 @@ name "fig:Java类的生命周期"
 \begin_layout Plain Layout
 
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/java"
+options "plain"
 
 \end_inset
 

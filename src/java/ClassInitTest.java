@@ -1,17 +1,17 @@
 public class ClassInitTest {
     public static void main(String[] args) {
-        System.out.println(SubClass.B);
+        System.out.println(SubClass.VERSION);
     }
 }
 
 class SuperClass {
-    public static int A = 1;
+    public static int VER = 1;
 
     static {
-        A = 2;
+        VER = 2;
     }
 }
 
 class SubClass extends SuperClass {
-    public static int B = A;
+   public static int VERSION = VER;
 }
