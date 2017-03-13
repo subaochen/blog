@@ -159,13 +159,76 @@ key "jvm-advanced-feature"
 \end_layout
 
 \begin_layout Itemize
-初始化阶段：主要是做两方面的工作，首先是<clinit>方法（类的初始化方法）会收集所有静态变量并根据声明的顺序逐一执行赋值操作，接着再执行静态块。也就是说，对
-于SuperClass而言，首先在<clinit>方法中对SuperClass.VER执行了赋值操作，此时VER=1，接着在static块中将VER修改为2，因此
-SuperClass初始化完成后，Super.VER = 2。
+初始化阶段：主要是做两方面的工作，首先是<clinit>方法（类的初始化方法）会收集所有静态变量并根据声明的顺序逐一执行赋值操作
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+根据javap，似乎这里的描述有误，应该是静态块首先执行静态变量定义时的赋值操作，再执行静态块中的初始化操作。
+\end_layout
+
+\begin_layout Plain Layout
+static {};
+\end_layout
+
+\begin_layout Plain Layout
+descriptor: ()V
+\end_layout
+
+\begin_layout Plain Layout
+flags: ACC_STATIC
+\end_layout
+
+\begin_layout Plain Layout
+Code:
+\end_layout
+
+\begin_layout Plain Layout
+stack=1, locals=0, args_size=0
+\end_layout
+
+\begin_layout Plain Layout
+0: iconst_1
+\end_layout
+
+\begin_layout Plain Layout
+1: putstatic #2 // Field VER:I
+\end_layout
+
+\begin_layout Plain Layout
+4: iconst_2
+\end_layout
+
+\begin_layout Plain Layout
+5: putstatic #2 // Field VER:I
+\end_layout
+
+\begin_layout Plain Layout
+8: return
+\end_layout
+
+\begin_layout Plain Layout
+需要进一步弄清楚<clinit>的作用？如何观察到<clinit>的效果？
+\end_layout
+
+\end_inset
+
+，接着再执行静态块。也就是说，对于SuperClass而言，首先在<clinit>方法中对SuperClass.VER执行了赋值操作，此时VER=1，接着在sta
+tic块中将VER修改为2，因此SuperClass初始化完成后，Super.VER = 2。
 \end_layout
 
 \begin_layout Standard
 综上所述，最终的输出为2。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+通过javap观察一下，阐明静态块的执行时机。static final的效果？
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
