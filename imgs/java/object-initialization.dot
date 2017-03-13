@@ -1,0 +1,32 @@
+digraph G {
+    size="6.9,9.8"; // B5 size
+    ratio=auto;
+    rankdir=LR;
+    newrank=true; // 使得subgraph能够和node使用rank=same
+    //splines=Ortho; // 线条钝化(直角)
+
+    compound=true; // 允许cluster和node连线
+
+    node[fontsize=12,style="filled",color="skyblue"];
+    edge[fontsize=12,color="darkgreen"];
+
+    subgraph cluster0 {
+        label="类的初始化";
+        style=filled;
+        color=lightgrey;
+        clinit[label="<clinit>"];
+        static[label="static"];
+
+        clinit->static;
+    }
+
+    subgraph cluster1 {
+        label="对象的初始化";
+        style=filled;
+        color=lightgrey;
+        constructor[label="构造方法"];
+    }
+
+    static->constructor;
+
+}
