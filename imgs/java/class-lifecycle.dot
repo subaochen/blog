@@ -1,9 +1,10 @@
 digraph G {
     size="6.9,9.8"; // B5 size
+    overlap=scale;
     ratio=auto;
     //rankdir=LR;
     newrank=true; // 使得subgraph能够和node使用rank=same
-    //splines=Ortho; // 线条钝化(直角)
+    splines=Ortho; // 线条直角化，其他选项lines
     compound=true; // 允许cluster和node连线
 
     node[fontsize=12,style="filled",color="skyblue"];
@@ -13,7 +14,7 @@ digraph G {
     using[label="使用\nUsing"];
     unloading[label="卸载\nUnloading"];
 
-    subgraph init_steps{
+    subgraph cluster_init_steps {
         label="初始化的步骤";
         style=filled;
         color=lightgray;
