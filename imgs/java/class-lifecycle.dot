@@ -1,10 +1,12 @@
 digraph G {
     size="6.9,9.8"; // B5 size
+    nodesep=0.5; // 增大节点间举例，使得虚线更明显(默认0.25)
+    ranksep=0.3; // 压缩层间距显紧凑（默认0.75)
     overlap=scale;
     ratio=auto;
-    //rankdir=LR;
+    rankdir=LR;
     newrank=true; // 使得subgraph能够和node使用rank=same
-    splines=Ortho; // 线条直角化，其他选项lines
+    plines=Ortho; // 线条直角化，其他选项lines
     compound=true; // 允许cluster和node连线
 
     node[fontsize=12,style="filled",color="skyblue"];
@@ -13,31 +15,46 @@ digraph G {
     initialization[label="初始化\nInitialazation"];
     using[label="使用\nUsing"];
     unloading[label="卸载\nUnloading"];
+    verification[label="验证\nVerfication"];
+    preparation[label="准备\nPreparation"];
+    resolution[label="解析\nResolution"];
+
+    subgraph cluster_linking {
+        label="链接(Linking)";
+        labelloc="b";
+        style=filled;
+        color="#B5A642";
+        verification; preparation;resolution;
+    }
+
+    subgraph cluster_preparation {
+        label="准备过程";
+        style=filled;
+        color=lightgray;
+        node[shape="box",color="orange"];
+        edge[style="dashed"];
+        assign_memory[label="类变量分配内存\n并赋零值"];
+    }
+    {rank=same;preparation;assign_memory}
+    preparation->assign_memory[style="dashed"];
 
     subgraph cluster_init_steps {
         label="初始化的步骤";
         style=filled;
         color=lightgray;
         node[shape="box",color="orange"];
-        clinit[label="<clinit>"];
-        static[label="static块"];
-        clinit->static;
+        edge[style="dashed"];
+        clinit[label="调用类构造器\n<clinit>()"];
+        static_vars[label="类变量按照定义\n顺序依次赋值"];
+        static_blocks[label="执行static块"];
+        clinit->static_vars->static_blocks->clinit;
     }
-
-    subgraph cluster_linking {
-        label="链接(Linking)";
-        style=filled;
-        color=lightgray;
-        verification[label="验证\nVerfication"];
-        preparation[label="准备\nPreparation"];
-        resolution[label="解析\nResolution"];
-    }
+    initialization->clinit[style="dashed"];
+    {rank=same;initialization;static_vars;static_blocks;clinit}
 
     loading->verification->preparation->resolution->initialization->using->unloading;
-    initialization->clinit;
-    static->initialization;
 
-    {rank=same;resolution;initialization,clinit,static}
-    {rank=same;preparation;using}
-    {rank=same;verification;unloading}
+    //{rank=same;resolution;initialization}
+    //{rank=same;preparation;using}
+    //{rank=same;verification;unloading}
 }
