@@ -1,0 +1,31 @@
+//usr/bin/dot
+digraph G{
+    rankdir=LR;
+    node[shape=box,style=filled,color=lightblue];
+    upstream[label="上游项目"];
+    forked_project[label="github分支项目"];
+    working_area[label="本地工作区\nmaster分支"];
+    staging_area[label="本地暂存区"];
+    git_repos[label="本地git仓库"];
+    //create_issue[label="创建issue"];
+    branch[label="创建开发分支\nissue-xxx"];
+
+    working_area->upstream[label="3.remote add upstream ..."];
+    upstream->forked_project[label="1.fork"];
+    upstream->working_area[label="6.pull(fetch/merge) upstream master"];
+    forked_project->working_area[label="2.clone"];
+    //forked_project->working_area[label="pull"];
+
+    working_area->upstream[label="4.在github提交issue"];
+
+    working_area->branch[label="5.-b issue-xxx"];
+    branch->staging_area[label="7.add"];
+    staging_area->git_repos[label="8.commit"];
+    git_repos->forked_project[label="9.push"];
+    git_repos->branch[label="checkout"];
+    staging_area->branch[label="reset"];
+
+    branch->working_area[label="merge"];
+
+    forked_project->upstream[label="10.在github创建PR"];
+}

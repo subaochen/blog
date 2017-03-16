@@ -168,9 +168,9 @@ key "jvm-advanced-feature"
 \end_layout
 
 \begin_layout Itemize
-初始化阶段：执行类的初始化方法<clinit>()，分两个步骤：第一，收集所有静态变量并根据声明的顺序逐一执行赋值操作；第二，执行静态块static{}。也就是
-说，对于SuperClass而言，首先在<clinit>方法中对SuperClass.VER执行了赋值操作，此时VER=1，接着在static块中将VER修改为2
-，因此SuperClass初始化完成后，Super.VER = 2。
+初始化阶段：执行类的初始化方法<clinit>()，包含两个步骤：第一，收集所有静态变量并根据声明的顺序逐一执行赋值操作；第二，执行静态块static{}。也就
+是说，对于SuperClass而言，首先在<clinit>方法中对SuperClass.VER执行了赋值操作，此时VER=1，接着在static块中将VER修改为
+2，因此SuperClass初始化完成后，Super.VER = 2。
 \end_layout
 
 \begin_layout Standard
@@ -178,8 +178,22 @@ key "jvm-advanced-feature"
 \end_layout
 
 \begin_layout Standard
+需要特别注意的是，由于首先执行父类的<clinit>()方法，因此
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+父类中的静态块优先于子类的静态变量赋值操作
+\end_layout
+
+\end_inset
+
+。如果一个类没有静态变量和静态块，编译器不生成<clinit>()方法。
+\end_layout
+
+\begin_layout Standard
 \begin_inset Flex Tip
-status collapsed
+status open
 
 \begin_layout Plain Layout
 我们可以从javap对字节码的解析中进一步验证这个结果。我们看javap -verbose SuperClass的输出（静态初始化部分）：
