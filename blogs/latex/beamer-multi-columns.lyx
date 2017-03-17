@@ -4,7 +4,7 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass ctex-article-with-coderemarks
+\textclass ctex-article
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
 
@@ -119,8 +119,6 @@
 \use_default_options true
 \begin_modules
 logicalmkup
-tcolorbox
-notice
 \end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
@@ -212,11 +210,11 @@ textwidth。注意，这里不要使用insert column options，而是直接插�
 \end_layout
 
 \begin_layout Standard
-第四步，在column样式的下面插入内容即可。
+第四步，在column样式的下面插入内容即可。如果是文字，首先创建列表；如果是图片，直接插入即可。
 \end_layout
 
 \begin_layout Standard
-第五步，将第四步插入的内容缩进。
+第五步，如果在第四步插入的是文字，则缩进文字列表。
 \end_layout
 
 \begin_layout Standard
