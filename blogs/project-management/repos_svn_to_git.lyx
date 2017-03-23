@@ -1,7 +1,9 @@
-#LyX 2.1 created this file. For more info see http://www.lyx.org/
-\lyxformat 474
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
 \begin_document
 \begin_header
+\save_transient_properties true
+\origin unavailable
 \textclass ctex-article
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
@@ -77,16 +79,16 @@ logicalmkup
 \language_package default
 \inputencoding utf8-plain
 \fontencoding global
-\font_roman 新宋体
-\font_sans 新宋体
-\font_typewriter 新宋体
-\font_math auto
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
 \font_default_family default
 \use_non_tex_fonts true
 \font_sc false
 \font_osf false
-\font_sf_scale 100
-\font_tt_scale 100
+\font_sf_scale 100 100
+\font_tt_scale 100 100
 \graphics default
 \default_output_format pdf4
 \output_sync 0
@@ -165,10 +167,15 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-$ svn log --xml | grep author | sort -u | perl -pe 's/.*>(.*?)<.*/$1 = /' 
+$ svn log –xml | grep author | sort -u | perl -pe 's/.*>(.*?)<.*/$1 = /' 
 \end_layout
 
 \end_inset
@@ -192,6 +199,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -214,9 +226,10 @@ zhangsan=Zhang San<zhangsan@126.com>
 \series default
 ，
 \series bold
-要不就干脆不要使用--authors-file参数（貌似多写几个没关系）
+要不就干脆不要使用–authors-file参数（貌似多写几个没关系）
 \series default
-！否则后面迁移的时候将前功尽弃！本人就是因为偷懒少写了一个名字，结果屡次迁移不成功。
+！否则后面迁移的时候将前功尽弃！本人就是因为偷懒少写了一个名字，结果屡次迁移不成功。另外，users.txt文件的格式一定是用户名<email>的格式，不能只是用
+户名。
 \end_layout
 
 \begin_layout Standard
@@ -235,6 +248,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -266,11 +284,16 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-$ svn git clone http://svn.example.com/repos/project --authors-file=users.txt
- --no-metadata -s myproject
+$ git svn clone http://svn.example.com/repos/project –authors-file=users.txt
+ –no-metadata -s myproject
 \end_layout
 
 \end_inset
@@ -298,6 +321,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -337,6 +365,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -344,7 +377,7 @@ $ git remote add origin git@my-git-server:myrepository.git
 \end_layout
 
 \begin_layout Plain Layout
-$ git push origin --all
+$ git push origin –all
 \end_layout
 
 \end_inset

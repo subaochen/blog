@@ -1,0 +1,1397 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+theorems-chap-bytype
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 1
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+从invokevirtual指令理解重载和重写
+\end_layout
+
+\begin_layout Abstract
+在大多数的教材或者介绍材料中，都将方法的重载解释为“静态绑定”，方法的重写解释为“动态绑定”或者“延迟绑定”，真是概念满天飞，就像雾里看花，心里总不踏实。本文试
+图揭示重载和重写的本质，还原重载和重写的本来面目，你会发现，忘掉所谓的“概念”，直视其本质的流程，其实重载和重写很容易理解。下面我们从invokevirtual
+指令的解析入手。
+\end_layout
+
+\begin_layout Standard
+方法的重载（overloading）和重写(override）在编译时都是通过invokevirtual指令实现的
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+如果重载和重写的是static方法呢？需要实验验证是否也是通过invokevirtual指令实现的
+\end_layout
+
+\end_inset
+
+，因此理解invokevirtual指令便成为理解重载和重写的关键。
+\end_layout
+
+\begin_layout Section
+invokevirtual指令
+\end_layout
+
+\begin_layout Standard
+invokevirtual指令的应用相当广泛，
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tablename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:方法调用相关的指令"
+
+\end_inset
+
+给出了和方法调用相关的几个指令及其作用。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+指令
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+作用
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+invokeinterface
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+调用接口方法
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+invokestatic
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+调用静态方法
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+invokespecial
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+调用实例初始化方法<init>、类初始化方法<clinit>等
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+还有其他吗？
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+invokevirtual
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+调用实例方法
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+方法调用相关的指令
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:方法调用相关的指令"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+invokevirtual指令的格式
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+invokevirtual #index
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+其中的#index是要调用的方法在常量池中的16位（2个字节）索引。在常量池中，这个索引展开后的形式被成为
+\begin_inset Flex Noun
+status open
+
+\begin_layout Plain Layout
+method specificaiton
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+如何翻译？
+\end_layout
+
+\end_inset
+
+，简记为
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+<method-spec>
+\end_layout
+
+\end_inset
+
+，因此invokevirtual指令展开后的形式为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+invokevirtual <method-spec>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+<method-spec>完整的说明了调用一个方法所需要的构件，唯一的决定了invokevirtual调用的是哪个方法。一个<method-spec>包含三个部
+分，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:method-specificaiton的三个组成部分"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/method-specification.eps
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+method specificaiton的三个组成部分
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:method-specificaiton的三个组成部分"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+即：
+\end_layout
+
+\begin_layout Description
+classname 调用这个方法的对象的数据类型，即类名。
+\end_layout
+
+\begin_layout Description
+methodname 被调用的方法的名字。
+\end_layout
+
+\begin_layout Description
+descriptor 方法的参数列表和返回值类型，合称为descriptor。
+\end_layout
+
+\begin_layout Subsection
+invokevirtual指令的操作数栈
+\end_layout
+
+\begin_layout Standard
+invokevirtual指令的操作数栈是和invokevirtual指令的执行顺序有关系的，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tablename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:操作数栈"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+调用前
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+调用后
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+arg1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[result]
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+arg2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+argN
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+objectref
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+操作数栈
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:操作数栈"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，在执行invokevirtual指令之前，操作数栈顶分别是待调用方法的参数，然后是调用这个方法的对象的引用，后面一律称为objectref，有的资料也
+称为“Receiver”（接受者）。从字节码的角度看，即将方法的参数依次入栈，然后将objectref入栈，再调用invokevirtual指令：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+aload_3 // 参数1入栈
+\end_layout
+
+\begin_layout Plain Layout
+
+aload_1 // objectref入栈
+\end_layout
+
+\begin_layout Plain Layout
+
+invokevirtual #13 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+invokevirtual指令的执行顺序
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:invokevirtual指令的执行顺序"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+invokevirtual指令的执行顺序
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jvm-instruction-online-reference"
+
+\end_inset
+
+如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:invokevirtual的执行顺序"
+
+\end_inset
+
+所示。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/invokevirtual-flow.eps
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+invokevirtual的执行顺序
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:invokevirtual的执行顺序"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+具体来说，如下（不考虑被标注为多态的方法
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p491"
+key "jvm-specification-8"
+
+\end_inset
+
+）所述：
+\end_layout
+
+\begin_layout Enumerate
+检查<method-spec>的descriptor部分，确定被调用方法需要几个参数（以决定下一步应该从操作数栈弹出几个元素）
+\end_layout
+
+\begin_layout Enumerate
+从操作数栈中出栈参数列表，获得被调用方法的参数列表。
+\end_layout
+
+\begin_layout Enumerate
+从操作数栈中出栈objectref。此时的objectref已经由javac保证了其数据类型符合method specificaiton中classname的限
+制，也就是说，当javac编译生成字节码时，invokevirtual指令之前的入栈操作中，objectref是和method specificaiton中规定
+的classname相符的，或者是其父类或接口类型。
+\end_layout
+
+\begin_layout Enumerate
+根据<method-spec>的描述，在objectref对象中搜索是否存在符合要求的methodname和descriptor。如果该方法存在，则invoke
+virtual调用该方法；如果不存在，则首先尝试对符合methodname和参数顺序的方法进行自动装箱操作进行匹配，如何还是匹配不成功则依次对参数进行“向上塑型
+”的类型转换，在当前类继续尝试是否存在符合<method-spec>的方法。如果当前类类不存在符合条件的方法，则从下往上依次搜索objectref的父类，继续搜
+寻符合<method-spec>的方法。
+\end_layout
+
+\begin_layout Standard
+其中的第4步有些绕，下面通过例子进一步分析invokevirtual指令的执行顺序，探讨invokevirtual指令是如何影响Java的重载和重写的。
+\end_layout
+
+\begin_layout Section
+重写的字节码分析
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:重写的字节码分析"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Animal.java"
+
+\end_inset
+
+。
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/java/Animal.java"
+lstparams "caption={Animal.java},label={Animal.java}"
+
+\end_inset
+
+这是典型的方法重写（Override）的应用场景，是Java多态的具体体现。在所有的教材上，均从动态绑定的角度解释Java的多态：子类对象父类调用。其实从字节码
+的角度看，Java多态就是很自然的事情了。下面截取Animal类main（）的字节码做一简要分析：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Animal.main()的字节码
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Animal.main()的字节码"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public static void main(java.lang.String[]);
+\end_layout
+
+\begin_layout Plain Layout
+
+    descriptor: ([Ljava/lang/String;)V
+\end_layout
+
+\begin_layout Plain Layout
+
+    flags: ACC_PUBLIC, ACC_STATIC
+\end_layout
+
+\begin_layout Plain Layout
+
+    Code:
+\end_layout
+
+\begin_layout Plain Layout
+
+      stack=2, locals=3, args_size=1
+\end_layout
+
+\begin_layout Plain Layout
+
+         0: new           #5                  // class Animal$Dog
+\end_layout
+
+\begin_layout Plain Layout
+
+         3: dup
+\end_layout
+
+\begin_layout Plain Layout
+
+         4: invokespecial #6                  // Method Animal$Dog."<init>":()V
+\end_layout
+
+\begin_layout Plain Layout
+
+         7: astore_1
+\end_layout
+
+\begin_layout Plain Layout
+
+         8: new           #7                  // class Animal$Cat
+\end_layout
+
+\begin_layout Plain Layout
+
+        11: dup
+\end_layout
+
+\begin_layout Plain Layout
+
+        12: invokespecial #8                  // Method Animal$Cat."<init>":()V
+\end_layout
+
+\begin_layout Plain Layout
+
+        15: astore_2
+\end_layout
+
+\begin_layout Plain Layout
+
+        16: aload_1
+\end_layout
+
+\begin_layout Plain Layout
+
+        17: invokevirtual #9                  // Method hello:()V
+\end_layout
+
+\begin_layout Plain Layout
+
+        20: aload_2
+\end_layout
+
+\begin_layout Plain Layout
+
+        21: invokevirtual #9                  // Method hello:()V
+\end_layout
+
+\begin_layout Plain Layout
+
+        24: return
+\end_layout
+
+\begin_layout Plain Layout
+
+      LineNumberTable:
+\end_layout
+
+\begin_layout Plain Layout
+
+        line 25: 0
+\end_layout
+
+\begin_layout Plain Layout
+
+        line 26: 8
+\end_layout
+
+\begin_layout Plain Layout
+
+        line 27: 16
+\end_layout
+
+\begin_layout Plain Layout
+
+        line 28: 20
+\end_layout
+
+\begin_layout Plain Layout
+
+        line 29: 24
+\end_layout
+
+\begin_layout Plain Layout
+
+      LocalVariableTable:
+\end_layout
+
+\begin_layout Plain Layout
+
+        Start  Length  Slot  Name   Signature
+\end_layout
+
+\begin_layout Plain Layout
+
+            0      25     0  args   [Ljava/lang/String;
+\end_layout
+
+\begin_layout Plain Layout
+
+            8      17     1   dog   LAnimal;
+\end_layout
+
+\begin_layout Plain Layout
+
+           16       9     2   cat   LAnimal;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Animal.main()的字节码"
+
+\end_inset
+
+中：
+\end_layout
+
+\begin_layout Itemize
+第6-9行创建了Dog对象并保存到局部变量表的Slot 1，参见第29行。
+\end_layout
+
+\begin_layout Itemize
+第10-13行创建了Cat对象病保存到局部变量表的Slot 2，参见第30行。
+\end_layout
+
+\begin_layout Itemize
+第14行，将局部变量表的Slot 1中保存的Dog对象入栈。此时的Dog对象dog即invokevirtual指令中的objrectref，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tablename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:操作数栈"
+
+\end_inset
+
+。因为下一步将要调用的hello()方法没有参数，这样就完成了下一步执行invokevirtual指令的全部准备工作。
+\end_layout
+
+\begin_layout Itemize
+第15行，执行指令invokevirtual #9，其中的#9查询常量池可知为：
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+这不是完整的method specificaiton？
+\end_layout
+
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#9 = Methodref          #10.#32        // Animal.hello:()V
+\end_layout
+
+\end_inset
+
+，展开成完整的method specificaiton：classname为Animal，methodname为hello，descriptor为()V。根据
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "subsec:invokevirtual指令的执行顺序"
+
+\end_inset
+
+中的描述，这个invokevirtual指令的执行顺序为：
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+检查descriptor，发现hello()没有参数，因此无需从操作数栈出栈参数；
+\end_layout
+
+\begin_layout Itemize
+从操作数栈出栈objectref。注意到objectref虽然自动转换成了Animal类型（目的是限制对dog对象的访问，Animal类型的dog对象访问父类A
+nimal中定义的属性和方法），但是其实际类型是Dog类型的，也就是说，如果把dog对象（objectref）再次转换成Dog类型也是安全的。
+\end_layout
+
+\begin_layout Itemize
+检查methodname和descriptor，从objectref中搜寻是否存在void hello()方法，如果存在就直接调用。在本例中，objectref
+虽然本质上是一个Dog类型的对象，但是其中的hello方法从其父类Animal继承下来并给出了新的不同的实现（重写），所以转换为父类Animal类型后的dog对
+象依然可以调用dog对象的hello()方法。
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Flex Tip
+status open
+
+\begin_layout Plain Layout
+请试着修改
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Animal.java"
+
+\end_inset
+
+，将Dog类中的hello()方法删除，结果会怎样？如何通过字节码来解释这个现象？
+\end_layout
+
+\begin_layout Plain Layout
+我们看到，输出的结果将为：
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+hello from Animal
+\end_layout
+
+\begin_layout Plain Layout
+hello from cat
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+但是，
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+main()方法的字节码并没有什么变化！
+\end_layout
+
+\end_inset
+
+造成执行结果不同的原因是，当从Dog类型的objectref搜寻是否存在void hello()方法时，发现在Dog类中不存在这个方法，于是继续根据hello方
+法的参数搜寻是否存在参数的父类或者接口的相应方法。当然，这里也找不到，hello()是一个无参的方法。接着，就根据objectref的父类Animal继续这一搜
+寻过程，找到了父类对象的hello()方法并执行。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Notice
+status open
+
+\begin_layout Plain Layout
+请读者自行分析，如果在
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Animal.java"
+
+\end_inset
+
+的最后增加dog.toString()，如何从字节码的角度分析其执行过程？
+\end_layout
+
+\begin_layout Plain Layout
+提示：首先尝试调用Dog中的toString()，再尝试调用Animal中的toString()，最后找到了Object中的toString()。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+重载的字节码分析
+\end_layout
+
+\begin_layout Standard
+根据
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:重写的字节码分析"
+
+\end_inset
+
+的分析，重载的执行过程就很自然和直观了，请读者自行分析
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "MyMath.java"
+
+\end_inset
+
+中，如果从上往下顺序注释掉add()方法时的执行过程。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+哪位读者补充完整？
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/java/MyMath.java"
+lstparams "caption={MyMath.java},label={MyMath.java}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/java"
+options "IEEEtranS"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
