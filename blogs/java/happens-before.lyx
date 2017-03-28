@@ -1,0 +1,222 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+先行发生原则
+\end_layout
+
+\begin_layout Standard
+本文是《深入理解Java 虚拟机》
+\begin_inset CommandInset citation
+LatexCommand cite
+after "节12.3.6，先行发生原则"
+key "jvm-advanced-features"
+
+\end_inset
+
+的读书笔记。
+\end_layout
+
+\begin_layout Section
+定义
+\end_layout
+
+\begin_layout Standard
+“先行发生原则”（happens-before）是指两个操作存在确定的先后顺序，前面的操作产生的结果则可以被后面的操作所使用。这里的关键词是“确定的先后顺序”，
+即任何情况下两个操作的先后顺序是确定不变的。“先行发生原则”其实是一个“自然法则”，譬如机械加工中的“工序”就是遵循“先行发生原则”的，前一道工序是为后一道工序
+服务的，或者说后一道工序是在前一道工序的基础上继续加工，存在确定的先后顺序关系。
+\end_layout
+
+\begin_layout Standard
+在Java多线程编程中，“先行发生原则”（happens-before）是确定变量（对象）是否线程安全的充要条件
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+是否准确？
+\end_layout
+
+\end_inset
+
+。也就是说，如果线程A先行发生于线程B，则线程A中的变量相对于线程B而言是线程安全的，即线程A和线程B无需借助于任何的线程同步手段（synchronized、v
+olatile等）即可保证线程A和线程B是线程安全的。反过来说，如果线程A和线程B没有遵守“先行发生原则”，则必须借助于线程同步手段才能保证线程的安全性。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+先行发生原则是串行化的意思吗？串行化是解决线程安全的基本原则
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+判据
+\end_layout
+
+\begin_layout Standard
+Java中规定了以下的八种情形符合“先行发生原则”。
+\end_layout
+
+\begin_layout Enumerate
+程序次序原则（Program Order Rule）：在一个线程内，代码按照“自然”的控制流程先后执行，即书写在前面的代码先行发生于书写在后面的代码。换句话说，
+按照程序的控制流（综合考虑分支和循环的情况），Java虚拟机保证总是先执行写在前面的代码再执行写在后面的代码。很容易理解，这是其他“先行发生原则”判据能够成立的
+的基石。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+but，如何理解代码的重排序？比如int i = 1; int i = 2；这两句代码的执行顺序是无法保证的？
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+管程锁定规则（Monitor Lock Rule）：一个unlock操作先行发生于后面对同一个锁的lock操作。也就是说，要锁定一个对象，首先要有能力解锁这个对
+象，换言之，首先要有解锁这个对象的“钥匙”。譬如一个房间，我们首先要有能力打开房门才能进入房间，才能更进一步锁定房间不受干扰的在房间内操作。如果连门都进不去，后
+面的操作都是白扯。
+\end_layout
+
+\begin_layout Enumerate
+volatile变量规则（Volatile Variable Rule）：对一个volatile变量的写操作先行发生于后面对这个变量的读操作，即volatile
+变量的变更对所有线程是可见的，这是volatile变量的特性所决定的。
+\end_layout
+
+\begin_layout Enumerate
+线程启动规则（Thread Start Rule）：Thread对象的start（）方法先行发生于此线程的每一个动作。
+\end_layout
+
+\begin_layout Enumerate
+线程终止规则（Thread Termination Rule）：线程的所有操作先行发生于对此线程的终止检测，即当我们调用Thread.join()或者Thread.
+isAlive()方法时，Java虚拟机保证已经首先执行完毕线程的所有操作，这样可以保证线程的执行流程不会处于“不稳定”的中间状态。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+理解正确吗？需要实例验证
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+线程中断规则（Thread Interruption Rule）：对线程interrupt()方法的调用先行发生于被中断线程的代码检测到中断事件的发生，也就说，
+如果我们在代码中使用Thread.interrupted()方法检测到线程已经被中断了，那么Java虚拟机保证interrupt()方法已经首先被调用过了。
+\end_layout
+
+\begin_layout Enumerate
+对象终结规则（Finalizer Rule）：一个对象得到初始化完成（构造方法和静态块执行结束）先行发生于它的的finalize（）方法的开始。
+\end_layout
+
+\begin_layout Enumerate
+传递性（Transitivity）：如果操作A先行发生于B，操作B先行发生于C，则操作A先行发生于C。
+\end_layout
+
+\begin_layout Section
+实例
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "../../../bibref/java"
+options "IEEEtranS"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
