@@ -207,6 +207,114 @@ status open
 \end_layout
 
 \begin_layout Standard
+考虑常见的setter/getter方法，是线程安全的吗？比如有两个线程A和B，线程A首先调用了setValue(1)，然后线程B调用了getValue()方法
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+似乎很难通过实验验证这个实例？
+\end_layout
+
+\end_inset
+
+。如果线程B总是能够得到1则说明代码是线程安全的。
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+private int value;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public void setValue(int value) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.value = value;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public int getValue() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return this.value;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+我们根据“先行发生原则”的8个判据依次分析一下：
+\end_layout
+
+\begin_layout Enumerate
+由于这里是两个线程A和B的问题，所以程序次序原则不适用。
+\end_layout
+
+\begin_layout Enumerate
+由于没有使用synchronized，因此不存在lock和unlock操作，管程锁定原则不适用。
+\end_layout
+
+\begin_layout Enumerate
+没有适用volatile修饰变量，因此volatile变量原则不适用。
+\end_layout
+
+\begin_layout Enumerate
+这里讨论的是setValue和getValue两个方法的执行顺序，和线程的启动、终止、中断没有关系，因此判据4/5/6均不适用。
+\end_layout
+
+\begin_layout Enumerate
+这里不涉及对象的终结，因此判据7也不适用。
+\end_layout
+
+\begin_layout Enumerate
+上述“先行发生原则”都不适用，传递性也就失去了基础，因此判据8也不适用。
+\end_layout
+
+\begin_layout Standard
+综上所述，常见的setter/getter方法不是线程安全的，也就是说，B线程调用getValue()时的返回值是不确定的。那么，如何改造使得setter/ge
+tter线程安全呢？两种常见的方法：
+\end_layout
+
+\begin_layout Itemize
+使用volatile修饰变量。由于在setter方法中对value的修改不依赖原值，也不涉及算术运算，因此这里使用volatile修饰value是合理的。
+\end_layout
+
+\begin_layout Itemize
+适用synchronized修饰getter/setter方法。
+\end_layout
+
+\begin_layout Standard
 \start_of_appendix
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
