@@ -1,0 +1,324 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Linux下的字体
+\end_layout
+
+\begin_layout Section
+常见字体的类型
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset href
+LatexCommand href
+name "archlinux的wiki"
+target "https://wiki.archlinux.org/index.php/Fonts_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)"
+
+\end_inset
+
+的简体中文字体介绍很不错，尤其是列出了各种字体的对应名称，可以作为一个索引看待，对于其他Linux发布版也很有参考价值。
+\begin_inset CommandInset href
+LatexCommand href
+name "这篇博客"
+target "http://kb.cnblogs.com/page/192018/"
+
+\end_inset
+
+对于sans-serif和serif的区别阐述的也比较清楚，借用一张图片
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+来自博客：http://kb.cnblogs.com/page/192018/
+\end_layout
+
+\end_inset
+
+可以看得很明白：
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/linux/sans-serif-serif-diff.jpg
+	width 50line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+sans-serif 无衬线字体族。sans在法语中是“无”的意思，serif的意思在字的笔划开始及结束的地方有额外的装饰，常见的sans-serif字体有：A
+rial、Tahoma、Verdana、黑体、幼圆等。通常，sans-serif字体适合于文章标题等。
+\end_layout
+
+\begin_layout Description
+serif 衬线字体族，常见的serif字体有Georgia、Times New Roman、楷体、宋体等。serif字体因为存在阅读引导线，通常适合于文章正文
+的展示。
+\end_layout
+
+\begin_layout Description
+monospace 等宽字体族，常见的有Courier New、文泉驿等宽字体等，通常适合于代码的展示。
+\end_layout
+
+\begin_layout Section
+字体的位置
+\end_layout
+
+\begin_layout Standard
+ubuntu下的字体存在两个位置：
+\end_layout
+
+\begin_layout Description
+全局字体 位于/usr/share/fonts
+\end_layout
+
+\begin_layout Description
+用户字体 位于$HOME/.fonts
+\end_layout
+
+\begin_layout Standard
+通常建议直接安装到全局字体位置即可，毕竟字体是一个全局共性问题。
+\end_layout
+
+\begin_layout Section
+字体的配置
+\end_layout
+
+\begin_layout Standard
+基本上，现在的linux系统都使用
+\begin_inset CommandInset href
+LatexCommand href
+name "fontconfig"
+target "https://www.freedesktop.org/wiki/Software/fontconfig/"
+
+\end_inset
+
+来管理字体。
+\end_layout
+
+\begin_layout Subsection
+了解当前的字体设置
+\end_layout
+
+\begin_layout Standard
+以下几个命令可以用来了解当前系统的字体：
+\end_layout
+
+\begin_layout Description
+fc-list 列出当前系统的字体。比如列出所有中文字体，可以使用命令：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+fc-list #列出所有字体
+\end_layout
+
+\begin_layout Plain Layout
+fc-list :lang=zh-CN #列出所有的中文字体
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+fc-match 列出匹配的字体，比如：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+fc-match monospace # 列出当前使用哪种monospace字体
+\end_layout
+
+\begin_layout Plain Layout
+fc-match sans-serif # 列出当前使用哪种sans-serif字体
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+fc-cache 刷新字体缓冲：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+fc-cache -fv # 安装新字体后通常需要刷新字体缓冲区
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+字体配置文件
+\end_layout
+
+\begin_layout Standard
+很遗憾的是，不像KDE，gnome管理面版没有提供字体配置工具，不过有一个gnome-tweak-tool可以进行一些简单“高级配置”，包括字体的选择，如下图（
+适合本人情况的设置）：
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/linux/gnome-tweak-tool.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如果要精确的控制字体族使用哪种字体，可以考虑编辑/etc/fonts/conf.d/69-language-selector-zh-cn.conf这个文件，在这个重
+点配置sans-serif、serif、monospace三种字体族的字体选择顺序，我的做法是把wenquanyi字体都放到了最前面。
+\end_layout
+
+\end_body
+\end_document
