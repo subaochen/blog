@@ -1,7 +1,9 @@
-#LyX 2.1 created this file. For more info see http://www.lyx.org/
-\lyxformat 474
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
 \begin_document
 \begin_header
+\save_transient_properties true
+\origin unavailable
 \textclass ctex-article
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
@@ -78,16 +80,16 @@ tcolorbox
 \language_package default
 \inputencoding utf8-plain
 \fontencoding global
-\font_roman 新宋体
-\font_sans 新宋体
-\font_typewriter 新宋体
-\font_math auto
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
 \font_default_family default
 \use_non_tex_fonts true
 \font_sc false
 \font_osf false
-\font_sf_scale 100
-\font_tt_scale 100
+\font_sf_scale 100 100
+\font_tt_scale 100 100
 \graphics default
 \default_output_format pdf4
 \output_sync 0
@@ -172,6 +174,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -205,8 +212,9 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
-	filename ../imgs/git_rebase_1.eps
+	filename /home/subaochen/git/blog/imgs/git_rebase_1.eps
 	width 80line%
 
 \end_inset
@@ -258,6 +266,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -293,6 +306,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -324,6 +342,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -349,8 +372,9 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
-	filename ../imgs/git_merge_1.eps
+	filename /home/subaochen/git/blog/imgs/git_merge_1.eps
 	width 80line%
 
 \end_inset
@@ -383,7 +407,7 @@ name "fig:git-merge后的状态"
 \end_layout
 
 \begin_layout Standard
-此时，master分支指向新的提交C6,并且C6有两个父节点，即C5是C3、C4、C5合并后的结果。
+此时，master分支指向新的提交C6,并且C6有两个父节点，即C6是C3、C4、C5合并后的结果。
 \end_layout
 
 \begin_layout Standard
@@ -402,10 +426,15 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-$ git log --oneline --decorate --graph --all
+$ git log –oneline –decorate –graph –all
 \end_layout
 
 \begin_layout Plain Layout
@@ -468,7 +497,7 @@ rebase方法合并分支
 \end_layout
 
 \begin_layout Standard
-在实验rebase方法河滨分支之前，首先删除上一步的项目目录hello-git，即重新clone一个新的项目出来：
+在实验rebase方法合并分支之前，首先删除上一步的项目目录hello-git，即重新clone一个新的项目出来：
 \end_layout
 
 \begin_layout Standard
@@ -483,6 +512,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -501,7 +535,17 @@ $ git clone https://github.com/subaochen/hello-git
 \begin_layout Standard
 rebase的基本思路是，将topic分支的每一个提交（C4、C5）相对于C2的变更（diff，即补丁）临时保存起来，然后逐一在C3上面重放（replay，即逐
 一在C3上面打补丁），每打一个补丁即创建一个新的提交，直到所有topic分支的补丁全部打完，这样就完成了在master分支上合并topic分支的任务。rebas
-e的本意也是这样：将当前分支（topic）重新基于（rebase）指定的分支构建。下面是rebase方法合并topic分支到master分支的基本流程：
+e的本意也是这样：
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+将当前分支（topic）重新基于（rebase）指定的分支构建
+\end_layout
+
+\end_inset
+
+。下面是rebase方法合并topic分支到master分支的基本流程：
 \end_layout
 
 \begin_layout Subsection
@@ -520,6 +564,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -566,6 +615,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -601,6 +655,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -642,8 +701,9 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
-	filename ../imgs/git_after_rebase_1.eps
+	filename /home/subaochen/git/blog/imgs/git_after_rebase_1.eps
 	width 80line%
 
 \end_inset
@@ -691,10 +751,15 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-$ git log --oneline --decorate --graph --all
+$ git log –oneline –decorate –graph –all
 \end_layout
 
 \begin_layout Plain Layout
@@ -760,6 +825,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/git_before_rebase_0.eps
 	width 80line%
@@ -814,6 +880,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -876,8 +947,9 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
-	filename ../imgs/git_after_rebase_ff.eps
+	filename /home/subaochen/git/blog/imgs/git_after_rebase_ff.eps
 	width 80line%
 
 \end_inset
@@ -925,6 +997,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -992,6 +1069,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1009,7 +1091,7 @@ t rebase master也可以达到同样的效果。另外，这条命令不管当�
 \end_layout
 
 \begin_layout Subsection
-神奇的rebase --onto
+神奇的rebase –onto
 \end_layout
 
 \begin_layout Standard
@@ -1030,6 +1112,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/git_rebase_off_topic_1.eps
 	width 80line%
@@ -1064,7 +1147,7 @@ name "fig:在server分支上存在client分支的情形"
 \end_layout
 
 \begin_layout Standard
-通过git log --oneline --decorate --graph --all观察的结果是：
+通过git log –oneline –decorate –graph –all观察的结果是：
 \end_layout
 
 \begin_layout Standard
@@ -1079,6 +1162,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1136,7 +1224,7 @@ status open
 
 \begin_layout Standard
 现在假设client分支的开发稳定了，我们希望把client分支合并到master分支上。但是此时server分支的开发尚在继续，怎么办呢？git
- rebase --onto提供了神奇的效果：
+ rebase –onto提供了神奇的效果：
 \end_layout
 
 \begin_layout Standard
@@ -1151,10 +1239,15 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-$ git rebase --onto master server client
+$ git rebase –onto master server client
 \end_layout
 
 \begin_layout Plain Layout
@@ -1176,7 +1269,24 @@ $ git rebase --onto master server client
 
 \begin_layout Standard
 这个命令的意思是说：“检查client分支，获得client和server的分歧点（这里是C3）以来的所有补丁（这里是C7、C8）并打在master分支上”，基
-本上，你可以把这句命令倒着念回去。执行后的结果会是图所示的那样。
+本上，你可以把这句命令
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+倒着念回去
+\end_layout
+
+\end_inset
+
+。执行后的结果会是图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:client分支合并到master后的情形"
+
+\end_inset
+
+所示的那样。
 \end_layout
 
 \begin_layout Standard
@@ -1186,6 +1296,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/git_rebase_off_topic_2.eps
 	width 80line%
@@ -1200,6 +1311,13 @@ status open
 
 \begin_layout Plain Layout
 client分支合并到master后的情形
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:client分支合并到master后的情形"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1232,6 +1350,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1276,7 +1399,14 @@ create mode 100644 C8
 \end_layout
 
 \begin_layout Standard
-最终的结果正如我们期望的：
+最终的结果正如我们期望的，见图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:rebase-–onto的最终结果"
+
+\end_inset
+
+。
 \end_layout
 
 \begin_layout Standard
@@ -1286,6 +1416,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/git_rebase_off_topic_3.eps
 	width 80line%
@@ -1299,7 +1430,14 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-rebase --onto的最终结果
+rebase –onto的最终结果
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:rebase-–onto的最终结果"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1317,7 +1455,7 @@ rebase --onto的最终结果
 \end_layout
 
 \begin_layout Standard
-git log --oneline --decorate --graph --all的执行结果也佐证了这一点：
+git log –oneline –decorate –graph –all的执行结果也佐证了这一点：
 \end_layout
 
 \begin_layout Standard
@@ -1332,10 +1470,15 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-$ git log --oneline --decorate --graph --all
+$ git log –oneline –decorate –graph –all
 \end_layout
 
 \begin_layout Plain Layout
@@ -1421,10 +1564,15 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-$ git pull --rebase upstream branch
+$ git pull –rebase upstream branch
 \end_layout
 
 \end_inset
@@ -1448,6 +1596,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1455,7 +1608,7 @@ $ git alias pull
 \begin_inset Quotes eld
 \end_inset
 
-pull --rebase
+pull –rebase
 \begin_inset Quotes erd
 \end_inset
 
@@ -1500,6 +1653,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1535,6 +1693,11 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
@@ -1574,15 +1737,15 @@ error: 无法合并变更。
 \end_layout
 
 \begin_layout Plain Layout
-当您解决了此问题后，执行 "git rebase --continue"。
+当您解决了此问题后，执行 "git rebase –continue"。
 \end_layout
 
 \begin_layout Plain Layout
-如果您想跳过此补丁，则执行 "git rebase --skip"。
+如果您想跳过此补丁，则执行 "git rebase –skip"。
 \end_layout
 
 \begin_layout Plain Layout
-要恢复原分支并停止变基，执行 "git rebase --abort"。
+要恢复原分支并停止变基，执行 "git rebase –abort"。
 \end_layout
 
 \end_inset
@@ -1595,19 +1758,19 @@ error: 无法合并变更。
 \end_layout
 
 \begin_layout Itemize
-解决冲突后执行git rebase --continue继续rebase的流程。
+解决冲突后执行git rebase –continue继续rebase的流程。
 \end_layout
 
 \begin_layout Itemize
-如果跳过这个补丁（通常这是不允许的）则可以执行git rebase --skip。
+如果跳过这个补丁（通常这是不允许的）则可以执行git rebase –skip。
 \end_layout
 
 \begin_layout Itemize
-如果后悔了，可以通过执行git rebase --abort回复rebase之前的状态。
+如果后悔了，可以通过执行git rebase –abort回复rebase之前的状态。
 \end_layout
 
 \begin_layout Standard
-通常的做法是，打开C4这个文件解决冲突后执行git add C4，然后git rebase --continue。
+通常的做法是，打开C4这个文件解决冲突后执行git add C4，然后git rebase –continue。
 \end_layout
 
 \begin_layout Section
