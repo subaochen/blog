@@ -1,0 +1,269 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\listings_params "language=TeX"
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+tikz学习笔记
+\end_layout
+
+\begin_layout Problem
+下列语法中的“+”是什么意思？
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+shade[top color=yellow,bottom color=black] (0,0) rectangle +(2,1);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Solution
+一个“+”表示前面的坐标值和后面的坐标值相加获得新的坐标。上例中，正方形的右上顶点的坐标为：（0+2, 0+1)。如果是两个“+”号，则不仅仅新坐标为相加所得，
+新坐标也成为下一次“+”或者“++”计算的起点坐标。本例中，使用一个“+”和两个“+”没有什么影响。在pgfmanual中的例子能够更清楚的说明问题，比如要画两
+个正方形：
+\end_layout
+
+\begin_layout Solution
+\begin_inset Graphics
+	filename ../../imgs/latex/two-square.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Solution
+则如下的两种写法画笔的路径是一致的：
+\end_layout
+
+\begin_layout Solution
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+使用++，新坐标成为计算新起点
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+def
+\backslash
+rectanglepath{-- ++(1cm,0cm) -- ++(0cm,1cm) -- ++(-1cm,0cm) -- cycle}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw (0,0) 
+\backslash
+rectanglepath;
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw (1.5,0) 
+\backslash
+rectanglepath;
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Solution
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+使用+，每次都是从（0,0)开始计算
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+def
+\backslash
+rectanglepath{-- +(1cm,0cm) -- +(1cm,1cm) -- +(0cm,1cm) -- cycle}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw (0,0) 
+\backslash
+rectanglepath;
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw (1.5,0) 
+\backslash
+rectanglepath;
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Problem
+pic是个好东西？
+\end_layout
+
+\begin_layout Solution
+pic在tikz中相当于C中的函数，是代码复用的重要手段。TBD（补充实例）
+\end_layout
+
+\end_body
+\end_document
