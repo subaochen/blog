@@ -1,0 +1,9 @@
+\begin{tikzpicture}
+    \draw[thick,-latex] (0,0) -- (0,3);
+    \draw[thick,-latex] (2,0) to [bend right] (2,3);
+    \draw[thick,-latex] (-2,0) to [bend left] (-2,3);
+    \draw[line width=5pt,-stealth,red!80!blue] (.5,1.5) -- (2,1.5)
+        node[above,midway]{bend right};
+    \draw[line width=5pt,-stealth,red!80!blue] (-.5,1.5) -- (-2,1.5)
+        node[above,midway]{bend left};
+\end{tikzpicture}

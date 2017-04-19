@@ -265,5 +265,196 @@ pic是个好东西？
 pic在tikz中相当于C中的函数，是代码复用的重要手段。TBD（补充实例）
 \end_layout
 
+\begin_layout Problem
+bend right是什么意思？
+\end_layout
+
+\begin_layout Solution
+参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:bend-right的意义"
+
+\end_inset
+
+，非常形象的解释了bend right的意义，将直线向右推之某个角度(默认角度通常符合要求)。
+\end_layout
+
+\begin_layout Solution
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/bend-right-left.eps
+	width 50line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+bend right的意义
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:bend-right的意义"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Solution
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:bend-right的意义"
+
+\end_inset
+
+的tikz代码参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bend right的示例应用"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Solution
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/bend-right-left.pgf"
+lstparams "caption={bend right的示例应用},label={bend right的示例应用}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Problem
+什么时候使用
+\begin_inset Quotes erd
+\end_inset
+
+to
+\begin_inset Quotes erd
+\end_inset
+
+操作，什么时候使用
+\begin_inset Quotes erd
+\end_inset
+
+- -
+\begin_inset Quotes erd
+\end_inset
+
+操作？
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Problem
+如何设定字体样式？
+\end_layout
+
+\begin_layout Solution
+可以在xxx/.style中指定Latex的任意字体：
+\end_layout
+
+\begin_layout Solution
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzset{
+\end_layout
+
+\begin_layout Plain Layout
+
+    xxx/.style={font=
+\backslash
+itshape,% itshape斜体，ttfamily等}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document
