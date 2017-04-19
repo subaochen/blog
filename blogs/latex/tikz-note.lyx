@@ -483,5 +483,107 @@ itshape,% itshape斜体，ttfamily等}
 
 \end_layout
 
+\begin_layout Problem
+下列奇怪的语法是什么意思？
+\begin_inset listings
+lstparams "language=TeX"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+usetikzlibrary{calc}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[rectangle,minimum size=6mm,draw](a) {test};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[->] ($(a.east) + (2mm,0)$) --++(0,-.5) -|($(a.west) - (2mm,0)$);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Solution
+这里的要点有两个：
+\end_layout
+
+\begin_layout Itemize
+使用$$包围启用向量表达式进行向量的计算。
+\end_layout
+
+\begin_layout Itemize
+-|表示首先横向，然后纵向链接。（参见tikz manual的page 149）如果是|-，则表示先纵向，再横向链接，通常用来简化直线连接的编写，下面的代码可以
+很直观的说明问题：
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw (0,0) node(a) [draw] {A} (1,1) node(b) [draw] {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw (a.north) |- (b.west);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[color=red] (a.east) -| (2,1.5) -| (b.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document
