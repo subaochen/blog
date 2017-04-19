@@ -257,6 +257,23 @@ end{tikzpicture}
 
 \end_layout
 
+\begin_layout Solution
+\begin_inset Flex Tip
+status open
+
+\begin_layout Plain Layout
+很容易想到，“-”和“- -
+\begin_inset Quotes erd
+\end_inset
+
+号具有类似的功能。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Problem
 pic是个好东西？
 \end_layout
@@ -425,6 +442,16 @@ to
 
 \begin_layout Solution
 可以在xxx/.style中指定Latex的任意字体：
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+插入latex字体设置相关知识
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Solution
