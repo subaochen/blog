@@ -17,6 +17,9 @@ warning-inset
 theorems-bytype
 \end_modules
 \maintain_unincluded_children false
+\begin_local_layout
+PackageOptions url hyphens
+\end_local_layout
 \language chinese-simplified
 \language_package default
 \inputencoding auto
@@ -74,7 +77,7 @@ theorems-bytype
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
-\listings_params "language=TeX"
+\listings_params "language=TeX,escapechar={'~'}"
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -429,6 +432,10 @@ to
 操作？
 \end_layout
 
+\begin_layout Solution
+TBD
+\end_layout
+
 \begin_layout Standard
 \begin_inset Separator plain
 \end_inset
@@ -484,7 +491,13 @@ itshape,% itshape斜体，ttfamily等}
 \end_layout
 
 \begin_layout Problem
-下列奇怪的语法是什么意思？
+分析下列代码是如何画出图形的：
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/enclosed-line.eps
+
+\end_inset
+
+
 \begin_inset listings
 lstparams "language=TeX"
 inline false
@@ -506,14 +519,14 @@ begin{tikzpicture}
 
 \begin_layout Plain Layout
 
-
+    
 \backslash
 node[rectangle,minimum size=6mm,draw](a) {test};
 \end_layout
 
 \begin_layout Plain Layout
 
-
+    
 \backslash
 draw[->] ($(a.east) + (2mm,0)$) --++(0,-.5) -|($(a.west) - (2mm,0)$);
 \end_layout
@@ -539,8 +552,30 @@ end{tikzpicture}
 \end_layout
 
 \begin_layout Itemize
--|表示首先横向，然后纵向链接。（参见tikz manual的page 149）如果是|-，则表示先纵向，再横向链接，通常用来简化直线连接的编写，下面的代码可以
-很直观的说明问题：
+-|表示从前一个坐标首先横向，然后纵向链接到下一个坐标，通常是拐了一个直角。（参见tikz manual的page 149）如果是|-，则表示先纵向，再横向链接
+，通常用来简化直线连接的编写。下面的代码画出的图形如下图所示
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p149"
+key "tikz-manual"
+
+\end_inset
+
+：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/two-node-link-method.eps
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+可以很直观的说明问题：
 \begin_inset listings
 inline false
 status open
@@ -579,6 +614,52 @@ draw[color=red] (a.east) -| (2,1.5) -| (b.north);
 \backslash
 end{tikzpicture}
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Problem
+类似颜色混合的坐标表达式：
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw (0,0) -- ($(0,0)!.5!(1,1)$);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Solution
+参见
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://dz.sdut.edu.cn/blog/subaochen/2017/04/xcolor%E5%AE%8F%E5%8C%85%E4%B8%AD%E7%9
+A%84%E9%A2%9C%E8%89%B2%E5%91%BD%E5%90%8D%E6%96%B9%E5%BC%8F/
+\end_layout
+
+\end_inset
+
+，理解了xcolor中颜色的混合方式，这里坐标采取了同样的表达方式：(0,0)!.5!(1,1)表示取坐标(0,0)和(1,1)的中点。
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/latex"
+options "IEEEtranN"
 
 \end_inset
 

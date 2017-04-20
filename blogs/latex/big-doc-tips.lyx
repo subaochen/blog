@@ -19,6 +19,9 @@ warning-inset
 logicalmkup
 \end_modules
 \maintain_unincluded_children false
+\begin_local_layout
+PackageOptions url hyphens
+\end_local_layout
 \language chinese-simplified
 \language_package default
 \inputencoding utf8-plain
@@ -113,11 +116,144 @@ logicalmkup
 \end_layout
 
 \begin_layout Section
+引用浮动图片的注意事项
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:引用浮动图片的注意事项"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+由于浮动图片和正文很可能不在一个页面，因此浮动图片的标题应该尽量详细，甚至不惜使用多行标题详细描述图片的意图。在正文中引用浮动图片时，尽量使用“图2.1在xx页”
+的形式，方便读者迅速翻到相应的页面找到图片，比如参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:示例浮动图片的引用方法，这里的标题应该尽量详细的描述图片的意图，"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/generic-method.eps
+	width 70line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+示例浮动图片的引用方法，这里的标题应该尽量详细的描述图片的意图，甚至使用多行标题。在标题中指出正文的出处也是一个不错的主意，比如在浮动图片标题中指出：参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:引用浮动图片的注意事项"
+
+\end_inset
+
+。
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:示例浮动图片的引用方法，这里的标题应该尽量详细的描述图片的意图，"
+
+\end_inset
+
+。注意，此图为示例图片，和正文内容无关。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 插入URL而不是href
 \end_layout
 
 \begin_layout Standard
-由于href可能无法处理自动换行，建议总是使用插入“URL”，并且设置本地布局属性：PackageOptions url hyphens 
+由于href可能无法处理自动换行，建议总是使用插入“URL”，并且设置本地布局属性：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+PackageOptions url hyphens
+\end_layout
+
+\end_inset
+
+ 
 \end_layout
 
 \begin_layout Section
@@ -200,7 +336,7 @@ target "http://dz.sdut.edu.cn/blog/subaochen/2017/02/graysaled-images-in-book/"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Frameless
+\begin_inset Box Shaded
 position "t"
 hor_pos "c"
 has_inner_box 1
