@@ -1,0 +1,667 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+tikz path的operation
+\end_layout
+
+\begin_layout Section
+move to operation
+\end_layout
+
+\begin_layout Standard
+移动坐标点，比如下列代码
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw (0,0) -- (0,1) (1,0) -- (1,1);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+画出了两条长度1cm、间隔1cm的竖线，其中涉及到了两个移动坐标点的动作：(0,0)和(1,0)。也就是说，
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+如果在坐标点之前没有其他动作描述符，即表示移动到此坐标点
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Section
+line to operation
+\end_layout
+
+\begin_layout Standard
+line to操作很直观，两条短横线表示从起点坐标画线到终点坐标。上例中，存在两个line to operation：从(0,0)到(0,1)，从(1,0)到(
+1,1)。cycle自动从当前坐标点line to到最近一次move to operation的坐标点。
+\end_layout
+
+\begin_layout Section
+curve to operation
+\end_layout
+
+\begin_layout Standard
+即所谓的“贝叶斯曲线”，需要两个controls坐标点。如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:绘制贝叶斯曲线示例"
+
+\end_inset
+
+所示的曲线，其中红色坐标是目标坐标，蓝色坐标为控制坐标，绘制代码如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[help lines](0,0) grid(5,1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[line width=6pt] (0,0) ..
+ controls (1,1) ..
+ (4,0) ..
+ controls (5,0) and (5,1) ..
+ (4,1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[color=red] (0,0) node[below]{0,0}-- (1,1)node[above,blue]{1,1} -- (4,0)node
+[below]{4,0} -- (5,0)node[right,blue]{5,0} -- (5,1)node[right,blue]{5,1}
+ -- (4,1)node[above]{4,1};
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../../imgs/latex/curve-to-operation-demo.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+绘制贝叶斯曲线示例
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:绘制贝叶斯曲线示例"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+基本图形操作
+\end_layout
+
+\begin_layout Itemize
+rectangle operation，
+\backslash
+draw (0,0) rectangle (1,1);
+\end_layout
+
+\begin_layout Itemize
+circle operation，
+\backslash
+draw (0,0) circle (radius=1);
+\end_layout
+
+\begin_layout Itemize
+ellipse operation，
+\backslash
+draw (0,0) ellipse(x radius=1,y radius=2);
+\end_layout
+
+\begin_layout Itemize
+arc operation，
+\backslash
+draw (0,0) arc(start angle=180,end angle=90,radis=1);
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:弧线示例"
+
+\end_inset
+
+示例了弧线的画法，其实现代码如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[radius=1cm,delta angle=30]
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+draw[help lines](-1,-1) grid(3,1) (0,0)node[above]{(0,0)};
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+draw[blue,semithick] (-1,0) -- +(3.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+draw[blue,semithick] (1,0) ++(210:2cm) -- +(30:4cm);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+draw [red](1,0) +(0:1cm) arc [start angle=0];
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+draw [red](1,0) +(180:1cm) arc [start angle=180];
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path (1,0) ++(15:.75cm) node{$
+\backslash
+alpha$};
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path (1,0) ++(15:-.75cm) node{$
+\backslash
+beta$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tikz-arc-demo.eps
+	lyxscale 300
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+弧线示例
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:弧线示例"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+grid操作
+\end_layout
+
+\begin_layout Standard
+如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:grid操作示例"
+
+\end_inset
+
+所示的图形，实现代码如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[rotate=30]
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+draw[xstep=2mm,ystep=5mm,help lines] (0,0) grid (4,4);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tikz-grid-demo.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+grid操作示例
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:grid操作示例"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+抛物线
+\end_layout
+
+\begin_layout Standard
+如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:抛物线示例"
+
+\end_inset
+
+所示的抛物线，其实现代码如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+draw (0,0) rectangle (1,1.5);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[red] (0,0) parabola (1,1.5);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+draw[xshift=1.5cm] (0,0) rectangle (1,1.5);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[xshift=1.5cm,red](0,0) parabola[bend at end] (1,1.5);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+draw[xshift=3cm] (0,0) rectangle (1,1.5);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[xshift=3cm,red](0,0) parabola bend (.75,1.75) (1,1.5);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+draw[xshift=4.5cm,red](1,1.5) --(0,0) parabola cycle;
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tikz-parabola-demo.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+抛物线示例
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:抛物线示例"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
