@@ -433,7 +433,15 @@ to
 \end_layout
 
 \begin_layout Solution
-TBD
+本质上，to操作会被传唤为
+\begin_inset Quotes erd
+\end_inset
+
+- -
+\begin_inset Quotes erd
+\end_inset
+
+操作。使用to操作的优点是可以定义to path的属性，以便整体修改路径的形状、颜色等。
 \end_layout
 
 \begin_layout Standard
@@ -652,6 +660,72 @@ A%84%E9%A2%9C%E8%89%B2%E5%91%BD%E5%90%8D%E6%96%B9%E5%BC%8F/
 \end_inset
 
 ，理解了xcolor中颜色的混合方式，这里坐标采取了同样的表达方式：(0,0)!.5!(1,1)表示取坐标(0,0)和(1,1)的中点。
+\end_layout
+
+\begin_layout Problem
+这段代码有点费解：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+draw[help lines] (0,0)grid(2,2);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+draw (0,0) node[anchor=north east] {first node} rectangle (1,1) node[anchor=west
+] {second node};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Problem
+其结果如下图所示：
+\end_layout
+
+\begin_layout Problem
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/node-anchor-demo.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Problem
+anchor属性会按照给定的锚点“变换”图形，上例中，其实是将正方形旋转了180度。变换的目的是为了正确设置文字的位置。如果不使用变化手法，则first
+ node默认是在south west位置，但是文字显示的效果不理想。
+\end_layout
+
+\begin_layout Problem
+anchor因为涉及到图形的变化很不直观，因此实际编程时一般采用above/below等实现文字的合理位置。
 \end_layout
 
 \begin_layout Standard

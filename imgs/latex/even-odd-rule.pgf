@@ -1,0 +1,8 @@
+\usetikzlibrary{calc}
+\begin{tikzpicture}
+	\coordinate (Origin) at (0,0);
+	\filldraw [thick, fill=red, even odd rule] (Origin) circle (2);
+	\filldraw[thick,fill=red,even odd rule]($(Origin)+(4,-2)$) rectangle+(4,4); 
+	\filldraw[thick, fill=red, even odd rule]($(Origin) + (10,-2)$) --++({4*cos(60)},4) -- ++({4*cos(60)},-4) -- cycle;
+	\filldraw [thick, fill=red, even odd rule] ($(Origin)+(4,-10)$)  coordinate (GeneralStart) -- ++(-3,3) -- ++(+6,+3) -- ++(+3,-4.5) -- ++(-6.0,+1.5) -- ++(+6.0,+1.5) -- cycle;
+\end{tikzpicture}

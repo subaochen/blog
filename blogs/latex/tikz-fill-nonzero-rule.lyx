@@ -1,0 +1,425 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+tikz fill的着色问题
+\end_layout
+
+\begin_layout Standard
+当使用
+\backslash
+fill指令填充图形时，需要判断着色区域的“点”是否应该使用给定的颜色着色，当该点的判定结果为“inside”时这着色，当判定结果为“outside”时则不着色
+。tikz的判定原则有两个
+\end_layout
+
+\begin_layout Itemize
+even odd rule 从该点延伸到无限远画线，如果穿过的边界数量为奇数则该点属性为“inside”，否则为“outside”。
+\end_layout
+
+\begin_layout Itemize
+nonezero rule 从该点延伸到无限远画线，穿过边界时如果画线方向为从左向右时计数减一，如果画线方向从右向左则计数加一。最终的计数如果不为0则该点属性为
+“inside”，否则为“outside”。也就是说，nonzero rule和画线的方向有关系。nonzero rule是
+\backslash
+fill的默认填充策略。
+\end_layout
+
+\begin_layout Standard
+下例来自pgfmanual，考虑如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:tikz-fill填充示例图形"
+
+\end_inset
+
+的图形，
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/nonzero-rule-demo.eps
+	scale 300
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+tikz fill填充示例图形
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:tikz-fill填充示例图形"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+我们首先使用even odd rule填充，代码如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+filldraw[fill=red,even odd rule](0,0) -- (0,1) -- (1,1) -- (1,0) -- cycle
+ % Counter-clockwise rectangle
+\end_layout
+
+\begin_layout Plain Layout
+
+(0.25,0.25) -- (0.75,0.25) -- (0.75,0.75) -- (0.25,0.75) -- cycle;
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[->] (0,1) -- (.4,1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[->] (0.75,0.75) -- (0.3,.75);
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{scope}[xshift=2cm]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+filldraw[fill=red,even odd rule](0,0) -- (0,1) -- (1,1) -- (1,0) -- cycle
+\end_layout
+
+\begin_layout Plain Layout
+
+(0.25,0.25) -- (0.25,0.75) -- (0.75,0.75) -- (0.75,0.25) -- cycle;
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[->] (0,1) -- (.4,1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[->] (0.25,0.75) -- (0.4,.75);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+even odd rule填充的结果如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:even-odd-rule填充结果"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+换作nonzero rule（默认情况，代码中去掉even odd rule即可），则填充结果如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:nonzero-rule填充结果"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/even-odd-rule-demo.eps
+	scale 300
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+even odd rule填充结果
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:even-odd-rule填充结果"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/nonzero-rule-demo-fillred.eps
+	scale 300
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+nonzero rule填充结果
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:nonzero-rule填充结果"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+主要参考：
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://texnical-designs.com/fill-rules-in-tikz/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

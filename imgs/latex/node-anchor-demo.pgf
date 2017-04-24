@@ -1,0 +1,6 @@
+\begin{tikzpicture}
+	\draw[help lines] (0,0)grid(2,2);
+	\draw (0,0) node[anchor=north east] {first node}
+	rectangle (1,1) node[anchor=west] {second node};
+\end{tikzpicture}
+ 

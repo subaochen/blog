@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+\draw
+% Clockwise rectangle
+ 
+(0,0) -- (0,1) -- (1,1) -- (1,0) -- cycle
+% Counter-clockwise rectangle
+ 
+(0.25,0.25) -- (0.75,0.25) -- (0.75,0.75) -- (0.25,0.75) -- cycle;
+\draw[->] (0,1) -- (.4,1);
+\draw[->] (0.75,0.75) -- (0.3,.75);
+ 
+\begin{scope}[xshift=2cm]
+\draw
+% Clockwise rectangle
+ 
+(0,0) -- (0,1) -- (1,1) -- (1,0) -- cycle
+% Clockwise rectangle
+ 
+(0.25,0.25) -- (0.25,0.75) -- (0.75,0.75) -- (0.75,0.25) -- cycle;
+\draw[->] (0,1) -- (.4,1);
+\draw[->] (0.25,0.75) -- (0.4,.75);
+\end{scope}
+\end{tikzpicture}
