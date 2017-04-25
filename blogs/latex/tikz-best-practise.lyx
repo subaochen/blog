@@ -1,0 +1,461 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dddddd
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+tikz最佳实践
+\end_layout
+
+\begin_layout Section
+标注路径的方法
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+参考：pgfmanual之17.12.2: Nodes on Edges: Quotes Syntax。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+edge+quotes可以方便的标注路径，一般需要定义every edge quotes的样式，比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "20text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/edge-quotes-demo.eps
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "75text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+usetikzlibrary{quotes}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture} [every edge quotes/.style={fill=orange,font=
+\backslash
+footnotesize}]
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+draw[help lines](0,0) grid(3,2);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+draw (0,0) edge ["mid", ->] (3,2);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如果需要标注和路径的方向一致，只需要在every edge quotes增加sloped样式即可：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+[every edge quotes/.style={fill=orange,sloped}]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+默认的，edge在路径的左侧（上侧）标注，比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikz 
+\backslash
+draw (0,0) edge ["left", ->] (2,0);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如果需要在路径的右侧（下侧）标注，则设置every edge quotes的auto=right即可：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikz [every edge quotes/.style={auto=right}]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw (0,0) edge ["right", ->] (2,0);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+水印
+\end_layout
+
+\begin_layout Standard
+tikz中有一个特殊的node叫做current page，可以使用current page给页面增加水印，代码如下，效果在pdf文件中可以看到。
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[remember picture,overlay]
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node [rotate=60,scale=6,text opacity=0.2]at (current page.center) {tikz best
+ practise};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[remember picture,overlay]
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node [rotate=60,scale=6,text opacity=0.2]at (current page.center) {tikz best
+ practise};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+current page还可以在页面绝对定位设置文字，比如下面的代码在页面的右下角放置了一段文字：
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+无法输入中文？
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+begin{tikzpicture}[remember  picture,overlay]
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[xshift=-8cm,yshift=1cm] at (current page.south east)[text width=7cm,fill=red
+!20,rounded corners,above    right]{This a is an absolutely positioned text
+ in the lower left corner.
+ No shipout-hackery is used.};
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+begin{tikzpicture}[remember  picture,overlay]
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[xshift=-8cm,yshift=1cm] at (current page.south east)[text width=7cm,fill=red
+!20,rounded corners,above    right]{This a is an absolutely positioned text
+ in the lower left corner.
+ No shipout-hackery is used.};
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
