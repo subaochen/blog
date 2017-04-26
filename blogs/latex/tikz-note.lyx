@@ -282,7 +282,198 @@ pic是个好东西？
 \end_layout
 
 \begin_layout Solution
-pic在tikz中相当于C中的函数，是代码复用的重要手段。TBD（补充实例）
+pic在tikz中相当于C中的函数，是代码复用的重要手段。比如定义如下的pic定义了一个海鸥的小图片：
+\end_layout
+
+\begin_layout Solution
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzset{
+\end_layout
+
+\begin_layout Plain Layout
+
+    seagull/.pic={
+\end_layout
+
+\begin_layout Plain Layout
+
+    % Code for a "seagull".
+ Do you see it?...
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw (-3mm,0) to [bend left] (0,0) to [bend left] (3mm,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Solution
+则可以如下使用这个pic：
+\end_layout
+
+\begin_layout Solution
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "20text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/pic-demo.eps
+	scale 150
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "68col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+fill [fill=blue!20](1,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+    -- (2,2) pic {seagull}
+\end_layout
+
+\begin_layout Plain Layout
+
+	-- (3,2) pic {seagull}
+\end_layout
+
+\begin_layout Plain Layout
+
+	-- (3,1) pic [rotate=30] {seagull}
+\end_layout
+
+\begin_layout Plain Layout
+
+	-- (2,1) pic [red] {seagull};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Solution
+pic的使用方法和node很类似，但是pic不能像node那样引用，也不能在pic之间连线，因此pic只适合于图片复用的场合。
 \end_layout
 
 \begin_layout Problem
@@ -433,7 +624,7 @@ to
 \end_layout
 
 \begin_layout Solution
-本质上，to操作会被传唤为
+本质上，to操作会被转换为
 \begin_inset Quotes erd
 \end_inset
 
