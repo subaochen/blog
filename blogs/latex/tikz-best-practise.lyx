@@ -457,5 +457,13 @@ end{tikzpicture}
 
 \end_layout
 
+\begin_layout Section
+链接两个node的方法
+\end_layout
+
+\begin_layout Standard
+重点是如何从node的指定方位（south west, north and etc）引出连线？如何设置线型？
+\end_layout
+
 \end_body
 \end_document
