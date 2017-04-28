@@ -1,0 +1,451 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\options override
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+qtikz的中文支持问题
+\end_layout
+
+\begin_layout Standard
+qtikz/ktikz可以方便的预览tikz图形，还有命令提示和自动补全，只可惜ubuntu默认安装的qtikz/ktikz对中文的支持不好，而且保存文件的时候
+无法指定编码，默认的编码无法处理中文，很不方便。本来打算坐下来从源码开始解决中文问题，一顿搜索之下，原来在最新的版本中已经解决了保存文件时的编码问题，因此只需要
+正确配置模板文件，qtikz就能够很好的支持中文了。
+\end_layout
+
+\begin_layout Section
+下载最新的qtikz
+\end_layout
+
+\begin_layout Standard
+从
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/fhackenberger/ktikz
+\end_layout
+
+\end_inset
+
+下载（clone）最新版本，然后执行如下的命令安装：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+mkdir buildqt
+\end_layout
+
+\begin_layout Plain Layout
+cd buildqt
+\end_layout
+
+\begin_layout Plain Layout
+qmake ../qtikz.pro
+\end_layout
+
+\begin_layout Plain Layout
+make
+\end_layout
+
+\begin_layout Plain Layout
+make install
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如果报告缺少了poppler-qt4.h，则安装libpoppler-qt4-dev即可。
+\end_layout
+
+\begin_layout Section
+修改qtikz模板
+\end_layout
+
+\begin_layout Standard
+qtikz在生成预览图片时需要加载模板文件，默认安装的模板文件不支持中文，使用下面的模板文件即可：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+% ctextart是支持中文的关键所在
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+documentclass{ctexart}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{beamerarticle}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{tikz}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+usepackage{color}
+\end_layout
+
+\begin_layout Plain Layout
+
+% 改用xetex生成预览图片
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage[active,xetex,tightpage]{preview}                            
+                                                                       
+                                  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+PreviewEnvironment[]{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+PreviewEnvironment[]{pgfpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+DeclareSymbolFont{symbolsb}{OMS}{cmsy}{m}{n}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+SetSymbolFont{symbolsb}{bold}{OMS}{cmsy}{b}{n}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+DeclareSymbolFontAlphabet{
+\backslash
+mathcal}{symbolsb}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{document}
+\end_layout
+
+\begin_layout Plain Layout
+
+<>
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{document}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+将此文件保存到任意的目录下，创建tikz图片时指定使用该模板即可，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:qtikz设置模板文件"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/qtikz-configure-template.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+qtikz设置模板文件
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:qtikz设置模板文件"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+设置qtikz
+\end_layout
+
+\begin_layout Standard
+在qtikz的设置中，将生成pdf的命令修改为xelatex，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:修改qtikz生成pdf的命令设置"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/qtikz-configure-xelatex.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+修改qtikz生成pdf的命令设置
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:修改qtikz生成pdf的命令设置"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+参考：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://www.ai7.org/wp/html/952.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

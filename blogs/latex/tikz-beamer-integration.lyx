@@ -1,0 +1,321 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+tikz的超级魅力：一劳永逸解决演示动画的绘制问题
+\end_layout
+
+\begin_layout Section
+问题的提出
+\end_layout
+
+\begin_layout Standard
+在编写教程或者教材时，不可避免要绘制一些图形，可谓一图胜千言。比如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:插图示例"
+
+\end_inset
+
+表达了Android系统中ContentProvide组件的基本原理，很多工具可以画出这样的矢量图，比如Linux下面常见的dia，inkscape等。但是，所
+有专门绘制矢量图的工具都有一个“致命缺点”：生成的图形是静态的，无法按照设定的步骤和路线来演示。因此当需要在演示幻灯片中插入类似的图片时，往往需要重新绘制，费时
+费力。有没有办法
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+只绘制一次图形
+\end_layout
+
+\end_inset
+
+，即可以用于教材印刷输出，也可以用于幻灯片演示讲解呢？tikz和beamer完美的回答了这一问题！
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/android-tutorial/imgs/contentprovider/contentprovider-concept.eps
+	lyxscale 200
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+插图示例
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:插图示例"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+tikz的解决方案
+\end_layout
+
+\begin_layout Standard
+实际上，
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:插图示例"
+
+\end_inset
+
+即为tikz所绘制，其代码参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "绘制示例插图的tikz代码"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/imgs/contentprovider/contentprovider-concept.pgf"
+lstparams "language=TeX,caption={绘制示例插图的tikz代码},label={绘制示例插图的tikz代码}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+通常情况下，将绘制
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:插图示例"
+
+\end_inset
+
+的tikz代码保存到一个文件中，比如叫做contentprovider-concept.pgf，在教材中的插图位置直接插入此文件即可，LaTeX自动编译生成图片。
+同样的道理，在beamer的演示幻灯片中也是直接插入这个tikz代码文件，beamer在编译时自动生成相应的多帧演示图片。
+\end_layout
+
+\begin_layout Standard
+也就是说，
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+只需要编写一次tikz绘图代码，可以原封不动的用于教材插图和幻灯片的动画演示！
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+下面是beamer生成的pdf演示幻灯片：
+\end_layout
+
+\begin_layout Standard
+TBD（插入pdf文件）
+\end_layout
+
+\begin_layout Section
+配置tikz开发环境的注意事项
+\end_layout
+
+\begin_layout Standard
+当然，要享受如此美妙的书写环境，是要付出一点点代价的。要点是：
+\end_layout
+
+\begin_layout Itemize
+花点时间练习tikz，否则一切都是空谈。
+\end_layout
+
+\begin_layout Itemize
+配置qtikz中文支持，参见：
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://dz.sdut.edu.cn/blog/subaochen/2017/04/qtikz%E7%9A%84%E4%B8%AD%E6%96%87%E6%94
+%AF%E6%8C%81%E9%97%AE%E9%A2%98/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+在教材/教程的preamble文件中加载beamerarticle包，以便能够识别beamer的overlay设置指令。
+\end_layout
+
+\begin_layout Itemize
+在绘制tikz图形时就要考虑动画演示的步骤：node和edge分别在第几帧展示？尽量不要在一个tikz指令中绘制过于复杂的图形，否则不利于拆分为可演示的动画步骤
+。
+\end_layout
+
+\end_body
+\end_document
