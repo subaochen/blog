@@ -910,13 +910,141 @@ end{tikzpicture}
 
 \end_layout
 
-\begin_layout Problem
+\begin_layout Solution
 anchor属性会按照给定的锚点“变换”图形，上例中，其实是将正方形旋转了180度。变换的目的是为了正确设置文字的位置。如果不使用变化手法，则first
  node默认是在south west位置，但是文字显示的效果不理想。
 \end_layout
 
-\begin_layout Problem
+\begin_layout Standard
 anchor因为涉及到图形的变化很不直观，因此实际编程时一般采用above/below等实现文字的合理位置。
+\end_layout
+
+\begin_layout Problem
+在style中如何使用2个参数？
+\end_layout
+
+\begin_layout Solution
+在style中使用两个参数要明确声明2 args，如下例所示：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "30text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tikz-style-2args.eps
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "58text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language={[LaTeX]TeX}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+usetikzlibrary{decorations.pathmorphing}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+[decoration=snake,
+\end_layout
+
+\begin_layout Plain Layout
+
+line around/.style 2 args={decoration={pre length=#1,post length=#2}}]
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[->,decorate] (0,0) -- ++(3,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[->,decorate,line around={1cm}{5mm}] (0,-1cm) -- ++(3,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

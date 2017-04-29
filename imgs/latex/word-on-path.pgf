@@ -1,0 +1,7 @@
+\usetikzlibrary{decorations.text}
+\begin{tikzpicture}
+    \draw [help lines] grid (3,2);
+    \draw[red](0,0) .. controls (2,0) and (0,1) .. (3,2);
+    \path [decorate,decoration={text along path,text={中华人民共和国万岁}}]
+    (0,0) .. controls (2,0) and (0,1) .. (3,2);
+\end{tikzpicture}
