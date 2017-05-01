@@ -1,0 +1,2226 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+redis集群的简单测试
+\end_layout
+
+\begin_layout Section
+准备工作
+\end_layout
+
+\begin_layout Subsection
+安装ruby redis 
+\end_layout
+
+\begin_layout Standard
+由于我们会用到redis-trib.rb作为集群配置和管理的工具，因此需要安装ruby的redis库：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+$ sudo gem install redis
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+编译redis源代码
+\end_layout
+
+\begin_layout Standard
+由于Linux各发布版的redis版本相对较旧，因此建议从源代码编译安装比较合适。这里以redis-3.2.8为例，编译和安装redis的命令序列为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+$ make
+\end_layout
+
+\begin_layout Plain Layout
+$ make test
+\end_layout
+
+\begin_layout Plain Layout
+$ sudo make install # 安装redis-server等到/usr/local/bin目录下
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+准备redis集群的目录结构
+\end_layout
+
+\begin_layout Standard
+在测试环境下，我们将在一台电脑上运行6个redis节点，清单如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tablename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:redis集群节点布局"
+
+\end_inset
+
+所示，因此需要创建每个redis节点的相应目录。
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tablename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:redis集群节点布局"
+
+\end_inset
+
+中，$RC_HOME指redis cluster所在目录，比如在本例中，所有redis cluster节点都位于/home/subaochen/redisclu
+ster目录下，因此$RC_HOME=/home/subaochen/rediscluster。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+节点
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+IP地址
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+端口
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+主目录
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+node1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+127.0.0.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6381
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+$RC_HOME/node1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+node2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+127.0.0.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6382
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+$RC_HOME/node2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+node3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+127.0.0.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6383
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+$RC_HOME/node3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+node4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+127.0.0.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6384
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+$RC_HOME/node4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+node5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+127.0.0.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6385
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+$RC_HOME/node5
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+node6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+127.0.0.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6386
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+$RC_HOME/node6
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+redis集群节点布局
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:redis集群节点布局"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+确保redis集群的目录结构如下所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+$ tree rediscluster/
+\end_layout
+
+\begin_layout Plain Layout
+rediscluster/
+\end_layout
+
+\begin_layout Plain Layout
+├── node1
+\end_layout
+
+\begin_layout Plain Layout
+├── node2
+\end_layout
+
+\begin_layout Plain Layout
+├── node3
+\end_layout
+
+\begin_layout Plain Layout
+├── node4
+\end_layout
+
+\begin_layout Plain Layout
+├── node5
+\end_layout
+
+\begin_layout Plain Layout
+└── node6
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+集群配置（测试环境）
+\end_layout
+
+\begin_layout Subsection
+创建配置文件
+\end_layout
+
+\begin_layout Standard
+在每一个节点目录中放置一个配置文件redis.conf，
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:node1的配置文件"
+
+\end_inset
+
+为node1的配置文件。需要注意的是，node2等的端口号要做相应的修改。
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+node1的配置文件
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:node1的配置文件"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+port 6381                                                              
+                                                                       
+                                   
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster-enabled yes 
+\end_layout
+
+\begin_layout Plain Layout
+
+cluster-node-timeout 15000
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+启动和停止集群
+\end_layout
+
+\begin_layout Standard
+测试方便起见，编写一个启动集群的脚本start-cluster.sh，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:启动redis集群的脚本"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+启动redis集群的脚本
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:启动redis集群的脚本"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#!/bin/sh
+\end_layout
+
+\begin_layout Plain Layout
+
+# change redis cluster home here                                       
+                                                                       
+                                   
+\end_layout
+
+\begin_layout Plain Layout
+
+RC_HOME=$HOME/rediscluster
+\end_layout
+
+\begin_layout Plain Layout
+
+for i in $(seq 6)
+\end_layout
+
+\begin_layout Plain Layout
+
+do
+\end_layout
+
+\begin_layout Plain Layout
+
+    echo "starting node$i..."
+\end_layout
+
+\begin_layout Plain Layout
+
+    cd $RC_HOME/node$i
+\end_layout
+
+\begin_layout Plain Layout
+
+    redis-server redis.conf > redis.log 2>&1 &
+\end_layout
+
+\begin_layout Plain Layout
+
+done
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+执行start-cluster.sh脚本，启动所有的redis节点。此时，集群中的节点还是“孤立”的，需要进一步的配置。
+\end_layout
+
+\begin_layout Standard
+同样的，写一个停止集群的脚本，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:停止redis集群的脚本"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+停止redis集群的脚本
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:停止redis集群的脚本"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+!/bin/sh
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+for i in $(seq 6)
+\end_layout
+
+\begin_layout Plain Layout
+
+do
+\end_layout
+
+\begin_layout Plain Layout
+
+    echo "shutdown node$i on port 638$i"
+\end_layout
+
+\begin_layout Plain Layout
+
+    redis-cli -p 638$i shutdown
+\end_layout
+
+\begin_layout Plain Layout
+
+done                                       
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+配置集群
+\end_layout
+
+\begin_layout Standard
+我们使用redis源代码中附带的redis-trib.rb集群配置工具简化集群的配置过程。执行如下的命令配置redis集群，其中的$REDIS_SRC指redis
+源代码目录：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+$ $REDIS_SRC/src/redis-trib.rb create --replicas 1 127.0.0.1:6381 127.0.0.1:6382
+ 127.0.0.1:6383 127.0.0.1:6384 127.0.0.1:6385 127.0.0.1:6386
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+redis-trib.rb的参数意义如下：
+\end_layout
+
+\begin_layout Itemize
+create 表示创建redis集群
+\end_layout
+
+\begin_layout Itemize
+- -replicas 1 表示每个主节点都有一个从节点，因此6个节点分为3个主节点和3个从节点。
+\end_layout
+
+\begin_layout Itemize
+127.0.0.1:6381 127.0.0.1:6382等 集群中所有节点的ip地址和端口号。
+\end_layout
+
+\begin_layout Standard
+命令执行后，redis-trib.rb会自动分配发现的所有redis节点，给出如下的提示信息：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+>>> Creating cluster
+\end_layout
+
+\begin_layout Plain Layout
+>>> Performing hash slots allocation on 6 nodes...
+\end_layout
+
+\begin_layout Plain Layout
+Using 3 masters:
+\end_layout
+
+\begin_layout Plain Layout
+127.0.0.1:6381
+\end_layout
+
+\begin_layout Plain Layout
+127.0.0.1:6382
+\end_layout
+
+\begin_layout Plain Layout
+127.0.0.1:6383
+\end_layout
+
+\begin_layout Plain Layout
+Adding replica 127.0.0.1:6384 to 127.0.0.1:6381
+\end_layout
+
+\begin_layout Plain Layout
+Adding replica 127.0.0.1:6385 to 127.0.0.1:6382
+\end_layout
+
+\begin_layout Plain Layout
+Adding replica 127.0.0.1:6386 to 127.0.0.1:6383
+\end_layout
+
+\begin_layout Plain Layout
+M: bce33d8334991e4d7123f61053ff27ce077998b1 127.0.0.1:6381
+\end_layout
+
+\begin_layout Plain Layout
+slots:0-5460 (5461 slots) master
+\end_layout
+
+\begin_layout Plain Layout
+M: 00fcd6a167850a2acda03efa3bc26e94cd58bf03 127.0.0.1:6382
+\end_layout
+
+\begin_layout Plain Layout
+slots:5461-10922 (5462 slots) master
+\end_layout
+
+\begin_layout Plain Layout
+M: ac6d1abb69e82b538b4e51be417b596128728662 127.0.0.1:6383
+\end_layout
+
+\begin_layout Plain Layout
+slots:10923-16383 (5461 slots) master
+\end_layout
+
+\begin_layout Plain Layout
+S: a90766de4307cc97655d7895641449d594c13c90 127.0.0.1:6384
+\end_layout
+
+\begin_layout Plain Layout
+replicates bce33d8334991e4d7123f61053ff27ce077998b1
+\end_layout
+
+\begin_layout Plain Layout
+S: 8dd1805ecb0a35cbf727a7dc07225ed7802b4bb4 127.0.0.1:6385
+\end_layout
+
+\begin_layout Plain Layout
+replicates 00fcd6a167850a2acda03efa3bc26e94cd58bf03
+\end_layout
+
+\begin_layout Plain Layout
+S: 7fd6dd44b84f385b7163ab96073230c508e65e1e 127.0.0.1:6386
+\end_layout
+
+\begin_layout Plain Layout
+replicates ac6d1abb69e82b538b4e51be417b596128728662
+\end_layout
+
+\begin_layout Plain Layout
+Can I set the above configuration? (type 'yes' to accept): 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+仔细检查redis-trib的输出，没有问题的话输入“yes”即正式开始集群的初始化过程：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+>>> Nodes configuration updated
+\end_layout
+
+\begin_layout Plain Layout
+>>> Assign a different config epoch to each node
+\end_layout
+
+\begin_layout Plain Layout
+>>> Sending CLUSTER MEET messages to join the cluster
+\end_layout
+
+\begin_layout Plain Layout
+Waiting for the cluster to join....
+\end_layout
+
+\begin_layout Plain Layout
+>>> Performing Cluster Check (using node 127.0.0.1:6381)
+\end_layout
+
+\begin_layout Plain Layout
+M: bce33d8334991e4d7123f61053ff27ce077998b1 127.0.0.1:6381
+\end_layout
+
+\begin_layout Plain Layout
+slots:0-5460 (5461 slots) master
+\end_layout
+
+\begin_layout Plain Layout
+1 additional replica(s)
+\end_layout
+
+\begin_layout Plain Layout
+S: 8dd1805ecb0a35cbf727a7dc07225ed7802b4bb4 127.0.0.1:6385
+\end_layout
+
+\begin_layout Plain Layout
+slots: (0 slots) slave
+\end_layout
+
+\begin_layout Plain Layout
+replicates 00fcd6a167850a2acda03efa3bc26e94cd58bf03
+\end_layout
+
+\begin_layout Plain Layout
+M: 00fcd6a167850a2acda03efa3bc26e94cd58bf03 127.0.0.1:6382
+\end_layout
+
+\begin_layout Plain Layout
+slots:5461-10922 (5462 slots) master
+\end_layout
+
+\begin_layout Plain Layout
+1 additional replica(s)
+\end_layout
+
+\begin_layout Plain Layout
+S: 7fd6dd44b84f385b7163ab96073230c508e65e1e 127.0.0.1:6386
+\end_layout
+
+\begin_layout Plain Layout
+slots: (0 slots) slave
+\end_layout
+
+\begin_layout Plain Layout
+replicates ac6d1abb69e82b538b4e51be417b596128728662
+\end_layout
+
+\begin_layout Plain Layout
+M: ac6d1abb69e82b538b4e51be417b596128728662 127.0.0.1:6383
+\end_layout
+
+\begin_layout Plain Layout
+slots:10923-16383 (5461 slots) master
+\end_layout
+
+\begin_layout Plain Layout
+1 additional replica(s)
+\end_layout
+
+\begin_layout Plain Layout
+S: a90766de4307cc97655d7895641449d594c13c90 127.0.0.1:6384
+\end_layout
+
+\begin_layout Plain Layout
+slots: (0 slots) slave
+\end_layout
+
+\begin_layout Plain Layout
+replicates bce33d8334991e4d7123f61053ff27ce077998b1
+\end_layout
+
+\begin_layout Plain Layout
+[OK] All nodes agree about slots configuration.
+\end_layout
+
+\begin_layout Plain Layout
+>>> Check for open slots...
+\end_layout
+
+\begin_layout Plain Layout
+>>> Check slots coverage...
+\end_layout
+
+\begin_layout Plain Layout
+[OK] All 16384 slots covered.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出，本集群中6个节点的情况如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tablename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:redis集群配置完成后的节点关系"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+节点
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+主从
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+节点id
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+关系
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+分配的插槽
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+node1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+M
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+bce33d8334991e4d7123f61053ff27ce077998b1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0-5460
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+node2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+M
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+00fcd6a167850a2acda03efa3bc26e94cd58bf03
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5461-10922
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+node3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+M
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ac6d1abb69e82b538b4e51be417b596128728662
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10923-16383
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+node4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+a90766de4307cc97655d7895641449d594c13c90
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+node1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+node5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8dd1805ecb0a35cbf727a7dc07225ed7802b4bb4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+node2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+node6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7fd6dd44b84f385b7163ab96073230c508e65e1e
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+node3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+redis集群配置完成后的节点关系
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:redis集群配置完成后的节点关系"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+配置完成后，每个节点下的文件如下所示（只列出了node1和node2的文件，其他节点相同）：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+$ tree rediscluster/
+\end_layout
+
+\begin_layout Plain Layout
+rediscluster/
+\end_layout
+
+\begin_layout Plain Layout
+├── node1
+\end_layout
+
+\begin_layout Plain Layout
+│   ├── dump.rdb
+\end_layout
+
+\begin_layout Plain Layout
+│   ├── nodes.conf
+\end_layout
+
+\begin_layout Plain Layout
+│   ├── redis.conf
+\end_layout
+
+\begin_layout Plain Layout
+│   └── redis.log
+\end_layout
+
+\begin_layout Plain Layout
+├── node2
+\end_layout
+
+\begin_layout Plain Layout
+│   ├── dump.rdb
+\end_layout
+
+\begin_layout Plain Layout
+│   ├── nodes.conf
+\end_layout
+
+\begin_layout Plain Layout
+│   ├── redis.conf
+\end_layout
+
+\begin_layout Plain Layout
+│   └── redis.log
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+其中，nodes.conf是集群自动创建的配置文件，保存集群中所有节点的相关信息，redis.log文件保存了该节点的日志，dump.rdb为该节点持续化文件。
+\end_layout
+
+\begin_layout Subsection
+验证集群配置
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:验证集群配置"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+登录集群中的任一节点，比如node1，测试如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+$ redis-cli -p 6381
+\end_layout
+
+\begin_layout Plain Layout
+127.0.0.1:6381> keys *
+\end_layout
+
+\begin_layout Plain Layout
+(empty list or set)
+\end_layout
+
+\begin_layout Plain Layout
+127.0.0.1:6381> set foo bar
+\end_layout
+
+\begin_layout Plain Layout
+(error) MOVED 12182 127.0.0.1:6383
+\end_layout
+
+\begin_layout Plain Layout
+127.0.0.1:6381> keys *
+\end_layout
+
+\begin_layout Plain Layout
+(empty list or set)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+redis集群的键值对并非均匀分布在每个节点，redis集群会根据键名计算该键值对所对应的节点
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+详见Redis Cluster Specification:
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://redis.io/topics/cluster-spec
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+HASH_SLOT = CRC16(key) mod 16384
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+上面的测试过程中，在node1插入foo->bar时，给出的信息：(error) MOVED 12182 127.0.0.1:6383意为键foo应该由节点127.0.0.
+1:6383（node3）来处理，因此直接在node1操作插入该键值对失败。我们转到node3继续测试：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+$ redis-cli -p 6383
+\end_layout
+
+\begin_layout Plain Layout
+127.0.0.1:6383> set foo bar
+\end_layout
+
+\begin_layout Plain Layout
+OK
+\end_layout
+
+\begin_layout Plain Layout
+127.0.0.1:6383> get foo
+\end_layout
+
+\begin_layout Plain Layout
+"bar"
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+命令cluster slots
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+详情参见：
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://redis.io/commands/cluster-slots
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+可以查看节点和插槽的对应关系，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:查看节点和插槽的对应关系"
+
+\end_inset
+
+所示，每个节点的第一行和第二行说明了该节点插槽的起始序号，并且列出了主节点所对应的从节点。因此，从这个命令我们也可以获得集群的详细配置信息。当然，通过clust
+er nodes
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+详情参见：
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://redis.io/commands/cluster-nodes
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+命令也可以获得类似的信息：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+127.0.0.1:6383> cluster nodes
+\end_layout
+
+\begin_layout Plain Layout
+a90766de4307cc97655d7895641449d594c13c90 127.0.0.1:6384 slave bce33d8334991e4d7123f
+61053ff27ce077998b1 0 1493626684485 4 connected
+\end_layout
+
+\begin_layout Plain Layout
+ac6d1abb69e82b538b4e51be417b596128728662 127.0.0.1:6383 myself,master - 0 0
+ 3 connected 10923-16383
+\end_layout
+
+\begin_layout Plain Layout
+00fcd6a167850a2acda03efa3bc26e94cd58bf03 127.0.0.1:6382 master - 0 1493626687492
+ 2 connected 5461-10922
+\end_layout
+
+\begin_layout Plain Layout
+8dd1805ecb0a35cbf727a7dc07225ed7802b4bb4 127.0.0.1:6385 slave 00fcd6a167850a2acda03
+efa3bc26e94cd58bf03 0 1493626683482 5 connected
+\end_layout
+
+\begin_layout Plain Layout
+bce33d8334991e4d7123f61053ff27ce077998b1 127.0.0.1:6381 master - 0 1493626686990
+ 1 connected 0-5460
+\end_layout
+
+\begin_layout Plain Layout
+7fd6dd44b84f385b7163ab96073230c508e65e1e 127.0.0.1:6386 slave ac6d1abb69e82b538b4e5
+1be417b596128728662 0 1493626686490 6 connected
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/database/redis-cluster-slots.png
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+查看节点和插槽的对应关系
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:查看节点和插槽的对应关系"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+redis集群的客户端
+\end_layout
+
+\begin_layout Subsection
+Java客户端
+\end_layout
+
+\begin_layout Standard
+jedis
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+官网：
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/xetorthio/jedis
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+是一个redis的Java智能客户端，即jedis可以通过redis的通讯协议了解redis集群的配置并自动将相关命令发送到相应的集群节点上。在
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "subsec:验证集群配置"
+
+\end_inset
+
+我们已经看到，redis会根据键名通过计算获得该键值对所对应的集群节点，因此在redis集群环境下，无法像单机环境那样直接发送redis命令到指定的服务器。而j
+edis根据集群配置信息获取了集群中节点所对因的插槽范围，因此jedis可以根据命令中的键名计算出来此命令应该发送到集群的哪个节点，这也是jedis被成为“智能
+客户端”的原因。下面是一个简单的Java应用程序，可以用来测试上面建立的redis集群
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+完整示例参见：
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/subaochen/jedis-simple-test
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public class JedisClusterTest {
+\end_layout
+
+\begin_layout Plain Layout
+
+    public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
+\end_layout
+
+\begin_layout Plain Layout
+
+        // 只需要加入集群中的其中一个节点即可，jedis会自动获取其他节点的配置信息
+\end_layout
+
+\begin_layout Plain Layout
+
+        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 6381));
+\end_layout
+
+\begin_layout Plain Layout
+
+        JedisCluster jc = new JedisCluster(jedisClusterNodes);
+\end_layout
+
+\begin_layout Plain Layout
+
+        jc.set("foo", "bar");
+\end_layout
+
+\begin_layout Plain Layout
+
+        String value = jc.get("foo");
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println("foo = " + value);
+\end_layout
+
+\begin_layout Plain Layout
+
+        jc.hset("site","dev","{'id':100,'name':'test','value':12.45}");
+\end_layout
+
+\begin_layout Plain Layout
+
+        value = jc.hget("site","dev");
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println("site = " + value);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Section
+集群管理
+\end_layout
+
+\begin_layout Subsection
+启动集群
+\end_layout
+
+\begin_layout Subsection
+停止集群
+\end_layout
+
+\begin_layout Subsection
+加入新节点
+\end_layout
+
+\begin_layout Subsection
+撤下节点
+\end_layout
+
+\begin_layout Section
+失败接管（FailOver）
+\end_layout
+
+\begin_layout Section
+集群监控
+\end_layout
+
+\begin_layout Section
+生产环境下的redis集群部署
+\end_layout
+
+\begin_layout Subsection
+Linux参数调整
+\end_layout
+
+\begin_layout Subsection
+redis参数调整
+\end_layout
+
+\begin_layout Section
+redis集群性能测试
+\end_layout
+
+\begin_layout Subsection
+测试环境性能测试
+\end_layout
+
+\begin_layout Subsection
+生产环境性能测试
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
