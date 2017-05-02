@@ -15,9 +15,16 @@
         % 显示网格线，默认minor steps between steps=8,可以修改此值改变网格的密度
         grid,grid={minor steps between steps,major={style=red}},
         label={吞吐率(q/s)}},
-    visualize as smooth line]
+    %
+    visualize as smooth line/.list={loopback,tcpip},
+    style sheet=strong colors,
+    legend={below,rows=1},
+    loopback={label in legend={text=loopback}},
+    tcpip={label in legend={text=TCPIP}},
+data/format=table
+    ]
 
-data {
+data[set=loopback] {
     data size, tps
     10,84588
     50, 81188.6
@@ -38,5 +45,29 @@ data {
     15000, 52088,76
     20000,38095
     30000, 23742
+} % 这里不要加分号！
+
+% 假设数据，有待更新
+data[set=tcpip]{
+    data size, tps
+    10,34588
+    50, 31188.6
+    100,32987.55
+    500, 32918.73
+    1000,32891.24
+    2000,33097
+    3000,31940
+    4000,38597
+    5000, 31500.07
+    5500, 31413
+    6000, 28908.49
+    7000, 28695.47
+    7500, 26983
+    8000, 22500.00
+    9000, 20078.10
+    10000, 16911.96
+    15000, 12088,76
+    20000,18095
+    30000, 3742
 };
 \end{tikzpicture}
