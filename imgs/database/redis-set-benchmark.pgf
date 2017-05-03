@@ -7,11 +7,13 @@
         % 对数坐标，以便显示范围很大的坐标轴
         logarithmic,
         % 对数坐标默认情况下ticks不满足要求，major at可以手工指定显示哪些ticks
-        ticks={major at={10,100,100,1000,2000,5000,10000,30000}},
+        ticks={major at={10,100,200,500,1000,2000,5000,10000,30000}},
         label={数据尺寸(bytes)}},
     y axis={attribute=tps,
+        length=5cm,
         % include value决定了压轴的起步数值
-        include value=10000,
+        include value=500,
+        ticks={many},
         % 显示网格线，默认minor steps between steps=8,可以修改此值改变网格的密度
         grid,grid={minor steps between steps,major={style=red}},
         label={吞吐率(q/s)}},
@@ -23,51 +25,8 @@
     tcpip={label in legend={text=TCPIP}},
 data/format=table
     ]
-
-data[set=loopback] {
-    data size, tps
-    10,84588
-    50, 81188.6
-    100, 82987.55
-    500, 82918.73
-    1000, 82891.24
-    2000,83097
-    3000,81940
-    4000,78597
-    5000, 71500.07
-    5500, 71413
-    6000, 68908.49
-    7000, 68695.47
-    7500, 66983
-    8000, 62500.00
-    9000, 60078.10
-    10000, 56911.96
-    15000, 52088,76
-    20000,38095
-    30000, 23742
-} % 这里不要加分号！
-
-% 假设数据，有待更新
-data[set=tcpip]{
-    data size, tps
-    10,34588
-    50, 31188.6
-    100,32987.55
-    500, 32918.73
-    1000,32891.24
-    2000,33097
-    3000,31940
-    4000,38597
-    5000, 31500.07
-    5500, 31413
-    6000, 28908.49
-    7000, 28695.47
-    7500, 26983
-    8000, 22500.00
-    9000, 20078.10
-    10000, 16911.96
-    15000, 12088,76
-    20000,18095
-    30000, 3742
-};
+% loopback
+data[set=loopback,headline={data size,tps},read from file="redis-set-benchmark-loopback.dat",format=table] 
+% tcp/ip
+data[set=tcpip, headline={data size,tps},read from file="redis-set-benchmark-tcpip.dat",format=table];
 \end{tikzpicture}

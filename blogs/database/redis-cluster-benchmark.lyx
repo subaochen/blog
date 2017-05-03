@@ -92,16 +92,301 @@ redis基准性能测试
 测试目的
 \end_layout
 
+\begin_layout Standard
+了解redis在不同情况下的性能表现，并分析其性能瓶颈，找出相应的解决方案。
+\end_layout
+
 \begin_layout Section
 测试环境
 \end_layout
 
-\begin_layout Section
-set基准测试
+\begin_layout Standard
+redis服务器的配置见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tablename
 \end_layout
 
-\begin_layout Subsection
-通过loopback的测试
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:redis服务器配置表"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+项目
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+配置
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+说明
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CPU
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+AMD FX-8150@3.6G
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+内存
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DDR3 8G@800M
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+redis参数
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+默认参数
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+没有进行任何优化，亦暂时忽略启动时给出的优化提示
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+网卡
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100M
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+受限于老迈的100M交换机，服务器的1000M网卡只能用于100M模式
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+redis服务器配置表
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:redis服务器配置表"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+SET指令基准测试
+\end_layout
+
+\begin_layout Standard
+由于目标应用是写密集型的，因此本测试只针对SET指令，每次测试发起50个线程，总共进行1000000次写数据测试，所采用的命令为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+#!/bin/bash
+\end_layout
+
+\begin_layout Plain Layout
+HOST=127.0.0.1 # 192.168.1.105 for tcp/ip benchmark
+\end_layout
+
+\begin_layout Plain Layout
+redis-cli -h $HOST flushall
+\end_layout
+
+\begin_layout Plain Layout
+redis-benchmark -h $HOST -r 100000 -n 1000000 -t set -d $1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+loopback下的测试基本反映了redis服务器的最大响应能力，通过TCP/IP网络后，redis的响应能力急剧下降，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:set基准测试"
+
+\end_inset
+
+所示。
 \end_layout
 
 \begin_layout Standard
@@ -111,6 +396,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/database/redis-set-benchmark.eps
 
@@ -147,8 +433,206 @@ name "fig:set基准测试"
 
 \end_layout
 
+\begin_layout Section
+redis的性能瓶颈
+\end_layout
+
 \begin_layout Subsection
-通过tcp/ip网络的测试
+loopback情形
+\end_layout
+
+\begin_layout Standard
+通过loopback进行基准测试时反映了redis服务器的最大能力，可以看出，当测试数据的尺寸小于5000字节时，redis的吞吐率表现非常稳定，但是继续增加测
+试数据的尺寸，当测试数据尺寸超过6000字节时，redis的性能开始出现较大幅度的下降，当测试数据的尺寸超过20000字节（20KB）时，性能下降为峰值的不足一
+半，尽管如此，此时的吞吐率依然高达40000左右。
+\end_layout
+
+\begin_layout Standard
+由于测试服务器的内存只有8G，因此粗略的计算可知此配置的redis服务器的最大测试数据应为
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+redis的精确内存预估可参照：
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://blog.nosqlfan.com/html/3430.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+D_{max}=\frac{8000000000}{1000000}=8000
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这和测试曲线比较吻合。
+\end_layout
+
+\begin_layout Subsection
+TCP/IP情形
+\end_layout
+
+\begin_layout Standard
+通过
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:set基准测试"
+
+\end_inset
+
+可以看出，在TCP/IP网络情况下redis的性能似乎急剧下降！尤其是测试数据尺寸超过1500后，性能出现了倍数的下降。通过
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:通过TCP/IP网络时redis服务器负载情况"
+
+\end_inset
+
+观察此时的服务器CPU负载和网络负载可以看出，网卡总是满负荷运转，而CPU的负载并不高，因此推测此时的性能下降和100M网络应该有密切关系。简单计算可知，在10
+0M网络情况下，当测试数据为1000字节时，redis的吞吐率极限为10000，实测数据为11109。当测试数据的尺寸超过1500个字节（TCP/IP网络的默认
+数据包大小）时，每个测试数据都会因为分为至少两个TCP数据包而导致性能成倍下降。因此，在这种情况下，redis的吞吐率取决于网络状况，redis服务器本身的处理
+能力不再是瓶颈。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/database/redis-set-benchmark-tcp-5000.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+通过TCP/IP网络时redis服务器负载情况
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:通过TCP/IP网络时redis服务器负载情况"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+后记
+\end_layout
+
+\begin_layout Standard
+限于实验室的现有条件，希望有机会在更好的网络条件和redis服务器配置下再进行测试，比如：
+\end_layout
+
+\begin_layout Itemize
+配置更高频率的内存。目前的redis测试服务器使用较老的DD3@800M内存，相较于目前流行的DD4@3000M内存有较大差距。
+\end_layout
+
+\begin_layout Itemize
+更多的客户端线程。目前采用50客户端，在更好的网络条件下，可以考虑开更多客户端线程进行测试。
+\end_layout
+
+\begin_layout Itemize
+其他数据量情况下的基准测试，比如1000万数据。
+\end_layout
+
+\begin_layout Itemize
+使用更好的交换机，至少升级为千兆交换机。
+\end_layout
+
+\begin_layout Itemize
+使用刀箱。刀箱的内部数据交换一般为万兆级别，应该十分适合于作为redis服务器。
+\end_layout
+
+\begin_layout Itemize
+redis集群的基准测试
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/subaochen/redis-cluster-benchmark.cr
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+。
 \end_layout
 
 \end_body
