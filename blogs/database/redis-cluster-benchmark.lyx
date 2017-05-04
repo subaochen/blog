@@ -352,43 +352,34 @@ SET指令基准测试
 \end_layout
 
 \begin_layout Standard
-由于目标应用是写密集型的，因此本测试只针对SET指令，每次测试发起50个线程，总共进行1000000次写数据测试，所采用的命令为：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
+由于目标应用是写密集型的，因此本测试只针对SET指令，每次测试发起50个线程，总共进行1000000次写数据测试，所采用的测试程序如
+\begin_inset ERT
 status open
 
 \begin_layout Plain Layout
-#!/bin/bash
+
+
+\backslash
+lstlistingname
 \end_layout
 
-\begin_layout Plain Layout
-HOST=127.0.0.1 # 192.168.1.105 for tcp/ip benchmark
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "redis-benchmark.sh"
+
+\end_inset
+
+所示。
 \end_layout
 
-\begin_layout Plain Layout
-redis-cli -h $HOST flushall
-\end_layout
-
-\begin_layout Plain Layout
-redis-benchmark -h $HOST -r 100000 -n 1000000 -t set -d $1
-\end_layout
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/redis-benchmark.sh"
+lstparams "language=bash,caption={redis benchmark执行脚本},label={redis-benchmark.sh}"
 
 \end_inset
 
@@ -671,7 +662,7 @@ status open
 \begin_layout Plain Layout
 最大数据尺寸
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Plain Layout
 这里是指，如果超出了这个数据尺寸则网络或者硬件处理能力会成为主要的瓶颈，redis本身的处理能力反而不是瓶颈。

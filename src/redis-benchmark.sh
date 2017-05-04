@@ -10,12 +10,10 @@ cp /dev/null  redis-benchmark.dat
 function benchmark() {
     data_size=$1
     redis-cli  flushall > /dev/null
-    if [ x"$PIPELINES" = "x" ];then 
-        benchmark_cmd="redis-benchmark"
-    else
-        benchmark_cmd="redis-benchmark -P $PIPELINES"
+    if [ x"$PIPELINES" != "x" ];then 
+        with_pipeline="-P $PIPELINES"
     fi
-    benchmark_cmd="$benchmark_cmd -r $KEYSPACE -n $TOTAL_REQUESTS -t set -d $data_size"
+    benchmark_cmd="redis-benchmark $with_pipeline -r $KEYSPACE -n $TOTAL_REQUESTS -t set -d $data_size"
     qts=`$benchmark_cmd | grep "requests per second" | awk '{print $1}'`
     echo "$data_size,$qts" | tee -a redis-benchmark.dat
 }
