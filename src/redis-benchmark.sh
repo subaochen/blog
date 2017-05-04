@@ -1,13 +1,32 @@
-#!/bin/sh
-# 每次测试都要清空数据，防止相互影响
-#DATA_SIZE=$1
-# 测试数据增长步长
-STEP=100
-for i in `2 ${STEP} 10000`; do
-    if( $i gt 1000 ); then
-        STEP=500
+#!/bin/bash
+# 键空间
+KEYSPACE=100000
+# 总测试次数
+TOTAL_REQUESTS=1000000
+# pipeline数量，如果不使用pipeline则留空
+PIPELINES=8
+# 首先清空benchmark数据文件
+cp /dev/null  redis-benchmark.dat
+function benchmark() {
+    data_size=$1
+    redis-cli  flushall > /dev/null
+    if [ x"$PIPELINES" = "x" ];then 
+        benchmark_cmd="redis-benchmark"
+    else
+        benchmark_cmd="redis-benchmark -P $PIPELINES"
     fi
-    echo "step $i"
-    #redis-cli  flushall
-    #redis-benchmark -P 16 -r 100000 -n 1000000 -t set -d $DATA_SIZE
+    benchmark_cmd="$benchmark_cmd -r $KEYSPACE -n $TOTAL_REQUESTS -t set -d $data_size"
+    qts=`$benchmark_cmd | grep "requests per second" | awk '{print $1}'`
+    echo "$data_size,$qts" | tee -a redis-benchmark.dat
+}
+
+STEP=100
+for i in `seq 2 $STEP 500`; do
+    benchmark $i;
 done
+
+STEP=500
+for i in `seq 5000 $STEP 30000`; do
+    benchmark $i;
+done
+
