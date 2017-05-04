@@ -18,15 +18,12 @@
         grid,grid={minor steps between steps,major={style=red}},
         label={吞吐率(q/s)}},
     %
-    visualize as smooth line/.list={loopback,tcpip100,tcpip1000,tcpip1000P8,tcpip1000P16,tcpip1000P32},
+    visualize as smooth line/.list={loopback,tcpip100,tcpip1000},
     style sheet=strong colors,
     legend={below,rows=2},
     loopback={label in legend={text=loopback}},
     tcpip100={label in legend={text=TCPIP(100M)}},
     tcpip1000={label in legend={text=TCPIP(1000M)}},
-    tcpip1000P8={label in legend={text=TCPIP(1000MP8)}},
-    tcpip1000P16={label in legend={text=TCPIP(1000MP16)}},
-    tcpip1000P32={label in legend={text=TCPIP(1000MP32)}},
     data/format=table
     ]
 % loopback
@@ -34,7 +31,4 @@ data[set=loopback,headline={data size,tps},read from file="redis-set-benchmark-l
 % tcp/ip
 data[set=tcpip100, headline={data size,tps},read from file="redis-set-benchmark-tcpip-100M.dat"]
 data[set=tcpip1000, headline={data size,tps},read from file="redis-set-benchmark-tcpip-1000M.dat"]
-data[set=tcpip1000P8, headline={data size,tps},read from file="redis-set-benchmark-tcpip-1000M-P8.dat"]
-data[set=tcpip1000P16, headline={data size,tps},read from file="redis-set-benchmark-tcpip-1000M-P16.dat"]
-data[set=tcpip1000P32, headline={data size,tps},read from file="redis-set-benchmark-tcpip-1000M-P32.dat"];
 \end{tikzpicture}
