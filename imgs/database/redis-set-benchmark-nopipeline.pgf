@@ -20,7 +20,7 @@
     %
     visualize as smooth line/.list={loopback,tcpip100,tcpip1000},
     style sheet=strong colors,
-    legend={below,rows=2},
+    legend={below,rows=1},
     loopback={label in legend={text=loopback}},
     tcpip100={label in legend={text=TCPIP(100M)}},
     tcpip1000={label in legend={text=TCPIP(1000M)}},
@@ -30,5 +30,5 @@
 data[set=loopback,headline={data size,tps},read from file="redis-set-benchmark-loopback.dat"] 
 % tcp/ip
 data[set=tcpip100, headline={data size,tps},read from file="redis-set-benchmark-tcpip-100M.dat"]
-data[set=tcpip1000, headline={data size,tps},read from file="redis-set-benchmark-tcpip-1000M.dat"]
+data[set=tcpip1000, headline={data size,tps},read from file="redis-set-benchmark-tcpip-1000M.dat"];
 \end{tikzpicture}

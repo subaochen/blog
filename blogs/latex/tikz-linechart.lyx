@@ -1,0 +1,409 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+tikz画折线图
+\end_layout
+
+\begin_layout Standard
+tikz的数据可视化支持还是不错的，比如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:tikz折线图示例"
+
+\end_inset
+
+这样的折线图，tikz画起来很是得心应手。甚至，可以设置“放大镜”观察局部细节，比如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:带放大镜的折线图"
+
+\end_inset
+
+。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/database/redis-set-benchmark-nopipeline-spy.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+带放大镜的折线图
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:带放大镜的折线图"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/database/redis-set-benchmark.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+tikz折线图示例
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:tikz折线图示例"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:tikz折线图示例"
+
+\end_inset
+
+的特点是：
+\end_layout
+
+\begin_layout Itemize
+线条的颜色不需要手工设置，tikz自动根据所绘制线条的数量确定所使用的颜色。也可以通过线条的其他特征区分，比如粗细、实线和虚线等。
+\end_layout
+
+\begin_layout Itemize
+坐标轴可以灵活定制，比如使用对数坐标，设定起始坐标，坐标轴标注的疏密等。
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "redis-set-benchmark"
+
+\end_inset
+
+是绘制
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:tikz折线图示例"
+
+\end_inset
+
+的tikz源代码，我已经在其中增加了一些注释，可以当作一个模板来使用。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "../../imgs/database/redis-set-benchmark.pgf"
+lstparams "caption={tikz折线图模板},label={redis-set-benchmark}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "redis-set-benchmark"
+
+\end_inset
+
+中引用到了几个数据文件，每个数据文件格式很简单，使用逗号隔开数据即可，比如下面是其中一个数据文件的内容：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+10,641025
+\end_layout
+
+\begin_layout Plain Layout
+100,494071
+\end_layout
+
+\begin_layout Plain Layout
+200,426257
+\end_layout
+
+\begin_layout Plain Layout
+500,211640
+\end_layout
+
+\begin_layout Plain Layout
+700,156715
+\end_layout
+
+\begin_layout Plain Layout
+1000,111544
+\end_layout
+
+\begin_layout Plain Layout
+1500,75517
+\end_layout
+
+\begin_layout Plain Layout
+2000,57175
+\end_layout
+
+\begin_layout Plain Layout
+3000,38489
+\end_layout
+
+\begin_layout Plain Layout
+5000,23298
+\end_layout
+
+\begin_layout Plain Layout
+10000,11702
+\end_layout
+
+\begin_layout Plain Layout
+20000,5865
+\end_layout
+
+\begin_layout Plain Layout
+30000,3914
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+当然，这些数据文件是可以自动产生的，另文再谈这个话题。
+\end_layout
+
+\end_body
+\end_document

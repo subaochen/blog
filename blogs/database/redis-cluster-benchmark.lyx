@@ -101,7 +101,7 @@ redis基准性能测试
 \end_layout
 
 \begin_layout Standard
-redis服务器的配置见
+redis服务器的配置和测试环境见
 \begin_inset ERT
 status open
 
@@ -131,8 +131,9 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="5" columns="3">
+<lyxtabular version="3" rows="6" columns="3">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
@@ -254,7 +255,7 @@ redis参数
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -263,11 +264,40 @@ redis参数
 
 \end_inset
 </cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1000M
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-100M
+交换机
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100M 或 1000M傻瓜式交换机
 \end_layout
 
 \end_inset
@@ -276,7 +306,7 @@ redis参数
 \begin_inset Text
 
 \begin_layout Plain Layout
-受限于老迈的100M交换机，服务器的1000M网卡只能用于100M模式
+分别在100M和1000M交换机下测试
 \end_layout
 
 \end_inset
@@ -293,7 +323,7 @@ redis参数
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-redis服务器配置表
+redis服务器和测试环境配置表
 \begin_inset CommandInset label
 LatexCommand label
 name "tab:redis服务器配置表"
@@ -365,6 +395,10 @@ redis-benchmark -h $HOST -r 100000 -n 1000000 -t set -d $1
 
 \end_layout
 
+\begin_layout Subsection
+不使用pipeline时的基准测试
+\end_layout
+
 \begin_layout Standard
 loopback下的测试基本反映了redis服务器的最大响应能力，通过TCP/IP网络后，redis的响应能力急剧下降，如
 \begin_inset ERT
@@ -386,7 +420,7 @@ reference "fig:set基准测试"
 
 \end_inset
 
-所示。
+所示，分别展示了loopback、100M网络、1000M网络情况下的set命令基准测试。
 \end_layout
 
 \begin_layout Standard
@@ -398,7 +432,8 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/database/redis-set-benchmark.eps
+	filename /home/subaochen/git/blog/imgs/database/redis-set-benchmark-nopipeline.eps
+	lyxscale 200
 
 \end_inset
 
@@ -409,7 +444,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-set基准测试
+不使用pipeline时的set基准测试
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:set基准测试"
@@ -426,6 +461,372 @@ name "fig:set基准测试"
 
 \begin_layout Plain Layout
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+开启pipeline时的基准测试
+\end_layout
+
+\begin_layout Standard
+使用pipeline可以大幅度提高redis服务器的处理能力，其基本原理是通过pipeline减少了网络传输的次数，因此降低了网络延迟的影响。从
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:开启pipeline时的set基准测试"
+
+\end_inset
+
+可以看出，对于高性能的redis服务器而言，网络延迟的影响是非常巨大的。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/database/redis-set-benchmark-pipeline.eps
+	lyxscale 200
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+开启pipeline时的set基准测试
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:开启pipeline时的set基准测试"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+综合比较
+\end_layout
+
+\begin_layout Standard
+将6种基准测试放到一起，可以对redis服务器的性能指标以及影响因素有一个直观的概念，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:set基准测试综合比较"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/database/redis-set-benchmark.eps
+	lyxscale 200
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+set基准测试综合比较
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:set基准测试综合比较"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+不同情况下的数据尺寸影响
+\end_layout
+
+\begin_layout Standard
+简单计算可以得知，在不同数据尺寸下，最大的吞吐率如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tablename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:不同数据尺寸时的吞吐率"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+测试条件
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+最大数据尺寸
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+这里是指，如果超出了这个数据尺寸则网络或者硬件处理能力会成为主要的瓶颈，redis本身的处理能力反而不是瓶颈。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+备注
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+loopback
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100M网络
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1000M网络
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+不同数据尺寸时的吞吐率
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:不同数据尺寸时的吞吐率"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+redis性能极限在哪里？
+\end_layout
+
+\begin_layout Standard
+根据硬件的速度，主要是CPU的主频、内存的频率我们可以推算redis的set操作的性能极限。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+一个set操作最终转化为几个cpu指令？和内存的数据交换需要几个内存周期？据此说明cpu的主频越高越好，内存频率适配即可。
 \end_layout
 
 \end_inset
@@ -542,7 +943,7 @@ reference "fig:通过TCP/IP网络时redis服务器负载情况"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
