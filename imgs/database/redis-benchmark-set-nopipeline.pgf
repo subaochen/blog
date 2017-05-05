@@ -7,7 +7,7 @@
         % 对数坐标，以便显示范围很大的坐标轴
         logarithmic,
         % 对数坐标默认情况下ticks不满足要求，major at可以手工指定显示哪些ticks
-        ticks={major at={10,100,200,500,1000,2000,5000,10000,30000}},
+        ticks={major at={2,10,100,200,500,1500,5000,10000,30000}},
         label={数据尺寸(bytes)}},
     y axis={attribute=tps,
         length=5cm,
@@ -18,15 +18,17 @@
         grid,grid={minor steps between steps,major={style=red}},
         label={吞吐率(q/s)}},
     %
-    visualize as smooth line/.list={tcpip1000P8,tcpip1000P16,tcpip1000P32},
+    visualize as smooth line/.list={loopback,tcpip100,tcpip1000},
     style sheet=strong colors,
     legend={below,rows=1},
-    tcpip1000P8={label in legend={text=TCPIP(1000MP8)}},
-    tcpip1000P16={label in legend={text=TCPIP(1000MP16)}},
-    tcpip1000P32={label in legend={text=TCPIP(1000MP32)}},
+    loopback={label in legend={text=loopback}},
+    tcpip100={label in legend={text=TCPIP(100M)}},
+    tcpip1000={label in legend={text=TCPIP(1000M)}},
     data/format=table
     ]
-data[set=tcpip1000P8, headline={data size,tps},read from file="redis-set-benchmark-tcpip-1000M-P8.dat"]
-data[set=tcpip1000P16, headline={data size,tps},read from file="redis-set-benchmark-tcpip-1000M-P16.dat"]
-data[set=tcpip1000P32, headline={data size,tps},read from file="redis-set-benchmark-tcpip-1000M-P32.dat"];
+% loopback
+data[set=loopback,headline={data size,tps},read from file="redis-benchmark-loopback-100M.dat"]
+% tcp/ip
+data[set=tcpip100, headline={data size,tps},read from file="redis-set-benchmark-tcpip-100M.dat"]
+data[set=tcpip1000, headline={data size,tps},read from file="redis-benchmark-tcpip-1000M.dat"];
 \end{tikzpicture}

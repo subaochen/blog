@@ -1,0 +1,37 @@
+\usetikzlibrary{datavisualization}
+\begin{tikzpicture}
+\datavisualization[scientific axes,
+    x axis={attribute=data size,
+        length=10cm,
+        % 对数坐标，以便显示范围很大的坐标轴
+        logarithmic,
+        % 对数坐标默认情况下ticks不满足要求，major at可以手工指定显示哪些ticks
+        ticks={major at={2,20,30,50,100,200,500,1500,5000,10000,30000}},
+        label={数据尺寸(bytes)}},
+    y axis={attribute=tps,
+        length=5cm,
+        % include value决定了压轴的起步数值
+        include value=500,
+        ticks={many},
+        % 显示网格线，默认minor steps between steps=8,可以修改此值改变网格的密度
+        grid,grid={minor steps between steps,major={style=red}},
+        label={吞吐率(q/s)}},
+    %
+    visualize as smooth line/.list={loopback,loopbackP8,loopbackP16,loopbackP32,loopbackP64},
+    style sheet=strong colors,
+    legend={below,rows=2},
+    loopback={label in legend={text=loopback}},
+    loopbackP8={label in legend={text=loopback P8}},
+    loopbackP16={label in legend={text=loopback P16}},
+    loopbackP32={label in legend={text=loopback P32}},
+    loopbackP64={label in legend={text=loopback P64}},
+    data/format=table
+    ]
+% loopback
+data[set=loopback,headline={data size,tps},read from file="redis-benchmark-loopback-100M.dat"]
+data[set=loopbackP8,headline={data size,tps},read from file="redis-benchmark-loopback-100M-P8.dat"]
+data[set=loopbackP16,headline={data size,tps},read from file="redis-benchmark-loopback-100M-P16.dat"]
+data[set=loopbackP32,headline={data size,tps},read from file="redis-benchmark-loopback-100M-P32.dat"]
+data[set=loopbackP64,headline={data size,tps},read from file="redis-benchmark-loopback-100M-P64.dat"]
+;
+\end{tikzpicture}

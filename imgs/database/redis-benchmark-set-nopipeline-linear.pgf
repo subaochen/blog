@@ -1,13 +1,13 @@
 % 测试命令：redis-benchmark -t set -r 100000 -n 1000000 -d 数据尺寸
-\usetikzlibrary{datavisualization,spy}
-\begin{tikzpicture}[spy using outlines={circle, magnification=3, size=2cm,connect spies}]
+\usetikzlibrary{datavisualization}
+\begin{tikzpicture}
 \datavisualization[scientific axes,
     x axis={attribute=data size,
         length=10cm,
         % 对数坐标，以便显示范围很大的坐标轴
-        logarithmic,
+        %logarithmic,
         % 对数坐标默认情况下ticks不满足要求，major at可以手工指定显示哪些ticks
-        ticks={major at={10,100,200,500,1000,2000,5000,10000,30000}},
+        ticks={some},
         label={数据尺寸(bytes)}},
     y axis={attribute=tps,
         length=5cm,
@@ -27,10 +27,8 @@
     data/format=table
     ]
 % loopback
-data[set=loopback,headline={data size,tps},read from file="redis-set-benchmark-loopback.dat"] 
+data[set=loopback,headline={data size,tps},read from file="redis-benchmark-loopback-100M.dat"] 
 % tcp/ip
 data[set=tcpip100, headline={data size,tps},read from file="redis-set-benchmark-tcpip-100M.dat"]
-data[set=tcpip1000, headline={data size,tps},read from file="redis-set-benchmark-tcpip-1000M.dat"];
-
-\spy[red] on(6,3.9) in node at (8,6.3);
+data[set=tcpip1000, headline={data size,tps},read from file="redis-benchmark-tcpip-1000M.dat"];
 \end{tikzpicture}
