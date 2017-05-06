@@ -2,6 +2,7 @@
 \begin{tikzpicture}
 \datavisualization[scientific axes,
     x axis={attribute=data size,
+        grid,grid={minor steps between steps=4},
         length=10cm,
         % 对数坐标，以便显示范围很大的坐标轴
         logarithmic,

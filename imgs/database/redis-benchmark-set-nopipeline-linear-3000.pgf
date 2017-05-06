@@ -25,6 +25,6 @@
     tcpip1000={label in legend={text=tcpip 1000M}},
     data/format=table
     ]
-%data[set=tcpip100,headline={data size,tps},read from file="redis-benchmark-loopback-100M-3000up.dat"] 
+data[set=tcpip100,headline={data size,tps},read from file="redis-benchmark-tcpip-100M-3000up.dat"] 
 data[set=tcpip1000,headline={data size,tps},read from file="redis-benchmark-tcpip-1000M-3000up.dat"] ;
 \end{tikzpicture}

@@ -4,10 +4,11 @@
 \datavisualization[scientific axes,
     x axis={attribute=data size,
         length=10cm,
+        grid,grid={minor steps between steps=4},
         % 对数坐标，以便显示范围很大的坐标轴
         logarithmic,
         % 对数坐标默认情况下ticks不满足要求，major at可以手工指定显示哪些ticks
-        ticks={major at={2,10,100,200,500,1500,5000,10000,30000}},
+        ticks={major at={2,10,20,30,50,70,100,200,500,1500,5000,10000,30000}},
         label={数据尺寸(bytes)}},
     y axis={attribute=tps,
         length=5cm,
@@ -29,6 +30,6 @@
 % loopback
 data[set=loopback,headline={data size,tps},read from file="redis-benchmark-loopback-100M.dat"]
 % tcp/ip
-data[set=tcpip100, headline={data size,tps},read from file="redis-set-benchmark-tcpip-100M.dat"]
+data[set=tcpip100, headline={data size,tps},read from file="redis-benchmark-tcpip-100M.dat"]
 data[set=tcpip1000, headline={data size,tps},read from file="redis-benchmark-tcpip-1000M.dat"];
 \end{tikzpicture}

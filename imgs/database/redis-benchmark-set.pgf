@@ -19,23 +19,21 @@
         grid,grid={minor steps between steps=4},
         label={吞吐率(q/s)}},
     %
-    visualize as smooth line/.list={tcpip1000P8,tcpip1000P16,tcpip1000P32,tcpip1000P64,tcpip100P8,tcpip100P16,tcpip100P32,tcpip100P64},
+    visualize as smooth line/.list={loopback,tcpip100,tcpip1000,tcpip1000P8,tcpip1000P16,tcpip1000P32,tcpip1000P64},
     style sheet=strong colors,
     legend={right,rows=8},
-    tcpip100P8={label in legend={text=TCPIP(100MP8)}},
-    tcpip100P16={label in legend={text=TCPIP(100MP16)}},
-    tcpip100P32={label in legend={text=TCPIP(100MP32)}},
-    tcpip100P64={label in legend={text=TCPIP(100MP64)}},
+    loopback={label in legend={text=loopback}},
+    tcpip100={label in legend={text=TCPIP(100M)}},
+    tcpip1000={label in legend={text=TCPIP(1000M)}},
     tcpip1000P8={label in legend={text=TCPIP(1000MP8)}},
     tcpip1000P16={label in legend={text=TCPIP(1000MP16)}},
     tcpip1000P32={label in legend={text=TCPIP(1000MP32)}},
     tcpip1000P64={label in legend={text=TCPIP(1000MP64)}},
     data/format=table
     ]
-data[set=tcpip100P8, headline={data size,tps},read from file="redis-benchmark-tcpip-100M-P8.dat"]
-data[set=tcpip100P16, headline={data size,tps},read from file="redis-benchmark-tcpip-100M-P16.dat"]
-data[set=tcpip100P32, headline={data size,tps},read from file="redis-benchmark-tcpip-100M-P32.dat"]
-data[set=tcpip100P64, headline={data size,tps},read from file="redis-benchmark-tcpip-100M-P64.dat"]
+data[set=loopback, headline={data size,tps},read from file="redis-benchmark-loopback.dat"]
+data[set=tcpip100, headline={data size,tps},read from file="redis-benchmark-tcpip-100M.dat"]
+data[set=tcpip1000, headline={data size,tps},read from file="redis-benchmark-tcpip-1000M.dat"]
 data[set=tcpip1000P8, headline={data size,tps},read from file="redis-benchmark-tcpip-1000M-P8.dat"]
 data[set=tcpip1000P16, headline={data size,tps},read from file="redis-benchmark-tcpip-1000M-P16.dat"]
 data[set=tcpip1000P32, headline={data size,tps},read from file="redis-benchmark-tcpip-1000M-P32.dat"]
