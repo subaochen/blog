@@ -1,6 +1,7 @@
 #!/bin/bash
 # redis服务器所在IP地址
 HOST=127.0.0.1
+PORT=6379
 # 测试结果文件后缀，用于区分不同的测试情形
 # 常见设置：
 # 100M：表示100M网络状况
@@ -49,11 +50,11 @@ function benchmark() {
     data_size=$1
     pipeline=$2
     bench_file=$3
-    redis-cli  flushall > /dev/null
+    redis-cli -p $PORT  flushall > /dev/null
     if [ x"$pipeline" != "x" ];then
         with_pipeline="-P $pipeline"
     fi
-    benchmark_cmd="redis-benchmark -h $HOST -c $CLIENTS  $with_pipeline -r $KEYSPACE -n $TOTAL_REQUESTS -t $CMDS -d $data_size"
+    benchmark_cmd="redis-benchmark -h $HOST -p $PORT -c $CLIENTS  $with_pipeline -r $KEYSPACE -n $TOTAL_REQUESTS -t $CMDS -d $data_size"
     echo $benchmark_cmd
     tps=`$benchmark_cmd | grep "requests per second" | awk '{print $1}'`
     echo "$data_size,$tps" | tee -a $bench_file

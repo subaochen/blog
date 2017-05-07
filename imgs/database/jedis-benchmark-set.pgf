@@ -1,0 +1,38 @@
+\usetikzlibrary{datavisualization}
+\begin{tikzpicture}
+\datavisualization[scientific axes,
+    x axis={attribute=data size,
+        grid,grid={minor steps between steps=4},
+        length=10cm,
+        % 对数坐标，以便显示范围很大的坐标轴
+        logarithmic,
+        % 对数坐标默认情况下ticks不满足要求，major at可以手工指定显示哪些ticks
+        ticks={major at={2,20,30,50,100,200,500,1500,5000,10000,30000}},
+        label={数据尺寸(bytes)}},
+    y axis={attribute=tps,
+        length=5cm,
+        % include value决定了压轴的起步数值
+        include value=5000,
+        ticks={many},
+        % 显示网格线，默认minor steps between steps=8,可以修改此值改变网格的密度
+        grid,grid={minor steps between steps,major={style=red}},
+        label={吞吐率(q/s)}},
+    %
+    visualize as smooth line/.list={loopback-cluster,tcpip1000-cluster-jedis,tcpip1000,tcpip1000-cluster-curberus,tcpip1000-cluster-jedis-curberus},
+    style sheet=strong colors,
+    legend={below,rows=3},
+    loopback-cluster={label in legend={text=loopback cluster}},
+    tcpip1000-cluster-jedis={label in legend={text=tcpip 1000M cluster with jedis}},
+    tcpip1000={label in legend={text=tcpip 1000M single}},
+    tcpip1000-cluster-curberus={label in legend={text=tcpip 1000M cluster with curberus}},
+    tcpip1000-cluster-jedis-curberus={label in legend={text=tcpip 1000M cluster with jedis-curberus}},
+    data/format=table
+    ]
+% loopback
+data[set=loopback-cluster,headline={data size,tps},read from file="jedis-benchmark-loopback-20170507.dat"]
+data[set=tcpip1000-cluster-jedis,headline={data size,tps},read from file="jedis-benchmark-tcpip-1000M-20170507.dat"]
+data[set=tcpip1000-cluster-curberus,headline={data size,tps},read from file="redis-benchmark-tcpip-1000M-20170507.dat"]
+data[set=tcpip1000-cluster-jedis-curberus,headline={data size,tps},read from file="jedis-benchmark-1000M-jedis-curberus.dat"]
+data[set=tcpip1000,headline={data size,tps},read from file="redis-benchmark-tcpip-1000M.dat"]
+;
+\end{tikzpicture}

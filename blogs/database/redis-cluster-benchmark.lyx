@@ -85,7 +85,7 @@ logicalmkup
 \begin_body
 
 \begin_layout Title
-redis基准性能测试
+redis集群基准测试
 \end_layout
 
 \begin_layout Section
@@ -93,7 +93,7 @@ redis基准性能测试
 \end_layout
 
 \begin_layout Standard
-了解redis在不同情况下的性能表现，并分析其性能瓶颈，找出相应的解决方案。
+了解redis集群的写性能表现，并分析其性能瓶颈，找出相应的解决方案。
 \begin_inset Note Note
 status open
 
@@ -106,8 +106,17 @@ status open
 
 \end_layout
 
+\begin_layout Standard
+redis集群属于数据分片处理的集群模式，因此从理论上讲rdis集群的写性能不会高于单个redis服务的性能，并且由于集群相关参数的计算更会导致redis集群的
+写性能明显低于单个redis服务。本项测试旨在验证此观点，并获得第一手数据以指导实际的redis集群部署。
+\end_layout
+
 \begin_layout Section
 测试环境
+\end_layout
+
+\begin_layout Subsection
+硬件环境
 \end_layout
 
 \begin_layout Standard
@@ -418,7 +427,7 @@ net.core.somaxconn = 512
 \begin_inset Text
 
 \begin_layout Plain Layout
-100M 或 1000M傻瓜式交换机
+1000M傻瓜式交换机
 \end_layout
 
 \end_inset
@@ -427,7 +436,7 @@ net.core.somaxconn = 512
 \begin_inset Text
 
 \begin_layout Plain Layout
-分别在100M和1000M交换机下测试
+
 \end_layout
 
 \end_inset
@@ -468,21 +477,15 @@ name "tab:redis服务器配置表"
 
 \end_layout
 
-\begin_layout Section
-redis基准测试概览
-\end_layout
-
 \begin_layout Standard
-运行下列命令可以了解自己的redis服务器的基本性能指标。
-\end_layout
-
-\begin_layout Standard
-通过loopback进行redis基准测试时的结果：
-\begin_inset Note Note
+redis集群环境搭建参见：
+\begin_inset Flex URL
 status open
 
 \begin_layout Plain Layout
-数值有点邪门，怎么变小了呢？
+
+http://dz.sdut.edu.cn/blog/subaochen/2017/05/redis%E9%9B%86%E7%BE%A4%E7%9A%84%E7%AE
+%80%E5%8D%95%E6%B5%8B%E8%AF%95/
 \end_layout
 
 \end_inset
@@ -490,95 +493,23 @@ status open
 
 \end_layout
 
+\begin_layout Subsection
+测试软件
+\end_layout
+
 \begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
+本案例采用两种方式对redis集群进行基准测试：
+\end_layout
+
+\begin_layout Enumerate
+采用jedis 2.9作为访问redis集群的smart client，同时采用jedis-benchmark作为基准测试工具。由于原jedis-benchmar
+k不支持redis集群操作，因此对jedis-benchmark进行一定的二次开发，参见：
+\begin_inset Flex URL
 status open
 
 \begin_layout Plain Layout
-$ redis-benchmark -c 1 -q
-\end_layout
 
-\begin_layout Plain Layout
-PING_INLINE: 22456.77 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-PING_BULK: 23255.81 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-SET: 22558.09 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-GET: 22639.80 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-INCR: 22737.61 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-LPUSH: 22114.11 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-RPUSH: 22522.52 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-LPOP: 21992.52 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-RPOP: 22222.22 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-SADD: 22487.07 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-SPOP: 23100.02 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-LPUSH (needed to benchmark LRANGE): 21533.16 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-LRANGE_100 (first 100 elements): 13715.54 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-LRANGE_300 (first 300 elements): 7150.52 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-LRANGE_500 (first 450 elements): 5355.90 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-LRANGE_600 (first 600 elements): 4248.99 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-MSET (10 keys): 19696.67 requests per second
+https://github.com/subaochen/jedis-benchmark
 \end_layout
 
 \end_inset
@@ -586,148 +517,37 @@ MSET (10 keys): 19696.67 requests per second
 
 \end_layout
 
-\begin_layout Standard
-通过100M网络进行redis基准测试时的结果：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
-status open
-
-\begin_layout Plain Layout
-$ redis-benchmark -h 192.168.1.215 -c 1 -q
-\end_layout
-
-\begin_layout Plain Layout
-PING_INLINE: 2514.40 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-PING_BULK: 2526.78 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-SET: 2609.94 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-GET: 3036.84 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-INCR: 2032.64 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-LPUSH: 1805.48 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-LPOP: 1992.51 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-SADD: 2108.06 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-SPOP: 2041.48 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-LPUSH (needed to benchmark LRANGE): 2101.72 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-LRANGE_100 (first 100 elements): 955.60 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-LRANGE_300 (first 300 elements): 707.12 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-LRANGE_500 (first 450 elements): 655.98 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-LRANGE_600 (first 600 elements): 630.59 requests per second
-\end_layout
-
-\begin_layout Plain Layout
-MSET (10 keys): 1364.35 requests per second
-\end_layout
-
-\end_inset
-
-
+\begin_layout Enumerate
+使用curberus作为访问redis集群的代理，并使用标准的redis-benchmark进行基准测试。
 \end_layout
 
 \begin_layout Section
 SET指令基准测试
 \end_layout
 
-\begin_layout Standard
-由于目标应用是写密集型的，因此本测试只针对SET指令，每次测试发起50个线程，总共进行1000000次写数据测试，测试数据尺寸从2个字节按照10%的增长率递进到
-30000个字节，所采用的测试程序如
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstlistingname
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "redis-benchmark.sh"
-
-\end_inset
-
-所示。
+\begin_layout Subsection
+测试说明
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand lstinputlisting
-filename "/home/subaochen/git/blog/src/redis-benchmark.sh"
-lstparams "language=bash,escapechar={'~'},caption={redis benchmark执行脚本},label={redis-benchmark.sh}"
-
-\end_inset
-
-
+由于目标应用是写密集型的，因此本测试只针对SET指令，每次测试发起50个线程，总共进行100000次写数据测试，尝试测试数据尺寸从2个字节按照10%的增长率递进
+到30000个字节，直到吞吐率低于5000为止。
 \end_layout
 
 \begin_layout Standard
-本测试脚本只需要简单设置测试环境参数即可直接运行，并自动生成测试数据文件，可直接用于tikz的数据可视化展示。
+限于测试服务器的内存为8G，将测试数据控制在100000次，以防止内存溢出造成测试中断。
+\end_layout
+
+\begin_layout Standard
+redis集群对pipeline操作的要求非常苛刻，以至于在实际应用中很难将pipeline用于集群，因此本案例没有对集群环境下的pipeline效果进行测试。
 \end_layout
 
 \begin_layout Subsection
-loopback下的基准测试
+测试结果及其说明
 \end_layout
 
 \begin_layout Standard
-loopback下的基准测试基本反映了redis服务器的最大响应能力，如
+如
 \begin_inset ERT
 status open
 
@@ -743,1100 +563,67 @@ figurename
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:loopback下的基准测试"
+reference "fig:redis集群基准测试"
 
 \end_inset
 
-所示，展示了loopback情形下开启pipeline和不使用pipeline两种情况下的基准测试数据。
+所示，本案例测试了redis集群在loopback和1000M网络情况下的吞吐率和测试数据尺寸之间的关系，同时和单服务器环境下的1000M网络下的性能做了一个比
+较。4条曲线的意义如下：
+\end_layout
+
+\begin_layout Itemize
+tcpip 1000M single：不启用redis集群时情形
+\end_layout
+
+\begin_layout Itemize
+loopback cluster：启用redis集群，使用jedis并通过loopback访问redis集群，基本参数设置：java -Xms500M
+ -Xmx2048M -jar target/jedis-benchmark-1.0-jar-with-dependencies.jar -h 127.0.0.1
+ -p 6382 -n 100000 -t 50 -c 50 -s 6488 -g 1
+\end_layout
+
+\begin_layout Itemize
+tcpip 1000M cluster with jedis，启用redis集群，使用jedis通过1000M网络访问redis集群，基本参数设置：java
+ -Xms500M -Xmx2048M -jar target/jedis-benchmark-1.0-jar-with-dependencies.jar
+ -h 192.168.1.215 -p 6382 -n 100000 -t 50 -c 50 -s 6488 -g 1
+\end_layout
+
+\begin_layout Itemize
+tcpip 1000M cluster with curberus，启用redis集群，通过curberus代理并通过1000M网络访问redis集群，基本参数
+设置：redis-benchmark -p 8889 ......
+\end_layout
+
+\begin_layout Itemize
+tcpip 1000M cluster with jedis-curberus，启用redis集群，使用jedis通过curberus并通过1000M网络访问r
+edis集群，基本参数设置：java -Xms500M -Xmx2048M -jar target/jedis-benchmark-1.0-jar-with-de
+pendencies.jar -h 192.168.1.215 -p 6382 -n 100000 -t 50 -c 50 -s 6488 -g 1 -x
+ 8889
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/database/redis-benchmark-set-loopback.eps
-	lyxscale 300
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-loopback下的基准测试
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:loopback下的基准测试"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-不开启pipeline时的基准测试
-\end_layout
-
-\begin_layout Standard
-通过TCP/IP网络后，redis的响应能力在某个节点后会急剧下降，如
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-figurename
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:set基准测试"
-
-\end_inset
-
-所示，分别展示了loopback、100M网络、1000M网络情况下的set命令基准测试。
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/database/redis-benchmark-set-nopipeline.eps
-	lyxscale 300
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-不使用pipeline时的set基准测试
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:set基准测试"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-开启pipeline时的基准测试
-\end_layout
-
-\begin_layout Standard
-使用pipeline可以大幅度提高redis服务器的处理能力，其基本原理是通过pipeline减少了网络传输的次数，因此降低了网络延迟的影响。
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-figurename
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:开启pipeline时的set基准测试"
-
-\end_inset
-
-给出了不同的pipeline参数对基准测试的影响
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-还不知道为什么在多种情况下，为什么写入2字节的set指令反而速度慢了很多。
-\end_layout
-
-\end_inset
-
-。
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/database/redis-benchmark-set-pipeline.eps
-	lyxscale 300
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-开启pipeline时的set基准测试
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:开启pipeline时的set基准测试"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-综合比较
-\end_layout
-
-\begin_layout Standard
-将6种基准测试放到一起，可以对redis服务器的性能指标以及影响因素有一个直观的概念，如
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-figurename
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:set基准测试综合比较"
-
-\end_inset
-
-所示。
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/database/redis-benchmark-set.eps
-	lyxscale 300
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-set基准测试综合比较
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:set基准测试综合比较"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-结果解读
-\end_layout
-
-\begin_layout Subsection
-loopback情形
-\end_layout
-
-\begin_layout Standard
-通过loopback进行基准测试时反映了redis服务器的最大能力，可以看出，当测试数据的尺寸小于5000字节时，redis的吞吐率表现非常稳定，但是继续增加测
-试数据的尺寸，当测试数据尺寸超过6000字节时，redis的性能开始出现较大幅度的下降，当测试数据的尺寸超过20000字节（20KB）时，性能下降为峰值的不足一
-半，尽管如此，此时的吞吐率依然高达40000左右。
-\end_layout
-
-\begin_layout Standard
-由于测试服务器的内存只有8G，因此粗略的计算可知此配置的redis服务器的最大测试数据应为
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-redis的精确内存预估可参照：
-\begin_inset Flex URL
-status collapsed
-
-\begin_layout Plain Layout
-
-http://blog.nosqlfan.com/html/3430.html
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-：
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-D_{max}=\frac{8000000000}{1000000}=8000
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-这和测试曲线比较吻合。
-\end_layout
-
-\begin_layout Subsection
-TCPIP情形
-\end_layout
-
-\begin_layout Standard
-当测试数据尺寸到达一定数值时，网络传输所造成的延迟会成为redis性能的瓶颈。从
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-figurename
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:set基准测试"
-
-\end_inset
-
-可以看出，在当前条件下，redis的最大处理能力大约在10万次/秒的水平，则100M网络传输10万次请求和结果时允许的最大测试数据尺寸大约为10000000/1
-00000=100字节
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-由于本次测试只针对SET指令，其执行结果只是简单的“OK”字符串，因此本次测试的网络往返数据主要是请求包，返回包大小基本可以忽略。
-\end_layout
-
-\end_inset
-
-，当超过100字节时，网络会成为主要的性能瓶颈。另外，由于一般TCPIP网络的MTU设置为1500字节，一次当测试数据尺寸超过1500字节时会被拆分为多个数据包
-在网络上传输，进一步加剧了性能下降的幅度。即，在100M网络下存在两个主要的性能拐点，分别出现在测试数据为100字节和1500字节时。
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-tablename
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:不同数据尺寸时的吞吐率"
-
-\end_inset
-
-列出了当redis的最大处理能力为10万次/秒时的最大数据尺寸，当测试数据大于此尺寸时，redis本身不再是性能瓶颈，网络速度会成为redis的主要瓶颈。
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float table
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-测试条件
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-最大数据尺寸（字节）
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-备注
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-loopback
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-实测数据，具体原因不明
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-100M网络
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-100
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1000M网络
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1000
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-不同网络情况下的最大数据尺寸，大于此尺寸则网络速度成为redis的性能瓶颈
-\begin_inset CommandInset label
-LatexCommand label
-name "tab:不同数据尺寸时的吞吐率"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-实际上，当测试数据的尺寸超出了
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-tablename
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:不同数据尺寸时的吞吐率"
-
-\end_inset
-
-时就变成了网络速度的测试了。我们把测试数据以线性的方式展示，如
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-figurename
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:网络成为redis主要性能瓶颈时的redis性能曲线"
-
-\end_inset
-
-所示，可以看出，其实此时的redis性能下降是跟测试数据的尺寸是线性相关的
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-在100M网络下不成立？只有loopback成立？
-\end_layout
-
-\end_inset
-
-。
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/database/redis-benchmark-set-nopipeline-linear-3000.eps
-	lyxscale 300
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-网络成为redis主要性能瓶颈时的redis性能曲线
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:网络成为redis主要性能瓶颈时的redis性能曲线"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-pipeline对性能的影响
-\end_layout
-
-\begin_layout Standard
-从
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-figurename
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:开启pipeline时的set基准测试"
-
-\end_inset
-
-可以看出，当开启pipeline时，redis的性能出现数量级的跃升，并且pipeline的数量越多，性能提升越多。但是随着数据尺寸的增加，pipeline带来
-的性能提升被抵消了。从
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-figurename
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:set基准测试综合比较"
-
-\end_inset
-
-可以看出，当数据尺寸超过5000字节时，pipeline完全失去了意义，其性能和未开启pipeline时几乎没有差别。
-\end_layout
-
-\begin_layout Standard
-pipeline也并非越大越好。从
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-figurename
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:开启pipeline时的set基准测试"
-
-\end_inset
-
-可以看出，当数据尺寸超过1000字节时，各种尺寸的pipeline吞吐率趋向一致，即此时无论使用多大的pipeline效果都几乎是一样的。对于小尺寸的数据，越大
-的pipeline带来的效率提升越大。
-\end_layout
-
-\begin_layout Section
-结论
-\end_layout
-
-\begin_layout Standard
-redis的性能表现取决于网络状况和数据的尺寸。当使用loopback时，数据尺寸超过1000时会出现较为明显的性能下降，直至数据尺寸超过5000时，性能下降为
-峰值的一半左右；当使用100M TCP/IP网络时，数据尺寸在100字节时开始出现性能的线性下降，当数据尺寸超过1500字节时，性能开始成倍下降；当使用1000
-M TCP/IP网络时，数据尺寸在1000字节时开始出现明显的性能下降，当数据尺寸超过1500字节时，性能开始成倍下降。
-\end_layout
-
-\begin_layout Standard
-一言一蔽之，
+可以看出，
 \begin_inset Flex Strong
 status open
 
 \begin_layout Plain Layout
-使用千兆网络并将数据包控制在1000字节以下，即使不开启pipeline也能获得相当好的性能
+同样的1000M网络环境，使用jedis smart client访问redis集群的SET性能大约为单服务器的一半左右
 \end_layout
 
 \end_inset
 
-，基准测试的吞吐量高达6万/秒以上，即使在实际应用时打对折，也有3万/秒的处理能力。如果使用pipeline，同样的1000字节数据包，基准测试的吞吐率高达10
-万/秒，比不使用pipeline效率提高1倍；如果将数据包控制在200字节以内，则吞吐率高达30-50万/秒，比不使用pipeline效率提高4-6倍。
+，使用curberus代理访问redis集群的性能几乎没有损失。如果客户端编程不是用Java，建议使用curberus代理访问redis集群；如果客户端编程使用
+Java，则Jedis可能更方便一些。
 \end_layout
 
 \begin_layout Standard
-使用千兆以上网络所带来的性能提升有待进一步测试，理论上如果数据尺寸不超过1000字节，提高网络带宽带来的收益并不大。应该尽量避免使用百兆网络，很难发挥redis
-的极致性能优势。
-\end_layout
-
-\begin_layout Section
-redis的性能极限
-\end_layout
-
-\begin_layout Standard
-通过开启pipeline，我们发现redis每秒可以处理高达70万次的SET请求,也就是说，每个set命令的处理时间在120ns多一点。那么redis的性能极限
-在哪里呢？redis的作者对代码的精雕细琢似乎榨尽了软件（C语言），硬件的速度成为了最后的性能屏障。
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-tablename
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:各层次硬件的速度量级"
-
-\end_inset
-
-是google给出的硬件各层次硬件速度
-\begin_inset CommandInset citation
-LatexCommand cite
-after "p3"
-key "redis-devops"
-
-\end_inset
-
-，注意到Main memory reference的速度是100ns，即redis的set指令速度已经接近主内存的执行速度了！同时，从
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-figurename
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:开启pipeline时的set基准测试"
-
-\end_inset
-
-可以看出，数据尺寸在大于100字节时会出现比较快的性能下降，这可能和汇编指令读取大块数据的机制有关？由于硬件知识的匮乏，这里无法做更深入的分析，渴望同道的援助。
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float table
+\begin_inset Float figure
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
 \align center
-\begin_inset Tabular
-<lyxtabular version="3" rows="13" columns="2">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-层级
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-速度
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-L1 cache reference
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.5ns
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Branch mispredict
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-5ns
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-L2 cache reference
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-7ns
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Mutex lock/unlock
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-25ns
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Main memory reference
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-100ns
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Compress 1K bytes with Zippy
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-3 000ns
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Send 2K bytes over 1Gbps network
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-20 000ns
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Read 1MB sequentially from Memory
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-250 000ns
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Round trip within same datacenter
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-500 000ns(0.5ms)
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Disk seek
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-10 000 000ns(10ms)
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Read 1MB sequentially from disk
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-20 000 000ns(20ms)
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Send package CA->Netherlands->CA
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-150 000 000ns(150ms)
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/database/jedis-benchmark-set.eps
 
 \end_inset
 
@@ -1847,10 +634,10 @@ Send package CA->Netherlands->CA
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-各层次硬件的速度量级
+redis集群基准测试
 \begin_inset CommandInset label
 LatexCommand label
-name "tab:各层次硬件的速度量级"
+name "fig:redis集群基准测试"
 
 \end_inset
 
@@ -1865,66 +652,6 @@ name "tab:各层次硬件的速度量级"
 \begin_layout Plain Layout
 
 \end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-后记
-\end_layout
-
-\begin_layout Standard
-限于实验室的现有条件，希望有机会在更好的网络条件和redis服务器配置下再进行测试，比如：
-\end_layout
-
-\begin_layout Itemize
-配置更高频率的内存。目前的redis测试服务器使用较老的DD3@800M内存，相较于目前流行的DD4@3000M内存有较大差距。
-\end_layout
-
-\begin_layout Itemize
-更多的客户端线程。目前采用50客户端，在更好的网络条件下，可以考虑开更多客户端线程进行测试。
-\end_layout
-
-\begin_layout Itemize
-其他数据量情况下的基准测试，比如1000万数据。
-\end_layout
-
-\begin_layout Itemize
-使用刀箱。刀箱的内部数据交换一般为万兆级别，应该十分适合于作为redis服务器。
-\end_layout
-
-\begin_layout Itemize
-redis集群的基准测试
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://github.com/subaochen/redis-cluster-benchmark.cr
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-。
-\end_layout
-
-\begin_layout Standard
-\start_of_appendix
-\begin_inset CommandInset bibtex
-LatexCommand bibtex
-bibfiles "/home/subaochen/git/bibref/bigdata"
-options "plain"
 
 \end_inset
 
