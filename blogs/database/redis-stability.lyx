@@ -522,6 +522,11 @@ done
 
 \end_layout
 
+\begin_layout Standard
+当jedis客户端的稳定性出任何问题会导致jedis-benchmark.sh脚本在进行benchmark时无法获取吞吐率（tps）从而退出benchmark测试
+，脚本自动发送邮件到我的邮箱，因此如果收到了测试失败的邮件就证明jedis或者redis出问题了，这是稳定性测试的基本原理。
+\end_layout
+
 \begin_layout Subsubsection
 C++测试客户端
 \end_layout
