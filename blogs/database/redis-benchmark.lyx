@@ -88,12 +88,23 @@ logicalmkup
 redis基准性能测试
 \end_layout
 
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
 \begin_layout Section
 测试目的
 \end_layout
 
 \begin_layout Standard
-了解redis在不同情况下的性能表现，并分析其性能瓶颈，找出相应的解决方案。
+从redis官方的数据可知redis的性能可达10万/秒这个量级
+\begin_inset CommandInset citation
+LatexCommand cite
+key "redis-benchmark"
+
+\end_inset
+
+，实际情况是怎样的哪？本测试旨在了解redis在不同情况下的性能表现，并分析其性能瓶颈，找出相应的解决方案。
 \begin_inset Note Note
 status open
 
