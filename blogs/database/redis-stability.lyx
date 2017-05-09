@@ -320,6 +320,18 @@ Java测试程序本人编写，使用jedis作为访问redis cluster的smart clie
 redis cluster有3个master节点和3个slave节点组成。
 \end_layout
 
+\begin_layout Standard
+软件环境中需要特别解决的问题：
+\end_layout
+
+\begin_layout Itemize
+jedis客户端停止运行的时候，能够记录停止的时间
+\end_layout
+
+\begin_layout Itemize
+能够给出jedis停止运行的原因分析
+\end_layout
+
 \begin_layout Section
 测试步骤
 \end_layout
