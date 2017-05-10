@@ -1,0 +1,881 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+lyx beamer中overprint的一些用法技巧
+\end_layout
+
+\begin_layout Section
+overprint释义
+\end_layout
+
+\begin_layout Standard
+overprint的意思是，在同样的位置但是不同的slide中展示“overprint块”的内容。“over”在这里的意思是覆盖。使用overprint的好处是
+，在一个页面的部分区域内容保持不变的前提下，在另外的区域（即overprint块）可以切换展示大量的信息，比如文字、图片等，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:overprint概念"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx-beamer-overprint-concept.eps
+	width 90text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+overprint概念
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:overprint概念"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+用法
+\end_layout
+
+\begin_layout Standard
+在样式选择下拉框中选择overprint样式即可插入一个overprint块，回车自动插入下一个overprint块，即可以连续插入多个overprint块。注
+意，overprint不是从“插入”菜单，而是类似于“章”，“节”的样式下拉选择框中查找，即lyx把overprint看作一种样式，这也是合理的：overpri
+nt的用意是用一个overprint的内容覆盖了另外一个overprint的内容。
+\end_layout
+
+\begin_layout Standard
+注意，overprint样式只有在beamer类型的文档中才会出现。
+\end_layout
+
+\begin_layout Section
+注意事项
+\end_layout
+
+\begin_layout Itemize
+overprint显然要定义当前overprint的项要在第一个slide中展示，因此要在On Slide中填写合适的slide序号。
+\end_layout
+
+\begin_layout Itemize
+overprint的项要缩进。
+\end_layout
+
+\begin_layout Itemize
+overprint的项可以包含区块，图片等等。
+\end_layout
+
+\begin_layout Section
+示例
+\end_layout
+
+\begin_layout Subsection
+文字示例
+\end_layout
+
+\begin_layout Standard
+如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:overprint展示文字"
+
+\end_inset
+
+所示，overprint可以在一个页面的同样位置展示不同的文字内容。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/beamer-lyx-overprint-1.png
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+overprint展示文字
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:overprint展示文字"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+图片示例
+\end_layout
+
+\begin_layout Standard
+使用overprint可以很方便使用图片演示推演的步骤，比使用gif动画更适合于教学和演讲。比如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:overeprint用于展示推演步骤"
+
+\end_inset
+
+中，使用overprint展示了git rebase命令的操作过程。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx-beamer-overprint-picture.png
+	width 70text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+overeprint用于展示推演步骤
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:overeprint用于展示推演步骤"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+区块示例
+\end_layout
+
+\begin_layout Standard
+overprint也可以用于区块（block）的轮换展示，但是操作起来有点“魔术”的味道，也许我的用法不对，但是实在找不到更好的操作方式，还请方家指点一二。下面
+是我的操作方法。
+\end_layout
+
+\begin_layout Paragraph
+第1步
+\end_layout
+
+\begin_layout Standard
+创建多个overprint块并缩进，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:创建overprint块"
+
+\end_inset
+
+所示。这里连续创建了两个overprint块，以便后面在相应的overprint块中添加需要的区块（block）。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx-beamer-overprint-block-1.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+创建overprint块
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:创建overprint块"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+第2步
+\end_layout
+
+\begin_layout Standard
+在overprint块的位置强行设置为区块样式，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:强行设置当前位置为区块样式"
+
+\end_inset
+
+所示。此时原来设置的overprint样式会乱掉，先不管它。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx-beamer-overprint-block-2.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+强行设置当前位置为区块样式
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:强行设置当前位置为区块样式"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+第3步
+\end_layout
+
+\begin_layout Standard
+将光标移动到区块标题前面并按下回车，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:区块换行"
+
+\end_inset
+
+所示，此时添加的区块换到了下一行。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx-beamer-overprint-block-3.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+区块换行
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:区块换行"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+第4步
+\end_layout
+
+\begin_layout Standard
+回到原来overprint块的位置，重新设置overprint样式，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:重新设置overprint样式"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx-beamer-overprint-block-4.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+重新设置overprint样式
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:重新设置overprint样式"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+第5步
+\end_layout
+
+\begin_layout Standard
+区块缩进，表示该区块属于上面的overprint块，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:缩进区块"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx-beamer-overprint-block-5.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+缩进区块
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:缩进区块"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+第6步
+\end_layout
+
+\begin_layout Standard
+正常添加区块内容，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:输入区块内容"
+
+\end_inset
+
+所示。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx-beamer-overprint-block-6.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+输入区块内容
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:输入区块内容"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如法炮制，可以添加第二个区块，以便轮换展示，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:添加第二个区块"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx-beamer-overprint-block-7.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+添加第二个区块
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:添加第二个区块"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+另外一个可行的办法是首先添加区块，然后在合适的位置再设置overprint块，通过缩进表达overprint块和区块的归属关系，操作起来和上面的步骤差不多。这种
+方法无需修正错乱的标记，但是操作顺序有点反常识，有兴趣的读者可自行探索。
+\end_layout
+
+\begin_layout Standard
+需要注意的是，lyx是通过缩进的方式区分添加的区块属于哪个overprint块的
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+实际上，lyx在处理类似“归属”问题时，都是通过缩进来表达的，比如列表属于哪个页，列表的子列表等等，都要使用缩进来表达层次关系。
+\end_layout
+
+\end_inset
+
+，因此不要忘记了区块要比overprint块多缩进一级。
+\end_layout
+
+\begin_layout Standard
+这里还有一个技巧：最好在开始的时候就设置多个overprint块，然后在每个overprint块中添加需要的区块。
+\end_layout
+
+\end_body
+\end_document
