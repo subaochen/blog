@@ -1,0 +1,69 @@
+  % https://tex.stackexchange.com/questions/55806/mindmap-tikzpicture-in-beamer-reveal-step-by-step/55849#55849
+  %
+  % Keys to support piece-wise uncovering of elements in TikZ pictures:
+  % \node[visible on=<2->](foo){Foo}
+  % \node[visible on=<{2,4-6,8}>](bar){Bar}   % put braces around comma expressions
+  %
+  % Internally works by setting opacity=0 when invisible, which has the 
+  % adavantage (compared to \node<2->(foo){Foo} that the node is always there, hence
+  % always consumes space plus that coordinate (foo) is always available.
+  %
+  % The actual command that implements the invisibility can be overriden
+  % by altering the style invisible. For instance \tikzsset{invisible/.style={opacity=0.2}}
+  % would dim the "invisible" parts. Alternatively, the color might be set to white, if the
+  % output driver does not support transparencies (e.g., PS) 
+  %
+\tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+        \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+}
+\usetikzlibrary{babel,mindmap,shadows,trees}
+\begin{tikzpicture} [mindmap,
+    text=white,
+    grow cyclic,
+    % \hskip0pt will add hyphen to first word, but no effect for Chinese
+    every node/.style={concept,circular drop shadow,execute at begin node = \hskip0pt},
+    % 定义根节点样式
+    root concept/.append style={concept color=black, fill=white, line width=1ex,text=black,font=\large\scshape},
+    % 定义一级节点样式
+	swing concept/.style={concept color=red,faded/.style={concept color=red!50}},
+	swing bean/.style={concept color=blue,faded/.style={concept color=blue!50}},
+	layout manager/.style={concept color=orange,faded/.style={concept color=orange!50}},
+	event handler/.style={concept color=green!50!black,faded/.style={concept color=green!50!black!50}},
+    level 1/.append style={sibling angle=90}, % 根据一级节点的个数确定角度
+    level 2/.append style={level distance=3cm,sibling angle=45}, % 根据二级节点的个数估算角度
+]
+
+\node[root concept] {Java GUI编程} % root
+[clockwise from=45]
+    child[swing concept, visible on=<2->] { node {Swing的概念}
+		child { node {Swing的前身：AWT} }
+		child { node {Swing的层次结构} }
+    }
+	child[layout manager, visible on=<4->]  { node {布局管理器}
+		child { node {BorderLayout} }
+		child { node {FlowLayout} }
+		child [faded]{ node {CardLayout} }
+		child { node {GridLayout} }
+		child { node {GridBagLayout} }
+   }
+	child[event handler, visible on=<5->]  { node {事件处理}
+      [clockwise from=-90]
+		child { node {事件源} }
+		child { node {事件接口} }
+		child[faded] { node {匿名类} }
+   }
+	child [swing bean, visible on=<3->] { node {Swing组件}
+      [clockwise from=-135]
+		child { node {JLabel} }
+		child { node {JButton} }
+		child { node {JTextField} }
+		child { node {JCheckBox} }
+		child { node {JRadioButton} }
+   }
+;
+
+\end{tikzpicture}

@@ -1,0 +1,350 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+tikz玩转mindmap
+\end_layout
+
+\begin_layout Section
+tikz绘制思维导图
+\end_layout
+
+\begin_layout Standard
+tikz的mindmap和trees库联手画思维导图已经很方便了，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:tikz绘制思维导图示例"
+
+\end_inset
+
+。
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/javaui-mindmap-with-tikz.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+tikz绘制思维导图示例
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:tikz绘制思维导图示例"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+tikz源代码如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tikz-mindmap-demo"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/javaui.pgf"
+lstparams "caption={tikz绘制思维导图示例},label={tikz-mindmap-demo}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+需要注意的几点是：
+\end_layout
+
+\begin_layout Itemize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:tikz绘制思维导图示例"
+
+\end_inset
+
+的思维导图有两个层次，如果只有一个层次，或者有三个甚至更多层次怎么办？定义相应的level n的style即可。注意，tikz的mindmap最多支持5级节点，
+一般情况也足够了。
+\end_layout
+
+\begin_layout Itemize
+节点的编写顺序就是绘制顺序。因此如果发现节点布局不够平衡，可以适当调节节点的编写顺序。
+\end_layout
+
+\begin_layout Itemize
+一般不需要使用level distance设置节点间的距离，默认值挺好。
+\end_layout
+
+\begin_layout Itemize
+一般不需要使用[clockwise from=xx]的方式规定节点的起始绘制角度，
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+让tikz自动计算决定节点的绘制方向就好
+\end_layout
+
+\end_inset
+
+。但是有时候需要明确控制节点从哪个位置开始绘制，比如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:tikz绘制思维导图示例"
+
+\end_inset
+
+中，我们希望“Swing 概念”在45度方向绘制，那么在root concept后面紧接着使用[clockwise from=45]设置即可。但是这样设置的结果
+是二级节点的绘制方向也会受到影响，需要根据实际情况独立设置二级节点的绘制方向，比如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:tikz绘制思维导图示例"
+
+\end_inset
+
+中因为设置了一级节点的绘制起始角度，不得不修正“事件处理”和“Swing组件”的二级节点的绘制角度，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tikz-mindmap-demo"
+
+\end_inset
+
+中[clockwise from=xx]在三个地方的使用。
+\end_layout
+
+\begin_layout Section
+beamer中动态展示思维导图
+\end_layout
+
+\begin_layout Standard
+在beamer中展示思维导图时，如何逐步展开每一个分支节点呢？在
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tikz-mindmap-demo"
+
+\end_inset
+
+中已经包含了相应的代码了，完美支持latex和beamer，即同样的代码稍加修改即可直接插入普通文档，也可以直接插入beamer，效果参见动图展示。
+\end_layout
+
+\begin_layout Standard
+插入beamer中的tikz mindmap代码一般需要修改：
+\end_layout
+
+\begin_layout Itemize
+修改mindmap为small mindmap。mindmap默认是A4幅面布局的，而幻灯片适合于B5幅面布局，因此改为small mindmap。
+\end_layout
+
+\begin_layout Itemize
+去掉level distance的设置，让tikz自动决定节点之间的距离。
+\end_layout
+
+\begin_layout Itemize
+使用fragile frame展示mindmap，避免编译问题，也能够展示较大的mindmap。
+\end_layout
+
+\end_body
+\end_document
