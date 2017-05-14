@@ -1,0 +1,28 @@
+digraph G {
+    size="6.9,9.8"; // B5 size
+    nodesep=0.5; // 增大节点间举例，使得虚线更明显(默认0.25)
+    ranksep=0.3; // 压缩层间距显紧凑（默认0.75)
+    overlap=scale;
+    ratio=auto;
+    rankdir=LR;
+    newrank=true; // 使得subgraph能够和node使用rank=same
+    plines=Ortho; // 线条直角化，其他选项lines
+    compound=true; // 允许cluster和node连线
+
+    node[fontsize=12,style="filled",color="skyblue"];
+    edge[fontsize=12,color="darkgreen"];
+    JedisCluster;
+    JedisClusterInfoCache;
+    JedisClusterConnectionHandler;
+    Jedis;
+    JedisPool;
+
+
+    JedisCluster->JedisClusterConnectionHandler->Jedis;
+    JedisClusterConnectionHandler->JedisClusterInfoCache;
+
+
+    //{rank=same;resolution;initialization}
+    //{rank=same;preparation;using}
+    //{rank=same;verification;unloading}
+}

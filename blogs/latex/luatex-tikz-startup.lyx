@@ -1,0 +1,826 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+tikz的graph开发环境
+\end_layout
+
+\begin_layout Standard
+tikz的graph功能非常强悍，远在graphviz之上。当然，易用程度上没有graphviz好，开发环境的配置也需要小折腾一下。
+\end_layout
+
+\begin_layout Section
+切换到luatex
+\end_layout
+
+\begin_layout Standard
+由于tikz/pgf的graph功能需要luatex的支持，因此首先需要确定目前的luatex对中文支持良好。简单搜索和尝试发现，ctex已经做了不少的工作，因
+此配合ctex将常用的xetex暂时切换到luatex没有发现多大的问题，除了luatex的编译速度的确慢了些。
+\end_layout
+
+\begin_layout Standard
+配合lyx使用luatex的话，需要注意两个地方：
+\end_layout
+
+\begin_layout Itemize
+字体配置：如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:lyx中设置字体"
+
+\end_inset
+
+所示，选择使用非Tex字体，以便利用luatex对ttf的支持。
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../../imgs/latex/lyx-luatex-font.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+lyx中设置字体
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:lyx中设置字体"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+输出格式：选择luatex，以更方便的预览文件，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:lyx中设置luatex输出pdf"
+
+\end_inset
+
+所示。
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../../imgs/latex/lyx-luatex-output.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+lyx中设置luatex输出pdf
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:lyx中设置luatex输出pdf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+导言区的设置和xetex保持一致即可。感谢ctex开发组，使得中文用户在xetex和luatex之间切换如此的简单！
+\end_layout
+
+\begin_layout Subsection
+问题
+\end_layout
+
+\begin_layout Standard
+目前发现的问题是在lstings环境中luatex报告找不到字体，应该是linux下面的字体配置没有被识别到，暂时忽略编译警告和错误也能够获得可以接受的pdf输
+出。
+\end_layout
+
+\begin_layout Section
+graph开发环境配置
+\end_layout
+
+\begin_layout Standard
+配合qtikz开发graph的时候，需要注意两方面的修改：
+\end_layout
+
+\begin_layout Itemize
+模板文件：定制一个专门开发graph的模板文件，如下所示：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+%使用ctexart是支持中文的关键
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+documentclass{ctexart}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{beamerarticle}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{tikz}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+usepackage{color}
+\end_layout
+
+\begin_layout Plain Layout
+
+% 加载luatex以支持graph
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage[active,luatex,tightpage]{preview}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+PreviewEnvironment[]{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+PreviewEnvironment[]{pgfpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+DeclareSymbolFont{symbolsb}{OMS}{cmsy}{m}{n}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+SetSymbolFont{symbolsb}{bold}{OMS}{cmsy}{b}{n}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+DeclareSymbolFontAlphabet{
+\backslash
+mathcal}{symbolsb}                                                     
+                                                                       
+       
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{document}
+\end_layout
+
+\begin_layout Plain Layout
+
+<>
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{document}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+qtikz的输出命令：将qtikz中输出pdf的命令由pdftex修改为lualatex，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:qtikz的输出命令设置"
+
+\end_inset
+
+所示。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../../imgs/latex/qtikz-luatex.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+qtikz的输出命令设置
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:qtikz的输出命令设置"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+graph示例
+\end_layout
+
+\begin_layout Standard
+如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:tikz绘图示例"
+
+\end_inset
+
+所示为tikz绘制，其源代码如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:tikz绘制graph示例代码"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tikz-graph-demo.eps
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+tikz绘图示例
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:tikz绘图示例"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+tikz绘制graph示例代码
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:tikz绘制graph示例代码"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usetikzlibrary{graphs, graphdrawing}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usegdlibrary{trees, layered}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+graph [layered layout, sibling distance=8mm, level distance=8mm]
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+    a -> {
+\end_layout
+
+\begin_layout Plain Layout
+
+        b,
+\end_layout
+
+\begin_layout Plain Layout
+
+        c -> { d, e }
+\end_layout
+
+\begin_layout Plain Layout
+
+    } ->
+\end_layout
+
+\begin_layout Plain Layout
+
+    f ->
+\end_layout
+
+\begin_layout Plain Layout
+
+    a
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+来个酷炫的示例，参见图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:酷酷的tikz绘图示例"
+
+\end_inset
+
+。这种图手工画会累死人，而tikz的代码就非常简洁优雅，如下所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+usetikzlibrary{graphs, graphdrawing}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usegdlibrary{trees, layered}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[rounded corners]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+graph [layered layout] {
+\end_layout
+
+\begin_layout Plain Layout
+
+1972 -> 1976 -> 1978 -> 1980 -> 1982 -> 1984 -> 1986 -> 1988 -> 1990 ->
+ future;
+\end_layout
+
+\begin_layout Plain Layout
+
+{ [same layer] 1972, Thompson };
+\end_layout
+
+\begin_layout Plain Layout
+
+{ [same layer] 1976, Mashey, Bourne },
+\end_layout
+
+\begin_layout Plain Layout
+
+{ [same layer] 1978, Formshell, csh },
+\end_layout
+
+\begin_layout Plain Layout
+
+{ [same layer] 1980, esh, vsh },
+\end_layout
+
+\begin_layout Plain Layout
+
+{ [same layer] 1982, ksh, "System-V" },
+\end_layout
+
+\begin_layout Plain Layout
+
+{ [same layer] 1984, v9sh, tcsh },{
+\end_layout
+
+\begin_layout Plain Layout
+
+ [same layer] 1986, "ksh-i" },
+\end_layout
+
+\begin_layout Plain Layout
+
+{ [same layer] 1988, KornShell ,Perl, rc },
+\end_layout
+
+\begin_layout Plain Layout
+
+{ [same layer] 1990, tcl, Bash },
+\end_layout
+
+\begin_layout Plain Layout
+
+{ [same layer] "future", POSIX, "ksh-POSIX" },
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Thompson -> { Mashey, Bourne, csh -> tcsh},
+\end_layout
+
+\begin_layout Plain Layout
+
+Bourne -> { ksh, esh, vsh, "System-V", v9sh -> rc, Bash},
+\end_layout
+
+\begin_layout Plain Layout
+
+{ "ksh-i", KornShell } -> Bash,
+\end_layout
+
+\begin_layout Plain Layout
+
+{ esh, vsh, Formshell, csh } -> ksh,
+\end_layout
+
+\begin_layout Plain Layout
+
+{ KornShell, "System-V" } -> POSIX,
+\end_layout
+
+\begin_layout Plain Layout
+
+ksh -> "ksh-i" -> KornShell -> "ksh-POSIX",
+\end_layout
+
+\begin_layout Plain Layout
+
+Bourne -> Formshell,
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+{ [edge={draw=none}]
+\end_layout
+
+\begin_layout Plain Layout
+
+    Bash -> tcl,
+\end_layout
+
+\begin_layout Plain Layout
+
+    KornShell -> Perl
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tikz-graph-demo-2.eps
+	width 90text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+酷酷的tikz绘图示例
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:酷酷的tikz绘图示例"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
