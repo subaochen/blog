@@ -1,0 +1,598 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usetikzlibrary{graphs,graphdrawing,arrows.meta}
+\usegdlibrary{trees,layered}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+tikz的graph简明教程
+\end_layout
+
+\begin_layout Section
+开发环境配置
+\end_layout
+
+\begin_layout Standard
+参见：
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://dz.sdut.edu.cn/blog/subaochen/2017/05/tikz%E7%9A%84graph%E5%BC%80%E5%8F%91%E
+7%8E%AF%E5%A2%83/
+\end_layout
+
+\end_inset
+
+。另外，最好升级texlive到2016版本以支持lualatex 1.0，参见：
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://dz.sdut.edu.cn/blog/subaochen/2017/05/ubuntu-16-04%E5%AE%89%E8%A3%85texlive-
+2016/
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Section
+graph的布局
+\end_layout
+
+\begin_layout Standard
+类似于graphviz的自动布局，tikz支持若干种图形布局，也可以通过lua编写扩展的布局器：
+\end_layout
+
+\begin_layout Itemize
+binary tree layout
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikz 
+\backslash
+graph [binary tree layout, level distance=5mm] {
+\end_layout
+
+\begin_layout Plain Layout
+
+4 -- {
+\end_layout
+
+\begin_layout Plain Layout
+
+3 -- 0 -- 1[second],
+\end_layout
+
+\begin_layout Plain Layout
+
+10 -- {
+\end_layout
+
+\begin_layout Plain Layout
+
+8 -- {
+\end_layout
+
+\begin_layout Plain Layout
+
+6 -- {5,7},
+\end_layout
+
+\begin_layout Plain Layout
+
+9
+\end_layout
+
+\begin_layout Plain Layout
+
+} } }
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language={[LaTeX]TeX}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikz 
+\backslash
+graph [binary tree layout, level distance=5mm] {
+\end_layout
+
+\begin_layout Plain Layout
+
+    4 -- {
+\end_layout
+
+\begin_layout Plain Layout
+
+        3 -- 0 -- 1[second],
+\end_layout
+
+\begin_layout Plain Layout
+
+        10 -- {
+\end_layout
+
+\begin_layout Plain Layout
+
+            8 -- {
+\end_layout
+
+\begin_layout Plain Layout
+
+                6 -- {5,7},
+\end_layout
+
+\begin_layout Plain Layout
+
+                9
+\end_layout
+
+\begin_layout Plain Layout
+
+            } 
+\end_layout
+
+\begin_layout Plain Layout
+
+         } 
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+spring layout
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikz 
+\backslash
+graph [spring layout,
+\end_layout
+
+\begin_layout Plain Layout
+
+edge quotes mid,
+\end_layout
+
+\begin_layout Plain Layout
+
+edges={nodes={font=
+\backslash
+scriptsize, fill=white, sloped, inner sep=1pt}}]
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+1 ->["Das"] 2 ->["ist"] 3 ->["das"] 4 ->["Haus"]
+\end_layout
+
+\begin_layout Plain Layout
+
+2 ->["vom" near start] 5 ->["Ni"] 4 ->["ko" near start]
+\end_layout
+
+\begin_layout Plain Layout
+
+1 ->["laus", orient=right] 5;
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikz 
+\backslash
+graph [spring layout,edge quotes mid,
+\end_layout
+
+\begin_layout Plain Layout
+
+edges={nodes={font=
+\backslash
+scriptsize, fill=white, sloped, inner sep=1pt}}]
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+    1 ->["Das"] 2 ->["ist"] 3 ->["das"] 4 ->["Haus"]
+\end_layout
+
+\begin_layout Plain Layout
+
+    2 ->["vom" near start] 5 ->["Ni"] 4 ->["ko" near start]
+\end_layout
+
+\begin_layout Plain Layout
+
+    1 ->["laus", orient=right] 5;
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+spring electrical layout
+\end_layout
+
+\begin_layout Itemize
+layered layout
+\end_layout
+
+\begin_layout Itemize
+simple necklace layout
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "30text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+usegdlibrary{circular}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikz[>=Stealth]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+graph [simple necklace layout, grow’=down, node sep=1em,
+\end_layout
+
+\begin_layout Plain Layout
+
+nodes={draw,circle}, math nodes]
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+x_1 -> x_2 -> x_3 -> x_4 ->
+\end_layout
+
+\begin_layout Plain Layout
+
+x_5 -> "
+\backslash
+dots"[draw=none] -> "x_{n-1}" -> x_n -> x_1
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+phylogenetic tree layout
+\end_layout
+
+\begin_layout Section
+节点的属性
+\end_layout
+
+\begin_layout Section
+连接线的属性
+\end_layout
+
+\end_body
+\end_document
