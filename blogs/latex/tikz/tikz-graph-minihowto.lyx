@@ -7,8 +7,8 @@
 \textclass ctex-article
 \begin_preamble
 \input{/home/subaochen/git/writing-common/article-preamble.tex}
-\usetikzlibrary{graphs,graphdrawing,arrows.meta}
-\usegdlibrary{trees,layered}
+\usetikzlibrary{graphs,graphdrawing,arrows.meta,quotes}
+\usegdlibrary{trees,layered,force}
 \end_preamble
 \use_default_options true
 \begin_modules
@@ -127,11 +127,12 @@ graph的布局
 \end_layout
 
 \begin_layout Standard
-类似于graphviz的自动布局，tikz支持若干种图形布局，也可以通过lua编写扩展的布局器：
+类似于graphviz的自动布局，tikz支持若干种图形布局，也可以通过lua编写扩展的布局器。下面是一些常见graph布局的示例，先有一个感性认识，对相应的t
+ikz代码目前可以不用深究。
 \end_layout
 
 \begin_layout Itemize
-binary tree layout
+binary tree layout，二叉树布局，学过数据结构的应该很清楚：
 \begin_inset Newline newline
 \end_inset
 
@@ -157,6 +158,20 @@ status open
 \begin_layout Plain Layout
 \begin_inset ERT
 status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+usetikzlibrary{graphs,graphdrawing}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usegdlibrary{trees,layered}
+\end_layout
 
 \begin_layout Plain Layout
 
@@ -348,19 +363,28 @@ status open
 
 
 \backslash
+usetikzlibrary{graphs,graphdrawing,quotes}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usegdlibrary{force}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 tikz 
 \backslash
-graph [spring layout,
+graph [spring layout,edge quotes mid,
 \end_layout
 
 \begin_layout Plain Layout
 
-edge quotes mid,
-\end_layout
-
-\begin_layout Plain Layout
-
-edges={nodes={font=
+    edges={nodes={font=
 \backslash
 scriptsize, fill=white, sloped, inner sep=1pt}}]
 \end_layout
@@ -372,26 +396,22 @@ scriptsize, fill=white, sloped, inner sep=1pt}}]
 
 \begin_layout Plain Layout
 
-1 ->["Das"] 2 ->["ist"] 3 ->["das"] 4 ->["Haus"]
+    1 ->["Das"] 2 ->["ist"] 3 ->["das"] 4 ->["Haus"]
 \end_layout
 
 \begin_layout Plain Layout
 
-2 ->["vom" near start] 5 ->["Ni"] 4 ->["ko" near start]
+    2 ->["vom" near start] 5 ->["Ni"] 4 ->["ko" near start]
 \end_layout
 
 \begin_layout Plain Layout
 
-1 ->["laus", orient=right] 5;
+    1 ->["laus", orient=right] 5;
 \end_layout
 
 \begin_layout Plain Layout
 
 };
-\end_layout
-
-\begin_layout Plain Layout
-
 \end_layout
 
 \end_inset
@@ -433,6 +453,20 @@ status open
 
 
 \backslash
+usetikzlibrary{graphs,graphdrawing,quotes}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usegdlibrary{force}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 tikz 
 \backslash
 graph [spring layout,edge quotes mid,
@@ -440,7 +474,7 @@ graph [spring layout,edge quotes mid,
 
 \begin_layout Plain Layout
 
-edges={nodes={font=
+    edges={nodes={font=
 \backslash
 scriptsize, fill=white, sloped, inner sep=1pt}}]
 \end_layout
@@ -470,10 +504,6 @@ scriptsize, fill=white, sloped, inner sep=1pt}}]
 };
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -498,7 +528,7 @@ simple necklace layout
 \end_inset
 
 
-\begin_inset Box Frameless
+\begin_inset Box Shaded
 position "t"
 hor_pos "c"
 has_inner_box 1
@@ -518,6 +548,100 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+usetikzlibrary{graphs,graphdrawing,quotes}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usegdlibrary{circular}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikz[>=Stealth]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+graph [simple necklace layout, grow’=down, node sep=1em,
+\end_layout
+
+\begin_layout Plain Layout
+
+nodes={draw,circle}, math nodes]
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+x_1 -> x_2 -> x_3 -> x_4 ->
+\end_layout
+
+\begin_layout Plain Layout
+
+x_5 -> "
+\backslash
+dots"[draw=none] -> "x_{n-1}" -> x_n -> x_1
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
 status open
 
 \begin_layout Plain Layout
