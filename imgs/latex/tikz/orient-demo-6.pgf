@@ -2,6 +2,7 @@
 \usegdlibrary{force}
 \tikz \graph [spring layout,node distance=1.4cm]
 {
-    a -- { b, c, d, e -- {f, g, h} };
-    h -- [orient=|,red] a;
+    a -- { b, c, d[>orient=right], e -- {f[>orient=down], g, h} };
+    h -- a;
 };
+
