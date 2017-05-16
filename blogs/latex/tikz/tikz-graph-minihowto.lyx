@@ -809,6 +809,19 @@ anchor node，指定哪个节点作为锚点。
 \end_layout
 
 \begin_layout Standard
+\begin_inset Flex Notice
+status open
+
+\begin_layout Plain Layout
+这部分内容似乎并不太重要：通常情况下让布局管理器自动定位节点即可，需要人工干预的场合不多。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Box Shaded
 position "t"
 hor_pos "c"
