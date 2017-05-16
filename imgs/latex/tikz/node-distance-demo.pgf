@@ -1,0 +1,11 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{trees,circular}
+\begin{tikzpicture}
+\graph [simple necklace layout, node distance=1.5cm, node sep=0pt,nodes={draw,circle}]
+{
+    1 -- 2 [minimum size=2cm] -- 3 --
+    4 -- 5 -- 6 -- 7 --[orient=up] 8
+};
+\draw [red,|-|] (1.center) -- ++(0:1cm);
+\draw [red,|-|] (5.center) -- ++(180:1cm);
+\end{tikzpicture}

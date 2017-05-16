@@ -7,8 +7,8 @@
 \textclass ctex-article
 \begin_preamble
 \input{/home/subaochen/git/writing-common/article-preamble.tex}
-\usetikzlibrary{graphs,graphdrawing,arrows.meta,quotes}
-\usegdlibrary{trees,layered,force}
+\usetikzlibrary{graphs,graphdrawing,quotes,arrows.meta}
+\usegdlibrary{trees,layered,circular,force}
 \end_preamble
 \use_default_options true
 \begin_modules
@@ -87,7 +87,7 @@ logicalmkup
 \begin_body
 
 \begin_layout Title
-tikz的graph简明教程
+tikz的graph读书笔记
 \end_layout
 
 \begin_layout Section
@@ -156,75 +156,9 @@ backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-usetikzlibrary{graphs,graphdrawing}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-usegdlibrary{trees,layered}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-tikz 
-\backslash
-graph [binary tree layout, level distance=5mm] {
-\end_layout
-
-\begin_layout Plain Layout
-
-4 -- {
-\end_layout
-
-\begin_layout Plain Layout
-
-3 -- 0 -- 1[second],
-\end_layout
-
-\begin_layout Plain Layout
-
-10 -- {
-\end_layout
-
-\begin_layout Plain Layout
-
-8 -- {
-\end_layout
-
-\begin_layout Plain Layout
-
-6 -- {5,7},
-\end_layout
-
-\begin_layout Plain Layout
-
-9
-\end_layout
-
-\begin_layout Plain Layout
-
-} } }
-\end_layout
-
-\begin_layout Plain Layout
-
-};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/binary-tree-demo.pgf"
 
 \end_inset
 
@@ -257,69 +191,10 @@ backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-\begin_inset listings
-lstparams "language={[LaTeX]TeX}"
-inline false
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-tikz 
-\backslash
-graph [binary tree layout, level distance=5mm] {
-\end_layout
-
-\begin_layout Plain Layout
-
-    4 -- {
-\end_layout
-
-\begin_layout Plain Layout
-
-        3 -- 0 -- 1[second],
-\end_layout
-
-\begin_layout Plain Layout
-
-        10 -- {
-\end_layout
-
-\begin_layout Plain Layout
-
-            8 -- {
-\end_layout
-
-\begin_layout Plain Layout
-
-                6 -- {5,7},
-\end_layout
-
-\begin_layout Plain Layout
-
-                9
-\end_layout
-
-\begin_layout Plain Layout
-
-            } 
-\end_layout
-
-\begin_layout Plain Layout
-
-         } 
-\end_layout
-
-\begin_layout Plain Layout
-
-    }
-\end_layout
-
-\begin_layout Plain Layout
-
-};
-\end_layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/binary-tree-demo.pgf"
+lstparams "label={binary-tree-demo.pgf}"
 
 \end_inset
 
@@ -356,63 +231,9 @@ backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-usetikzlibrary{graphs,graphdrawing,quotes}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-usegdlibrary{force}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-tikz 
-\backslash
-graph [spring layout,edge quotes mid,
-\end_layout
-
-\begin_layout Plain Layout
-
-    edges={nodes={font=
-\backslash
-scriptsize, fill=white, sloped, inner sep=1pt}}]
-\end_layout
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-    1 ->["Das"] 2 ->["ist"] 3 ->["das"] 4 ->["Haus"]
-\end_layout
-
-\begin_layout Plain Layout
-
-    2 ->["vom" near start] 5 ->["Ni"] 4 ->["ko" near start]
-\end_layout
-
-\begin_layout Plain Layout
-
-    1 ->["laus", orient=right] 5;
-\end_layout
-
-\begin_layout Plain Layout
-
-};
-\end_layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/spring-layout-demo.pgf"
 
 \end_inset
 
@@ -445,64 +266,10 @@ backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-usetikzlibrary{graphs,graphdrawing,quotes}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-usegdlibrary{force}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-tikz 
-\backslash
-graph [spring layout,edge quotes mid,
-\end_layout
-
-\begin_layout Plain Layout
-
-    edges={nodes={font=
-\backslash
-scriptsize, fill=white, sloped, inner sep=1pt}}]
-\end_layout
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-    1 ->["Das"] 2 ->["ist"] 3 ->["das"] 4 ->["Haus"]
-\end_layout
-
-\begin_layout Plain Layout
-
-    2 ->["vom" near start] 5 ->["Ni"] 4 ->["ko" near start]
-\end_layout
-
-\begin_layout Plain Layout
-
-    1 ->["laus", orient=right] 5;
-\end_layout
-
-\begin_layout Plain Layout
-
-};
-\end_layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/spring-layout-demo.pgf"
+lstparams "label={spring-layout-demo.pgf}"
 
 \end_inset
 
@@ -517,242 +284,6 @@ scriptsize, fill=white, sloped, inner sep=1pt}}]
 \begin_layout Itemize
 spring electrical layout
 \begin_inset Newline newline
-\end_inset
-
-
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "25text%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-usetikzlibrary{graphs,graphdrawing,decorations}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-usegdlibrary{trees,layered}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-tikz [spring electrical layout, node distance=1.3cm,
-\end_layout
-
-\begin_layout Plain Layout
-
-every edge/.style={
-\end_layout
-
-\begin_layout Plain Layout
-
-decoration={coil, aspect=-.5, post length=1mm,
-\end_layout
-
-\begin_layout Plain Layout
-
-segment length=1mm, pre length=2mm},
-\end_layout
-
-\begin_layout Plain Layout
-
-decorate, draw}]
-\end_layout
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-foreach 
-\backslash
-i in {1,...,6}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node (node 
-\backslash
-i) [fill=blue!50, text=white, circle] {
-\backslash
-i};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw (node 1) edge
-\end_layout
-
-\begin_layout Plain Layout
-
- (node
-\end_layout
-
-\begin_layout Plain Layout
-
- 2)
-\end_layout
-
-\begin_layout Plain Layout
-
-(node 2) edge
-\end_layout
-
-\begin_layout Plain Layout
-
- (node
-\end_layout
-
-\begin_layout Plain Layout
-
- 3)
-\end_layout
-
-\begin_layout Plain Layout
-
-edge
-\end_layout
-
-\begin_layout Plain Layout
-
- (node
-\end_layout
-
-\begin_layout Plain Layout
-
- 4)
-\end_layout
-
-\begin_layout Plain Layout
-
-(node 3) edge
-\end_layout
-
-\begin_layout Plain Layout
-
- (node
-\end_layout
-
-\begin_layout Plain Layout
-
- 4)
-\end_layout
-
-\begin_layout Plain Layout
-
-edge
-\end_layout
-
-\begin_layout Plain Layout
-
- (node
-\end_layout
-
-\begin_layout Plain Layout
-
- 5)
-\end_layout
-
-\begin_layout Plain Layout
-
-edge
-\end_layout
-
-\begin_layout Plain Layout
-
- (node
-\end_layout
-
-\begin_layout Plain Layout
-
- 6);
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset space \hfill{}
-\end_inset
-
-
-\begin_inset Box Frameless
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "65text%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
-status open
-
-\begin_layout Plain Layout
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \end_inset
 
 
@@ -784,7 +315,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset include
-LatexCommand input
+LatexCommand include
 filename "/home/subaochen/git/blog/imgs/latex/layered-layout-demo.pgf"
 
 \end_inset
@@ -806,7 +337,7 @@ has_inner_box 1
 inner_pos "t"
 use_parbox 0
 use_makebox 0
-width "60text%"
+width "65text%"
 special "none"
 height "1in"
 height_special "totalheight"
@@ -821,6 +352,7 @@ status open
 \begin_inset CommandInset include
 LatexCommand lstinputlisting
 filename "/home/subaochen/git/blog/imgs/latex/layered-layout-demo.pgf"
+lstparams "label={layered-layout-demo.pgf}"
 
 \end_inset
 
@@ -845,7 +377,7 @@ has_inner_box 1
 inner_pos "t"
 use_parbox 0
 use_makebox 0
-width "30text%"
+width "25text%"
 special "none"
 height "1in"
 height_special "totalheight"
@@ -857,67 +389,9 @@ backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-usetikzlibrary{graphs,graphdrawing,quotes}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-usegdlibrary{circular}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-tikz[>=Stealth]
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-graph [simple necklace layout, grow’=down, node sep=1em,
-\end_layout
-
-\begin_layout Plain Layout
-
-nodes={draw,circle}, math nodes]
-\end_layout
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-x_1 -> x_2 -> x_3 -> x_4 ->
-\end_layout
-
-\begin_layout Plain Layout
-
-x_5 -> "
-\backslash
-dots"[draw=none] -> "x_{n-1}" -> x_n -> x_1
-\end_layout
-
-\begin_layout Plain Layout
-
-};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/simple-necklace-layout-demo.pgf"
 
 \end_inset
 
@@ -938,7 +412,7 @@ has_inner_box 1
 inner_pos "t"
 use_parbox 0
 use_makebox 0
-width "60text%"
+width "65text%"
 special "none"
 height "1in"
 height_special "totalheight"
@@ -950,61 +424,10 @@ backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-usegdlibrary{circular}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-tikz[>=Stealth]
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-graph [simple necklace layout, grow’=down, node sep=1em,
-\end_layout
-
-\begin_layout Plain Layout
-
-nodes={draw,circle}, math nodes]
-\end_layout
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-x_1 -> x_2 -> x_3 -> x_4 ->
-\end_layout
-
-\begin_layout Plain Layout
-
-x_5 -> "
-\backslash
-dots"[draw=none] -> "x_{n-1}" -> x_n -> x_1
-\end_layout
-
-\begin_layout Plain Layout
-
-};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/simple-necklace-layout-demo.pgf"
+lstparams "label={simple-necklace-layout-demo.pgf}"
 
 \end_inset
 
@@ -1027,13 +450,432 @@ graph程序的基本结构
 \begin_layout Standard
 
 \backslash
-usetikzlibrary{graphs, graphdrawing}加载了基本的graph功能，
+usetikzlibrary{graphdrawing}加载了基本的graph功能，
 \backslash
-usegdlibrary{}加载相应的布局管理器。
+usetikzlibrary{graphs}加载了
+\backslash
+graph命令，
+\backslash
+usegdlibrary{force}加载spring layout布局管理器，以此类推。
 \end_layout
 
 \begin_layout Section
 节点的属性
+\end_layout
+
+\begin_layout Subsection
+node distance
+\end_layout
+
+\begin_layout Standard
+node distance影响节点（中心）之间的距离。如果node distance的设置小于节点之间的实际距离则以实际距离为准，默认值是1cm。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/node-distance-demo.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/node-distance-demo.pgf"
+lstparams "label={node-distance-demo.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+level distance/layer distance
+\end_layout
+
+\begin_layout Standard
+level distance影响节点层次之间的距离，尤其是layered layout等布局，默认值是1cm。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/level-distance-demo.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/level-distance-demo.pgf"
+lstparams "label={level-distance-demo.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+sibling distance
+\end_layout
+
+\begin_layout Standard
+同一个层次的节点（中心）之间的距离，默认值是1cm。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/sibling-distance-demo.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/sibling-distance-demo.pgf"
+lstparams "label={sibling-distance-demo.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+pre sep/post sep
+\end_layout
+
+\begin_layout Standard
+node、level、sibling都有两个类似的属性：pre sep和post sep，分别表示节点前后距离节点边界的padding尺寸，组合起来就是node
+ pre sep,node post sep, level pre sep, level post sep, sibling pre sep,
+ sibling post sep，默认值是0.333em。为了设置方便起见，也支持node sep, level sep, sibling sep。如果设置no
+de sep=1cm，则等价于设置node pre sep=0.5cm,node post sep=0.5cm。
+\end_layout
+
+\begin_layout Standard
+如下例所示，由于左图的level distance=0,因此3和5节点紧贴在一块了，而尽管3的level pre sep=1mm ，但是由于同一个层次的4的le
+vel pre sep=5mm，因此这一个层的节点和上一层节点的间距即为level distance定义的0和节点4的level pre sep定义的5mm之和
+，即5mm。右图请读者自行分析。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/level-sep-demo.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/level-sep-demo.pgf"
+lstparams "label={sibling-distance-demo.pgf-1}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+节点的定位
+\end_layout
+
+\begin_layout Standard
+可以通过固定图形的某个或者某几个节点的方式影响整个布局，定位节点的命令为：
+\end_layout
+
+\begin_layout Itemize
+desired at，表示节点的坐标，可以简化为[x=1, y=2]的形式。
+\end_layout
+
+\begin_layout Itemize
+anchor at，表示anchor here定位的节点的坐标。
+\end_layout
+
+\begin_layout Itemize
+anchor here，将整个图形按照anchor here指定的节点布局。如果没有声明anchor at的坐标，则anchor here定位到原点。
+\end_layout
+
+\begin_layout Itemize
+anchor node，指定哪个节点作为锚点。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "20text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/node-anchor-demo.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "70text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/node-anchor-demo.pgf"
+lstparams "label={node-anchor-demo.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -1058,11 +900,64 @@ verb|--|
 
 \end_inset
 
-、->、<-、<->。
+、->、<-、<->，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:spring-layout示例代码"
+
+\end_inset
+
+和
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:binary-tree-layout示例代码"
+
+\end_inset
+
+。
 \end_layout
 
 \begin_layout Itemize
 如果没有加载graphs库，则可以通过edge、child命令画线。so，为什么不使用graphs提供的直观画线命令呢？
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+layered layout中如何表示任意的节点之间的连接？
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

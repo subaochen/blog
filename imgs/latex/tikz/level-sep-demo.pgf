@@ -1,0 +1,9 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{force,trees,layered}
+\begin{tikzpicture}[rounded corners]
+\draw [help lines] (0,0) grid (3,2);
+\graph [layered layout]
+{
+    a [x=1,y=2] -- { b, c } -- {e, f} -- a
+};
+\end{tikzpicture}

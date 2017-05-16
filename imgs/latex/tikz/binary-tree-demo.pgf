@@ -1,0 +1,15 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{trees,layered}
+
+\tikz \graph [binary tree layout, level distance=10mm] {
+    4 -- {
+        3 -- 0 -- 1[second],
+        10 -- {
+            8 -- {
+                6 -- {5,7},
+                9
+            } 
+         } 
+    }
+};
+

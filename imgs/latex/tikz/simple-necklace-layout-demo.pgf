@@ -1,0 +1,9 @@
+\usetikzlibrary{graphs,graphdrawing,quotes}
+\usegdlibrary{trees,circular}
+\tikz[>=Stealth]
+\graph [simple necklace layout, grow’=down, node sep=1em,
+nodes={draw,circle}, math nodes]
+{
+    x_1 -> x_2 -> x_3 -> x_4 ->
+    x_5 -> "\dots"[draw=none] -> "x_{n-1}" -> x_n -> x_1
+};

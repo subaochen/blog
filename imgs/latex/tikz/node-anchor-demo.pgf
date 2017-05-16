@@ -1,0 +1,7 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{force,trees,layered}
+\begin{tikzpicture}
+\draw [help lines] (0,0) grid (2,2);
+\graph [layered layout, edges=rounded corners, anchor at={(1,2)}]
+{ a -- {b, c [anchor here] } -- d -- a};
+\end{tikzpicture}

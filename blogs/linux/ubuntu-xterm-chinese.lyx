@@ -4,7 +4,7 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass ctex-article-with-coderemarks
+\textclass ctex-article
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
 
@@ -421,6 +421,30 @@ XTerm*preeditType: Root
 
 \begin_layout Standard
 在ubuntu 15.10测试通过。
+\end_layout
+
+\begin_layout Standard
+在ubuntu 16.04下，只需要在文件/etc/X11/app-defaults/XTerm后面增加如下的内容即可：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+XTerm*vt100.faceName: Dejavu Sans Mono:size=11
+\end_layout
+
+\begin_layout Plain Layout
+
+XTerm*vt100.faceNameDoublesize: WenQuanYi Micro Hei Mono:size=11
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

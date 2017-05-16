@@ -1,0 +1,6 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{trees}
+\tikz \graph [tree layout, sibling distance=0cm,nodes={circle,draw}]
+{ 
+    1--{2,3[sibling distance=2cm],4,5} 
+};

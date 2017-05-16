@@ -1,0 +1,9 @@
+\usetikzlibrary{graphs,graphdrawing,quotes}
+\usegdlibrary{force}
+\tikz \graph [spring layout,edge quotes mid,
+    edges={nodes={font=\scriptsize, fill=white, sloped, inner sep=1pt}}]
+{
+    1 ->["Das"] 2 ->["ist"] 3 ->["das"] 4 ->["Haus"]
+    2 ->["vom" near start] 5 ->["Ni"] 4 ->["ko" near start]
+    1 ->["laus", orient=right] 5;
+};
