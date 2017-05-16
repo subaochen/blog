@@ -516,10 +516,320 @@ scriptsize, fill=white, sloped, inner sep=1pt}}]
 
 \begin_layout Itemize
 spring electrical layout
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+usetikzlibrary{graphs,graphdrawing,decorations}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usegdlibrary{trees,layered}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikz [spring electrical layout, node distance=1.3cm,
+\end_layout
+
+\begin_layout Plain Layout
+
+every edge/.style={
+\end_layout
+
+\begin_layout Plain Layout
+
+decoration={coil, aspect=-.5, post length=1mm,
+\end_layout
+
+\begin_layout Plain Layout
+
+segment length=1mm, pre length=2mm},
+\end_layout
+
+\begin_layout Plain Layout
+
+decorate, draw}]
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+foreach 
+\backslash
+i in {1,...,6}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node (node 
+\backslash
+i) [fill=blue!50, text=white, circle] {
+\backslash
+i};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw (node 1) edge
+\end_layout
+
+\begin_layout Plain Layout
+
+ (node
+\end_layout
+
+\begin_layout Plain Layout
+
+ 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+(node 2) edge
+\end_layout
+
+\begin_layout Plain Layout
+
+ (node
+\end_layout
+
+\begin_layout Plain Layout
+
+ 3)
+\end_layout
+
+\begin_layout Plain Layout
+
+edge
+\end_layout
+
+\begin_layout Plain Layout
+
+ (node
+\end_layout
+
+\begin_layout Plain Layout
+
+ 4)
+\end_layout
+
+\begin_layout Plain Layout
+
+(node 3) edge
+\end_layout
+
+\begin_layout Plain Layout
+
+ (node
+\end_layout
+
+\begin_layout Plain Layout
+
+ 4)
+\end_layout
+
+\begin_layout Plain Layout
+
+edge
+\end_layout
+
+\begin_layout Plain Layout
+
+ (node
+\end_layout
+
+\begin_layout Plain Layout
+
+ 5)
+\end_layout
+
+\begin_layout Plain Layout
+
+edge
+\end_layout
+
+\begin_layout Plain Layout
+
+ (node
+\end_layout
+
+\begin_layout Plain Layout
+
+ 6);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
 layered layout
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand input
+filename "/home/subaochen/git/blog/imgs/latex/layered-layout-demo.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/layered-layout-demo.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
@@ -707,7 +1017,19 @@ dots"[draw=none] -> "x_{n-1}" -> x_n -> x_1
 \end_layout
 
 \begin_layout Itemize
-phylogenetic tree layout
+phylogenetic tree layout。
+\end_layout
+
+\begin_layout Section
+graph程序的基本结构
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+usetikzlibrary{graphs, graphdrawing}加载了基本的graph功能，
+\backslash
+usegdlibrary{}加载相应的布局管理器。
 \end_layout
 
 \begin_layout Section
@@ -716,6 +1038,31 @@ phylogenetic tree layout
 
 \begin_layout Section
 连接线的属性
+\end_layout
+
+\begin_layout Standard
+连线的创建方式有如下几种：
+\end_layout
+
+\begin_layout Itemize
+如果加载了graphs库，则可以使用graphs库提供的直观的画线命令：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+verb|--|
+\end_layout
+
+\end_inset
+
+、->、<-、<->。
+\end_layout
+
+\begin_layout Itemize
+如果没有加载graphs库，则可以通过edge、child命令画线。so，为什么不使用graphs提供的直观画线命令呢？
 \end_layout
 
 \end_body

@@ -1,0 +1,13 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{trees,layered}
+\tikz [rounded corners]
+\graph [layered layout, sibling distance=10mm, level distance=10mm]
+{
+    a -> {
+        b,
+        c -> { d, e }
+    } ->
+    f ->
+    a
+};
+

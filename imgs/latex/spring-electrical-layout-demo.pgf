@@ -1,0 +1,14 @@
+\usetikzlibrary{graphs,graphdrawing,decorations}
+\usegdlibrary{trees,force}
+\tikz [spring electrical layout, node distance=1.3cm,
+every edge/.style={decoration={coil, aspect=-.5, post length=1mm,segment length=1mm, pre length=2mm},decorate, draw}]
+{
+    \foreach \i in {1,...,6}
+        \node (node \i) [fill=blue!50, text=white, circle] {\i};
+    \draw (node 1) edge (node 2) 
+            (node 2) edge (node 3) 
+                            edge (node 4)
+           (node 3) edge (node 4)
+                           edge (node 5)
+                          edge (node 6);
+}
