@@ -1,0 +1,5 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{layered,trees}
+\tikz \graph [edges=rounded corners, nodes=draw,layered layout,sibling distance=0] {
+    a -- {b, c, d[nudge left=2mm]} -- e -- a;
+};

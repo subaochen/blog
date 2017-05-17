@@ -7,6 +7,7 @@
 \textclass ctex-article
 \begin_preamble
 \input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{tikz}
 \usetikzlibrary{graphs,graphdrawing}
 \usegdlibrary{force}
 \end_preamble
@@ -99,14 +100,18 @@ tikz graph之orient命令
 
 \begin_layout Standard
 tikz graph总体上是根据不同的布局管理器自动决定节点的位置，但是有的时候我们希望其中的两个节点存在指定的相对关系，比如节点a在节点b的正下方，或者节点a
-在节点b的11点钟方向等等，此时orient命令就派上了用场。orient的基本用法是指定一个角度，比如orient=30表示两个节点连线的角度为30度。ori
-ent的取值除了角度值之外，还可以是up、down、right、left、north、sourth、west、east及其组合，更绝妙和形象的是，可以使用-表示
-0度，|表示90度。orient配合node distance可以实现类似于“极坐标”的效果：以其中一个节点为原点，另外一个节点可以使用角度orient和长度n
-ode distance来表达。 
+在节点b的11点钟方向等等，在此基础上再决定整个图片的伸展方向和布局，此时orient命令就派上了用场。orient的基本用法是指定一个角度，比如orient=
+30表示两个节点连线的角度为30度。orient的取值除了角度值之外，还可以是up、down、right、left、north、sourth、west、east
+及其组合，更绝妙和形象的是，可以使用-表示right，|表示down。orient配合node distance可以实现类似于“极坐标”的效果：以其中一个节点为
+原点，另外一个节点可以使用角度orient和长度node distance来表达。 
 \end_layout
 
 \begin_layout Standard
-orient有两种应用场景：
+也就是说，orient命令是通过局部（两个节点之间的相对关系）来影响全局的，因此如果在一个graph中存在两个orient声明，只有最后一个才会生效。
+\end_layout
+
+\begin_layout Standard
+orient有两种使用方法：
 \end_layout
 
 \begin_layout Enumerate
@@ -406,7 +411,7 @@ lstparams "escapechar={'$'},label={orient-demo-4.pgf}"
 
 \begin_layout Enumerate
 定义节点的方位。当orient用于节点时，表示该节点相对于上一级节点的方位。比如在节点右边使用[>orient=right]这样的形式表示该节点位于上一级节点的
-右边，注意其中的“>”符号，还不太理解为什么这样用，手册中似乎没有给出说明。如果在一张图中存在两个>orient声明，似乎只有最后一个会生效，比如：
+右边，注意其中的“>”符号，还不太理解为什么这样用，手册中似乎没有给出说明。比如：
 \begin_inset Newline newline
 \end_inset
 
@@ -551,12 +556,714 @@ lstparams "escapechar={'$'},label={orient-demo-4.pgf-1-1}"
 orient tail/orient head
 \end_layout
 
+\begin_layout Standard
+orient是通过两个局部的节点影响全局的，在这两个局部节点中，orient tail是指起始节点，orient head是指开始节点。在没有明确声明orien
+t tail或者orient head的时候，orient是指
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+相邻
+\end_layout
+
+\end_inset
+
+的两个上下级节点之间的位置关系。显然，可以通过指定orient tail所指向的节点或者orient head所指向的节点打破这种“默认设置”，重构整张图形。
+\end_layout
+
+\begin_layout Standard
+先看一下默认的spring layout布局情况：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-tail-demo-1.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-tail-demo-1.pgf"
+lstparams "escapechar={'$'},label={orient-tail-demo-1.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+假设我们希望节点a在e的右边，即将整个图片逆时针旋转90度，则可以这样写：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-tail-demo-2.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-tail-demo-2.pgf"
+lstparams "escapechar={'$'},label={orient-tail-demo-2.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+同样的，如果我们指定orient tail=c，则结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-tail-demo-3.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-tail-demo-3.pgf"
+lstparams "escapechar={'$'},label={orient-tail-demo-3.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+orient head的意义和orient tail正好相反，参见：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-head-demo-1.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-head-demo-1.pgf"
+lstparams "escapechar={'$'},label={orient-head-demo-1.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-head-demo-2-1.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-head-demo-2-1.pgf"
+lstparams "escapechar={'$'},label={orient-head-demo-2-1.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-head-demo-2-2.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-head-demo-2-2.pgf"
+lstparams "escapechar={'$'},label={orient-head-demo-2-1.pgf-1}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
-horizental/vertical
+horizontal/vertical
+\end_layout
+
+\begin_layout Standard
+horizontal实际上是orient tail,orient head和orient=0的缩写，virtical实际上是orient tail，orient
+ head和orient=|的缩写，比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-horizontal-demo.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-horizontal-demo.pgf"
+lstparams "escapechar={'$'},label={orient-horizontal-demo.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-virtical-demo.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-virtical-demo.pgf"
+lstparams "escapechar={'$'},label={orient-virtical-demo.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
 grow
+\end_layout
+
+\begin_layout Standard
+grow决定了相邻节点的“生长”方向，即当tikz放置了一个节点后，下一个节点应该出现在什么方向上。grow=down往往意味着在下方布置下一个节点，grow=
+right往往意味着在右边布置下一个节点。显然，grow只对有树状层次结构的布局管理器有效，比如tree layout, binary tree
+ layout。需要注意的是，grow是一个全局性的设置，即使在某个节点上设置了grow属性，也是针对全局的。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-grow-demo-1.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-grow-demo-1.pgf"
+lstparams "escapechar={'$'},label={orient-grow-demo-1.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-grow-demo-2.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "65col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/orient-grow-demo-2.pgf"
+lstparams "label={orient-grow-demo-2.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

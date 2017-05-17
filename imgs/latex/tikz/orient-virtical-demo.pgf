@@ -1,7 +1,7 @@
 \usetikzlibrary{graphs,graphdrawing}
 \usegdlibrary{force}
-\tikz \graph [spring layout,node distance=1.4cm]
+\tikz \graph [spring layout,node distance=1.4cm, vertical=a to d]
 {
     a -- { b, c, d, e -- {f, g, h} };
-    h -- [orient=30,red] a;
+    h --  a;
 };

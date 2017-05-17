@@ -1,0 +1,7 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{force}
+\tikz \graph [spring layout]
+{
+    a [orient=right, orient head=f] -- { b, c, d, e -- {f, g, h} };
+    { h, g } -- a;
+};

@@ -1,0 +1,4 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{force}
+\tikz \graph [spring layout] { a -- b -- c -- a };
+

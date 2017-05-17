@@ -892,6 +892,14 @@ lstparams "label={node-anchor-demo.pgf}"
 \end_layout
 
 \begin_layout Section
+图形的方向
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Section
 连接线的属性
 \end_layout
 

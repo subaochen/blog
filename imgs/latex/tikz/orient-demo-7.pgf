@@ -3,5 +3,6 @@
 \tikz \graph [spring layout,node distance=1.4cm]
 {
     a -- { b, c, d, e -- {f, g, h} };
-    h -- [orient=30,red] a;
+    h -- a[>orient=down];
 };
+

@@ -1,0 +1,5 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{force}
+\tikz \graph [spring layout, orient=10,
+orient tail=a, orient head=b] { a -- b -- c -- a };
+

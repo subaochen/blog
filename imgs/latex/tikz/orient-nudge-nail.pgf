@@ -1,0 +1,9 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{layered,trees}
+\begin{tikzpicture}
+\draw[help lines] (0,-1)grid(3,1);
+\graph [edges=rounded corners, nodes=draw,
+layered layout, sibling distance=0] {
+    a -- {b,c,d[nail at={(1,0)}]} -- e[nail at={(1.5,-1)}] -- a;
+};
+\end{tikzpicture}

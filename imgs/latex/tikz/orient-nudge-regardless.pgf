@@ -1,0 +1,8 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{layered,trees}
+\begin{tikzpicture}
+\draw[help lines] (-2,-2)grid(2,1);
+\graph [edges=rounded corners, nodes=draw,layered layout,sibling distance=0] {
+    a -- {b,c,d[regardless at={(1,0)}]} -- e -- a;
+};
+\end{tikzpicture}
