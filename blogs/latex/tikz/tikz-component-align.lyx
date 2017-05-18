@@ -104,8 +104,88 @@ tikz graph的节点对齐(component align)
 宿宝臣<subaochen@126.com>
 \end_layout
 
+\begin_layout Section
+基本概念
+\end_layout
+
 \begin_layout Standard
-tikz graph在绘制图形的时候，首先从左向右放置节点，然后再根据横向对齐线进行垂直方向的对齐，比如：
+tikz graph在绘制图形的时候，首先从左向右放置节点，然后再根据横向对齐线进行垂直方向的对齐，比如下例中，首先横向从左向右放置好a、b、d三个节点，然后根
+据a、b、d三个节点决定其他节点的方位。为了清楚起见，在图中增加了网格线和红色的对齐线：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-0.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-0.pgf"
+lstparams "label={component-align-0.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如果我们希望a、c、e三个节点在一个水平线上，如何操作呢？可以借助于align here命令，只要使用align here声明c、e两个节点即表示c、e节点位于
+对齐线上，或者说，对齐线横穿c、e两个节点的中心。由于整个图形是从a节点开始绘制的，即a节点的坐标为（0,0），对齐线即为穿过a节点的横线，如下图所示：
 \end_layout
 
 \begin_layout Standard
@@ -176,6 +256,109 @@ lstparams "label={component-align-1.pgf}"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+对齐线不一定是水平的，也不一定是垂直的，这和图形的component direction设置有关。component direction的默认值是0即水平方向，
+这就是为什么大部分情况下（comoponent dirction=0时）对齐线是水平线的原因。观察下例：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-2.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-2.pgf"
+lstparams "label={component-align-2.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+我们设置了component direction=30，即对齐线是一条30度的斜线，如图中红色虚线所示。通过配合使用align here，将c、e两个节点放置到
+对齐线上，可以看出红色对齐线正好穿过c、e两个节点的中心。
+\end_layout
+
+\begin_layout Definition
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+对齐线（alignment line）
+\end_layout
+
+\end_inset
+
+根据component direction的不同设置，对齐线指从图中第一个节点出发的一条直线。当component direction取默认值0（或者不设置co
+mponent direction）时，对齐线是一条水平直线；当component direction=90时，对齐线是一条垂直直线；对齐线可以是任意角度的直线
+。
+\end_layout
+
+\begin_layout Section
+对齐命令
+\end_layout
+
+\begin_layout Subsection
+align here
 \end_layout
 
 \end_body
