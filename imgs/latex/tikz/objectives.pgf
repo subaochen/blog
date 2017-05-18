@@ -1,0 +1,58 @@
+  % Keys to support piece-wise uncovering of elements in TikZ pictures:
+  % \node[visible on=<2->](foo){Foo}
+  % \node[visible on=<{2,4}>](bar){Bar}   % put braces around comma expressions
+  %
+  % Internally works by setting opacity=0 when invisible, which has the 
+  % adavantage (compared to \node<2->(foo){Foo} that the node is always there, hence
+  % always consumes space plus that coordinate (foo) is always available.
+  %
+  % The actual command that implements the invisibility can be overriden
+  % by altering the style invisible. For instance \tikzsset{invisible/.style={opacity=0.2}}
+  % would dim the "invisible" parts. Alternatively, the color might be set to white, if the
+  % output driver does not support transparencies (e.g., PS) 
+  %
+\tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+}
+\usetikzlibrary{babel,mindmap,shadows,trees,graphs,graphdrawing}
+\begin{tikzpicture} [small mindmap,
+    % \hskip0pt will add hyphen to  first word
+    every node/.style={concept,circular drop shadow,execute at begin node = \hskip0pt }, 
+    root concept/.append style={concept color=black, fill=white, line width=1ex,text=black,font=\large\scshape},
+    text=white,
+	ecommercial platform/.style={concept color=red,important/.style={concept color=red!50}},
+	consult platform/.style={concept color=blue,important/.style={concept color=blue!50}},
+	sharing platform/.style={concept color=orange,important/.style={concept color=orange!50}},
+	vr platform/.style={concept color=green!50!black,important/.style={concept color=green!50!black!50}},
+    grow cyclic,
+    level 1/.append style={sibling angle=120},
+    level 2/.append style={sibling angle=45},
+]
+
+\node[root concept] {教学目标} % root
+    child[ecommercial platform, visible on=<2->,grow=20] { node{知识目标}
+     [clockwise from = 100]
+		child { node {熟练配置Java开发环境} }
+		child { node[important] {掌握面向对象的基本概念} }
+		child { node {掌握Java的常用类} }
+		child { node {掌握Java的异常处理方法} }
+		child { node[xshift=-3mm] {掌握Java的IO和图形用户界面设计} }
+    }
+	child [consult platform, visible on=<3->,grow=-170] { node {能力目标}
+      [clockwise from = -120]
+		child { node[important] {面向对象分析和解决问题的能力} }
+		child { node {调试Java应用程序的能力} }
+		child { node {自主、开放的持续学习能力} }
+   }
+	child[sharing platform, visible on=<4->]  { node {素质目标}
+		child { node[important] {认真负责的学习态度} }
+		child { node {踏踏实实的学习作风} }
+		child { node {长期积累的学习意识} }
+   }
+;
+
+\end{tikzpicture}

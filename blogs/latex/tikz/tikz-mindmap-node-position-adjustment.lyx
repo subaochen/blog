@@ -1,0 +1,357 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+}
+\usetikzlibrary{babel,mindmap,shadows,trees,graphs,graphdrawing}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+tikz mindmap调整节点位置的方法
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Standard
+通常，tikz mindmap自动生成的图形是可以接受的，如果要调整节点的位置，可以采取的手段有：
+\end_layout
+
+\begin_layout Itemize
+level distance决定了节点之间的距离。一般情况下，可以尝试让tikz自动决定节点之间的间距，如果必要，可以定义每一个层次的节点距离，比如：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+level 1/.append style={level distance=3.5cm}
+\end_layout
+
+\begin_layout Plain Layout
+level 2/.append style={level distance=2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+sibling angle决定了节点之间的间隔角度。一般的，需要定义一级节点的间隔角度，比如总共有3个一级节点，则一般定义其间隔角度为120平均分布：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+level 1/.append style={level distance=3.5cm,sibling angle=120}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+grow强制该节点从上一级节点的哪个方向（角度）开始“生长”。该命令非常强悍，但是副作用也比较大，可能引致连锁反应，和自动布局的节点重叠。一般的，如果某个节点使
+用了grow设置生长方向，另外受影响的节点也要随之设置grow属性，并且需要配合clockwise from纠正节点的布局。示例中，为了让“知识目标”位于“教学
+目标”的右边展示设置了grow=20，并且clockwise from=100使得“知识目标”的节点能够均衡的展示。：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+node[root concept] {教学目标}
+\end_layout
+
+\begin_layout Plain Layout
+child[ecommercial platform, visible on=<2->,grow=20] { node{知识目标}
+\end_layout
+
+\begin_layout Plain Layout
+[clockwise from = 100]
+\end_layout
+
+\begin_layout Plain Layout
+child { node {熟练配置Java开发环境} }
+\end_layout
+
+\begin_layout Plain Layout
+child { node[important] {掌握面向对象的基本概念} }
+\end_layout
+
+\begin_layout Plain Layout
+child { node {掌握Java的常用类} }
+\end_layout
+
+\begin_layout Plain Layout
+child { node {掌握Java的异常处理方法} }
+\end_layout
+
+\begin_layout Plain Layout
+child { node {掌握Java的IO和图形用户界面设计} }
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+clockwise from影响节点从哪个角度开始布置，按照此设置角度的顺时针方向开始布局节点。
+\end_layout
+
+\begin_layout Itemize
+xshift/yshift可以在x方向和y方向微调节点的位置，比如：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+child { node[xshift=-3mm] {掌握Java的IO和图形用户界面设计} }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+综合示例如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:tikz-mindmap示例"
+
+\end_inset
+
+所示，其源代码代码列表
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "objectives.pgf"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/objectives.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+tikz mindmap示例
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:tikz-mindmap示例"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/objectives.pgf"
+lstparams "label={objectives.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
