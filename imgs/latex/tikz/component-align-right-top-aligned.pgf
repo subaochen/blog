@@ -1,0 +1,5 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{trees}
+\tikz \graph [tree layout, nodes={draw, align=center},
+components go right top aligned]
+{ a, "high\\node" -- b,"another\\high\\node"--c--d};

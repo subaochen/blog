@@ -105,7 +105,7 @@ redis的C++客户端xredis的稳定性。
 \end_layout
 
 \begin_layout Itemize
-redis的java客户端jedis的稳定性。
+redis的java客户端jedis的稳定性(版本号：2.9)。
 \end_layout
 
 \begin_layout Section
@@ -548,15 +548,230 @@ C++测试客户端
 \end_layout
 
 \begin_layout Standard
-在满负载情况下的稳定性测试更有代表性，因此本案例的测试方法是采用长期运行合适负载的benchmark，以观察Redis集群及其客户端是否满足实用要求。
+本案例的测试方法是采用长期运行合适负载的benchmark，以观察Redis集群及其客户端是否满足实用要求。因为本测试中的redis服务器集群的配置较低，因此并
+没有对redis服务器施以满负载测试，以保障测试的顺利进行，毕竟本次测试的主要目的是考察redis的客户端稳定性，而不是服务器的稳定性。
 \end_layout
 
 \begin_layout Subsection
-jedis测试结果
+jedis测试结果及其解读
 \end_layout
 
 \begin_layout Standard
-jedis的测试起点时间：2017-5-8 15:35，通过观察/root/jedis-benchmark/benchmark-date.log文件的输出
+测试起点：Sun May 14 11:23:48 CST 2017
+\end_layout
+
+\begin_layout Standard
+测试终点：Fri May 19 17:14:24 CST 2017
+\end_layout
+
+\begin_layout Standard
+测试轮次：55518
+\end_layout
+
+\begin_layout Standard
+每轮次请求数：10000
+\end_layout
+
+\begin_layout Standard
+每轮次线程数：1000
+\end_layout
+
+\begin_layout Standard
+测试完毕redis的info stats结果：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+# Stats
+\end_layout
+
+\begin_layout Plain Layout
+total_connections_received:304632156
+\end_layout
+
+\begin_layout Plain Layout
+total_commands_processed:2858332955
+\end_layout
+
+\begin_layout Plain Layout
+instantaneous_ops_per_sec:2899
+\end_layout
+
+\begin_layout Plain Layout
+total_net_input_bytes:1486568827394
+\end_layout
+
+\begin_layout Plain Layout
+total_net_output_bytes:2400507283883
+\end_layout
+
+\begin_layout Plain Layout
+instantaneous_input_kbps:1471.66
+\end_layout
+
+\begin_layout Plain Layout
+instantaneous_output_kbps:1472.32
+\end_layout
+
+\begin_layout Plain Layout
+rejected_connections:0
+\end_layout
+
+\begin_layout Plain Layout
+sync_full:1
+\end_layout
+
+\begin_layout Plain Layout
+sync_partial_ok:0
+\end_layout
+
+\begin_layout Plain Layout
+sync_partial_err:0
+\end_layout
+
+\begin_layout Plain Layout
+expired_keys:0
+\end_layout
+
+\begin_layout Plain Layout
+evicted_keys:0
+\end_layout
+
+\begin_layout Plain Layout
+keyspace_hits:0
+\end_layout
+
+\begin_layout Plain Layout
+keyspace_misses:0
+\end_layout
+
+\begin_layout Plain Layout
+pubsub_channels:0
+\end_layout
+
+\begin_layout Plain Layout
+pubsub_patterns:0
+\end_layout
+
+\begin_layout Plain Layout
+latest_fork_usec:2849
+\end_layout
+
+\begin_layout Plain Layout
+migrate_cached_sockets:0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+测试结束时客户端的内存、cpu等负载情况如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:稳定性测试结束时的客户端情形"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/database/jedis稳定性测试客户端分析图-201705191713.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+稳定性测试结束时的客户端情形
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:稳定性测试结束时的客户端情形"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+结果解读
+\end_layout
+
+\begin_layout Standard
+可以看出，在持续125小时的测试过程中，redis客户端jedis未见明显的内存泄漏、性能下降等异常，期间向redis服务器集群发送了3亿多条数据请求均得到了处
+理，共发送数据包1486G，共接受数据包2400G，redis服务器没有拒绝服务现象。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+结论：jedis作为redis的Java客户端是值得信赖的。
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection

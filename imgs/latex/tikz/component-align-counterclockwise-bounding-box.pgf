@@ -1,0 +1,6 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{trees}
+\tikz \graph [tree layout, nodes={draw, align=center},
+component sep=0pt,
+component align=counterclockwise bounding box]
+{ a, "high\\node" -- b};

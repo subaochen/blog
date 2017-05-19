@@ -1,0 +1,18 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{trees}
+\begin{tikzpicture}
+    \graph [binary tree layout, nodes={draw,green},component align=first node,component direction=180]{
+         a, b -- c, d -- e[second] -- f
+    };
+
+    \graph [binary tree layout, nodes={draw,blue},component align=center,component direction=180]{
+         a, b -- c, d -- e[second] -- f
+    };
+
+    \graph [binary tree layout, nodes={draw,red},component align=counterclockwise,component direction=180]{
+         a, b -- c, d -- e[second] -- f
+    };
+    \draw[red] (.5,.75)rectangle+(.5,.5)  node[anchor=west,red] at (1,1) {counterclockwise};
+    \draw[blue] (.5,-.25)rectangle+(.5,.5)  node[anchor=west,blue] at (1,0) {center};
+    \draw[green] (.5,-1.25)rectangle+(.5,.5)  node[anchor=west,green] at (1,-1) {first node};
+\end{tikzpicture}

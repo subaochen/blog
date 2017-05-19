@@ -106,6 +106,13 @@ tikz graph的节点对齐(component align)
 
 \begin_layout Section
 基本概念
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:基本概念"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -359,6 +366,677 @@ mponent direction）时，对齐线是一条水平直线；当component directio
 
 \begin_layout Subsection
 align here
+\end_layout
+
+\begin_layout Standard
+align here命令的效果参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:基本概念"
+
+\end_inset
+
+中的示例。也就是说，align here强制移动节点到对齐线上。一般来说，这种“强制”的手段在tikz绘图中应该尽量避免，让tikz的绘图策略自动发挥作用即可。
+\end_layout
+
+\begin_layout Subsection
+component align
+\end_layout
+
+\begin_layout Standard
+component align声明了自动对齐的策略，取值范围为：
+\end_layout
+
+\begin_layout Itemize
+默认值first node，即穿过第一个节点的水平线作为对齐线，因此所有component的第一个节点都部署在对齐线上。在下例中，a、b、d作为每个compon
+ent的第一个节点，可以看出都位于对齐线上。不声明component align和声明component align=first node效果是一样的，参见下例
+：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-3.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-3.pgf"
+lstparams "label={component-align-3.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+center 对齐线水平穿过第一个节点，其他节点在对齐线两边平均分布。tikz确定“平均分布”的方法是画若干垂直于对齐线的shift line，如果该shift
+ line穿过节点的中心，则节点中心到交点的距离（称为投影高度）相等的节点即为平均分布的节点。作为比如：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-4.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-4.pgf"
+lstparams "label={component-align-4.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+counterclockwise。counterclockwise稍微有些费解，其布局过程如下：首先按照center布局，然后将投影高度最大的节点移动到comp
+onent direction指定的对齐线上，其他节点根据相对关系也随之移动，示例：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-5.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-5.pgf"
+lstparams "label={component-align-5.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+下面把counterclockwise和center施加到在同一组component上，结果更清晰。可以看出，由于counterwiseclock是根据cent
+er布局中投影高度最大的节点来整体布局，因此counterclockwise布局是不对称的，这里counterclockwise是指如果从起点开始逆时针遍历各个
+节点，最后访问到的节点即为投影高度最大的那个节点。
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-counterclockwise-center-1.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-counterclockwise-center-1.pgf"
+lstparams "label={component-align-counterclockwise-center.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+clockwise，理解了counterclockwise，clockwise就不难理解了：顺时针遍历各个节点，最后访问到的即为投影高度最大的节点。
+\end_layout
+
+\begin_layout Itemize
+counterclockwise bounding box。在counterclockwise布局中，对齐线是穿过节点中心的，即节点根据对齐线是垂直居中的；co
+unterclockwise bounding box布局和counterclockwise的唯一区别是，对齐线穿过节点的外边框，即，对齐线上的节点在垂直方向上
+是顶端对齐的，比如：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-counterclockwise-bounding-box.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-counterclockwise-bounding-box.pgf"
+lstparams "label={component-align-counterclockwise-bounding-box.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+clockwise bounding box，请参考counterclockwise bouding box。
+\end_layout
+
+\begin_layout Itemize
+components go right top aligned，相当于components direction=right,component
+ align=counterclockwise，即节点从左向右布局，顶部节点垂直居中对齐。
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-right-top-aligned.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-right-top-aligned.pgf"
+lstparams "label={component-align-right-top-aligned.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+components go right absolute top aligned，相当于components direction=right,component
+ align=counterclockwise bounding box，即节点从左向右布局，顶部节点垂直顶部对齐。
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-right-absolute-top-aligned.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/imgs/latex/tikz/component-align-right-absolute-top-aligned.pgf"
+lstparams "label={component-align-right-absolute-top-aligned.pgf}"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+components go right bottom aligned，不再详述，以下同。
+\end_layout
+
+\begin_layout Itemize
+components go right absolute bottom aligned
+\end_layout
+
+\begin_layout Itemize
+components go right center aligned
+\end_layout
+
+\begin_layout Itemize
+components go right，相当于component direction=right,component align=first node。
+\end_layout
+
+\begin_layout Itemize
+components go left top aligned
+\end_layout
+
+\begin_layout Itemize
+components go left absolute top aligned
+\end_layout
+
+\begin_layout Itemize
+components go left bottom aligned
+\end_layout
+
+\begin_layout Itemize
+components go left absolute bottom aligned
+\end_layout
+
+\begin_layout Itemize
+components go left center aligned
+\end_layout
+
+\begin_layout Itemize
+components go left
+\end_layout
+
+\begin_layout Itemize
+components go down right aligned
+\end_layout
+
+\begin_layout Itemize
+components go down absolute right aligned
+\end_layout
+
+\begin_layout Itemize
+components go down left aligned
+\end_layout
+
+\begin_layout Itemize
+components go down absolute left aligned
+\end_layout
+
+\begin_layout Itemize
+components go down center aligned
+\end_layout
+
+\begin_layout Itemize
+components go down
+\end_layout
+
+\begin_layout Itemize
+components go up right aligned
+\end_layout
+
+\begin_layout Itemize
+components go up absolute right aligned
+\end_layout
+
+\begin_layout Itemize
+components go up left aligned
+\end_layout
+
+\begin_layout Itemize
+components go up absolute left aligned
+\end_layout
+
+\begin_layout Itemize
+components go up center aligned
+\end_layout
+
+\begin_layout Itemize
+components go up
 \end_layout
 
 \end_body

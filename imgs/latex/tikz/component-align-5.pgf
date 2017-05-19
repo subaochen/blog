@@ -1,0 +1,9 @@
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{trees}
+\begin{tikzpicture}
+    \draw[help lines] (0,-2)grid(3,0);
+    \graph [binary tree layout, nodes={draw},component align=first node]{
+         a, b -- c, d -- e -- f --g
+    };
+
+\end{tikzpicture}
