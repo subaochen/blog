@@ -88,6 +88,40 @@ logicalmkup
 基于Mavan的JSF2最小系统
 \end_layout
 
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Section
+前言
+\end_layout
+
+\begin_layout Standard
+用了一段时间的Idea CE版本，给学生上Java课的时候也推荐了这个不错的IDE，似乎有些“中毒”了，觉得JetBrains全家桶还是不错的。今天想写一个JS
+F2的最小系统的教程，发现Idea CE版本中无法识别JSF标签，起初以为是没有配置好环境或者没有安装相关插件，也没有太在意。
+\end_layout
+
+\begin_layout Standard
+晚上又想起来Idea“不能识别JSF标签”这个问题，心想，装个插件吧！可是没有想到，无论使用jsf，java server faces，faces作为关键词都搜
+不到插件，怎么回事呢？去
+\begin_inset CommandInset href
+LatexCommand href
+name "官网"
+target "https://www.jetbrains.com/idea/features/editions_comparison_matrix.html"
+
+\end_inset
+
+一看，原来CE版本根本就不支持JavaEE的开发，只有升级到UE版本才能安装JavaEE相关的插件。罢了，还是NetBeans走起！
+\end_layout
+
+\begin_layout Section
+构建JSF2应用
+\end_layout
+
+\begin_layout Section
+部署和运行
+\end_layout
+
 \begin_layout Standard
 \begin_inset Float figure
 wide false
@@ -121,10 +155,6 @@ name "fig:运行示意图"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
