@@ -85,7 +85,7 @@ logicalmkup
 \begin_body
 
 \begin_layout Title
-基于Mavan的JSF2最小系统
+基于Maven的JSF2最小系统
 \end_layout
 
 \begin_layout Author
@@ -114,12 +114,81 @@ target "https://www.jetbrains.com/idea/features/editions_comparison_matrix.html"
 一看，原来CE版本根本就不支持JavaEE的开发，只有升级到UE版本才能安装JavaEE相关的插件。罢了，还是NetBeans走起！
 \end_layout
 
+\begin_layout Standard
+本例基于Maven构建一个最小的JSF2应用程序，运行于Tomcat 8.5.x之下。是否能够正常运行于Tomcat 6,7,9有待验证。
+\end_layout
+
 \begin_layout Section
 构建JSF2应用
 \end_layout
 
-\begin_layout Section
-部署和运行
+\begin_layout Subsection
+war包基本结构
+\end_layout
+
+\begin_layout Standard
+本项目基于maven和war（web application archive）包构建。根据war包规范
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+参见：
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://en.wikipedia.org/wiki/WAR_(file_format)
+\end_layout
+
+\end_inset
+
+，或者
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://web.archive.org/web/20120626020019/http://java.sun.com/j2ee/tutorial/1_3-fcs
+/doc/WCC3.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+，一个war打包的应用程序的基本结构如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:war包基本结构"
+
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+图片来源：
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://docs.oracle.com/javaee/7/tutorial/packaging003.htm
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+所示。
 \end_layout
 
 \begin_layout Standard
@@ -127,6 +196,1421 @@ target "https://www.jetbrains.com/idea/features/editions_comparison_matrix.html"
 wide false
 sideways false
 status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/jsf/war-package.png
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+war包基本结构
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:war包基本结构"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+简要介绍一下各个目录的作用：
+\end_layout
+
+\begin_layout Description
+war包根目录 html、xhtml、css、js文件等。一般的，需要分别建立子目录以区分文件的用途，比如js子目录存放javascript文件，css子目录存
+放css文件等。注意到将来我们访问http://localhost:8080/project/index.html文件，其中的index.html文件即指此处的in
+dex.html文件。
+\end_layout
+
+\begin_layout Description
+WEB-INF目录 顾名思义，这里保存一些web应用相关的配置信息。对于JSF2应用而言，主要是web.xml文件。
+\end_layout
+
+\begin_layout Description
+WEB-INF/classes 我们自己编写的java类编译后需要放到这个目录下。也就是说，WEB-INF/classes实际上
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+被自动加入到了classpath中
+\end_layout
+
+\end_inset
+
+，把编译好的java类放到这个目录下，web应用容器（比如tomcat）就能够正常使用了。
+\end_layout
+
+\begin_layout Description
+WEB-INF/lib 这个web应用用到的第三方库要放到这里。比如本例中会用到支持JSF2的jsf-api.jar，jsf-impl.jar，就需要复制到这个目录
+下。
+\end_layout
+
+\begin_layout Standard
+只要遵守以上的规范，war包是可以手工创建的，不过maven等工具已经帮我们干了这些“粗活”。尽管如此，作为一名WEB应用开发者，彻底了解war包的结构还是很有
+必要的。
+\end_layout
+
+\begin_layout Subsection
+maven应用程序的基本目录结构
+\end_layout
+
+\begin_layout Standard
+根据war包规范和maven的java应用程序目录结构，我们有三种方式创建JSF2的最小系统框架：手工创建、使用mvn archetype:generate创建
+、使用IDE创建。无论使用哪种方式，基于maven的jsf2应用程序的最简目录结构
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+为了简化问题，这里有意忽略了test、resources等复杂WEB应用所需要的构件。
+\end_layout
+
+\end_inset
+
+如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:maven应用程序的基本目录结构"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/jsf/jsf2-maven-dir-arch.png
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+maven应用程序的基本目录结构
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:maven应用程序的基本目录结构"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+手工创建
+\end_layout
+
+\begin_layout Standard
+手工创建基于maven的jsf应用程序的方法就是根据图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:maven应用程序的基本目录结构"
+
+\end_inset
+
+所示的目录结构创建相应的目录，并创建相关文件即可。其中的web.xml、faces-config.xml、pom.xml配置文件参见
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:重要的配置文件"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Subsubsection
+maven命令创建
+\end_layout
+
+\begin_layout Standard
+maven的archetype:generate插件可以创建基本的jsf2应用程序。首先执行：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+$ mvn archetype:generate
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+接下来通过webapp筛选archetype，然后选择：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+Choose a number or apply filter (format: [groupId:]artifactId, case sensitive
+ contains): 7: webapp
+\end_layout
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\begin_layout Plain Layout
+1: internal -> org.apache.maven.archetypes:maven-archetype-webapp (An archetype
+ which contains a sample Maven Webapp project.)
+\end_layout
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\begin_layout Plain Layout
+Choose a number or apply filter (format: [groupId:]artifactId, case sensitive
+ contains): :1
+\end_layout
+
+\begin_layout Plain Layout
+Choose org.apache.maven.archetypes:maven-archetype-webapp version: 
+\end_layout
+
+\begin_layout Plain Layout
+1: 1.0-alpha-1
+\end_layout
+
+\begin_layout Plain Layout
+2: 1.0-alpha-3
+\end_layout
+
+\begin_layout Plain Layout
+3: 1.0-alpha-4
+\end_layout
+
+\begin_layout Plain Layout
+4: 1.0
+\end_layout
+
+\begin_layout Plain Layout
+Choose a number: 4: 
+\end_layout
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\begin_layout Plain Layout
+Define value for property 'groupId': cn.edu.sdut.softlab
+\end_layout
+
+\begin_layout Plain Layout
+Define value for property 'artifactId': jsf2-basic
+\end_layout
+
+\begin_layout Plain Layout
+Define value for property 'version' 1.0-SNAPSHOT: : 
+\end_layout
+
+\begin_layout Plain Layout
+Define value for property 'package' cn.edu.sdut.softlab: : 
+\end_layout
+
+\begin_layout Plain Layout
+Confirm properties configuration:
+\end_layout
+
+\begin_layout Plain Layout
+groupId: cn.edu.sdut.softlab
+\end_layout
+
+\begin_layout Plain Layout
+artifactId: jsf2-basic
+\end_layout
+
+\begin_layout Plain Layout
+version: 1.0-SNAPSHOT
+\end_layout
+
+\begin_layout Plain Layout
+package: cn.edu.sdut.softlab
+\end_layout
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+NetBeans创建
+\end_layout
+
+\begin_layout Standard
+NetBeans创建基于Maven的JSF2应用程序的基本步骤为：
+\end_layout
+
+\begin_layout Enumerate
+创建新项目并选择项目类型。如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:在NetBeans中创建新项目"
+
+\end_inset
+
+所示，在这里我们选择创建Maven类型的项目，并基于原型（archetype）
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+基于原型即根据已经设计好的程序框架创建新项目。这种设计好的程序框架即叫做archetype。
+\end_layout
+
+\end_inset
+
+创建新项目。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/jsf/netbeans-maven-prj-1.png
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+在NetBeans中创建新项目
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:在NetBeans中创建新项目"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+选择合适的archetype。如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:在NetBeans中选择合适的archetype"
+
+\end_inset
+
+所示，在这里选择“Maven Webapp Archetype”比较能符合我们这个JSF2最小系统的要求。
+\begin_inset Flex Tip
+status open
+
+\begin_layout Plain Layout
+建议读者多尝试几种系统给出的原型（archeytpe），看一下到底maven根据这些原型创建的应用程序是什么样的结构。虽然你不一定现在就能够全部了解maven创
+建的每一个应用程序的结构，但是见的多了，琢磨的多了，总有一天会豁然开朗的。
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/jsf/netbeans-maven-prj-2.png
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+在NetBeans中选择合适的archetype
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:在NetBeans中选择合适的archetype"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+设置项目属性。 如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:在NetBeans中设置项目属性"
+
+\end_inset
+
+所示，主要是填写项目名称、组ID（groupId，会根据组ID自动创建java文件的包）。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/jsf/netbeans-maven-prj-3.png
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+在NetBeans中设置项目属性
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:在NetBeans中设置项目属性"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+创建项目框架。经过以上步骤，netbeans会自动创建应用程序的项目目录和相关文件。
+\end_layout
+
+\begin_layout Subsection
+重要的配置文件
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:重要的配置文件"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+除了手工创建项目之外，无论使用maven命令还是NetBeans创建项目都可能或多或少和图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:maven应用程序的基本目录结构"
+
+\end_inset
+
+给出的目录结构不完全一样，读者可以自行调整。
+\end_layout
+
+\begin_layout Standard
+本例中涉及到的几个重要的配置文件，无论maven还是netbeans都只能给出一个最简化的情形，需要根据JSF2应用程序的需求细化以下。
+\end_layout
+
+\begin_layout Subsubsection
+web.xml
+\end_layout
+
+\begin_layout Standard
+这是java web应用程序中众所周知的重要配置文件，在JSF2中我们主要关注以下部分，分别在注释中详细解释过了：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+  <!-- JSF引擎。注意到这里的servlet-name定义和servlet-mapping中的
+\end_layout
+
+\begin_layout Plain Layout
+
+   servlet-name是一致的-->
+\end_layout
+
+\begin_layout Plain Layout
+
+  <servlet>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <servlet-name>Faces Servlet</servlet-name>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+\end_layout
+
+\begin_layout Plain Layout
+
+  </servlet>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  <!-- servlet-mapping将以下的几种形式的url都使用jsf引擎处理 -->
+\end_layout
+
+\begin_layout Plain Layout
+
+  <servlet-mapping>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <servlet-name>Faces Servlet</servlet-name>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <url-pattern>/faces/*</url-pattern>
+\end_layout
+
+\begin_layout Plain Layout
+
+  </servlet-mapping>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <servlet-mapping>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <servlet-name>Faces Servlet</servlet-name>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <url-pattern>*.jsf</url-pattern>
+\end_layout
+
+\begin_layout Plain Layout
+
+  </servlet-mapping>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <servlet-mapping>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <servlet-name>Faces Servlet</servlet-name>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <url-pattern>*.faces</url-pattern>
+\end_layout
+
+\begin_layout Plain Layout
+
+  </servlet-mapping>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <servlet-mapping>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <servlet-name>Faces Servlet</servlet-name>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <url-pattern>*.xhtml</url-pattern>
+\end_layout
+
+\begin_layout Plain Layout
+
+  </servlet-mapping>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  <!-- 设置为Development的好处是可以输出更多的调试信息，
+\end_layout
+
+\begin_layout Plain Layout
+
+   正式部署时需要更改为Production
+\end_layout
+
+\begin_layout Plain Layout
+
+   -->
+\end_layout
+
+\begin_layout Plain Layout
+
+  <context-param>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <param-value>Development</param-value>
+\end_layout
+
+\begin_layout Plain Layout
+
+  </context-param>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  <!-- client方式保存jsf的状态会消耗更多带宽，但是需要更少服务器资源,
+\end_layout
+
+\begin_layout Plain Layout
+
+   client方式也有助于更方便的解决view超时问题。@TODO but how? -->
+\end_layout
+
+\begin_layout Plain Layout
+
+  <context-param>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <description>State saving method: 'client' or 'server' (default).
+ See JSF Specification section 2.5.2</description>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <param-value>client</param-value>
+\end_layout
+
+\begin_layout Plain Layout
+
+  </context-param>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  <!-- 如果访问http://host/project/，则首先尝试index.jsf，
+\end_layout
+
+\begin_layout Plain Layout
+
+  再尝试welcome.jsf，以此类推
+\end_layout
+
+\begin_layout Plain Layout
+
+ -->
+\end_layout
+
+\begin_layout Plain Layout
+
+  <welcome-file-list>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <welcome-file>index.jsf</welcome-file>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <welcome-file>welcome.jsf</welcome-file>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <welcome-file>index.html</welcome-file>
+\end_layout
+
+\begin_layout Plain Layout
+
+    <welcome-file>index.jsp</welcome-file>
+\end_layout
+
+\begin_layout Plain Layout
+
+  </welcome-file-list>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+pom.xml
+\end_layout
+
+\begin_layout Standard
+pom.xml中的依赖部分如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:pom.xml的依赖部分"
+
+\end_inset
+
+所示。由于JSF2最小系统只涉及到JSF2的基本应用，因此这里只需要引入JSF2的api及其实现两个依赖即可。这里注意两点：
+\end_layout
+
+\begin_layout Itemize
+如何确定包依赖的导入格式？当确定了需要依赖哪些包时，可以到http://maven.aliyun.com根据关键词搜索依赖包，然后选择groupId、版本号等，找到
+所需要的依赖包，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:确定依赖包的导入方式"
+
+\end_inset
+
+所示。
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/jsf/maven-aliyun-jsf-impl.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+确定依赖包的导入方式
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:确定依赖包的导入方式"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+由于我们的应用是部署到tomcat的，而tomcat本身并不内置JSF的支持，即tomcat没有包含JSF的相关类库，因此我们在pom.xml中声明jsf的相关依
+赖包时，包的scope应该是compile范围的（这是默认设置，即也可以不声明scope）。
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+pom.xml的依赖部分
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:pom.xml的依赖部分"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   <dependencies>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <dependency>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <groupId>javax.faces</groupId>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <artifactId>javax.faces-api</artifactId>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <version>2.2</version>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <!-- 需要部署到tomcat，因此scope必须为compile(compile为默认设置)
+\end_layout
+
+\begin_layout Plain Layout
+
+            如果部署到wildfly，请修改为provided
+\end_layout
+
+\begin_layout Plain Layout
+
+            -->
+\end_layout
+
+\begin_layout Plain Layout
+
+            <scope>compile</scope>
+\end_layout
+
+\begin_layout Plain Layout
+
+        </dependency>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <dependency>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <groupId>com.sun.faces</groupId>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <artifactId>jsf-impl</artifactId>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <version>2.2.14</version>
+\end_layout
+
+\begin_layout Plain Layout
+
+        </dependency>
+\end_layout
+
+\begin_layout Plain Layout
+
+    </dependencies>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+为了部署和运行方便，在pom中也增加了部署应用的插件声明，在
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:部署和运行"
+
+\end_inset
+
+中我们再详细介绍。
+\end_layout
+
+\begin_layout Subsubsection
+faces-config.xml
+\end_layout
+
+\begin_layout Standard
+对于最小的jsf2应用而言，faces-config.xml是不需要的，也可以创建一个内容几乎为空的faces-config.xml文件。
+\end_layout
+
+\begin_layout Section
+编译和打包
+\end_layout
+
+\begin_layout Standard
+执行以下命令编译和打包应用程序：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+$ mvn clean package
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以在target目录中找到打包好的war包：jsf2-basic.war，同时在target目录也给出了未打包前的war包结构，如图所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/jsf/jsf2-basic-war.png
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+jsf2-basic的war包结构
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:jsf2-basic的war包结构"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+部署和运行
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:部署和运行"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+将打包后的jsf2-basic.war包部署到tomcat有两种方法，其一是手工复制jsf2-basic.war包到tomcat的webapp目录下，tomcat将
+自动发现webapp目录的变化并自动展开war包部署起来（称为热部署）。可以写一个简单的脚本简化这一过程：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+deploy.sh
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:deploy.sh"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#!/bin/bash
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+TOMCAT_HOME=/home/subaochen/devel/tomcat
+\end_layout
+
+\begin_layout Plain Layout
+
+if [ -f target/jsf2-basic.war ]; then
+\end_layout
+
+\begin_layout Plain Layout
+
+    cp -f target/jsf2-basic.war $TOMCAT_HOME/webapps/
+\end_layout
+
+\begin_layout Plain Layout
+
+    echo "deploy jsf2-basic.war to tomcat done"
+\end_layout
+
+\begin_layout Plain Layout
+
+fi
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+第二种部署应用到tomcat的方法是借助于tomcat的远程部署功能，利用maven的tomcat7-maven-plugin插件实现远程自动部署。这里重点说一
+下这种部署方式。
+\end_layout
+
+\begin_layout Standard
+在远程自动部署之前，需要准备以下部署环境
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+参见：
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://tomcat.apache.org/tomcat-8.5-doc/manager-howto.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout Itemize
+设置合适的tomcat远程管理权限，编辑$TOMCAT_HOME/conf/tomcat-users.xml文件，增加如下的部分（其中的用户名和密码设置为你自己的
+情况）：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+  <role rolename="manager-script"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <role rolename="manager-gui"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+  <user username="admin" password="admin" roles="manager-script,manager-gui"/>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+在pom.xml文件中增加tomcat7-maven-plugin插件。需要注意两点：第一，虽然这个插件看起来是针对tomcat7的，但是由于tomcat7和to
+mcat8的远程部署功能没有变化，因此同样适应于tomcat8；第二，插件设置中configuration部分关于url和username、password等的
+设置，要和tomcat-users.xml文件中的设置对应起来：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+    <build>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <finalName>jsf2-basic</finalName>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <plugins>
+\end_layout
+
+\begin_layout Plain Layout
+
+            <!-- 执行mvn tomcat7:deploy部署应用 -->
+\end_layout
+
+\begin_layout Plain Layout
+
+            <plugin>
+\end_layout
+
+\begin_layout Plain Layout
+
+                <groupId>org.apache.tomcat.maven</groupId>
+\end_layout
+
+\begin_layout Plain Layout
+
+                <artifactId>tomcat7-maven-plugin</artifactId>
+\end_layout
+
+\begin_layout Plain Layout
+
+                <version>2.2</version>
+\end_layout
+
+\begin_layout Plain Layout
+
+                <configuration>
+\end_layout
+
+\begin_layout Plain Layout
+
+                    <url>http://localhost:8080/manager/text</url>
+\end_layout
+
+\begin_layout Plain Layout
+
+                    <server>TomcatServer</server>
+\end_layout
+
+\begin_layout Plain Layout
+
+                    <username>admin</username>
+\end_layout
+
+\begin_layout Plain Layout
+
+                    <password>admin</password>
+\end_layout
+
+\begin_layout Plain Layout
+
+                    <path>/${project.artifactId}</path>
+\end_layout
+
+\begin_layout Plain Layout
+
+                    <update>true</update>
+\end_layout
+
+\begin_layout Plain Layout
+
+                </configuration>
+\end_layout
+
+\begin_layout Plain Layout
+
+            </plugin>
+\end_layout
+
+\begin_layout Plain Layout
+
+        </plugins>
+\end_layout
+
+\begin_layout Plain Layout
+
+    </build>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+准备好以以上环境后，部署和运行jsf2-basic应用就很简单而且愉快了：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+$ mvn clean package tomcat7:deploy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在浏览器中输入网址：http://localhost:8080/jsf2-basic 即可观察应用的输出结果，如图
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:运行示意图"
+
+\end_inset
+
+所示。
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -156,6 +1640,69 @@ name "fig:运行示意图"
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+无论哪种部署方式，都建议打开一个终端，始终观察tomcat的log输出，比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+$ tail -f catalina.out 
+\end_layout
+
+\begin_layout Plain Layout
+22-May-2017 14:41:26.206 信息 [localhost-startStop-2] org.apache.catalina.startup.HostC
+onfig.deployWAR Deploying web application archive [/home/subaochen/devel/apache-t
+omcat-8.5.15/webapps/jsf2-basic.war]
+\end_layout
+
+\begin_layout Plain Layout
+22-May-2017 14:41:26.513 信息 [localhost-startStop-2] com.sun.faces.config.ConfigureLis
+tener.contextInitialized 初始化上下文 '/jsf2-basic' 的 Mojarra 2.2.14 ( 20161114-2153
+ unable to get svn info)
+\end_layout
+
+\begin_layout Plain Layout
+22-May-2017 14:41:26.574 信息 [localhost-startStop-2] com.sun.faces.spi.InjectionProvid
+erFactory.createInstance JSF1048：有 PostConstruct/PreDestroy 注释。标有这些注释的 ManagedBea
+ns 方法将表示注释已处理。
+\end_layout
+
+\begin_layout Plain Layout
+22-May-2017 14:41:26.962 信息 [localhost-startStop-2] com.sun.faces.config.ConfigureLis
+tener$WebConfigResourceMonitor$Monitor.<init> Monitoring file:/home/subaochen/dev
+el/apache-tomcat-8.5.15/webapps/jsf2-basic/WEB-INF/faces-config.xml for modificatio
+ns
+\end_layout
+
+\begin_layout Plain Layout
+22-May-2017 14:41:26.994 信息 [localhost-startStop-2] org.apache.catalina.startup.HostC
+onfig.deployWAR Deployment of web application archive [/home/subaochen/devel/apac
+he-tomcat-8.5.15/webapps/jsf2-basic.war] has finished in [787] ms
 \end_layout
 
 \end_inset
