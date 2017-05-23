@@ -1,0 +1,327 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+《LaTeX入门》读书笔记
+\end_layout
+
+\begin_layout Standard
+前几天在CTex问了一个小问题，Leo Liu很快就给出了令人信服和佩服的回复，仔细一看原来Leo Liu就是《\SpecialChar LaTeX
+入门》一书的作者刘海洋，这才想起早先买了这本书，
+却一直没有认真读，失敬失敬！
+\end_layout
+
+\begin_layout Section
+TexLive的安装
+\end_layout
+
+\begin_layout Standard
+Linux发布版都自带了TexLive的某个版本，但是一般都比较老旧，可以自己安装较新的TexLive，带来的额外好处是升级也比较方便。如果使用ubuntu，可
+以使用ppa方式安装较新的TexLive，具体参见：
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://softlab.sdut.edu.cn/blog/subaochen/2017/05/15/ubuntu-16-04%E5%AE%89%E8%A3%85
+texlive-2016/
+\end_layout
+
+\end_inset
+
+；如果从ctan.org下载TexLive安装，本书讲的很全面了。有一个疑问，在P9讲到，安装TexLive后，需要通过修改texmf.cnf文件的OSFONTDI
+R变量，以便\SpecialChar LaTeX
+能够使用系统字体。但是在TexLive 2016中，texmf.cnf文件的位置和内容似乎已经发生了变化，不知道还需要设置OSFONTDIR变量吗？有
+待验证和考证。
+\end_layout
+
+\begin_layout Section
+newenvoironment命令
+\end_layout
+
+\begin_layout Standard
+除了\SpecialChar LaTeX
+自带的一些环境，比如figure、table、quote之外，还可以使用newenvoironment命令自定义一个新的环境。newenvoironment
+命令的一般形式：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+newenvoironment{新环境名称}{新环境的开始代码}{新环境的结束代码}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+newenvironment{myquote}
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+qquad
+\end_layout
+
+\end_inset
+
+{
+\backslash
+begin{quote}
+\backslash
+kaishu
+\backslash
+zihao{-5}}
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+qquad
+\end_layout
+
+\end_inset
+
+{
+\backslash
+end{quote}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+注意不要被花括号晃花了眼。
+\end_layout
+
+\begin_layout Section
+newcommand命令
+\end_layout
+
+\begin_layout Standard
+newcommand命令有两个参数，其一般形式为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+newcommand{新命令名称}{新命令定义}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+newcommand{
+\backslash
+degree}{^
+\backslash
+circ}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+但是，由于所有的\SpecialChar LaTeX
+命令都是
+\backslash
+开头的，因此新命令名称参数不使用花括号也不会引起歧义，即：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+newcommand
+\backslash
+degree{^
+\backslash
+circ}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
