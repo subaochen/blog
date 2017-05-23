@@ -1,0 +1,212 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+从程序员的角度看\SpecialChar LaTeX
+
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Standard
+程序员学习\SpecialChar LaTeX
+可能更容易理解些，下面试着从程序员的角度解读\SpecialChar LaTeX
+的几个常用概念。
+\end_layout
+
+\begin_layout Section
+模板和面向对象的类
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+documentclass加载一个指定的文档模板。所谓文档模板，实际上是一套定义此种类型文档属性的命令或者环境，这些命令或者环境或者重新定义了\SpecialChar LaTeX
+自带的同名命令和环
+境，或者定义了新的命令和环境。从面向对象的角度看，\SpecialChar LaTeX
+定义了一套文档的基本属性及其默认值，这可以看作“基类”，而文档模板则是子类：从基类继承下来，覆盖（重写）其中的
+默认属性，或者增加新的属性，从而更具体的描述这种文档。
+\end_layout
+
+\begin_layout Section
+环境
+\end_layout
+
+\begin_layout Standard
+环境（envioronment）类似于函数，每个环境定义了一种类型的区块，比如引用（quote），列表（itemize），图形（figure）环境等。\SpecialChar LaTeX
+预定义的环
+境相当于C的标准函数，通过
+\backslash
+newenvioronment命令定义新的环境类似于定义新的函数。
+\end_layout
+
+\begin_layout Section
+命令的作用范围
+\end_layout
+
+\begin_layout Standard
+命令的作用范围是“环境”，因此可以把命令看作函数中的变量：当函数退出时，变量自然失效。当环境结束时，环境中的命令自然失效。比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+begin{figure}
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+qquad
+\end_layout
+
+\end_inset
+
+
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+qquad
+\end_layout
+
+\end_inset
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+end{figure}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+centering的作用是居中显示后面的内容，但是其作用范围是当前的环境，在这里即figure环境。
+\end_layout
+
+\end_body
+\end_document
