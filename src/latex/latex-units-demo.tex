@@ -1,0 +1,15 @@
+\documentclass{ctexart}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}{rememer picture,overlay}
+\draw[red] (0,0) rectangle (.3\textwidth,1em);
+\draw[red] (.3\textwidth,0) rectangle (\textwidth,1em);
+\end{tikzpicture}
+
+\begin{minipage}{.3\textwidth}
+30\%文字宽度
+\end{minipage}
+\begin{minipage}{.7\textwidth}
+70\%文字宽度
+\end{minipage}
+\end{document}
