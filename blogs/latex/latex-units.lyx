@@ -104,21 +104,36 @@ logicalmkup
 \begin_layout Standard
 通常，在\SpecialChar LaTeX
 中决定一个“对象”的长度或者高度时，使用相对的度量方式比较合适，比如30%的行宽等。\SpecialChar LaTeX
-中预定义了一些度量单位，可以方便的在相对度量中直接引用，常见的有：
+中预定义了一些度量单位，可以方便的在相对度量中直接引用。
 \end_layout
 
-\begin_layout Description
-textweidth “文字宽度”，指版心的宽度，正文段落的最大宽度，即页面宽度（pageweidth）扣除了页边距等后的宽度。这是最常用的行内相对度量单位。比
-如我们要横向安排两个minipage，第一个占30%文字宽度，第二个占70%文字宽度，可以这样写：
-\begin_inset listings
-inline false
+\begin_layout Section
+textwidth
+\end_layout
+
+\begin_layout Standard
+“文字宽度”，指版心的宽度，正文段落的最大宽度，即页面宽度（pageweidth）扣除了页边距等后的宽度。这是最常用的行内相对度量单位。比如我们要横向安排两个m
+inipage，第一个占30%文字宽度，第二个占70%文字宽度，可以这样写：
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "brown"
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-begin{minipage}
 \end_layout
 
 \end_inset
@@ -126,8 +141,32 @@ begin{minipage}
 
 \end_layout
 
-\begin_layout Description
-textheight “文字高度”
+\begin_layout Section
+linewidth
+\end_layout
+
+\begin_layout Section
+columnwidth
+\end_layout
+
+\begin_layout Section
+hsize
+\end_layout
+
+\begin_layout Section
+textheight 
+\end_layout
+
+\begin_layout Standard
+“文字高度”
+\end_layout
+
+\begin_layout Section
+ex
+\end_layout
+
+\begin_layout Section
+em
 \end_layout
 
 \end_body
