@@ -1,0 +1,69 @@
+\documentclass[twocolumn]{ctexart}
+\usepackage{xcolor}
+\parindent=0pt
+\usepackage[paperheight=15cm]{geometry}
+\begin{document}
+\color{red}{
+两栏文本：
+
+\leavevmode\rlap{text:}\rule[-.3\baselineskip]{\textwidth}{2pt}\par
+\leavevmode\rlap{line:}\rule[-.3\baselineskip]{\linewidth}{2pt}\par
+\leavevmode\rlap{hsize:}\rule[-.3\baselineskip]{\hsize}{2pt}\par
+\leavevmode\rlap{column:}\rule[-.3\baselineskip]{\columnwidth}{2pt}
+}
+
+\color{green}{
+小页环境（30\%文本宽度）：
+
+\begin{minipage}{.3\textwidth}
+\leavevmode\rlap{text:}\rule[-.3\baselineskip]{\textwidth}{2pt}\par
+\leavevmode\rlap{line:}\rule[-.3\baselineskip]{\linewidth}{2pt}\par
+\leavevmode\rlap{hsize:}\rule[-.3\baselineskip]{\hsize}{2pt}\par
+\leavevmode\rlap{column:}\rule[-.3\baselineskip]{\columnwidth}{2pt}
+\end{minipage}
+}
+
+\vspace*{2em}
+\color{blue}{
+列表环境：
+\begin{itemize}
+\item \leavevmode\rlap{text:}\rule[-.5\baselineskip]{\textwidth}{5pt}
+\item \leavevmode\rlap{line:}\rule[-.5\baselineskip]{\linewidth}{5pt}
+\item \leavevmode\rlap{hsize:}\rule[-.5\baselineskip]{\hsize}{5pt}
+\item \leavevmode\rlap{column:}\rule[-.5\baselineskip]{\columnwidth}{5pt}
+\end{itemize}
+}
+
+\onecolumn
+\color{red}{
+单栏文本：
+
+\leavevmode\rlap{text:}\rule[-.3\baselineskip]{\textwidth}{2pt}\par
+\leavevmode\rlap{line:}\rule[-.3\baselineskip]{\linewidth}{2pt}\par
+\leavevmode\rlap{hsize:}\rule[-.3\baselineskip]{\hsize}{2pt}\par
+\leavevmode\rlap{column:}\rule[-.3\baselineskip]{\columnwidth}{2pt}
+}
+
+\color{green}{
+小页环境（30\%文本宽度）：
+
+\begin{minipage}{.3\textwidth}
+\leavevmode\rlap{text:}\rule[-.3\baselineskip]{\textwidth}{2pt}\par
+\leavevmode\rlap{line:}\rule[-.3\baselineskip]{\linewidth}{2pt}\par
+\leavevmode\rlap{hsize:}\rule[-.3\baselineskip]{\hsize}{2pt}\par
+\leavevmode\rlap{column:}\rule[-.3\baselineskip]{\columnwidth}{2pt}
+\end{minipage}
+}
+
+\vspace*{2em}
+\color{blue}{
+列表环境：
+\begin{itemize}
+\item \leavevmode\rlap{text:}\rule[-.5\baselineskip]{\textwidth}{5pt}
+\item \leavevmode\rlap{line:}\rule[-.5\baselineskip]{\linewidth}{5pt}
+\item \leavevmode\rlap{hsize:}\rule[-.5\baselineskip]{\hsize}{5pt}
+\item \leavevmode\rlap{column:}\rule[-.5\baselineskip]{\columnwidth}{5pt}
+\end{itemize}
+}
+
+\end{document}
