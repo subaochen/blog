@@ -1,0 +1,14 @@
+\documentclass{ctexart}
+\usepackage{diagbox}
+\begin{document}
+\begin{tabular}{|@{}l|c|c|r@{}|}
+	\hline
+	\diagbox[width=5em,trim=l] {Time}{Day} & Mon & Tue & Wed\\
+	\hline
+	Morning & used & used & used\\
+	\hline
+	Afternoon & & used & \diagbox[dir=SW, height=2em,trim=r] {A}{B}\\
+	\hline
+\end{tabular}
+
+\end{document}
