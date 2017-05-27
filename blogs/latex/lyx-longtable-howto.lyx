@@ -145,11 +145,11 @@ reference "tab:中设置长表格的方法"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="10" columns="3">
+<lyxtabular version="3" rows="13" columns="3">
 <features islongtable="true" firstHeadEmpty="true" longtabularalignment="center">
 <column alignment="center" valignment="top">
-<column alignment="center" valignment="middle" width="30line%">
-<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="middle" width="50line%">
+<column alignment="center" valignment="top" width="30line%">
 <row caption="true">
 <cell multicolumn="1" alignment="center" valignment="top" usebox="none">
 \begin_inset Text
@@ -309,7 +309,7 @@ name "tab:中设置长表格的方法"
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-1.png
-	width 20line%
+	width 10col%
 
 \end_inset
 
@@ -333,7 +333,15 @@ name "tab:中设置长表格的方法"
 \begin_inset Text
 
 \begin_layout Plain Layout
-将表格的前3行每一行合并为一列。
+将表格的前3行每一行合并为一列，可以方便的通过\SpecialChar LyX
+底部的工具栏
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-merge-columns-icon.png
+	height 2em
+
+\end_inset
+
+做到这一点。
 \end_layout
 
 \end_inset
@@ -344,7 +352,7 @@ name "tab:中设置长表格的方法"
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-2.png
-	width 20line%
+	width 10col%
 
 \end_inset
 
@@ -368,6 +376,17 @@ name "tab:中设置长表格的方法"
 \begin_inset Text
 
 \begin_layout Plain Layout
+设置长表格的标题：鼠标焦点移动到表格的第一行，右键选择菜单“首选项...”，在随后的表格属性对话框中选择使用长表格（即multi-page table，多页表格）和打
+开标题的状态开关，如下图所示。此时，插入的普通表格转换为长表格并自动居中显示，长表格的第一行自动设置为表格的标题，并自动去掉了第一行的边框。
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-3.png
+	width 80line%
+
+\end_inset
+
 
 \end_layout
 
@@ -377,6 +396,12 @@ name "tab:中设置长表格的方法"
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-4.png
+	width 15col%
+
+\end_inset
+
 
 \end_layout
 
@@ -397,7 +422,7 @@ name "tab:中设置长表格的方法"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+在表1：后后面的红色框中填写长表格的标题，不再赘述。
 \end_layout
 
 \end_inset
@@ -426,6 +451,134 @@ name "tab:中设置长表格的方法"
 \begin_inset Text
 
 \begin_layout Plain Layout
+设置长表格的页首效果。由于长表格要跨页，一般在长表格的每一页第一行顶部显示一个类似于“续表”的字样，以明确告诉读者这是一个长表格的续表。设置方法：鼠标焦点移动到
+表格的第二行，右键选择“首选项...”，在随后的表格属性对话框中将页首开关打开。
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-5.png
+	width 15col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-firstend.png
+	width 15col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-6.png
+	width 15col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-footend.png
+	width 15col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+去掉第二行和第三行的边框
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-7.png
+	width 15col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-firstpagehead.png
+	width 25col%
+
+\end_inset
+
 
 \end_layout
 
@@ -446,7 +599,7 @@ name "tab:中设置长表格的方法"
 \begin_inset Text
 
 \begin_layout Plain Layout
-6
+9
 \end_layout
 
 \end_inset

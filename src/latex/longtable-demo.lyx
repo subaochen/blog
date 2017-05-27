@@ -86,15 +86,23 @@ warning-inset
 \begin_layout Standard
 \begin_inset Tabular
 <lyxtabular version="3" rows="5" columns="3">
-<features tabularvalignment="middle">
+<features islongtable="true" firstHeadEmpty="true" longtabularalignment="center">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<column alignment="center" valignment="top" width="0pt">
+<row caption="true">
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+长表格示意图
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
@@ -119,12 +127,12 @@ warning-inset
 \end_inset
 </cell>
 </row>
-<row>
-<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<row endhead="true">
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+（续表）
 \end_layout
 
 \end_inset
@@ -148,12 +156,12 @@ warning-inset
 \end_inset
 </cell>
 </row>
-<row>
-<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<row endfoot="true">
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+见下一页表格......
 \end_layout
 
 \end_inset
