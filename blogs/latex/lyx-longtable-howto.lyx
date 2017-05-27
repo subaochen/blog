@@ -106,16 +106,49 @@ logicalmkup
 \end_layout
 
 \begin_layout Standard
-长表格一般都跨页，因此不适合放到浮动体中。\SpecialChar LyX
-已经内置支持插入长表格，只是方法比较繁琐（\SpecialChar LaTeX
-手工写长表格的代码更繁琐）。
+长表格（long table），一般是指包含很多行，多到需要跨页的表格。由于长表格包含的信息比较多，更需要给长表格设置合适的标题以便引用。但是常规的浮动表格（可
+以很好的支持表格标题）无法用来装长表格，这是浮动体的特点决定的。好在\SpecialChar LyX
+已经内置支持插入长表格
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+其实是借助与longtable宏包，即设置一个表格为长表格时，自动加载了longtable宏包。
+\end_layout
+
+\end_inset
+
+，使用还是蛮方便的，比直接写\SpecialChar LaTeX
+源代码要快捷的多。为了演示长表格的用法，下面使用一个长表格说明在\SpecialChar LyX
+中如何插入和设置一个长表格，也可以借助与
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tablename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:中设置长表格的方法"
+
+\end_inset
+
+直观的了解长表格的特点。
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="25" columns="2">
+<lyxtabular version="3" rows="10" columns="3">
 <features islongtable="true" firstHeadEmpty="true" longtabularalignment="center">
 <column alignment="center" valignment="top">
+<column alignment="center" valignment="middle" width="30line%">
 <column alignment="center" valignment="top" width="0pt">
 <row caption="true">
 <cell multicolumn="1" alignment="center" valignment="top" usebox="none">
@@ -125,7 +158,15 @@ logicalmkup
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-长表格示例
+\SpecialChar LyX
+中设置长表格的方法
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:中设置长表格的方法"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -135,7 +176,16 @@ logicalmkup
 
 \end_inset
 </cell>
-<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -155,7 +205,16 @@ logicalmkup
 
 \end_inset
 </cell>
-<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell multicolumn="2" alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -186,13 +245,22 @@ logicalmkup
 
 \end_inset
 </cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-项目
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+步骤
 \end_layout
 
 \end_inset
@@ -201,37 +269,16 @@ logicalmkup
 \begin_inset Text
 
 \begin_layout Plain Layout
-内容
+操作
 \end_layout
 
 \end_inset
 </cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-CPU
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-锐龙1800X，来一打！
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-需要配套的主板，最好内存上3G！
-\end_layout
-
-\end_inset
-
-
+截图
 \end_layout
 
 \end_inset
@@ -242,36 +289,31 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
-CPU
+1
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="middle" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-锐龙1800X，来一打！
+规划好表格的列数，比如这里是一个3列表格，首先插入一个3列的表格，行数大于4即可，可随时添加新行。
 \end_layout
 
 \end_inset
 </cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-CPU
-\end_layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-1.png
+	width 20line%
 
 \end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
 
-\begin_layout Plain Layout
-锐龙1800X，来一打！
+
 \end_layout
 
 \end_inset
@@ -282,7 +324,7 @@ CPU
 \begin_inset Text
 
 \begin_layout Plain Layout
-CPU
+2
 \end_layout
 
 \end_inset
@@ -291,7 +333,22 @@ CPU
 \begin_inset Text
 
 \begin_layout Plain Layout
-锐龙1800X，来一打！
+将表格的前3行每一行合并为一列。
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-2.png
+	width 20line%
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -302,7 +359,7 @@ CPU
 \begin_inset Text
 
 \begin_layout Plain Layout
-CPU
+3
 \end_layout
 
 \end_inset
@@ -311,7 +368,16 @@ CPU
 \begin_inset Text
 
 \begin_layout Plain Layout
-锐龙1800X，来一打！
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
@@ -322,7 +388,7 @@ CPU
 \begin_inset Text
 
 \begin_layout Plain Layout
-CPU
+4
 \end_layout
 
 \end_inset
@@ -331,7 +397,16 @@ CPU
 \begin_inset Text
 
 \begin_layout Plain Layout
-锐龙1800X，来一打！
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
@@ -342,7 +417,7 @@ CPU
 \begin_inset Text
 
 \begin_layout Plain Layout
-CPU
+5
 \end_layout
 
 \end_inset
@@ -351,267 +426,16 @@ CPU
 \begin_inset Text
 
 \begin_layout Plain Layout
-锐龙1800X，来一打！
+
 \end_layout
 
 \end_inset
 </cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-CPU
-\end_layout
 
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-锐龙1800X，来一打！
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-CPU
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-锐龙1800X，来一打！
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-CPU
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-锐龙1800X，来一打！
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-CPU
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-锐龙1800X，来一打！
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-CPU
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-锐龙1800X，来一打！
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-CPU
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-锐龙1800X，来一打！
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-CPU
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-锐龙1800X，来一打！
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-CPU
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-锐龙1800X，来一打！
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-CPU
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-锐龙1800X，来一打！
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-CPU
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-锐龙1800X，来一打！
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-CPU
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-锐龙1800X，来一打！
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-CPU
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-锐龙1800X，来一打！
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-CPU
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-锐龙1800X，来一打！
 \end_layout
 
 \end_inset
@@ -622,7 +446,7 @@ CPU
 \begin_inset Text
 
 \begin_layout Plain Layout
-CPU
+6
 \end_layout
 
 \end_inset
@@ -631,7 +455,16 @@ CPU
 \begin_inset Text
 
 \begin_layout Plain Layout
-锐龙1800X，来一打！
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
