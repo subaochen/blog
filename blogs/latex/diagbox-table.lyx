@@ -23,9 +23,9 @@ logicalmkup
 \language_package default
 \inputencoding auto
 \fontencoding global
-\font_roman "default" "DejaVu Serif"
-\font_sans "default" "DejaVu Sans"
-\font_typewriter "default" "DejaVu Sans Mono"
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
 \font_math "auto" "auto"
 \font_default_family default
 \use_non_tex_fonts true
@@ -391,7 +391,28 @@ end{tabular}
 在\SpecialChar LyX
 中插入ERT方式画斜线表头，有时候似乎无法对齐？经实验，似乎和serif字体的设置有关。默认我的serif字体是DejaVu Serif，换为FreeSeri
 f斜线表格就正常了，似乎换成FreeSerif衬线字体后，也没有其他不良反应，只是FreeMono字体比Deja Vu Mono纤细一些，FreeSerif比D
-eja Vu Serif更加棱角分明（不仔细看不出来），FreeSans也挺漂亮的。Free，多好听的名字，先用一段时间Free家族字体看看再说。
+eja Vu Serif更加棱角分明（不仔细看不出来），FreeSans也挺漂亮的。Free，多好听的名字，先用一段时间
+\begin_inset Flex Noun
+status open
+
+\begin_layout Plain Layout
+Free家族
+\end_layout
+
+\end_inset
+
+字体看看再说，也就是说，
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+将\SpecialChar LyX
+字体换成Free全家桶：FreeSerif，FreeSans，FreeMono
+\end_layout
+
+\end_inset
+
+。
 \end_layout
 
 \end_body
