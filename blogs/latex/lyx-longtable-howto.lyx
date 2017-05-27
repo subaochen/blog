@@ -105,9 +105,14 @@ logicalmkup
 宿宝臣<subaochen@126.com>
 \end_layout
 
+\begin_layout Section
+长表格的概念
+\end_layout
+
 \begin_layout Standard
-长表格（long table），一般是指包含很多行，多到需要跨页的表格。由于长表格包含的信息比较多，更需要给长表格设置合适的标题以便引用。但是常规的浮动表格（可
-以很好的支持表格标题）无法用来装长表格，这是浮动体的特点决定的。好在\SpecialChar LyX
+长表格（long table），一般是指包含很多行，多到需要跨页的表格，在\SpecialChar LyX
+又被成为Multi-page table（多页表格）。由于长表格包含的信息比较多，更需
+要给长表格设置合适的标题以便引用。但是常规的浮动表格（可以很好的支持表格标题）无法用来装长表格，这是浮动体的特点决定的。好在\SpecialChar LyX
 已经内置支持插入长表格
 \begin_inset Foot
 status open
@@ -119,7 +124,40 @@ status open
 \end_inset
 
 ，使用还是蛮方便的，比直接写\SpecialChar LaTeX
-源代码要快捷的多。为了演示长表格的用法，下面使用一个长表格说明在\SpecialChar LyX
+源代码要快捷的多。
+\end_layout
+
+\begin_layout Standard
+基于长表格跨页的特点，一般来说都需要在长表格跨页的部分增加适当的文字说明，以便读者能够顺利衔接起来，因此长表格比普通表格多了4个概念：
+\end_layout
+
+\begin_layout Itemize
+页首（head)：每一页表格第一行之上需要显示的内容，通常设置为“续表”。
+\end_layout
+
+\begin_layout Itemize
+页脚（foot）：每一页表格最后一行之后需要显示内容，通常设置为“见下一页表格......
+\begin_inset Quotes erd
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Itemize
+第一页首（firsthead）：整个表格第一行之上需要显示的内容，通常为空即可。
+\end_layout
+
+\begin_layout Itemize
+最后页脚（lastfoot）：整个表格最后一行之后需要显示的内容，通常为空即可。
+\end_layout
+
+\begin_layout Section
+\SpecialChar LyX
+中插入长表格的方法
+\end_layout
+
+\begin_layout Standard
+为了演示长表格的用法，下面使用一个长表格说明在\SpecialChar LyX
 中如何插入和设置一个长表格，也可以借助与
 \begin_inset ERT
 status open
@@ -146,10 +184,10 @@ reference "tab:中设置长表格的方法"
 \begin_layout Standard
 \begin_inset Tabular
 <lyxtabular version="3" rows="13" columns="3">
-<features islongtable="true" firstHeadEmpty="true" longtabularalignment="center">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="middle" width="50line%">
-<column alignment="center" valignment="top" width="30line%">
+<features islongtable="true" firstHeadEmpty="true" lastFootEmpty="true" longtabularalignment="center">
+<column alignment="center" valignment="top" width="5line%">
+<column alignment="center" valignment="middle" width="60line%">
+<column alignment="center" valignment="middle" width="30line%">
 <row caption="true">
 <cell multicolumn="1" alignment="center" valignment="top" usebox="none">
 \begin_inset Text
@@ -256,7 +294,7 @@ name "tab:中设置长表格的方法"
 </cell>
 </row>
 <row>
-<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -298,18 +336,19 @@ name "tab:中设置长表格的方法"
 \begin_inset Text
 
 \begin_layout Plain Layout
-规划好表格的列数，比如这里是一个3列表格，首先插入一个3列的表格，行数大于4即可，可随时添加新行。
+规划好表格的列数，比如这里是一个3列表格，首先插入一个3列的表格，行数大于4即可，可随时添加新行。表格的前三行将分别用于标题、页首、页脚内容的设置。如果也需要设
+置第一页首、最后页脚，则需要保留表格的前5行，即最好插入一个包含6行的表格。
 \end_layout
 
 \end_inset
 </cell>
-<cell multicolumn="1" alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-1.png
-	width 10col%
+	width 10page%
 
 \end_inset
 
@@ -352,7 +391,7 @@ name "tab:中设置长表格的方法"
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-2.png
-	width 10col%
+	width 10page%
 
 \end_inset
 
@@ -383,7 +422,7 @@ name "tab:中设置长表格的方法"
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-3.png
-	width 80line%
+	width 50line%
 
 \end_inset
 
@@ -398,7 +437,7 @@ name "tab:中设置长表格的方法"
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-4.png
-	width 15col%
+	width 15page%
 
 \end_inset
 
@@ -458,7 +497,7 @@ name "tab:中设置长表格的方法"
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-5.png
-	width 15col%
+	width 50line%
 
 \end_inset
 
@@ -473,7 +512,7 @@ name "tab:中设置长表格的方法"
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-firstend.png
-	width 15col%
+	width 15page%
 
 \end_inset
 
@@ -497,9 +536,13 @@ name "tab:中设置长表格的方法"
 \begin_inset Text
 
 \begin_layout Plain Layout
+设置长表格的页脚。类似于“页首”的设置方法，在表格的第三行右键单击选择“首选项...”，在随后的表格属性对话框中打开“页脚”状态按钮即可。
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-6.png
-	width 15col%
+	width 50line%
 
 \end_inset
 
@@ -514,7 +557,7 @@ name "tab:中设置长表格的方法"
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-footend.png
-	width 15col%
+	width 15page%
 
 \end_inset
 
@@ -538,7 +581,8 @@ name "tab:中设置长表格的方法"
 \begin_inset Text
 
 \begin_layout Plain Layout
-去掉第二行和第三行的边框
+目前版本的\SpecialChar LyX
+（2.2.3）在这里似乎有小bug，需要手工去掉第二行（页首）和第三行（页脚）的边框。
 \end_layout
 
 \end_inset
@@ -549,7 +593,7 @@ name "tab:中设置长表格的方法"
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-7.png
-	width 15col%
+	width 15page%
 
 \end_inset
 
@@ -573,9 +617,13 @@ name "tab:中设置长表格的方法"
 \begin_inset Text
 
 \begin_layout Plain Layout
+设置“第一页首”和“最后页尾”为空：在表格的任意单元格右键单击“首选项...”，在随后的表格属性对话框中选择“第一页首”和“最后页尾”是空即可。
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-firstpagehead.png
-	width 25col%
+	width 50line%
 
 \end_inset
 
@@ -608,7 +656,7 @@ name "tab:中设置长表格的方法"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+正常完成表格的其他部分。
 \end_layout
 
 \end_inset
@@ -617,6 +665,12 @@ name "tab:中设置长表格的方法"
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-8.png
+	width 15page%
+
+\end_inset
+
 
 \end_layout
 
@@ -624,6 +678,133 @@ name "tab:中设置长表格的方法"
 </cell>
 </row>
 </lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+常见问题
+\end_layout
+
+\begin_layout Subsection
+长表格本身的水平对齐
+\end_layout
+
+\begin_layout Standard
+在表格的任意单元格右键单击“首选项”，在随后的表格属性对话框中选择“Multi-page table
+\begin_inset Quotes erd
+\end_inset
+
+属性页选择水平对齐方式即可，见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:长表格的水平对齐设置"
+
+\end_inset
+
+。貌似\SpecialChar LyX
+中长表格的水平对齐设置有bug，选择居中对齐没有效果，需要进一步验证。
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/longtable-halignment.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+长表格的水平对齐设置
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:长表格的水平对齐设置"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+长表格单元格内容的水平对齐
+\end_layout
+
+\begin_layout Standard
+单元格内容的水平对齐设置很简单，在相应单元格的表格对话框中选择水平对齐方式即可。需要注意的是，单元格的水平对齐是按照列设置的，即设置了某一个单元格的水平对齐方式
+，即设置了这一列单元格的水平对齐方式。也就是说，单元格的水平对齐方式是
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+列全局性
+\end_layout
+
+\end_inset
+
+的。
+\end_layout
+
+\begin_layout Subsection
+长表格单元格内容的纵向对齐
+\end_layout
+
+\begin_layout Standard
+一般的，需要适当设置表格的列宽，以便文字自动换行，也防止表格超宽。需要注意的是，要设置
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+全部列的宽度
+\end_layout
+
+\end_inset
+
+！否则没有设置列宽的列无法设置垂直对齐方向（没有宽度限制，系统无从计算列的高度，也就无法进行垂直对齐的布局），导致整个表格的垂直对齐设置失败。在全部设置了列宽的
+情况下，只要一个单元格的垂直对齐方向设置为“居中”，则整个表格的单元格都是垂直居中的。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+需要进一步验证
+\end_layout
 
 \end_inset
 
