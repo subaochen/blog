@@ -1,0 +1,26 @@
+\documentclass{ctexart}
+\usepackage{longtable}
+\usepackage{floatrow}
+\floatsetup[table]{font=small,capposition=top}
+\begin{document}
+长表格演示：
+
+\begin{longtable}[c]{|l|l|c|}
+	\caption{longtable示例}\\
+	\hline
+	\endfirsthead
+	\multicolumn{3}{c}{续表}\\
+	\hline
+	\endhead
+	\multicolumn{3}{c}{接下一页表格……}\\
+	\hline
+	\endfoot
+	\hline
+	\endlastfoot
+	序号 & 操作 & 截图 \\
+	\hline
+	1 & 设置必要的参数  & 参见图1 \\
+	\hline
+\end{longtable}
+
+\end{document}
