@@ -96,7 +96,7 @@ logicalmkup
 
 \begin_layout Title
 \SpecialChar LyX
-中的浮动体用法
+浮动体全攻略
 \end_layout
 
 \begin_layout Author
@@ -136,7 +136,7 @@ reference "fig:浮动体的作用示例"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -190,7 +190,7 @@ name "fig:浮动体的作用示例"
 /\SpecialChar LaTeX
 的重要特色功能，本文以\SpecialChar LyX
 为例，解析如何在\SpecialChar LyX
-中使用浮动体。
+中合理的使用浮动体。
 \end_layout
 
 \begin_layout Section
@@ -678,15 +678,304 @@ name "fig:浮动体的参数，设置浮动体可以出现在页面的什么位�
 \end_layout
 
 \begin_layout Section
+浮动体的标题
+\end_layout
+
+\begin_layout Standard
+浮动体往往体型较大（体型小的图片、表格在大多数情况下也无需浮动放置），包含的信息量也较多，加之浮动体有可能和相关文字不在一个页面，甚至前后顺序关系也可能发生改变
+，因此，最好给浮动体添加更详细的标题，以便读者仅仅通过浮动体的标题便能够了解浮动体所表达的含义，而无需劳动读者前后不停翻书。比如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:狭义相对论著名的质能互换公式"
+
+\end_inset
+
+的标题，甚至可以是一个段落。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/emc2.jpg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+狭义相对论著名的质能互换公式，说明质量可以变换成能量，揭示了质能等价的革命性观念。然而最初启发狭义相对论的并非质能关系，而是关于光速本质的讨论。
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:狭义相对论著名的质能互换公式"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+简单的说，浮动体的标题宁繁勿简，最好通过浮动体的标题便能够清楚了解浮动体所表达的意义。
+\end_layout
+
+\begin_layout Standard
+浮动体标题的位置也需要认真考虑。通常来说，图片浮动体的标题位于图片的下方，因为图片对眼睛的冲击力是强大的，读者第一眼的注意力大多会集中在图片上，因此不宜将标题放
+到显著的位置分散读者的注意力。表格的标题通常放到表格的上方，因为文字性的标题大多需要通过读者的顺序阅读才能了解表格的意义，因此先通过标题给读者一个概括的介绍是一
+个好主意。
+\end_layout
+
+\begin_layout Standard
+\SpecialChar LyX
+默认的浮动表格的标题是位于表格下方的，可以通过设置导言区引入floatrow宏包
+\begin_inset CommandInset citation
+LatexCommand cite
+key "floatrow"
+
+\end_inset
+
+重新设置表格的标题位置，代码如下，将表格和长表格的标题设置为位于表格的上方：
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+usepackage{floatrow}
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+floatsetup[table]{font=small,capposition=top}
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+floatsetup[longtable]{font=small,capposition=top}
+\end_layout
+
+\begin_layout Section
+浮动体的引用
+\end_layout
+
+\begin_layout Standard
+由于浮动体可能和相关文字不在一个页面，因此在引用浮动体的时候，建议尽可能详细的给出被引用的浮动体的位置信息，比如浮动体的属性列表参见
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "tab:浮动体的属性列表"
+
+\end_inset
+
+，其设置对话框参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:浮动体交叉引用的属性设置"
+
+\end_inset
+
+。
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/cross-ref.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+浮动体交叉引用的属性设置
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:浮动体交叉引用的属性设置"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这里的交叉引用样式实际上是宏包varioref
+\begin_inset CommandInset citation
+LatexCommand cite
+key "varioref"
+
+\end_inset
+
+提供的，遗憾的是，varioref宏包目前对中文的支持不是太好，读者可以自行在导言区增加如下的代码更好的支持中文的交叉引用：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+usepackage{varioref} % 为了防止refxxx没有定义错误
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+AtBeginDocument{
+\backslash
+renewcommand
+\backslash
+reftextfaraway[1]{[在第~
+\backslash
+pageref{#1}~页]}} 
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+AtBeginDocument{
+\backslash
+renewcommand
+\backslash
+reftextbefore{[在上一页]}} 
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+AtBeginDocument{
+\backslash
+renewcommand
+\backslash
+reftextafter{[在下一页]}} 
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+AtBeginDocument{
+\backslash
+renewcommand
+\backslash
+reftextcurrent{[在本页]}} 
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+AtBeginDocument{
+\backslash
+renewcommand
+\backslash
+reftextfaceafter{[在对页]}} 
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+AtBeginDocument{
+\backslash
+renewcommand
+\backslash
+reftextfacebefore{[在对页]}} 
+\end_layout
+
+\begin_layout Standard
+varioref宏包可以智能的判断交叉引用的位置，提示最合理的引用位置，更多的varioref宏包的用法，请读者自行参考varioref宏包的官方文档。
+\end_layout
+
+\begin_layout Section
 浮动体的一般用法
+\end_layout
+
+\begin_layout Subsection
+图片浮动体
+\end_layout
+
+\begin_layout Subsection
+表格浮动体
+\end_layout
+
+\begin_layout Subsection
+代码列表浮动体
+\end_layout
+
+\begin_layout Subsection
+算法浮动体
 \end_layout
 
 \begin_layout Section
 浮动体的特殊用法
 \end_layout
 
-\begin_layout Section
-浮动体的标题
+\begin_layout Subsection
+浮动体的并排放置
+\end_layout
+
+\begin_layout Subsection
+浮动体的横向放置
 \end_layout
 
 \begin_layout Section
@@ -694,6 +983,18 @@ name "fig:浮动体的参数，设置浮动体可以出现在页面的什么位�
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:浮动体的内部控制机制"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/latex"
+options "IEEEtranS"
 
 \end_inset
 
