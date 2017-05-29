@@ -7,7 +7,7 @@
 \textclass ctex-article
 \begin_preamble
 \input{/home/subaochen/git/writing-common/article-preamble.tex}
-\usepackage{diagbox}
+\usepackage{menukeys}
 \end_preamble
 \use_default_options true
 \begin_modules
@@ -17,6 +17,8 @@ note-inset
 warning-inset
 theorems-bytype
 logicalmkup
+shapepar
+todonotes
 \end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
@@ -34,7 +36,7 @@ logicalmkup
 \font_sf_scale 100 100
 \font_tt_scale 100 100
 \graphics default
-\default_output_format pdf5
+\default_output_format pdf4
 \output_sync 0
 \bibtex_command bibtex8
 \index_command default
@@ -765,25 +767,69 @@ key "floatrow"
 
 \end_inset
 
-重新设置表格的标题位置，代码如下，将表格和长表格的标题设置为位于表格的上方：
+重新设置表格的标题位置，代码如下，将表格和长表格的标题设置为位于表格的上方（完整的导言区设置请参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:支持浮动体的导言区设置"
+
+\end_inset
+
+）：
 \end_layout
 
 \begin_layout LyX-Code
-  
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+
 \backslash
 usepackage{floatrow}
 \end_layout
 
 \begin_layout LyX-Code
-  
+
 \backslash
 floatsetup[table]{font=small,capposition=top}
 \end_layout
 
 \begin_layout LyX-Code
-  
+
 \backslash
 floatsetup[longtable]{font=small,capposition=top}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -871,8 +917,47 @@ key "varioref"
 
 \end_inset
 
-提供的，遗憾的是，varioref宏包目前对中文的支持不是太好，读者可以自行在导言区增加如下的代码更好的支持中文的交叉引用：
+提供的，遗憾的是，varioref宏包目前对中文的支持不是太好，读者可以自行在导言区增加如下的代码更好的支持中文的交叉引用（完整的导言区设置请参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
 \end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:支持浮动体的导言区设置"
+
+\end_inset
+
+）：
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
 
 \begin_layout LyX-Code
 
@@ -942,6 +1027,11 @@ renewcommand
 reftextfacebefore{[在对页]}} 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 varioref宏包可以智能的判断交叉引用的位置，提示最合理的引用位置，更多的varioref宏包的用法，请读者自行参考varioref宏包的官方文档。
 \end_layout
@@ -952,18 +1042,943 @@ varioref宏包可以智能的判断交叉引用的位置，提示最合理的引
 
 \begin_layout Subsection
 图片浮动体
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:图片浮动体"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+图片浮动体（浮动图片）是最容易理解的一种浮动体。插入图片浮动体的一般步骤为：
+\end_layout
+
+\begin_layout Enumerate
+通过菜单
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+menu{插入>浮动项}
+\end_layout
+
+\end_inset
+
+或者点击工具栏图标
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/float-insert_figure.svgz
+	lyxscale 20
+	height 1em
+
+\end_inset
+
+或者快捷键
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{Alt+i+a}
+\end_layout
+
+\end_inset
+
+插入浮动图片，结果如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:插入浮动图片的步骤1"
+
+\end_inset
+
+所示。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/float-image-1.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+插入浮动图片的步骤1：通过菜单或者工具栏插入浮动图片
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:插入浮动图片的步骤1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+设置浮动图片标题。紧接着上一步，其实光标已经自动停留在标题框中了，在标题框中输入浮动图片的标题，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:插入浮动图片的步骤2"
+
+\end_inset
+
+所示。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/float-image-2.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+插入浮动图片的步骤2：输入浮动图片的标题
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:插入浮动图片的步骤2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+设置浮动图片的标签以便交叉引用。通过菜单
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+menu{插入>标签}
+\end_layout
+
+\end_inset
+
+或者工具栏
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/label-insert.svgz
+	lyxscale 20
+	height 1em
+
+\end_inset
+
+在浮动图片内插入标签即可，请注意给标签一个合适的容易辨别的命名。建议将标签紧跟着标题设置，即填写了浮动图片标题后，紧接着在标题框中插入浮动图片的标签。此时可以使
+用快捷键
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{Alt+i+l}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+LaTeX中如何表达快捷键组合？
+\end_layout
+
+\end_inset
+
+，\SpecialChar LyX
+会根据标题自动确定标签的内容，很快捷实用，基本上，连续按下
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{Alt+i+l+Enter}
+\end_layout
+
+\end_inset
+
+就可以了。注意到\SpecialChar LyX
+自动产生的图片标签是以fig:开头的，表格的标签以tab:开头，以此类推。当然，这不是语法规定，而是大多数人的习惯，也是\SpecialChar LyX
+自动插入标签时的约定格式
+。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/float-image-3.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+插入浮动图片的步骤3：设置浮动图片的标签
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:插入浮动图片的步骤3"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+插入图片。通过菜单
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+menu{插入>图像}
+\end_layout
+
+\end_inset
+
+或者工具栏图表
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/dialog-show-new-inset_graphics.svgz
+	height 1em
+
+\end_inset
+
+选择要插入的图片，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:插入浮动图片的步骤4：选择并插入图片，请注意合适设定图片的属性"
+
+\end_inset
+
+所示。选择图片后，注意设置合适的图片属性，主要是宽度和高度的设置。在竖版中，通常设置图片的宽度为“行宽”的百分比，在横版中，通常设置图片的高度为“文本高度”的百
+分比。至于使用多少百分比，要看图片的实际效果。一般的原则是，将图片缩放到其上的文字比正文文字略小即可。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/float-image-4.png
+	width 65line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+插入浮动图片的步骤4：选择并插入图片，请注意合适设定图片的属性
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:插入浮动图片的步骤4：选择并插入图片，请注意合适设定图片的属性"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex Tip
+status open
+
+\begin_layout Plain Layout
+如果在浮动图片框内没有插入图片的位置（有的时候不小心删除了图片的占位符），可以将光标移动到“图1”（图片的序号）的前面，然后按下回车键即可。可能使用鼠标难以将光
+标精确定位到图片序号之前，此时可以使用键盘的
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{
+\backslash
+arrowkeyleft}
+\end_layout
+
+\end_inset
+
+完成。
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex Tip
+status open
+
+\begin_layout Plain Layout
+图片高度巧设置。1em的含义
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+调整图片的对齐方式。一般来说，浮动图片需要居中对齐。在插入图片后，光标自动停留在图片的右边，此时点击工具栏
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/layout-paragraph.svgz
+	lyxscale 20
+	height 1em
+
+\end_inset
+
+，选择“居中”即可，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:插入浮动图片的步骤5：设置图片居中显示"
+
+\end_inset
+
+。也就是说，在 浮动体中，图片是作为一个段落来处理的，因此将段落居中即实现了图片居中。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/float-image-5.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+插入浮动图片的步骤5：设置图片居中显示
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:插入浮动图片的步骤5：设置图片居中显示"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex Tip
+status open
+
+\begin_layout Plain Layout
+浮动体内不仅仅可以插入图片，也可以输入文字，甚至表格等，输入的文字和图片一起“浮动”。可以将图片理解为段落上的一个“字符”参与排版，只是一般情况下不建议在浮动体
+内进行复杂的内容编排，效果不太好控制。
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
 表格浮动体
 \end_layout
 
+\begin_layout Standard
+掌握了浮动图片的插入方法，浮动表格就不再赘述了。这里只是强调几点：
+\end_layout
+
+\begin_layout Itemize
+浮动表格的快捷键是
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{Alt+i+a}
+\end_layout
+
+\end_inset
+
+，工具栏图标为
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/float-insert_table.svgz
+	lyxscale 20
+	height 1em
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Itemize
+在浮动体内插入表格的快捷键是
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{Alt+i+T}
+\end_layout
+
+\end_inset
+
+，工具栏图标为
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/tabular-insert.svgz
+	lyxscale 20
+	height 1em
+
+\end_inset
+
+，注意和插入浮动表格的图标区分开来。
+\end_layout
+
+\begin_layout Itemize
+如果表格各列的自然宽度之和没有超出行宽（单栏情况下等于文本宽度），则表格的列宽一般不需要单独设置，否则一定要设置
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+每一列
+\end_layout
+
+\end_inset
+
+的宽度。一般情况下相对于行宽（linewidth）的方式设置列宽，各列的总宽度不要超过100%行宽。如果行宽不好控制，可以选择相对于页宽（pagewidth）设
+置列宽，但是最终各列总宽度之和要考虑到页边距等因素，要远小于100%页宽
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+一般多少比较合适？
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
 \begin_layout Subsection
 代码列表浮动体
 \end_layout
 
+\begin_layout Standard
+把代码文件作为整体插入进来，\SpecialChar LyX
+是作为一个浮动体来对待的。插入代码文件的基本步骤是：
+\end_layout
+
+\begin_layout Enumerate
+点击菜单
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+menu{插入>文件>子文档}
+\end_layout
+
+\end_inset
+
+或者快捷键
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{Alt+i+e+d}
+\end_layout
+
+\end_inset
+
+或者工具栏图标
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/dialog-show-new-inset_include.svgz
+	lyxscale 20
+	height 1em
+
+\end_inset
+
+，打开选择文件对话框，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:插入代码列表步骤1：打开选择文件对话框"
+
+\end_inset
+
+所示。注意在这里选择包含类别为“程序列表”，然后浏览选择要插入的文件。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/float-listing-1.png
+	width 50line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+插入代码列表步骤1：打开选择文件对话框
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:插入代码列表步骤1：打开选择文件对话框"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+设置代码列表标题和标签，这一点和浮动图片的标题和标签要求相似，在
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:插入代码列表步骤1：打开选择文件对话框"
+
+\end_inset
+
+中尽量合理的填写标题和标签，点击确定按钮插入代码清单，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:插入代码列表步骤2：可以重新选择文件和设置标题标签"
+
+\end_inset
+
+所示。双击
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:插入代码列表步骤2：可以重新选择文件和设置标题标签"
+
+\end_inset
+
+中的文字可以重新选择要插入的代码文件或者设置代码列表的标题和标签。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/float-listing-2.png
+	width 40line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+插入代码列表步骤2：可以重新选择文件和设置标题标签
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:插入代码列表步骤2：可以重新选择文件和设置标题标签"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+“更多参数”输入框允许定制代码列表的展示方式，初学阶段可以暂时忽略“更多参数”输入框，详情可参考即将推出的“\SpecialChar LyX
+代码列表展示全攻略”
+\end_layout
+
+\begin_layout Standard
+作为效果示例，请参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "C语言的hello world"
+
+\end_inset
+
+，本例定制了代码列表的输出样式，具体参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:支持浮动体的导言区设置"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/cplusplus/hello.c"
+lstparams "language=C,caption={C语言的hello world},label={C语言的hello world}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Warning
+status open
+
+\begin_layout Plain Layout
+直接通过菜单
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+menu{插入>程序列表}
+\end_layout
+
+\end_inset
+
+插入的代码片段不是浮动体！一般情况下，少量代码片段的展示使用菜单
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+menu{插入>程序列表}
+\end_layout
+
+\end_inset
+
+，完整代码文件的展示使用浮动代码列表更合适。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
 \begin_layout Subsection
-算法浮动体
+算法浮动体，此部分不熟悉，暂时不涉及
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\int_{1}^{2}\sin(x)dx=\cos1-\cos2
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+演示浮动算法（公式）
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -971,11 +1986,736 @@ varioref宏包可以智能的判断交叉引用的位置，提示最合理的引
 \end_layout
 
 \begin_layout Subsection
-浮动体的并排放置
+环绕浮动体
+\end_layout
+
+\begin_layout Standard
+环绕浮动体的主要目的是实现图文混排，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:图文混排效果示例"
+
+\end_inset
+
+所示。
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/float-embeded-demo.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+图文混排效果示例
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:图文混排效果示例"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+本节的
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:环绕图形首选项菜单"
+
+\end_inset
+
+也是一个环绕浮动图形的范例。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Wrap figure
+lines 0
+placement o
+overhang 0in
+width "25line%"
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/float-embeded-property-menu.png
+	width 90line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+环绕图形首选项菜单
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:环绕图形首选项菜单"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+环绕浮动体分为环绕浮动图片和环绕浮动表格，环绕浮动图片可以通过菜单
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+menu{插入>浮动项>环绕图形}
+\end_layout
+
+\end_inset
+
+实现，环绕浮动表格可以通过菜单
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+menu{插入>浮动项>环绕表格}
+\end_layout
+
+\end_inset
+
+实现。环绕浮动体的操作步骤和插入普通的浮动体没有差别，可参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "subsec:图片浮动体"
+
+\end_inset
+
+中给出的步骤1-5。插入环绕浮动体显然需要设置环绕浮动体的宽度，一般设置为行宽或者列宽（如果是双栏布局的话）的百分比。唯一需要注意的是，在环绕浮动体中插入图片时
+，一般图片的宽度是相对于环绕浮动体的宽度设置的。比如设置环绕浮动体中的图片宽度为90%行宽，即为90%的环绕浮动体的宽度。但是环绕浮动体的属性和普通浮动体的属性
+显然不一样。以环绕浮动图形为例，在环绕浮动体上右键点击“首选项”，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:环绕图形首选项菜单"
+
+\end_inset
+
+所示，可见如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:环绕图形的属性设置对话框"
+
+\end_inset
+
+所示的环绕图形属性设置对话框。对话框中的属性意义如下：
+\end_layout
+
+\begin_layout Itemize
+放置策略：
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+需要研究LaTeX的wrapfigure后完善此部分。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+宽度：
+\end_layout
+
+\begin_layout Itemize
+悬挂缩进：
+\end_layout
+
+\begin_layout Itemize
+行间距：
+\end_layout
+
+\begin_layout Itemize
+允许浮动：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/float-embeded-property-dialog.png
+	width 40line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+环绕图形的属性设置对话框
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:环绕图形的属性设置对话框"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Tip
+status open
+
+\begin_layout Plain Layout
+很显然，环绕浮动体的文字要有一定的长度。另外，环绕浮动体的插入位置也要讲究一些。可以把环绕浮动体当作
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+一个字符
+\end_layout
+
+\end_inset
+
+，一般来说，最好将环绕浮动体插入到段落的开头，这样图文混排的效果比较容易控制，否则容易出现环绕浮动体打断某一行文字，造成这一行文字无法对齐的尴尬。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Tip
+status open
+
+\begin_layout Plain Layout
+一般不要打开环绕浮动体的“允许浮动”选项。我们使用环绕浮动体的目的就是为了达到预设的图文混排效果，如果允许浮动的话，往往和期望的排版效果相差甚远。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Warning
+status open
+
+\begin_layout Plain Layout
+环绕浮动体存在一个重要限制，即如果环绕浮动体的段落存在列表环境，则环绕浮动体对列表环境可能存在很大的干扰，读者可自行尝试。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+算是bug，还是限制？为什么会有这种限制？
+\end_layout
+
+\end_inset
+
+因此，在编写草稿时建议不使用环绕浮动体。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+浮动体的并排放置：浮动体的嵌套
+\end_layout
+
+\begin_layout Standard
+只要合理设置浮动体的宽度，可以借助于在浮动体内嵌套浮动体，很方便的实现图形并排或者图表并排的效果。并且因为浮动体允许设置标题，引用浮动体内的嵌套浮动体也很方便。
+比如要创建一个并排两个图片的浮动体，其步骤如下：
+\end_layout
+
+\begin_layout Enumerate
+插入第1个浮动体，设置浮动体的标题和标签。
+\end_layout
+
+\begin_layout Enumerate
+在第1个浮动体内插入第2个浮动体，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:LaTeX的吉祥物：顽皮的狮子"
+
+\end_inset
+
+，设置图片的宽度为30%行宽，并设置这个浮动体的标题和标签。
+\end_layout
+
+\begin_layout Enumerate
+在第1个浮动体内插入第3个浮动体，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:TexLive的吉祥物"
+
+\end_inset
+
+，设置图片的宽度为30%行宽，并设置这个浮动体的标题和标签。
+\end_layout
+
+\begin_layout Enumerate
+为了防止嵌入的两个浮动体靠的太近，可以在两个浮动体之间插入一个水平间距，方法是通过菜单
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+menu{插入>格式>水平间距}
+\end_layout
+
+\end_inset
+
+在如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:插入水平间距的对话框"
+
+\end_inset
+
+所示的水平间距对话框中选择水平填充，或者自定义间距。这里选择自定义间距，设置为10%行宽。
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/horizontal-space-dialog.png
+	width 40line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+插入水平间距的对话框
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:插入水平间距的对话框"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/ctanlion.eps
+	width 30line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+LaTeX的吉祥物：顽皮读书的小狮子
+\begin_inset CommandInset citation
+LatexCommand cite
+key "latex-mascot-lion"
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:LaTeX的吉祥物：顽皮的狮子"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hspace{}
+\length 10line%
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/tl-lion.pdf
+	width 30line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+TexLive的吉祥物：急速奔跑的小狮子
+\begin_inset CommandInset citation
+LatexCommand cite
+key "texlive-mascot-download"
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TexLive的吉祥物"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+使用浮动体实现的并排图形
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:使用浮动体实现的并排图形"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Tip
+status open
+
+\begin_layout Plain Layout
+利用浮动体实现图形并排的关键是，嵌入浮动体内的浮动体宽度之和不超过100%行宽。
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+图表混排呢？举例说明
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
 浮动体的横向放置
+\end_layout
+
+\begin_layout Standard
+有时候需要在一整页显示一张照片，而图片的比例适合横向排版，比如某些数码照片，这个时候可以横向放置的浮动体就派上用场了。插入可横向放置的浮动图片和插入其他浮动图片
+没有什么区别，只是要注意两点：第一，设置合适的图片尺寸，使之刚好能够利用好专门为之准备的整版页面，一般按照图片的宽度控制，如果满版显示的话，图片宽度设置为90%
+文本高度即可；第二，在浮动体首选项中设置浮动体“侧向旋转”。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways true
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/chakayanhu.jpg
+	width 90theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+横向放置的浮动图片示例：茶卡盐湖，设置图片的宽度为90%文本高度
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:横向放置的浮动图片示例"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Notice
+status open
+
+\begin_layout Plain Layout
+根据floatrow宏包的提示
+\begin_inset CommandInset citation
+LatexCommand cite
+key "floatrow-sidewaysfigure-problem"
+
+\end_inset
+
+，实现浮动体横向放置的宏包float和floatrow宏包有冲突
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+跨列的浮动体
 \end_layout
 
 \begin_layout Section
@@ -987,6 +2727,21 @@ name "sec:浮动体的内部控制机制"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+支持浮动体的导言区设置
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:支持浮动体的导言区设置"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+下面给出笔者的导言区中和浮动体相关的设置，仅供参考。
 \end_layout
 
 \begin_layout Standard
