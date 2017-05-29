@@ -441,7 +441,7 @@ h
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+H
 \end_layout
 
 \end_inset
@@ -515,8 +515,7 @@ reference "sec:浮动体的内部控制机制"
 
 \begin_layout Plain Layout
 \SpecialChar LyX
-默认的浮动体放置规则是，首先尝试在当前位置放置浮动体（即“尽量此处”），然后尝试页顶，然后页底，最后尝试专门浮动页，这也是一个较为合理的选择路径，因此实际应用时
-如没有特殊需求可将浮动体设为使用默认放置方式。
+默认的浮动体放置规则是，首先尝试页顶，然后页底，最后尝试专门浮动页，这也是一个较为合理的选择路径，因此实际应用时如没有特殊需求可将浮动体设为使用默认放置方式。
 \end_layout
 
 \end_inset
@@ -525,7 +524,7 @@ reference "sec:浮动体的内部控制机制"
 \begin_inset Text
 
 \begin_layout Plain Layout
-htbp
+tbp
 \begin_inset Note Note
 status open
 
