@@ -1,0 +1,277 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{trees,force,layered}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-bytype
+theorems-chap-bytype
+coderemarks
+note-inset
+tip-inset
+warning-inset
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Serif"
+\font_sans "default" "DejaVu Sans"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #d8daeb
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+longtable和floatrow的兼容性问题
+\end_layout
+
+\begin_layout Standard
+floatrow功能强大，其文档超过100页，但是floatrow对longtable的支持有限
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+在floatrow文档的7.2一节：Please note that almost all settings in the 
+\backslash
+floatsetup’s argument do not work in- side longtable environments, except
+ settings for caption width (see below) and plain horizontal alignment in
+ the margins= key。
+\end_layout
+
+\end_inset
+
+，大概只有caption的支持比较完善。尤其是，floatrow破坏了longtable的默认水平居中，见floatrow文档的3.6.6：
+\end_layout
+
+\begin_layout Quotation
+Alignment Settings for longtable.
+ The floatrow expands some settings of table lay- out to the longtable environme
+nt, so you may set 
+\backslash
+LTleft and 
+\backslash
+LTright parameters inside 
+\backslash
+DeclareMarginSet settings.
+ For example, centering option was defined like: 
+\backslash
+DeclareMarginSet{centering}{
+\backslash
+setfloatmargins{
+\backslash
+hfill}{
+\backslash
+hfill}% 
+\backslash
+LTleft=
+\backslash
+fill 
+\backslash
+LTright=
+\backslash
+fill} 
+\end_layout
+
+\begin_layout Standard
+具体的说，floatrow宏包修改了longtable的
+\backslash
+LTleft（longtable的左边界）和
+\backslash
+LTright（longtable的右边接）为{0pt}，导致longtable就不是默认居中了，使用floatrow的
+\backslash
+floatset[longtable]{floatset=centering}也无济于事，只有在longtable中明确声明水平居中[c]，即：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{floatrow}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{document}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+begin{longtable}[c]{ccc}
+\end_layout
+
+\begin_layout Plain Layout
+
+     ......
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{longtable}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{document}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+由于目前的\SpecialChar LyX
+版本（2.2.3）在设置longtable的水平居中时，有意忽略了[c]选项的设置，因此只能采用另外一个解决方案，即在引入floatrow宏包后，马上重新
+设置（恢复）
+\backslash
+LTleft和
+\backslash
+LTright的（默认）值，即如下处理：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{floatrow}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+floatset[longtable]{...}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setlength
+\backslash
+LTleft{
+\backslash
+fill}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setlength
+\backslash
+LTright{
+\backslash
+fill}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
