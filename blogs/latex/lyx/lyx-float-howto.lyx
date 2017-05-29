@@ -2706,7 +2706,63 @@ key "floatrow-sidewaysfigure-problem"
 
 \end_inset
 
-，实现浮动体横向放置的宏包float和floatrow宏包有冲突
+，实现浮动体横向放置的宏包float和floatrow宏包有冲突：
+\end_layout
+
+\begin_layout Quotation
+Code of rotfloat package was also borrowed by floatrow package.
+ This package originally
+\end_layout
+
+\begin_layout Quotation
+allows to expand settings of float package to rotated environments like
+ sidewaysfigure
+\end_layout
+
+\begin_layout Quotation
+and sidewaystable.
+ This mechanism was borrowed to expand the floatrow’s settings in
+\end_layout
+
+\begin_layout Quotation
+the similar way.
+\end_layout
+
+\begin_layout Quotation
+In the case of loaded rotfloat package before floatrow you will get error
+ message.
+\end_layout
+
+\begin_layout Quotation
+The floatrow package loads code which pretends that rotfloat is already
+ loaded, so next
+\end_layout
+
+\begin_layout Quotation
+loads are ignored.
+ The rotfloat allowed in the 
+\backslash
+usepackage line with rotating package,
+\end_layout
+
+\begin_layout Quotation
+which could have options.
+ It is necessary to delete rotfloat package from 
+\backslash
+usepackage
+\end_layout
+
+\begin_layout Quotation
+line where also rotating package loaded with options: otherwise you may
+ get an ‘option
+\end_layout
+
+\begin_layout Quotation
+clash’ error message.
+\end_layout
+
+\begin_layout Quotation
+
 \end_layout
 
 \end_inset
