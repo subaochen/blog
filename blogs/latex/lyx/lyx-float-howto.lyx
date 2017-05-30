@@ -19,6 +19,7 @@ theorems-bytype
 logicalmkup
 shapepar
 todonotes
+multicol
 \end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
@@ -52,7 +53,7 @@ todonotes
 \pdf_pdfborder true
 \pdf_colorlinks true
 \pdf_backref false
-\pdf_pdfusetitle true
+\pdf_pdfusetitle false
 \papersize default
 \use_geometry false
 \use_package amsmath 1
@@ -752,17 +753,26 @@ name "fig:狭义相对论著名的质能互换公式"
 \end_layout
 
 \begin_layout Standard
-浮动体标题的位置也需要认真考虑。通常来说，图片浮动体的标题位于图片的下方，因为图片对眼睛的冲击力是强大的，读者第一眼的注意力大多会集中在图片上，因此不宜将标题放
-到显著的位置分散读者的注意力。表格的标题通常放到表格的上方，因为文字性的标题大多需要通过读者的顺序阅读才能了解表格的意义，因此先通过标题给读者一个概括的介绍是一
-个好主意。
+浮动体标题的位置也需要认真考虑
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+好像记得在哪篇参考文献中说过这个问题，找出来引用
+\end_layout
+
+\end_inset
+
+。通常来说，图片浮动体的标题位于图片的下方，因为图片对眼睛的冲击力是强大的，读者第一眼的注意力大多会集中在图片上，因此不宜将标题放到显著的位置分散读者的注意力。
+表格的标题通常放到表格的上方，因为文字性的标题大多需要通过读者的顺序阅读才能了解表格的意义，因此先通过标题给读者一个概括的介绍是一个好主意。
 \end_layout
 
 \begin_layout Standard
 \SpecialChar LyX
-默认的浮动表格的标题是位于表格下方的，可以通过设置导言区引入floatrow宏包
+默认的浮动表格的标题是位于表格下方的，可以通过设置导言区引入caption宏包
 \begin_inset CommandInset citation
 LatexCommand cite
-key "floatrow"
+key "caption-package"
 
 \end_inset
 
@@ -811,19 +821,8 @@ status open
 \begin_layout LyX-Code
 
 \backslash
-usepackage{floatrow}
-\end_layout
-
-\begin_layout LyX-Code
-
-\backslash
-floatsetup[table]{font=small,capposition=top}
-\end_layout
-
-\begin_layout LyX-Code
-
-\backslash
-floatsetup[longtable]{font=small,capposition=top}
+usepackage[margin=10pt,font=small,labelfont=bf,labelsep=endash,tableposition=top
+]{caption}
 \end_layout
 
 \end_inset
@@ -1252,16 +1251,6 @@ status open
 
 \backslash
 keys{Alt+i+l}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-LaTeX中如何表达快捷键组合？
 \end_layout
 
 \end_inset
@@ -1985,6 +1974,36 @@ status open
 \end_layout
 
 \begin_layout Subsection
+禁止浮动
+\end_layout
+
+\begin_layout Standard
+对于初次接触浮动体的读者，或者习惯了“所见即所得”环境下使用鼠标拖曳放置图形的读者，可能感觉浮动体的效果有点怪怪的，禁不住想“固定住”浮动体的位置。浮动体也提供
+了这个选项，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:浮动体的参数，设置浮动体可以出现在页面的什么位置"
+
+\end_inset
+
+中的“仅在此处”，即让浮动体“不浮动”，此时其实只是利用了浮动体的标题和标签功能，浮动体的其他优势丧失殆尽了。采用“仅在此处”的设置，可能造成难看的分页效果，需
+要读者斟酌使用。
+\end_layout
+
+\begin_layout Subsection
 环绕浮动体
 \end_layout
 
@@ -2078,9 +2097,9 @@ reference "fig:环绕图形首选项菜单"
 \begin_inset Wrap figure
 lines 0
 placement o
-overhang 0in
+overhang 1.5cm
 width "25line%"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -2161,8 +2180,18 @@ reference "subsec:图片浮动体"
 \end_inset
 
 中给出的步骤1-5。插入环绕浮动体显然需要设置环绕浮动体的宽度，一般设置为行宽或者列宽（如果是双栏布局的话）的百分比。唯一需要注意的是，在环绕浮动体中插入图片时
-，一般图片的宽度是相对于环绕浮动体的宽度设置的。比如设置环绕浮动体中的图片宽度为90%行宽，即为90%的环绕浮动体的宽度。但是环绕浮动体的属性和普通浮动体的属性
-显然不一样。以环绕浮动图形为例，在环绕浮动体上右键点击“首选项”，如
+，一般图片的宽度是
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+相对于环绕浮动体的宽度
+\end_layout
+
+\end_inset
+
+设置的。比如设置环绕浮动体中的图片宽度为90%行宽，即为90%的环绕浮动体的宽度。但是环绕浮动体的属性和普通浮动体的属性显然不一样。以环绕浮动图形为例，在环绕浮
+动体上右键点击“首选项”，如
 \begin_inset ERT
 status open
 
@@ -2205,34 +2234,66 @@ reference "fig:环绕图形的属性设置对话框"
 所示的环绕图形属性设置对话框。对话框中的属性意义如下：
 \end_layout
 
+\begin_layout Description
+放置策略 可选参数为：
+\end_layout
+
+\begin_deeper
 \begin_layout Itemize
-放置策略：
-\begin_inset Note Note
+外部，双面页面的装订外侧（默认值）
+\end_layout
+
+\begin_layout Itemize
+内部，双面页面的装订内侧
+\end_layout
+
+\begin_layout Itemize
+左，页面的左侧
+\end_layout
+
+\begin_layout Itemize
+右，页面的右侧
+\end_layout
+
+\end_deeper
+\begin_layout Description
+宽度 环绕浮动体所占的宽度，必须设置的参数，一般使用行宽的百分比设定。
+\end_layout
+
+\begin_layout Description
+悬挂缩进 环绕浮动体可以伸出页面之外，悬挂缩进设置了外伸的长度。
+\end_layout
+
+\begin_layout Description
+行间距 指悬挂浮动体所占据的行数，一般自动计算即可。如果自动计算的悬挂浮动体高度不准确，可以使用这个参数精确指定悬挂浮动体的高度（所占用的行数）。
+\end_layout
+
+\begin_layout Description
+允许浮动 没搞懂这个参数的意义？
+\end_layout
+
+\begin_layout Standard
+本例中，
+\begin_inset ERT
 status open
 
 \begin_layout Plain Layout
-需要研究LaTeX的wrapfigure后完善此部分。
+
+
+\backslash
+figurename
 \end_layout
 
 \end_inset
 
 
-\end_layout
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:环绕图形首选项菜单"
 
-\begin_layout Itemize
-宽度：
-\end_layout
+\end_inset
 
-\begin_layout Itemize
-悬挂缩进：
-\end_layout
-
-\begin_layout Itemize
-行间距：
-\end_layout
-
-\begin_layout Itemize
-允许浮动：
+占25%行宽，设置为外部（默认）、高度自动计算、伸出1.5cm（即悬挂缩进1.5cm），读者可观察揣摩其环绕效果。
 \end_layout
 
 \begin_layout Standard
@@ -2317,16 +2378,58 @@ status open
 status open
 
 \begin_layout Plain Layout
-环绕浮动体存在一个重要限制，即如果环绕浮动体的段落存在列表环境，则环绕浮动体对列表环境可能存在很大的干扰，读者可自行尝试。
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-算是bug，还是限制？为什么会有这种限制？
+环绕浮动体存在几个重要限制：
 \end_layout
+
+\begin_layout Itemize
+使用环绕浮动体要求绕排的文字足够多，并且在当前页面有足够的空间容纳环绕浮动体，否则会留下难看的大段空白。因此，环绕浮动体不能太大，以小巧的图表为主。
+\end_layout
+
+\begin_layout Itemize
+环绕浮动体不能放到文字的中间，这是因为\SpecialChar LyX
+是通过wrapfig宏包
+\begin_inset CommandInset citation
+LatexCommand cite
+key "wrapfig-package"
 
 \end_inset
 
+实现的环绕浮动体，决定了环绕浮动体无法放到文字中间。环绕浮动体放到中间可以通过picinpar宏包
+\begin_inset CommandInset citation
+LatexCommand cite
+key "picinpar-package"
+
+\end_inset
+
+、shapepar宏包
+\begin_inset CommandInset citation
+LatexCommand cite
+key "shapepar-package"
+
+\end_inset
+
+、cutwin宏包
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cutwin-package"
+
+\end_inset
+
+实现。
+\end_layout
+
+\begin_layout Itemize
+环绕浮动体无法用于列表环境，这是其内部实现机理决定的
+\begin_inset CommandInset citation
+LatexCommand cite
+key "wrapfig-eneration-confliction"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Plain Layout
 因此，在编写草稿时建议不使用环绕浮动体。
 \end_layout
 
@@ -2336,7 +2439,7 @@ status open
 \end_layout
 
 \begin_layout Subsection
-浮动体的并排放置：浮动体的嵌套
+浮动图片的并排放置
 \end_layout
 
 \begin_layout Standard
@@ -2476,6 +2579,7 @@ name "fig:插入水平间距的对话框"
 \end_layout
 
 \begin_layout Standard
+\align center
 \begin_inset Float figure
 wide false
 sideways false
@@ -2485,7 +2589,7 @@ status collapsed
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -2539,7 +2643,7 @@ name "fig:LaTeX的吉祥物：顽皮的狮子"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -2626,11 +2730,364 @@ status open
 \end_inset
 
 
-\begin_inset Note Note
+\begin_inset Flex TODO Note (inline)
 status open
 
 \begin_layout Plain Layout
-图表混排呢？举例说明
+如何让整个外层浮动体居中显示，即看起来两个并排的小狮子整体上居中？似乎
+\backslash
+begin{center}没有生效
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+利用浮动体实现图表混排
+\end_layout
+
+\begin_layout Standard
+在\SpecialChar LyX
+中实现图表混排需要借助于“小页环境”（minipage）和一点“魔术”，下面详述图表混排的步骤。
+\end_layout
+
+\begin_layout Enumerate
+插入一个浮动体，浮动图片和浮动表格都可以，这里插入浮动图片。插入浮动体后，删除这个浮动体的标题。毕竟，我们要实现图表的混排，默认的标题在这里就没有意义了。
+\end_layout
+
+\begin_layout Enumerate
+在浮动体内插入两个
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "小页"
+description "minipage"
+
+\end_inset
+
+（minipage），设置两个小页的宽度适合在一排显示，比如都设置为49%行宽。也可以在两个小页之间插入水平间距，效果更好一些。
+\end_layout
+
+\begin_layout Enumerate
+分别在两个小页内插入图片或者表格，并手工插入图片的标题。
+\end_layout
+
+\begin_layout Enumerate
+在表格上面插入ERT设置表格的标题：
+\backslash
+captionof{table}{表格的标题}。这要求首先在导言区增加caption宏包的导入。
+\end_layout
+
+\begin_layout Enumerate
+设置两个minipage的垂直对齐方式，一般的设为外框居中对齐。
+\end_layout
+
+\begin_layout Standard
+最终的效果如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:可爱的小狮子"
+
+\end_inset
+
+和
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tablename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "tab:caption各版本的特点"
+
+\end_inset
+
+所示，在\SpecialChar LyX
+中编辑以上步骤的效果如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:LyX中实现图表混排的方法"
+
+\end_inset
+
+所示。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/figure-table-mixed-line.png
+	width 70line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\SpecialChar LyX
+中实现图表混排的方法
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:LyX中实现图表混排的方法"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "49line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/ctanlion.eps
+	width 90line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+可爱的小狮子
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:可爱的小狮子"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "49line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+captionof{table}{caption各版本的特点}
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:caption各版本的特点"
+
+\end_inset
+
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="20line%">
+<column alignment="center" valignment="top" width="70line%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+版本号
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+特点
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+v 1.x
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+好像毛病挺多的，宏包名字为caption
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+v 2.x
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+实验性的改进版本，宏包名字改为caption2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+v 3.x
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+目前的版本，宏包名字转了一圈又回来了，重新叫做caption
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2645,14 +3102,34 @@ status open
 \begin_layout Standard
 有时候需要在一整页显示一张照片，而图片的比例适合横向排版，比如某些数码照片，这个时候可以横向放置的浮动体就派上用场了。插入可横向放置的浮动图片和插入其他浮动图片
 没有什么区别，只是要注意两点：第一，设置合适的图片尺寸，使之刚好能够利用好专门为之准备的整版页面，一般按照图片的宽度控制，如果满版显示的话，图片宽度设置为90%
-文本高度即可；第二，在浮动体首选项中设置浮动体“侧向旋转”。
+文本高度即可；第二，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:浮动体的参数，设置浮动体可以出现在页面的什么位置"
+
+\end_inset
+
+所示，在浮动体首选项中设置浮动体为“侧向旋转”。
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways true
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -2693,91 +3170,226 @@ name "fig:横向放置的浮动图片示例"
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset Flex Notice
-status open
-
-\begin_layout Plain Layout
-根据floatrow宏包的提示
-\begin_inset CommandInset citation
-LatexCommand cite
-key "floatrow-sidewaysfigure-problem"
-
-\end_inset
-
-，实现浮动体横向放置的宏包float和floatrow宏包有冲突：
-\end_layout
-
-\begin_layout Quotation
-Code of rotfloat package was also borrowed by floatrow package.
- This package originally
-\end_layout
-
-\begin_layout Quotation
-allows to expand settings of float package to rotated environments like
- sidewaysfigure
-\end_layout
-
-\begin_layout Quotation
-and sidewaystable.
- This mechanism was borrowed to expand the floatrow’s settings in
-\end_layout
-
-\begin_layout Quotation
-the similar way.
-\end_layout
-
-\begin_layout Quotation
-In the case of loaded rotfloat package before floatrow you will get error
- message.
-\end_layout
-
-\begin_layout Quotation
-The floatrow package loads code which pretends that rotfloat is already
- loaded, so next
-\end_layout
-
-\begin_layout Quotation
-loads are ignored.
- The rotfloat allowed in the 
-\backslash
-usepackage line with rotating package,
-\end_layout
-
-\begin_layout Quotation
-which could have options.
- It is necessary to delete rotfloat package from 
-\backslash
-usepackage
-\end_layout
-
-\begin_layout Quotation
-line where also rotating package loaded with options: otherwise you may
- get an ‘option
-\end_layout
-
-\begin_layout Quotation
-clash’ error message.
-\end_layout
-
-\begin_layout Quotation
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsection
 跨列的浮动体
 \end_layout
 
-\begin_layout Section
+\begin_layout Standard
+\begin_inset Flex Multiple Columns
+status open
+
+\begin_layout Plain Layout
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+下列段落故意采用三栏排版（并非三栏为最佳效果），可以直观的体会多栏排版的特点，以及在多栏中插入图片时的效果。
+\end_layout
+
+\end_inset
+
+多栏排版在杂志、报刊中比较常见，有些书籍的目录也采用多栏排版。本部分采用两栏布局的方式，演示如何在\SpecialChar LyX
+插入多栏布局，以及在多栏布局中插入“跨列”浮动体的方法。在\SpecialChar LyX
+中实
+现多栏排版有两种常见的方式，一种是在文档类中设置为双栏文本，具体方法是通过菜单
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+menu{文档>首选项}
+\end_layout
+
+\end_inset
+
+打开文档类属性对话框，然后选择“文档布局”属性页，打开“双栏文档”开关即可。这会让整个文本都变为双栏布局；另外一种是通过加载Multiple Columns模块
+（实际通过multicol宏包
+\begin_inset CommandInset citation
+LatexCommand cite
+key "multicol-package"
+
+\end_inset
+
+实现），然后通过插入局部多栏文本的方式实现多栏布局，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:加载Multiple-Columns模块实现多栏布局"
+
+\end_inset
+
+所示。在多栏文本中插入跨列的图片和表格和插入普通的浮动体没有太大的差别，只需要注意在浮动体首选项中选择“跨列”即可，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:跨列的浮动体属性设置"
+
+\end_inset
+
+所示。
+\begin_inset Float figure
+placement tp
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/multicolumn-float.png
+	width 40line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+跨列的浮动体属性设置
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:跨列的浮动体属性设置"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+placement tp
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/multicolumns-module.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+加载Multiple Columns模块实现多栏布局
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:加载Multiple-Columns模块实现多栏布局"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+要注意到跨列的浮动体的位置限制：只能选择“页顶”或者“专门的浮动页”。也就意味着，跨列的浮动体会出现在下一页页顶或者专门的浮动页中。即，只有多栏文本超出了当前页
+面才能观察到跨列浮动体的效果。
+\end_layout
+
+\begin_layout Plain Layout
+遗憾的是，目前采用Multiple Columns模块方式无法插入普通的浮动体
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+参见multicol宏包文档脚注2：This is dictated by lack of time.
+ To implement floats one has to reimplement the whole LATEX output routine.
+\end_layout
+
+\end_inset
+
+，如果强行插入普通的浮动体也显示不出来。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 浮动体的内部控制机制
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:浮动体的内部控制机制"
+
+\end_inset
+
+，此部分暂时不涉及，可参考《LaTeX入门》P338，已经阐述的相当完备了。
+\end_layout
 
 \end_inset
 
@@ -2797,6 +3409,302 @@ name "sec:支持浮动体的导言区设置"
 
 \begin_layout Standard
 下面给出笔者的导言区中和浮动体相关的设置，仅供参考。
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage[margin=10pt,font=small,labelfont=bf,labelsep=endash]{caption}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+captionsetup[table]{position=above}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+captionsetup[longtable]{position=top}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+% 代码列表格式设置
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{listings}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{color}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+definecolor{colBg}{rgb}{0.98,0.94,0.75} % Blond
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+definecolor{colKeys}{rgb}{0,0,1}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+definecolor{colIdentifier}{rgb}{0,0,0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+definecolor{colComments}{rgb}{0.06,0.05,0.03} % 重色便于打印输出，红色打印出来会很模糊
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+definecolor{colString}{rgb}{0,0.5,0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstset{%
+\end_layout
+
+\begin_layout Plain Layout
+
+    language=Java,%
+\end_layout
+
+\begin_layout Plain Layout
+
+    float=hbp,%
+\end_layout
+
+\begin_layout Plain Layout
+
+    basicstyle=
+\backslash
+small
+\backslash
+ttfamily,%
+\end_layout
+
+\begin_layout Plain Layout
+
+    identifierstyle=
+\backslash
+color{colIdentifier},%
+\end_layout
+
+\begin_layout Plain Layout
+
+    keywordstyle=
+\backslash
+color{colKeys},%
+\end_layout
+
+\begin_layout Plain Layout
+
+    stringstyle=
+\backslash
+color{colString},%
+\end_layout
+
+\begin_layout Plain Layout
+
+    commentstyle=
+\backslash
+itshape
+\backslash
+color{colComments},%
+\end_layout
+
+\begin_layout Plain Layout
+
+    columns=fixed,
+\end_layout
+
+\begin_layout Plain Layout
+
+    tabsize=4,%
+\end_layout
+
+\begin_layout Plain Layout
+
+    frame=tb,% 顶部和底部加横线
+\end_layout
+
+\begin_layout Plain Layout
+
+    %frame=shadowbox,
+\end_layout
+
+\begin_layout Plain Layout
+
+    framerule=1pt,
+\end_layout
+
+\begin_layout Plain Layout
+
+    showspaces=false,%
+\end_layout
+
+\begin_layout Plain Layout
+
+    showstringspaces=false,%不显示代码字符串中间的空格标记
+\end_layout
+
+\begin_layout Plain Layout
+
+    framexleftmargin=1em, % 行号包含在代码区域内
+\end_layout
+
+\begin_layout Plain Layout
+
+    %numbers=left,%左侧显示行号
+\end_layout
+
+\begin_layout Plain Layout
+
+    numberstyle=
+\backslash
+tiny
+\backslash
+ttfamily,%
+\end_layout
+
+\begin_layout Plain Layout
+
+    numbersep=1em,%
+\end_layout
+
+\begin_layout Plain Layout
+
+    breaklines=true,% 对过长的代码自动换行
+\end_layout
+
+\begin_layout Plain Layout
+
+    breakindent=10pt,%
+\end_layout
+
+\begin_layout Plain Layout
+
+    backgroundcolor=
+\backslash
+color{colBg},%
+\end_layout
+
+\begin_layout Plain Layout
+
+    breakautoindent=true,%
+\end_layout
+
+\begin_layout Plain Layout
+
+    %escapebegin=
+\backslash
+begin{CJK*}{GBK}{hei},escapeend=
+\backslash
+end{CJK*},
+\end_layout
+
+\begin_layout Plain Layout
+
+    aboveskip=1em, 
+\end_layout
+
+\begin_layout Plain Layout
+
+    captionpos=t,%
+\end_layout
+
+\begin_layout Plain Layout
+
+    %% added by http://bbs.ctex.org/viewthread.php?tid=53451
+\end_layout
+
+\begin_layout Plain Layout
+
+    %fontadjust,
+\end_layout
+
+\begin_layout Plain Layout
+
+    xleftmargin=1em, xrightmargin=
+\backslash
+fboxsep,%设定listing左右的空白
+\end_layout
+
+\begin_layout Plain Layout
+
+    %texcl=true,                                             
+\end_layout
+
+\begin_layout Plain Layout
+
+    % 设定中文冲突，断行，列模式，数学环境输入，listing数字的样式
+\end_layout
+
+\begin_layout Plain Layout
+
+    extendedchars=false,columns=flexible,
+\end_layout
+
+\begin_layout Plain Layout
+
+    %mathescape=true, % 启用后貌似没法在代码中使用特殊字符，比如$
+\end_layout
+
+\begin_layout Plain Layout
+
+    escapechar=|
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
