@@ -4,7 +4,7 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass ctex-article-with-coderemarks
+\textclass ctex-article
 \begin_preamble
 %%%%%%%%%%%%%%%%%%                                                                                                                                                           
 
@@ -120,7 +120,6 @@
 \begin_modules
 logicalmkup
 tcolorbox
-notice
 \end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
@@ -222,6 +221,10 @@ f：进入或者退出全屏模式
 
 \begin_layout Itemize
 tab：页面概览切换
+\end_layout
+
+\begin_layout Itemize
+t：切换显示已经播放的时间，对于控制演讲进度很有用
 \end_layout
 
 \begin_layout Itemize
