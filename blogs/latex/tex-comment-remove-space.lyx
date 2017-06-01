@@ -1,0 +1,268 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar TeX
+注释之妙用
+\end_layout
+
+\begin_layout Standard
+在\SpecialChar TeX
+中使用%作为注释符，这很容易理解。注释符除了表示这一行后面的内容为注释之外，还表示不在这一行的最后插入空格。比如在\SpecialChar TeX
+中键入以下内容：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Blog is
+\end_layout
+
+\begin_layout Plain Layout
+our friend
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+输出结果为：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Blog is
+\end_layout
+
+\begin_layout Plain Layout
+
+our friend
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，\SpecialChar TeX
+自动将换行符转换为一个空格，这在大部分情况下符合英文的排版习惯。但是在特殊情况下，也许希望\SpecialChar TeX
+不要自动把换行转换为空格，考虑下面的例子：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Our friend—
+\end_layout
+
+\begin_layout Plain Layout
+softlab blog 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+输出结果为：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Our friend---
+\end_layout
+
+\begin_layout Plain Layout
+
+softlab blog
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出，在波折号和字母s之间有一个“难看的”空格，这是需要去掉的，办法是巧妙的利用注释符：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Our friend—% error fixed!
+\end_layout
+
+\begin_layout Plain Layout
+softlab blog 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+输出结果为：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Our friend—% error fixed!
+\end_layout
+
+\begin_layout Plain Layout
+
+softlab blog 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_body
+\end_document
