@@ -1,0 +1,615 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{menukeys}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar TeX
+中的短横线
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Standard
+似乎，D.E.K的《\SpecialChar TeX
+Book》是每个\SpecialChar LaTeX
+用户心目中的“圣经”，迟早要读一下的。
+\end_layout
+
+\begin_layout Standard
+原来，一条小小的短横线也需要细致的区分的，算是《\SpecialChar TeX
+Book》的第一个收获。\SpecialChar TeX
+中有4种短横线，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tablename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:TeX的4种短横线"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="5">
+<features booktabs="true" islongtable="true" longtabularalignment="center">
+<column alignment="center" valignment="middle" width="10line%">
+<column alignment="center" valignment="middle" width="10line%">
+<column alignment="center" valignment="middle" width="20line%">
+<column alignment="center" valignment="middle" width="20line%">
+<column alignment="center" valignment="middle" width="20line%">
+<row caption="true">
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\SpecialChar TeX
+的4种短横线
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:TeX的4种短横线"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+英文名称
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+中文名称
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+意义
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+示例
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+输入方法
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+hyphen
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+连字符
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+长单词的分割或者断行
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+dauthter-in-law,internationalization
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+一个短横线-
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+en-dash
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+区间符
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+不太确定中文名称是这样吗？
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+数字区间
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+12–25页
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+两个连续的短横线
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+-
+\backslash
+,-
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+em-dash
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+英文破折号
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+准确的中文名称是啥？
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+进一步的解释
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Em-dashes are used for punctuation in sentences—they are what we often call
+ simply dashes.
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+三个连续的短横线
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+-
+\backslash
+,-
+\backslash
+,-
+\end_layout
+
+\end_inset
+
+，快捷键
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{shift+-}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+需要输入法的支持，不同的输入法可能快捷键不同。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+minus sign
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+减号
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+数学上的减号
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$a-b$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+$-$
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+注意到，虽然键入的时候是两个或者三个短横线，\SpecialChar TeX
+已经自动将多个短横线组合成合适长度的横线，即所谓的ligatures。专业排版中还需要考虑相邻字母的间距调整（\SpecialChar TeX
+中称作
+kerning）实现连写效果，比如单词
+\size larger
+five
+\size default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+清晰起见，故意放大了两个字号显示这个单词。
+\end_layout
+
+\end_inset
+
+，可以看出字符f和i有部分是重叠在一起的，即字符f和i的间距被压缩了。幸好有了\SpecialChar TeX
+，这些专业排版中的细节不需要我们去处理，\SpecialChar TeX
+已经帮我们打理好了。
+\end_layout
+
+\begin_layout Standard
+如果真的要显示两个连续的短横线的效果，可以键入：
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+-
+\backslash
+,-
+\end_layout
+
+\end_inset
+
+。在\SpecialChar LyX
+中，可以将
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+-
+\backslash
+,-
+\end_layout
+
+\end_inset
+
+放到一个ERT中。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Notice
+status open
+
+\begin_layout Plain Layout
+中文的破折号问题：似乎，中文破折号应该是6个短横线，比如：伟大的祖国——中华人们共和国。连续输入六个短横线显然是很烦人的，一般的输入法都提供了简单的快捷键，比如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{shift+-}
+\end_layout
+
+\end_inset
+
+输入一个英文的破折号，连续按两次输入中文的破折号。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

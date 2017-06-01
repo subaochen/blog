@@ -1,0 +1,229 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{diagbox}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar TeX
+命令的名称
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+命令是以
+\backslash
+开头的字符串，在\SpecialChar TeX
+被称为“control sequence”。如果有程序设计的经验，往往会想当然的认为下面的\SpecialChar TeX
+命令都是合法的三个不同的命令：
+\end_layout
+
+\begin_layout Enumerate
+
+\backslash
+command
+\end_layout
+
+\begin_layout Enumerate
+
+\backslash
+command2
+\end_layout
+
+\begin_layout Enumerate
+
+\backslash
+command#1
+\end_layout
+
+\begin_layout Standard
+是的，都是合法的，但是却都是一个命令command！也就是说，\SpecialChar TeX
+命令中，只有字母是合法的命令名称，在
+\backslash
+后面的字符串中，碰到非字母（大小写总共52个字母）即自然结束，数字和其他任何字符都不是命令名称的一部分。这和常见的程序设计语言中的变量命令是很不一样的，要注意区
+分。
+\end_layout
+
+\begin_layout Standard
+简单的说，\SpecialChar TeX
+中的命令是由
+\backslash
+和其后的连续字母组成的，当碰到空格、其他非字母字符后自然结束。
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+命令有两种形式：
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+control word
+\end_layout
+
+\end_inset
+
+ 即上面所说的\SpecialChar TeX
+命令。
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+control symbol
+\end_layout
+
+\end_inset
+
+ 有
+\backslash
+和其后的单一非字母组成，因此成为symbol，在其他程序设计语言中叫做“转义字符”。比如
+\backslash
+
+\begin_inset space \textvisiblespace{}
+\end_inset
+
+可以表示一个空格，可以用于强制插入一个空格。
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+定义了大约900个命令，其中300个属于命令原语，其余命令是这300个命令原语的组合。
+\end_layout
+
+\begin_layout Standard
+可以通过
+\backslash
+show观察每一个命令，比如
+\backslash
+show
+\backslash
+TeX，
+\backslash
+show
+\backslash
+'，
+\backslash
+show
+\backslash
+
+\begin_inset space \textvisiblespace{}
+\end_inset
+
+，展示
+\backslash
+show命令的执行结果只能通过
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+日志或者终端输出
+\end_layout
+
+\end_inset
+
+，而不能写入生成的pdf文件中。当遇到
+\backslash
+show命令时，\SpecialChar TeX
+在终端打印
+\backslash
+show的执行结果，然后等待用户给出下一步运行的指令，通常回车后继续运行即可。
+\end_layout
+
+\end_body
+\end_document

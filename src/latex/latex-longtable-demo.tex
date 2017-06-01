@@ -6,7 +6,7 @@
 长表格演示：
 
 \begin{longtable}[c]{|l|l|c|}
-	\caption{longtable示例}\\
+	\caption{longtable示例1}\\
 	\hline
 	\endfirsthead
 	\multicolumn{3}{c}{续表}\\
@@ -19,8 +19,28 @@
 	\endlastfoot
 	序号 & 操作 & 截图 \\
 	\hline
-	1 & 设置必要的参数  & 参见图1 \\
+	1 & 设置必要的参数  & 参见图1\footnote{longtable中可以使用脚注} \\
 	\hline
 \end{longtable}
 
+
+\begin{table}[htbp]
+\begin{longtable}[c]{|l|l|c|}
+	\caption{longtable示例2：浮动longtable}\\
+	\hline
+	\endfirsthead
+	\multicolumn{3}{c}{续表}\\
+	\hline
+	\endhead
+	\multicolumn{3}{c}{接下一页表格……}\\
+	\hline
+	\endfoot
+	\hline
+	\endlastfoot
+	序号 & 操作 & 截图 \\
+	\hline
+	1 & 设置必要的参数  & 参见图1\footnote{浮动longtable中可以使用脚注} \\
+	\hline
+\end{longtable}
+\end{table}
 \end{document}
