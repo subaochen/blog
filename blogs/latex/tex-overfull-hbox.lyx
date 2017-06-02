@@ -1,0 +1,462 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{diagbox}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar TeX
+的Overfull 
+\backslash
+hbox初接触
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Section
+问题引入
+\end_layout
+
+\begin_layout Standard
+《TeXBook》第6章“Running \SpecialChar TeX
+”给出了一个很详细的例子说明overfull 
+\backslash
+box产生的原因，值得深入玩味，从而体会排版中的细节问题。输入文件
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "演示Overfull hbox的示例代码"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/story.tex"
+lstparams "language=TeX,caption={演示Overfull hbox的示例代码},label={演示Overfull hbox的示例代码}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+把这段代码输入TeX系统：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+$ tex
+\end_layout
+
+\begin_layout Plain Layout
+This is TeX, Version 3.14159265 (TeX Live 2016) (preloaded format=tex)
+\end_layout
+
+\begin_layout Plain Layout
+**
+\backslash
+hsize 4in 
+\backslash
+input story
+\end_layout
+
+\begin_layout Plain Layout
+(./story.tex [1])
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+hsize 2in 
+\backslash
+input story 
+\end_layout
+
+\begin_layout Plain Layout
+(./story.tex
+\end_layout
+
+\begin_layout Plain Layout
+Overfull 
+\backslash
+hbox (6.26584pt too wide) in paragraph at lines 7--11
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+tenrm tance galaxy called []O^^?o^^Xc, there lived|
+\end_layout
+
+\begin_layout Plain Layout
+Overfull 
+\backslash
+hbox (0.4325pt too wide) in paragraph at lines 7--11
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+tenrm a com-puter named R.
+ J.
+ Drof-nats.
+ |
+\end_layout
+
+\begin_layout Plain Layout
+Overfull 
+\backslash
+hbox (6.71022pt too wide) in paragraph at lines 12--16
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+tenrm hap-pi-est when he was at work type-|
+\end_layout
+
+\begin_layout Plain Layout
+[2])
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+end
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出，当行宽设置为4in时（
+\backslash
+hsize=4in），文件正常解析，\SpecialChar TeX
+系统没有任何警告；当行宽设置为2in时，解析文件过程中给出了3个Overfull 
+\backslash
+hbox警告。要理解这三条警告信息，似乎需要不少的铺垫，其中不乏笔者的猜测，还望\SpecialChar TeX
+老鸟不吝指正为盼！
+\end_layout
+
+\begin_layout Section
+盒子模型
+\end_layout
+
+\begin_layout Standard
+作者在这里还没有展开阐述盒子的概念和盒子在排版中的使用原则，冒昧揣测一下。在\SpecialChar TeX
+处理文件时，每一个字符、标点（这里还不涉及minipage等）根据其字体家族、字形、
+字号等因素在最终输出到打印设备时，都占有相应的矩形位置，即“盒子”（box）。单个字符形成的盒子是最简单的盒子，盒子可以再套盒子。所谓排版，通俗的说，就是首先将
+待处理文件中的所有符号转换为一个一个的盒子，然后合理的在页面布置这些盒子使得输出的结果看起来赏心悦目，很像玩积木游戏。排版软件的水平高低，主要就看对这些盒子的布
+局是否合理。
+\end_layout
+
+\begin_layout Section
+断行
+\end_layout
+
+\begin_layout Standard
+主要是长单词在一行的末尾时，需要断开单词以使得本行单词间距合理。可以使用带子~代表一个不允许断行的空格，通常用于人名中，比如D.~E.~K，这样即使位于行尾也不会被
+断为两部分。
+\end_layout
+
+\begin_layout Section
+badness
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+内部变量
+\backslash
+badness表示单词间距，\SpecialChar TeX
+根据每一行的不同情况维护着一个相应的badness变量。\SpecialChar TeX
+默认总是将单词间距控制在
+\backslash
+badness小于200，这是上述盒子溢出的主要原因：在行宽比较小的情况下，如果将单词间距
+\backslash
+badness控制在一个合理的范围内，可能会导致行尾的单词超出边界：反过来想，如果将超出边界的单词移动到下一行，将使得这一行的
+\backslash
+badness超出允许的范围。
+\end_layout
+
+\begin_layout Standard
+可以通过调整
+\backslash
+tolerance的值允许\SpecialChar TeX
+使用更大范围的
+\backslash
+badness，比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+hsize=2in 
+\backslash
+tolerance=1600 
+\backslash
+input story
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+使得在行宽2in情况下仍然不会报错。不过，此时有些行中单词间距明显比较难看了。
+\end_layout
+
+\begin_layout Standard
+如果设置
+\backslash
+tolerance=10000则意味着告诉\SpecialChar TeX
+完全不用考虑单词间距，可能导致相当难看的排版效果。
+\end_layout
+
+\begin_layout Standard
+通过输入下列指令，可以看出\SpecialChar TeX
+计算得出的每一行的badness：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+hsize=1.5in 
+\backslash
+tolerance=10000 
+\backslash
+hbadness=-1 
+\backslash
+input story
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+其中的
+\backslash
+hbadness是\SpecialChar TeX
+的一个内部变量，表示如果盒子的badness超出
+\backslash
+hbadness的阀值则报警。设置
+\backslash
+hbadness=-1则意味着每一行都报警，因此可以获得输出的badness数值。
+\end_layout
+
+\begin_layout Standard
+当设置了
+\backslash
+raggedright（不顾及右对齐）后，
+\backslash
+badness则表示当前行右边的空白量，因此下面的指令可以给出每一行后边的空白量是多少：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+hsize=1.5in 
+\backslash
+raggedright 
+\backslash
+tolerance=10000 
+\backslash
+hbadness=-1 
+\backslash
+input story
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
