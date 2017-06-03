@@ -1,0 +1,824 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{layouts}
+\setlength{\fboxsep}{0pt}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+varwidth
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar TeX
+的盒子（Box）
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Standard
+盒子（box）是\SpecialChar TeX
+排版的关键概念。\SpecialChar TeX
+拿到一篇文档时，首先根据字符的设定（字族、字型、尺寸）将单个字符拆分为一个一个的字符盒子，再根据行宽（
+\backslash
+hsize）和单词间距（
+\backslash
+badness）组装
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+又译为粘连，就像把字符盒子一个接一个的粘在一起组成一行。\SpecialChar TeX
+原文用词为glue。
+\end_layout
+
+\end_inset
+
+为一行长的盒子（hbox），最后根据行间距（
+\backslash
+vskip）将行盒子（hbox）组装为列盒子（vbox），也就形成了页（page）。这很像中国的活字印刷术，在现代的激光照排技术发明之前，印刷厂的工人师傅也是沿
+用了这样的工作流程，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:工人师傅在排版"
+
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+图片来源：
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://study.ccln.gov.cn/danganziliao/laozhaopian/230450.shtml
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/huoziyinshua.jpg
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+工人师傅在排版
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:工人师傅在排版"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+盒子的基本参数
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+中的盒子有三个基本参数：高度（height）、深度（depth）和宽度（width），如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TeX的盒子模型参数"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tex-box.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\SpecialChar TeX
+的盒子模型参数
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TeX的盒子模型参数"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+高度、宽度和深度都很容易理解。每个盒子在其左边有一个参考点（Reference point），可以看出，所有其他参数的度量都是根据这个参考点得出的，这也是参考点
+名字的由来。其中的基准线（Baseline）是从参考点拉出的水平线，在基准线以上的部分即为高度，在基准线以下的部分即为深度。基准线在排版中极为重要：后面我们会看
+到，水平组装盒子的依据就是基准线，这也是基准线名字的由来。
+\end_layout
+
+\begin_layout Section
+单个字符的盒子
+\end_layout
+
+\begin_layout Standard
+借助于layouts宏包
+\begin_inset CommandInset citation
+LatexCommand cite
+key "layout-package"
+
+\end_inset
+
+，可以很容易的观察\SpecialChar TeX
+的盒子模型，下面比较一下不同字体的盒子。为了演示方便，一律使用巨大号（
+\backslash
+Huge）字体。
+\end_layout
+
+\begin_layout Standard
+单个字母Q时，即
+\backslash
+textbf{Q}：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+printparameterstrue 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+drawfontframelabel{
+\backslash
+Huge
+\backslash
+textbf{Q}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+单个斜体字母Q时，即
+\backslash
+it
+\backslash
+textbf{Q}
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+printparameterstrue 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+drawfontframelabel{
+\backslash
+Huge
+\backslash
+it
+\backslash
+textbf{Q}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+多个字母所组成的盒子：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+printparameterstrue 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+drawfontframelabel{
+\backslash
+Huge
+\backslash
+textbf{yAxMhH(Qp)P}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出，并不是每个字符都是“全高”（高度和深度都满格）的。实际上，大部分字母的深度为0。
+\end_layout
+
+\begin_layout Section
+行盒子
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+将一系列字符盒子按照基准线对齐组装成行盒子（hbox），如下图所示，行盒子同样有盒子的三个属性。
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+printparameterstrue 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+drawfontframelabel{
+\backslash
+Huge
+\backslash
+textbf{a line may consist of many words.}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+将这一行文字拆成一个一个的字符盒子：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+mybox#1{
+\backslash
+fbox{
+\backslash
+Huge
+\backslash
+textbf{#1}}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+printparameterstrue 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fbox{
+\backslash
+mybox{a}
+\backslash
+mybox{
+\backslash
+ }
+\backslash
+mybox{l}
+\backslash
+mybox{i}
+\backslash
+mybox{n}
+\backslash
+mybox{e}
+\backslash
+mybox{ }
+\backslash
+mybox{m}
+\backslash
+mybox{a}
+\backslash
+mybox{y}
+\backslash
+mybox{ }
+\backslash
+mybox{c}
+\backslash
+mybox{o}
+\backslash
+mybox{n}
+\backslash
+mybox{s}
+\backslash
+mybox{i}
+\backslash
+mybox{s}
+\backslash
+mybox{t}
+\backslash
+mybox{ }
+\backslash
+mybox{o}
+\backslash
+mybox{f}
+\backslash
+mybox{ }
+\backslash
+mybox{m}
+\backslash
+mybox{a}
+\backslash
+mybox{n}
+\backslash
+mybox{y}
+\backslash
+mybox{ }
+\backslash
+mybox{w}
+\backslash
+mybox{o}
+\backslash
+mybox{r}
+\backslash
+mybox{d}
+\backslash
+mybox{s}
+\backslash
+mybox{.}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+之所以看起来比上一行要长一些，是因为每个盒子都是使用
+\backslash
+fbox画出来的，
+\backslash
+fbox的线宽积累起来造成的。
+\end_layout
+
+\begin_layout Section
+列盒子
+\end_layout
+
+\begin_layout Standard
+有了行盒子（hbox），就很容易组装列盒子（vbox）了，如下图所示，按照行盒子的参考点左对齐形成的列盒子：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "403pt"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "0pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+mybox#1{
+\backslash
+fbox{
+\backslash
+Huge
+\backslash
+textbf{#1}}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+printparametersfalse
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fbox{
+\backslash
+mybox{a}
+\backslash
+mybox{
+\backslash
+ }
+\backslash
+mybox{l}
+\backslash
+mybox{i}
+\backslash
+mybox{n}
+\backslash
+mybox{e}
+\backslash
+mybox{ }
+\backslash
+mybox{m}
+\backslash
+mybox{a}
+\backslash
+mybox{y}
+\backslash
+mybox{ }
+\backslash
+mybox{c}
+\backslash
+mybox{o}
+\backslash
+mybox{n}
+\backslash
+mybox{s}
+\backslash
+mybox{i}
+\backslash
+mybox{s}
+\backslash
+mybox{t}
+\backslash
+mybox{ }
+\backslash
+mybox{o}
+\backslash
+mybox{f}
+\backslash
+mybox{ }
+\backslash
+mybox{m}
+\backslash
+mybox{a}
+\backslash
+mybox{n}
+\backslash
+mybox{y}
+\backslash
+mybox{ }
+\backslash
+mybox{w}
+\backslash
+mybox{o}
+\backslash
+mybox{r}
+\backslash
+mybox{d}
+\backslash
+mybox{s}
+\backslash
+mybox{.}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+vskip 1em
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+break
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fbox{
+\backslash
+mybox{a}
+\backslash
+mybox{
+\backslash
+ }
+\backslash
+mybox{l}
+\backslash
+mybox{i}
+\backslash
+mybox{n}
+\backslash
+mybox{e}
+\backslash
+mybox{ }
+\backslash
+mybox{m}
+\backslash
+mybox{a}
+\backslash
+mybox{y}
+\backslash
+mybox{ }
+\backslash
+mybox{c}
+\backslash
+mybox{o}
+\backslash
+mybox{n}
+\backslash
+mybox{s}
+\backslash
+mybox{i}
+\backslash
+mybox{s}
+\backslash
+mybox{t}
+\backslash
+mybox{ }
+\backslash
+mybox{o}
+\backslash
+mybox{f}
+\backslash
+mybox{ }
+\backslash
+mybox{m}
+\backslash
+mybox{a}
+\backslash
+mybox{n}
+\backslash
+mybox{y}
+\backslash
+mybox{ }
+\backslash
+mybox{w}
+\backslash
+mybox{o}
+\backslash
+mybox{r}
+\backslash
+mybox{d}
+\backslash
+mybox{s}
+\backslash
+mybox{.}}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/latex"
+options "IEEEtranS"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

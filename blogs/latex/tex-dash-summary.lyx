@@ -582,7 +582,30 @@ status open
 
 \end_inset
 
-放到一个ERT中。
+放到一个ERT中。另外一个显示两个连续的短横线的方法是使用
+\backslash
+tt，即键入：{
+\backslash
+tt 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+-
+\backslash
+,-
+\end_layout
+
+\end_inset
+
+}，这是因为
+\backslash
+tt不会自动合并两个短横线，就像{
+\backslash
+tt five}不会压缩f和i之间的间距实现连写效果一样：这就是
+\backslash
+tt的意义，像打字机一样重视的复现每一个字符。
 \end_layout
 
 \begin_layout Standard

@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+    \coordinate (reference point) at (0,0);
+    \filldraw (reference point) circle (.05);
+    \draw[semithick] (reference point) rectangle (2,3);
+    \draw[semithick] (reference point) rectangle (2,-1);
+    \draw[->] node at (-1.8,0){Reference point}(-.5,0) -- (-.1,0);
+    \draw (reference point) -- node[above]{Baseline}(2,0);
+    \draw (2.6,3) -- (2.8,3);
+    \draw (2.6,0) -- (2.8,0);
+    \draw (2.6,-1) -- (2.8,-1);
+    \draw[<->](2.7,3)--node[midway,fill=white]{height}(2.7,0);
+    \draw[<->](2.7,0)--node[midway,fill=white]{depth}(2.7,-1);
+    \draw (0,-1.2)--(0,-1.4);
+    \draw (2,-1.2)--(2,-1.4);
+    \draw[<->](0,-1.3)--node[midway,fill=white]{width}(2,-1.3);
+\end{tikzpicture}

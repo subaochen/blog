@@ -1,0 +1,235 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{diagbox}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+关于“粘连”的知识点
+\end_layout
+
+\begin_layout Section
+行间距的确定原则
+\end_layout
+
+\begin_layout Standard
+控制行间距的三个变量为：
+\end_layout
+
+\begin_layout Description
+baselineskip 两个hbox基线之间的距离，即通常所说的行间距。
+\end_layout
+
+\begin_layout Description
+lineskip 行间粘连，通常使用“弹簧设置法”（借用tikz的说法），比如
+\backslash
+lineskip=3pt plus 2pt minus 1pt，即正常情况下的行间粘连为3pt，但是允许伸长2pt或者压缩1pt，即此lineskip的范围为2
+pt–5pt之间。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+什么时候被伸长，什么时候被压缩？
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+lineskiplimit 最小行间粘连，防止行间距过小造成两个hbox重叠。
+\end_layout
+
+\begin_layout Standard
+其相互关系参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:确定行间距的三个变量之间的相互关系"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset CommandInset include
+LatexCommand include
+filename "../../imgs/latex/tex-lineskip.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+确定行间距的三个变量之间的相互关系
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:确定行间距的三个变量之间的相互关系"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+一般情况下采用baselineskip作为行间距，但是当计算得到的lineskip小于设定的lineskiplimit时则使用lineskip设置两行间的最小间
+距，即行间粘连（注意不是行间距）。
+\end_layout
+
+\begin_layout Standard
+举个例子，假设
+\backslash
+baselineskip=12pt plus 2pt，
+\backslash
+lineskip=3pt minus 1pt，
+\backslash
+lineskiplimit=2pt，上一行hbox的深度为3pt，当前行hbox的高度为5pt，计算可知当前行间粘连lineskip为4pt，其值大于
+\backslash
+lineskiplimit的设定值，因此行间距采用
+\backslash
+baselineskip的设定值12pt。又假设当前行hbox的高度为8pt，则lineskip为1pt，小于
+\backslash
+lineskiplimit的设定值，因此需要调整lineskip为
+\backslash
+lineskip的设定值3pt，此时行间距（baselineskip）为3pt+3pt+8pt=14pt。
+\end_layout
+
+\begin_layout Section
+vbox和vtop的基线
+\end_layout
+
+\begin_layout Standard
+vbox的基线与内部底盒子的基线一致，vtop的基线与内部顶盒子的基线一致。
+\end_layout
+
+\end_body
+\end_document
