@@ -1,0 +1,371 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar TeX
+的控制序列释疑
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Standard
+作为一个排版软件，\SpecialChar TeX
+是将输入文件的内容看作一个字符序列（sequence）来处理的。在这些字符序列中，控制版面效果的就是控制序列（control
+ sequence）。\SpecialChar TeX
+的控制序列分为两种类型：
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+控制字（control word）
+\end_layout
+
+\end_inset
+
+：
+\backslash
+后面跟着1个或者多个字母构成了控制字，其后的任何非字母字符意味者控制字的结尾。这里的要点是两个：第一，
+\backslash
+后面必须是字母，大小写均可，1个或者多个都行。第二，任何非字母即结束控制字，比如空格、数字、特殊符号（#等）都意味着控制字的结束。
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+控制符号（control symbol）
+\end_layout
+
+\end_inset
+
+：
+\backslash
+后面跟着一个唯一的非字母字符。这里的要点也是两个：第一，控制符号的
+\backslash
+后面只能是一个字符；第二，这个字符必须不是字母，否则就是控制字了。
+\end_layout
+
+\begin_layout Standard
+控制字的特点是
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+会吃掉紧随其后的任何空格
+\end_layout
+
+\end_inset
+
+，比如如果录入如下的内容
+\begin_inset CommandInset citation
+LatexCommand cite
+key "tex-for-impatient"
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout LyX-Code
+The wonders of 
+\backslash
+TeX shall never cease!
+\end_layout
+
+\begin_layout Standard
+其实输出的结果是：
+\end_layout
+
+\begin_layout LyX-Code
+The wonders of TeXshall never cease!
+\end_layout
+
+\begin_layout Standard
+即，TeX和shall之间的空格被控制字吃掉了！因此应该通过控制符号
+\backslash
+
+\begin_inset space \textvisiblespace{}
+\end_inset
+
+明确保留空格，即如下方式录入：
+\end_layout
+
+\begin_layout LyX-Code
+The wonders of 
+\backslash
+TeX
+\backslash
+ shall never cease!
+\end_layout
+
+\begin_layout Standard
+也可以通过空的分组符来间隔控制字和欲保留的空格：
+\end_layout
+
+\begin_layout LyX-Code
+The wonders of 
+\backslash
+TeX{} shall never cease!
+\end_layout
+
+\begin_layout Standard
+由于任何非字母都意味着控制字的结束，因此常使用空格作为控制字及其参数的分隔符，比如
+\backslash
+d控制字
+\begin_inset CommandInset citation
+LatexCommand cite
+key "texbook"
+
+\end_inset
+
+用来在一个字母下面加一个点，则可以这样写：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+d a control word
+\end_layout
+
+\begin_layout Standard
+其运行结果为：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+d a control world
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也可以这样录入：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+d{a} control word
+\end_layout
+
+\begin_layout Standard
+显然使用空格作为分隔符更简介，但是使用{}更容易理解。
+\end_layout
+
+\begin_layout Standard
+进一步的，下面的几种录入方式是等价的，都表示将页宽设置为4in：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hsize=4in
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hsize4in
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hsize 4in
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+控制符号不会吃掉紧跟着的空格
+\end_layout
+
+\end_inset
+
+，这是一个自然的规定，比如录入
+\backslash
+$23.47，则显示
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+$23.47
+\end_layout
+
+\end_inset
+
+，但是录入$ 23.47，则会显示
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+$ 23.47
+\end_layout
+
+\end_inset
+
+。有关重音的控制符号是个例外，其会忽略紧跟着的空格，比如录入
+\backslash
+`Quad，则显示
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+`Quad
+\end_layout
+
+\end_inset
+
+，也可以录入
+\backslash
+`
+\begin_inset space \textvisiblespace{}
+\end_inset
+
+Quad，同样显示
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+` Quad
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+也就是说，对于控制序列要掌握两点：
+\end_layout
+
+\begin_layout Enumerate
+如何区分控制字和控制符号；
+\end_layout
+
+\begin_layout Enumerate
+控制字和控制符号对于其随后的空格的不同处理方式，and why？
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/latex"
+options "IEEEtranS"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

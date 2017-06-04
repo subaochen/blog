@@ -1,6 +1,6 @@
 \usetikzlibrary{graphs,graphdrawing}
 \usegdlibrary{layered,trees}
-\tikz \graph [layered layout, grow=up, sibling distance=5mm]
+\tikz \graph [layered layout, grow=60, sibling distance=5mm]
 {
     a -- { b, c, d, e -- {f, g, h} };
     { h, g } -- a;
