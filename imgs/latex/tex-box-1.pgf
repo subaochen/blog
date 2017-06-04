@@ -1,0 +1,29 @@
+\usetikzlibrary{calc}
+\begin{tikzpicture}
+    \coordinate (reference point) at (0,0); % 参考点
+    \coordinate (tr) at (2,3); % 右上角
+    \coordinate (br) at (2,-1); % 右下角
+    % 获取要绘制的盒子的宽度、高度、深度
+    \path (tr);
+    \pgfgetlastxy{\width}{\height}
+    \path (br);
+    \pgfgetlastxy{\width}{\depth}
+    \filldraw (reference point) circle (.05);
+    % 绘制两个矩形
+    \draw[semithick] (reference point) rectangle (tr);
+    \draw[semithick] (reference point) rectangle (br);
+    % 绘制参考点文字
+    \draw[->] node at (-1.8,0){Reference point}(-.5,0) -- (-.1,0);
+    \draw (reference point) -- node[above]{Baseline}(\width,0);
+
+    % 绘制高度和深度的标线
+    \foreach \y in {\height,0,\depth} 
+        \draw (\width+.6cm,\y) -- +(.2,0);
+    % 绘制高度和深度的label
+    \draw[<->](\width+.7cm,\height)--node[midway,fill=white]{height}(\width+.7cm,0);
+    \draw[<->](\width+.7cm,0)--node[midway,fill=white]{depth}(\width+.7cm,\depth);
+    % 绘制宽度标线
+    \foreach \x in {0,\width}
+        \draw(\x,\depth-.3cm) -- (\x,\depth-.5cm);
+    \draw[<->](0,\depth-.4cm)--node[midway,fill=white]{width}(\width,\depth-.4cm);
+\end{tikzpicture}
