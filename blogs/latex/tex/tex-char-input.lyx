@@ -189,6 +189,48 @@ char`b
 \end_inset
 
 引用字母b。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+为什么是`？在哪里定义的？
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+对应的，\SpecialChar TeX
+也定义了获取ASCII码的
+\backslash
+number命令，比如
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+number`b
+\end_layout
+
+\end_inset
+
+的输出是
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+number`b
+\end_layout
+
+\end_inset
+
+。
 \end_layout
 
 \end_body
