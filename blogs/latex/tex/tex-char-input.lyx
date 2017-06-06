@@ -1,0 +1,195 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{diagbox}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar TeX
+的字符输入
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Standard
+和任何其他程序设计语言一样（如果把\SpecialChar TeX
+看作程序设计语言的话），\SpecialChar TeX
+设计了表达（输入）任意字符的方法，因为并不是所有字符都能够从键盘上找到。\SpecialChar TeX
+是基于ASCII码的，
+\backslash
+char命令可以用来表达任意ASCII字符，比如：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+char98u
+\backslash
+char98
+\backslash
+char98le
+\end_layout
+
+\begin_layout Standard
+会打印出：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+char98u
+\backslash
+char98
+\backslash
+char98le
+\end_layout
+
+\end_inset
+
+：98是字母b的ASCII码。上面的输入也可以是：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+char98 u
+\backslash
+char98
+\backslash
+char98 le
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+char 98 u
+\backslash
+char 98 
+\backslash
+char 98 le
+\end_layout
+
+\begin_layout Standard
+其输出结果不变：
+\backslash
+char期待一个数字作为参数，因此
+\backslash
+char和98之间可以有空格，也可以没有空格，\SpecialChar TeX
+都能够正确识别
+\backslash
+char命令及其参数。
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+也定义了引用ASCII码字符的简洁方式，比如可以使用
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+char`b
+\end_layout
+
+\end_inset
+
+引用字母b。
+\end_layout
+
+\end_body
+\end_document
