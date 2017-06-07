@@ -96,7 +96,7 @@ logicalmkup
 
 \begin_layout Title
 \SpecialChar TeX
-的catcode
+的宏解析顺序
 \end_layout
 
 \begin_layout Author
@@ -105,189 +105,305 @@ logicalmkup
 
 \begin_layout Standard
 \SpecialChar TeX
-将256个ASCII码分为16类
+的宏可以嵌套定义，\SpecialChar TeX
+在解析嵌套的宏时遵循的顺序是：\SpecialChar TeX
+遇到一个宏时立刻进行解析（展开）操作，直到\SpecialChar TeX
+看到的是一个原命令（primitive command）时，即将此原命
+令送直下一工序。按照\SpecialChar TeX
+的说法，宏包展开的过程是在“喉咙”完成的
 \begin_inset CommandInset citation
 LatexCommand cite
-after "第7章"
-key "texbook"
-
-\end_inset
-
-，每一类字符都赋予一个代号称作类代码（catcode），比如转义字符
-\backslash
-的类代码是0,大小写字母的类代码是11等等。\SpecialChar TeX
-内部在使用特殊字符时都是使用类代码来引用的，而不是直接使用这个特殊字符，比如在\SpecialChar TeX
-中控制序列都是
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-
-\backslash
-
-\end_layout
-
-\end_inset
-
-开头的，作者解释说，这是因为
-\backslash
-在正文中很少出现，因此选择
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-
-\backslash
-
-\end_layout
-
-\end_inset
-
-作为控制序列的转义字符。其实如果重新定义catcode为0的字符，我们也可以修改控制序列的转义字符，比如，通常情况下，我们打入
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-/char98
-\end_layout
-
-\end_inset
-
-会打印出ASCII为98的字符b，但是如下的代码
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-仅仅是catcode的示例，将/作为转义字符并不合理，因此这段代码使用{}限制了catcode命令的作用范围。
-\end_layout
-
-\end_inset
-
-：
-\end_layout
-
-\begin_layout LyX-Code
-{
-\backslash
-catcode`/=0 /char98}
-\end_layout
-
-\begin_layout Standard
-也可以打印出字母
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{
-\backslash
-catcode`/=0 /char98}
-\end_layout
-
-\end_inset
-
-，注意到
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-/char98
-\end_layout
-
-\end_inset
-
-这个控制序列的转义字符是
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-/
-\end_layout
-
-\end_inset
-
-，而不是
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-
-\backslash
-
-\end_layout
-
-\end_inset
-
-：
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-
-\backslash
-catcode`/=0
-\end_layout
-
-\end_inset
-
-的意思是说，将字符
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-/
-\end_layout
-
-\end_inset
-
-的catcode定义为0，即\SpecialChar TeX
-的转义字符。
-\end_layout
-
-\begin_layout Standard
-在通过catcode重新定义某些字符的类代码后，\SpecialChar TeX
-仍然能够记得原来的定义
-\begin_inset CommandInset citation
-LatexCommand cite
-after "No.74"
+after "p.46"
 key "impatient-tex-book"
 
 \end_inset
 
-。事实上，catcode命令是
-\begin_inset Flex Emph
+，在喉咙中遇到的每一个原命令都会被送到“胃”里进行下一步处理。理解宏的嵌套定义和宏的展开，基本上可以去尝试读一下“天书般”的\SpecialChar TeX
+样式定义了。下面的示例同样来自
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.77"
+key "impatient-tex-book"
+
+\end_inset
+
+，假设有如下的宏定义和宏调用：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+a#1#2{
+\backslash
+b#2#1
+\backslash
+kern 2pt #1}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+b{bb}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+c{
+\backslash
+char49 cc} 
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+d{dd}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+a
+\backslash
+c{e
+\backslash
+d}
+\end_layout
+
+\begin_layout Standard
+则宏展开的过程如下：
+\end_layout
+
+\begin_layout Enumerate
+
+\backslash
+c和e
+\backslash
+d分别作为宏a的参数代入，获得：
+\begin_inset Flex Code
 status open
 
 \begin_layout Plain Layout
-扩展
+
+\backslash
+be
+\backslash
+d
+\backslash
+c
+\backslash
+kern 2pt 
+\backslash
+c
 \end_layout
 
 \end_inset
 
-了（plain）\SpecialChar TeX
-中的类代码。比如我们也可以这样写:
+
 \end_layout
 
-\begin_layout LyX-Code
-{
+\begin_layout Enumerate
+展开
 \backslash
-catcode`/=0 /char98 
+b，获得：bbe
 \backslash
-char98}
+d
+\backslash
+c
+\backslash
+kern 2pt 
+\backslash
+c
+\end_layout
+
+\begin_layout Enumerate
+bbe三个字母都已经是原命令，分别送到“胃”里等待进一步处理，于是获得：
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+d
+\backslash
+c
+\backslash
+kern 2pt 
+\backslash
+c
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+展开
+\backslash
+d，获得：
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+dd
+\backslash
+c
+\backslash
+kern 2pt 
+\backslash
+c
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+dd两个字母已经是原命令，分别送到“胃”里等待进一步处理，于是获得：
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+c
+\backslash
+kern 2pt 
+\backslash
+c
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+展开第一个
+\backslash
+c，获得
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+char49 cc
+\backslash
+kern 2pt 
+\backslash
+c
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\backslash
+char49和cc三个字母已经是原命令，分别送到“胃”里等待进一步处理，于是获得：
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+kern 2pt 
+\backslash
+c
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\backslash
+kern 2pt已经是原命令，送到“胃”里等待进一步处理，于是获得：
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+c
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+展开
+\backslash
+c，获得：
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+char49 cc
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\backslash
+char49和cc三个字母已经是原命令，分别送到“胃”里等待进一步处理，处理完毕。
+\end_layout
+
+\begin_layout Enumerate
+胃里需要进一步处理的文本为：
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+bbedd
+\backslash
+char49cc
+\backslash
+kern 2pt
+\backslash
+char49cc
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-其结果是打印出两个字母b，即通过
-\backslash
-catcode命令给\SpecialChar TeX
-增加了一种转义字符。
+\begin_inset Flex Tip
+status open
+
+\begin_layout Plain Layout
+宏定义的顺序并不重要，只要在调用宏之前已经定义即可。比如上面的例子中，宏a中用到了宏b，但是宏b的定义在a之后，这没有错。只要在宏a在调用之前，宏b、c、d已经
+定义即可。
 \end_layout
 
-\begin_layout Standard
-事实上，我们完全可以重新定义所有16个catcode来达到修改\SpecialChar TeX
-中所有特殊字符的意义的目的，比如不使用{}来表示分组等等，这也为\SpecialChar TeX
-的多样化打下了很好的基础。但是，你
-能想出比作者更合理、更能够被大众接受的方案吗？
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
