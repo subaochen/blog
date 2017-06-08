@@ -1077,11 +1077,231 @@ x}
 \end_layout
 
 \begin_layout Section
-空格（interword spacing）
+空白（interword spacing）
 \end_layout
 
 \begin_layout Standard
-看起来似乎很简单的空格，在排版中却隐藏了诸多学问。
+空白不单纯是指空格，这里特指单词之间的空白。看起来似乎很简单的空白，在排版中却隐藏了诸多学问，\SpecialChar TeX
+有如下的方式表达空白，各有不同的适用场合。
+\end_layout
+
+\begin_layout Subsection
+空格
+\end_layout
+
+\begin_layout Standard
+正常输入英文时，通常以空格区分单词。空格的大小不是固定的，\SpecialChar TeX
+在断行时可能调整（伸长或者压缩）空格的长度。
+\end_layout
+
+\begin_layout Subsection
+空格控制符
+\backslash
+
+\begin_inset space \textvisiblespace{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+空格控制符所制造的空格长度是不可变的。
+\end_layout
+
+\begin_layout Subsection
+空格控制字
+\backslash
+space
+\end_layout
+
+\begin_layout Standard
+空格控制字所制造的空格会受前面标点符号的影响而长度略有变化，比如：
+\end_layout
+
+\begin_layout LyX-Code
+Here is
+\backslash
+space Yes.
+\backslash
+space No.
+\backslash
+space.
+ Maybe.
+\backslash
+par
+\end_layout
+
+\begin_layout LyX-Code
+Here is
+\backslash
+ Yes.
+\backslash
+ No.
+\backslash
+ Maybe.
+\backslash
+par
+\end_layout
+
+\begin_layout LyX-Code
+Here is Yes.
+ No.
+ Maybe.
+\end_layout
+
+\begin_layout Standard
+结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Here is
+\backslash
+space Yes.
+\backslash
+space No.
+\backslash
+space Maybe.
+\backslash
+par
+\end_layout
+
+\begin_layout Plain Layout
+
+Here is
+\backslash
+ Yes.
+\backslash
+ No.
+\backslash
+ Maybe.
+\backslash
+par
+\end_layout
+
+\begin_layout Plain Layout
+
+Here is Yes.
+ No.
+ Maybe.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+^^M
+\end_layout
+
+\begin_layout Subsection
+~
+\end_layout
+
+\begin_layout Standard
+表示一个不可断行的空格
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+可以伸长和压缩吗？
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Subsection
+
+\backslash
+/
+\end_layout
+
+\begin_layout Standard
+斜体修正，即在斜体字和直体字之间插入一个这样的间隙，防止斜体字的尖角插入直体字中。也用于修正标点符号靠的太近等问题。大约为空格的1/5
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+需要具体的说法，到底多宽的空格?
+\end_layout
+
+\end_inset
+
+？比如：
+\end_layout
+
+\begin_layout LyX-Code
+However, {
+\backslash
+it someone} ate {
+\backslash
+it something}: that's clear.
+\backslash
+par
+\end_layout
+
+\begin_layout LyX-Code
+However, {
+\backslash
+it someone
+\backslash
+/} ate {
+\backslash
+it something
+\backslash
+/}: that's clear.
+\end_layout
+
+\begin_layout Standard
+结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+However, {
+\backslash
+it someone} ate {
+\backslash
+it something}: that's clear.
+\backslash
+par
+\end_layout
+
+\begin_layout Plain Layout
+
+However, {
+\backslash
+it someone
+\backslash
+/} ate {
+\backslash
+it something
+\backslash
+/}: that's clear.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+\backslash
+frenchspacing 
+\backslash
+nonfrenchspacing
 \end_layout
 
 \end_body
