@@ -1199,6 +1199,34 @@ Here is Yes.
 ^^M
 \end_layout
 
+\begin_layout Standard
+'^^'是\SpecialChar TeX
+的特殊标记，用于获取ASCII表中的控制字符（0–31部分）。控制字符无法直接输入，因此设计了
+\begin_inset Quotes erd
+\end_inset
+
+^^c
+\begin_inset Quotes erd
+\end_inset
+
+来表示某个控制字符，其中c的ASCII码比所需要的控制字符的ASCII码大64。M的ASCII码是77，因此^^M表示ASCII码值是13的控制字符，即回车（r
+eturn）。同样的道理，^^I表示制表符（tab），^^J表示换行符(line feed）。因此，
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+number `
+\backslash
+^^M
+\end_layout
+
+\end_inset
+
+的输出应该是13。
+\end_layout
+
 \begin_layout Subsection
 ~
 \end_layout
