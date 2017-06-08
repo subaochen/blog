@@ -1,0 +1,1088 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{diagbox}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar TeX
+的字符、段落相关命令汇总
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Section
+欧洲特殊字符
+\end_layout
+
+\begin_layout Standard
+似乎一般我们用不到（都是primitive control sequence，因此在\SpecialChar LaTeX
+中也支持）：
+\end_layout
+
+\begin_layout Description
+
+\backslash
+AA Scandinavian letter 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+AA
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+aa Scandinavian letter 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+aa
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+AE 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+AE{}
+\end_layout
+
+\end_inset
+
+ ligature
+\end_layout
+
+\begin_layout Description
+
+\backslash
+ae 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ae{}
+\end_layout
+
+\end_inset
+
+ ligature
+\end_layout
+
+\begin_layout Description
+
+\backslash
+L Polish letter 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+L
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+l Polish letter 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+l
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+O Danish/Norwegian letter 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+O
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+o Danish/Norwegian letter 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+o
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+OE 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+OE{}
+\end_layout
+
+\end_inset
+
+ ligature
+\end_layout
+
+\begin_layout Description
+
+\backslash
+oe 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+oe{}
+\end_layout
+
+\end_inset
+
+ ligature
+\end_layout
+
+\begin_layout Description
+
+\backslash
+ss German letter 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ss
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+特殊字符
+\end_layout
+
+\begin_layout Standard
+都是primitive control sequence，因此在\SpecialChar LaTeX
+中也支持：
+\end_layout
+
+\begin_layout Description
+
+\backslash
+# pound sign #
+\end_layout
+
+\begin_layout Description
+
+\backslash
+$ dollar sign $
+\end_layout
+
+\begin_layout Description
+
+\backslash
+% percent sign %
+\end_layout
+
+\begin_layout Description
+
+\backslash
+& ampersand &
+\end_layout
+
+\begin_layout Description
+
+\backslash
+_ underscore
+\end_layout
+
+\begin_layout Description
+
+\backslash
+lq left quote ‘
+\end_layout
+
+\begin_layout Description
+
+\backslash
+rq right quote ’
+\end_layout
+
+\begin_layout Description
+
+\backslash
+lbrack left bracket [
+\end_layout
+
+\begin_layout Description
+
+\backslash
+rbrack right bracket ]
+\end_layout
+
+\begin_layout Description
+
+\backslash
+dag dagger symbol 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+dag
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+ddag double dagger symbol 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ddag
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+copyright copyright symbol 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+copyright
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+P paragraph symbol ¶
+\end_layout
+
+\begin_layout Description
+
+\backslash
+S section symbol §
+\end_layout
+
+\begin_layout Description
+
+\backslash
+TeX tex logo 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+TeX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+dots 数学环境中的英文省略号
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+dots
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+$
+\backslash
+ldots$ 普通文本中的英文省略号 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+ldots$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+任意ASCII字符
+\end_layout
+
+\begin_layout Description
+
+\backslash
+char <charcode>，参见
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://softlab.sdut.edu.cn/blog/subaochen/2017/06/tex%E7%9A%84%E5%AD%97%E7%AC%A6%E8
+%BE%93%E5%85%A5/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+machchar <mathcode>，参见
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+单独阐述
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+重音符
+\end_layout
+
+\begin_layout Standard
+似乎我们也很少用到，都是primitive control sequence，因此在\SpecialChar LaTeX
+中也支持：
+\end_layout
+
+\begin_layout Description
+
+\backslash
+’ acute accent as in é
+\end_layout
+
+\begin_layout Description
+
+\backslash
+.
+ dot accent as in ṅ
+\end_layout
+
+\begin_layout Description
+
+\backslash
+= macron accent as in r̄
+\end_layout
+
+\begin_layout Description
+
+\backslash
+^ circumflex accent as in ô
+\end_layout
+
+\begin_layout Description
+
+\backslash
+‘ grave accent as in è
+\end_layout
+
+\begin_layout Description
+
+\backslash
+" umlaut accent as in ö
+\end_layout
+
+\begin_layout Description
+
+\backslash
+~ tilde accent as in ã
+\end_layout
+
+\begin_layout Description
+
+\backslash
+c cedilla accent as in ç
+\end_layout
+
+\begin_layout Description
+
+\backslash
+d underdot accent as in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+d r
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+H Hungarian umlaut accent as in ő
+\end_layout
+
+\begin_layout Description
+
+\backslash
+t tie-after accent as in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+t uu
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+u breve accent as in r̆
+\end_layout
+
+\begin_layout Description
+
+\backslash
+v check accent as in ǒ
+\end_layout
+
+\begin_layout Description
+
+\backslash
+i 去掉上面点的i：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+i
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+j 去掉上面点的j：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+j
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+accent 没搞清楚这个命令的用法，TBD
+\end_layout
+
+\begin_layout Section
+有关字体
+\end_layout
+
+\begin_layout Subsection
+plain \SpecialChar TeX
+中的字体
+\end_layout
+
+\begin_layout Standard
+这些命令在plain \SpecialChar TeX
+中定义，\SpecialChar LaTeX
+中不再支持（字体是一个long story，另文阐述）：
+\end_layout
+
+\begin_layout Description
+
+\backslash
+fivebf 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ {
+\backslash
+font
+\backslash
+fivebf=cmbx5 
+\backslash
+selectfont use 5-point bold face font}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+fivei use 5-point math italic font
+\end_layout
+
+\begin_layout Description
+
+\backslash
+fiverm use 5-point roman font
+\end_layout
+
+\begin_layout Description
+
+\backslash
+fivesy use 5-point math symbol font
+\end_layout
+
+\begin_layout Description
+
+\backslash
+sevenbf use 7-point bold font
+\end_layout
+
+\begin_layout Description
+
+\backslash
+seveni use 7-point math italic font
+\end_layout
+
+\begin_layout Description
+
+\backslash
+sevenrm use 7-point roman font
+\end_layout
+
+\begin_layout Description
+
+\backslash
+sevensy use 7-point math symbol font
+\end_layout
+
+\begin_layout Description
+
+\backslash
+tenbf use 10-point bold text font
+\end_layout
+
+\begin_layout Description
+
+\backslash
+tenex use 10-point math extension font
+\end_layout
+
+\begin_layout Description
+
+\backslash
+teni use 10-point math italic font
+\end_layout
+
+\begin_layout Description
+
+\backslash
+tenrm use 10-point roman text font
+\end_layout
+
+\begin_layout Description
+
+\backslash
+tensl use 10-point slanted roman font
+\end_layout
+
+\begin_layout Description
+
+\backslash
+tensy use 10-point math symbol font
+\end_layout
+
+\begin_layout Description
+
+\backslash
+tenit use 10-point italic font
+\end_layout
+
+\begin_layout Description
+
+\backslash
+tentt use 10-point typewriter font
+\end_layout
+
+\begin_layout Subsection
+字型
+\end_layout
+
+\begin_layout Standard
+下面的命令在\SpecialChar LaTeX
+中仍然支持，只改变字型，不改变字族、字号：
+\end_layout
+
+\begin_layout Description
+
+\backslash
+bf 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{
+\backslash
+bf use boldface type}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+it 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{
+\backslash
+it use italic type}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+rm 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{
+\backslash
+rm use roman type}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+sl 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{
+\backslash
+sl use slanted type}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+tt 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{
+\backslash
+tt use typewriter type}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+大小写转换
+\end_layout
+
+\begin_layout Description
+
+\backslash
+lowercase { <token list> }，将给定的字符序列转换成小写，但是其中的控制序列不受影响。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+uppercase { <token list> }，将给定的字符序列转换成大写写，但是其中的控制序列不受影响。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+lccode <charcode>，取得指定字符的小写形式的ASCII码。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+uccode <charcode>，取得指定字符的大写形式的ASCII码。
+\end_layout
+
+\begin_layout Standard
+下列输入：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+char
+\backslash
+uccode`s 
+\backslash
+char
+\backslash
+lccode`a 
+\backslash
+char
+\backslash
+lccode`M
+\end_layout
+
+\begin_layout Standard
+的输出是：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+char
+\backslash
+uccode`s 
+\backslash
+char
+\backslash
+lccode`a 
+\backslash
+char
+\backslash
+lccode`M
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+下列输入：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+x{Cd} 
+\backslash
+lowercase{Ab
+\backslash
+x} 
+\backslash
+uppercase{Ab
+\backslash
+x}
+\end_layout
+
+\begin_layout Standard
+的输出是：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+x{Cd} 
+\backslash
+lowercase{Ab
+\backslash
+x} 
+\backslash
+uppercase{Ab
+\backslash
+x}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+空格（interword spacing）
+\end_layout
+
+\begin_layout Standard
+看起来似乎很简单的空格，在排版中却隐藏了诸多学问。
+\end_layout
+
+\end_body
+\end_document
