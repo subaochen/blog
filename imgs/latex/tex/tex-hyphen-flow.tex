@@ -1,0 +1,6 @@
+\smartdiagram[descriptive diagram]{
+    {不断字,如果在不断字情况下\textbackslash{}badness不超过\textbackslash{}pretolerance则优先采取此方案},
+    {断字, {断字情况下如果\textbackslash{}badness不超过\textbackslash{}tolerance则采用此方案}},
+    {放松限制重试, {如果以上两种情况均找不到合理方案，则将每行增加\textbackslash{}emergencystretch后重试以上两方案}},
+    {溢出报警, {找不到合适的断行方案，overfull或者underfull报警}},
+}

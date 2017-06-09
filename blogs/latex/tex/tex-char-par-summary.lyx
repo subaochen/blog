@@ -7,7 +7,7 @@
 \textclass ctex-article
 \begin_preamble
 \input{/home/subaochen/git/writing-common/article-preamble.tex}
-\usepackage{diagbox}
+\usepackage{smartdiagram}
 \end_preamble
 \use_default_options true
 \begin_modules
@@ -104,7 +104,14 @@ logicalmkup
 \end_layout
 
 \begin_layout Standard
-本部分将汇总大约110个命令。
+本部分将汇总大约130个命令，排序、组织方式和大部分示例出自
+\begin_inset CommandInset citation
+LatexCommand cite
+key "impatient-tex-book"
+
+\end_inset
+
+，算作读书笔记吧，已经熟知的命令仅仅列出，不熟悉的命令解释的详细些。
 \end_layout
 
 \begin_layout Section
@@ -2492,8 +2499,218 @@ Good luck finding them!
 
 \end_layout
 
+\begin_layout Section
+断行
+\end_layout
+
+\begin_layout Description
+
+\backslash
+break 强制断行
+\end_layout
+
+\begin_layout Description
+
+\backslash
+nobreak 不允许断行
+\end_layout
+
+\begin_layout Description
+
+\backslash
+allowbreak 允许断行
+\end_layout
+
+\begin_layout Description
+
+\backslash
+penalty 实际上，
+\backslash
+break的定义是:
+\backslash
+def
+\backslash
+break{
+\backslash
+penalty -10000}，
+\backslash
+nobreak的定义
+\backslash
+def
+\backslash
+nobreak{
+\backslash
+penalty 10000}，
+\backslash
+allowbreak的定义是
+\backslash
+def
+\backslash
+allowbreak{
+\backslash
+penalty 0}
+\end_layout
+
+\begin_layout Description
+
+\backslash
+obeylines 输入的每个换行（正常情况下被当作空格）都被当作
+\backslash
+break，适合输出代码、诗歌等。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+slash 产生一个
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+slash
+\end_layout
+
+\end_inset
+
+，并且允许\SpecialChar TeX
+在此处断行。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+pretolerance 没有hyphenation时的tolerance，默认值100
+\end_layout
+
+\begin_layout Description
+
+\backslash
+tolerance 存在hyphenation时的tolerance，默认值200
+\end_layout
+
+\begin_layout Description
+
+\backslash
+emergencystretch 
+\end_layout
+
+\begin_layout Description
+
+\backslash
+looseness
+\end_layout
+
+\begin_layout Description
+
+\backslash
+linepenalty
+\end_layout
+
+\begin_layout Description
+
+\backslash
+adjdemerits
+\end_layout
+
+\begin_layout Description
+
+\backslash
+exhyphenpenalty
+\end_layout
+
+\begin_layout Description
+
+\backslash
+hyphenpenalty
+\end_layout
+
+\begin_layout Description
+
+\backslash
+doublehyphendemerits
+\end_layout
+
+\begin_layout Description
+
+\backslash
+finalhyphendemerits
+\end_layout
+
+\begin_layout Description
+
+\backslash
+binoppenalty
+\end_layout
+
+\begin_layout Description
+
+\backslash
+relpenalty
+\end_layout
+
+\begin_layout Description
+
+\backslash
+hbadness
+\end_layout
+
+\begin_layout Description
+
+\backslash
+hfuzz
+\end_layout
+
+\begin_layout Subsection
+断行过程
+\end_layout
+
 \begin_layout Standard
-\start_of_appendix
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tex/tex-hyphen-flow.tex"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\SpecialChar TeX
+的断行过程
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TeX的断行过程"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 bibfiles "/home/subaochen/git/bibref/latex"
