@@ -103,6 +103,10 @@ logicalmkup
 宿宝臣<subaochen@126.com>
 \end_layout
 
+\begin_layout Standard
+本部分将汇总大约110个命令。
+\end_layout
+
 \begin_layout Section
 欧洲特殊字符
 \end_layout
@@ -1209,8 +1213,16 @@ Here is Yes.
 \begin_inset Quotes erd
 \end_inset
 
-来表示某个控制字符，其中c的ASCII码比所需要的控制字符的ASCII码大64。M的ASCII码是77，因此^^M表示ASCII码值是13的控制字符，即回车（r
-eturn）。同样的道理，^^I表示制表符（tab），^^J表示换行符(line feed）。因此，
+来表示某个控制字符，其中c的ASCII码比所需要的控制字符的ASCII码大64
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.368"
+key "texbook"
+
+\end_inset
+
+。M的ASCII码是77，因此^^M表示ASCII码值是13的控制字符，即回车（return）。同样的道理，^^I表示制表符（tab），^^J表示换行符(lin
+e feed），*也可以使用^^j输入。因此，
 \begin_inset Flex Code
 status open
 
@@ -1225,6 +1237,126 @@ number `
 \end_inset
 
 的输出应该是13。
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+表示任意ASCII码的方式还有^^xy，其中xy分别是ASCII表中行和列的16进制形式（只限小写），因此^^M也可以表示为：^^0d（
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.368"
+key "texbook"
+
+\end_inset
+
+提供的ASCII表非常方便查阅。）
+\end_layout
+
+\begin_layout Standard
+言归正传，^^M在\SpecialChar TeX
+中的意义为：
+\end_layout
+
+\begin_layout Itemize
+如果^^M出现在行的中间，则代表一个空格，并忽略此行后面的内容。
+\end_layout
+
+\begin_layout Itemize
+如果^^M出现在行的末尾，则代表一个
+\backslash
+par，即段落的结束。
+\end_layout
+
+\begin_layout Standard
+认真分析下面的输入：
+\end_layout
+
+\begin_layout LyX-Code
+Hello.^^MGoodbye.
+\end_layout
+
+\begin_layout LyX-Code
+Goodbye again.
+\backslash
+par
+\end_layout
+
+\begin_layout LyX-Code
+The 
+\backslash
+char `
+\backslash
+^^M
+\backslash
+ character.
+\backslash
+par
+\end_layout
+
+\begin_layout LyX-Code
+% The fl ligature is at position 13 of font cmr10
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+number `
+\backslash
+^^M
+\backslash
+ is the end of line code.
+\backslash
+par
+\end_layout
+
+\begin_layout LyX-Code
+Again, 
+\backslash
+number `^^M is the end of line code,
+\end_layout
+
+\begin_layout LyX-Code
+isn’t it? % 32 is the ASCII code for a space
+\end_layout
+
+\begin_layout Standard
+其输出是：
+\end_layout
+
+\begin_layout Standard
+Hello.
+ Goodbye again.
+\end_layout
+
+\begin_layout Standard
+The fl character.
+\end_layout
+
+\begin_layout Standard
+13 is the end of line code.
+\end_layout
+
+\begin_layout Standard
+Again, 32isn’t it?
+\end_layout
+
+\begin_layout Standard
+注意几种表达形式的区别：
+\end_layout
+
+\begin_layout Description
+^^M ^^M如果出现在行中则\SpecialChar TeX
+解释为一个空格
+\end_layout
+
+\begin_layout Description
+`
+\backslash
+^^M 表示ASCII码为13的字符的ASCII码，即13
+\end_layout
+
+\begin_layout Description
+`^^M ^^M如果出现在行中则解释为一个空格，因此`^^M表示取空格的ASCII码，即32
 \end_layout
 
 \begin_layout Subsection
@@ -1330,6 +1462,1046 @@ it something
 frenchspacing 
 \backslash
 nonfrenchspacing
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+frenchspacing会压缩句末的标点和下一个单词的间距，使得显示更优雅（难道这就是frenchspacing的由来？），比如：
+\end_layout
+
+\begin_layout Standard
+{
+\backslash
+frenchspacing An example: two sentences.
+ Right? No.
+\backslash
+par}
+\end_layout
+
+\begin_layout Standard
+{An example: two sentences.
+ Right? No.
+ 
+\backslash
+par}%
+\end_layout
+
+\begin_layout Standard
+的结果是：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{
+\backslash
+frenchspacing An example: two sentences.
+ Right? No.
+\backslash
+par}
+\end_layout
+
+\begin_layout Plain Layout
+
+{An example: two sentences.
+ Right? No.
+ 
+\backslash
+par}%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+\backslash
+obeyspaces
+\end_layout
+
+\begin_layout Standard
+通常，\SpecialChar TeX
+会吃掉连续的空格，
+\backslash
+obeyspaces则告诉\SpecialChar TeX
+保留所有的空格，比如：
+\end_layout
+
+\begin_layout LyX-Code
+These
+\begin_inset space \qquad{}
+\end_inset
+
+ spaces
+\begin_inset space \qquad{}
+\end_inset
+
+ are
+\begin_inset space \qquad{}
+\end_inset
+
+ closed
+\begin_inset space \qquad{}
+\end_inset
+
+ up 
+\end_layout
+
+\begin_layout LyX-Code
+{
+\backslash
+obeyspaces but
+\begin_inset space \qquad{}
+\end_inset
+
+ these are
+\begin_inset space \qquad{}
+\end_inset
+
+ not }.
+ 
+\end_layout
+
+\begin_layout Standard
+输出结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+These    spaces    are    closed    up
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\backslash
+obeyspaces but    these are    not}.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+空白影响因子
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+定义了如下的变量影响词间距：
+\end_layout
+
+\begin_layout Description
+
+\backslash
+spacefactor 空格的伸缩因子，默认值为1000。如果
+\backslash
+spacefactor（记做
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$f$
+\end_layout
+
+\end_inset
+
+）不等于1000，则空格的伸长倍数为
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$f/1000$
+\end_layout
+
+\end_inset
+
+，压缩倍数为
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$1000/f$
+\end_layout
+
+\end_inset
+
+。即，
+\backslash
+spacefactor > 1000时，空格被拉长，
+\backslash
+spacefactor < 1000时，空格被压缩。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+spaceskip 当
+\backslash
+spacefactor < 2000时的伸缩glue。
+\backslash
+spaceskip是一种叠加效果，当
+\backslash
+spaceskip为0时，空格按照
+\backslash
+spacefactor伸缩。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+xspaceskip 当
+\backslash
+spacefactor > 2000时，
+\backslash
+xspaceskip声明的glue生效，即当
+\backslash
+spacefactor > 2000时，允许额外的伸缩效果。
+\backslash
+xspaceskip是一种叠加效果。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+sfcode space factor code，通常记做
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$f_c$
+\end_layout
+
+\end_inset
+
+。每一个字符都有一个对应的
+\backslash
+sfcode，
+\backslash
+sfcode对
+\backslash
+spacefactor的影响方式如下：
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+如果
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$f_c$
+\end_layout
+
+\end_inset
+
+为0，则保持
+\backslash
+spacefactor不变。
+\end_layout
+
+\begin_layout Itemize
+如果
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$f<1000<f_c$
+\end_layout
+
+\end_inset
+
+，则设置
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$f$
+\end_layout
+
+\end_inset
+
+为1000而不是
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$f_c$
+\end_layout
+
+\end_inset
+
+，防止
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$f$
+\end_layout
+
+\end_inset
+
+变化过快。
+\end_layout
+
+\end_deeper
+\begin_layout Section
+行对齐
+\end_layout
+
+\begin_layout Subsection
+
+\backslash
+centerline、
+\backslash
+leftline、
+\backslash
+rightline
+\end_layout
+
+\begin_layout Standard
+意义一目了然，都是创建一个合适大小的hbox并居中或者居左、居右显示。但是要注意这三个命令不能用与段落，只能用于不超过一行的文本。
+\end_layout
+
+\begin_layout Subsection
+
+\backslash
+line
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+似乎XeLaTeX不支持？难道不是primitive command?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+区别于
+\backslash
+centerline，
+\backslash
+line创建一个宽度为行宽的hbox，即充满一行的hbox，因此需要在必要的位置插入
+\backslash
+hfil，否则容易造成hbox的underflow告警。
+\end_layout
+
+\begin_layout Subsection
+
+\backslash
+llap、
+\backslash
+rlap
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+llap和
+\backslash
+rlap能够制造某种程度的重叠效果。
+\backslash
+llap根据参数字符串的长度首先回退光标，然后输出参数字符串；
+\backslash
+rlap首先输出参数字符串，然后回退光标到输出前的位置。比如不等于符号可以这样“画”出来：
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+rlap=$/$
+\end_layout
+
+\end_inset
+
+，即：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+rlap=$/$
+\end_layout
+
+\end_inset
+
+。下面的例子演示了
+\backslash
+llap和
+\backslash
+rlap接受多个字符作为参数时的效果：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hrule
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+noindent
+\backslash
+llap{off left}
+\backslash
+centerline{
+\backslash
+vrule$
+\backslash
+Leftarrow$ left margin of examples
+\backslash
+hfill
+\end_layout
+
+\begin_layout LyX-Code
+right margin of examples$
+\backslash
+Rightarrow$
+\backslash
+vrule}
+\backslash
+rlap{off right}
+\end_layout
+
+\begin_layout Standard
+输出为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hrule
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\backslash
+llap{off left}
+\backslash
+centerline{
+\backslash
+vrule$
+\backslash
+Leftarrow$ left margin of examples
+\backslash
+hfill
+\end_layout
+
+\begin_layout Plain Layout
+
+right margin of examples$
+\backslash
+Rightarrow$
+\backslash
+vrule}
+\backslash
+rlap{off right}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+段落处理
+\end_layout
+
+\begin_layout Subsection
+开始、结束和缩进段落
+\end_layout
+
+\begin_layout Description
+
+\backslash
+par 结束一个段落，但是并不意味着开始一个新的段落。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+endgraf 
+\backslash
+par的同义词
+\end_layout
+
+\begin_layout Description
+
+\backslash
+parfillskip 决定了在段落末尾的填充模式，默认是0pt plus 1fil，即以空格填满剩余的横向空间。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+indent 以
+\backslash
+parindent设定的值缩进当前段落。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+noindent 不缩进当前段落。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+textindent 除了和
+\backslash
+indent一行的效果外，还叠加了右对齐和间隔en dash， plain \SpecialChar TeX
+用于footnote和
+\backslash
+item的展示。\SpecialChar LaTeX
+似乎不再支持这个宏。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+parskip 弹性段间距
+\end_layout
+
+\begin_layout Description
+
+\backslash
+parindent 段落缩进
+\end_layout
+
+\begin_layout Description
+
+\backslash
+everypar 每一段落都要首先执行的命令，默认为空
+\end_layout
+
+\begin_layout Subsection
+段落对齐
+\end_layout
+
+\begin_layout Description
+
+\backslash
+hsize 设置全局或者当前分组的水平宽度
+\end_layout
+
+\begin_layout Description
+
+\backslash
+narrower 左右两端同时缩进
+\backslash
+parindent
+\end_layout
+
+\begin_layout Description
+
+\backslash
+leftskip 段落整体左缩进弹性尺寸
+\end_layout
+
+\begin_layout Description
+
+\backslash
+rightskip 段落整体右缩进弹性尺寸
+\end_layout
+
+\begin_layout Description
+
+\backslash
+raggedright 右端不对齐
+\end_layout
+
+\begin_layout Description
+
+\backslash
+raggedleft 左端不对齐
+\end_layout
+
+\begin_layout Description
+
+\backslash
+hang 从第二行开始将段落缩进
+\backslash
+parindent。因为默认第一行已经缩进了
+\backslash
+parindent，看起来整个段落都缩进了
+\backslash
+parindent。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+hangafter [<number> parameter]如果n < 0，则开始的-n行会被缩进；如果n > 0，则从第n行开始缩进。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+hangindent [<dimen> parameter]如果x >= 0，则段落左缩进x；如果x < 0，则段落右缩进x。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+prevgraf 段落包含的行数，一般由\SpecialChar TeX
+设置。在行模式下，指当前段落包含的行数；在列模式下，指上一个段落包含的行数。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+vadjust 在当前行和下一行之间插入指定的内容，比如：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+Some of these words are 
+\backslash
+vadjust{
+\backslash
+kern8pt
+\backslash
+hrule} to befound above the line and others are to be found below it.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+输出为：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Some of these words are 
+\backslash
+vadjust{
+\backslash
+kern8pt
+\backslash
+hrule} to be
+\end_layout
+
+\begin_layout Plain Layout
+
+found above the line, because we use vadjust to insert something between
+ this line and next line; and others are to be found below it.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+parshape 接受多个参数，第一对参数决定了第一行的缩进尺寸和长度，第二对参数决定了第二行的缩进尺寸和长度，以此类推。下面的例子可以很好的观察
+\backslash
+parshape的用法。
+\end_layout
+
+\begin_layout LyX-Code
+% A small font and close interline spacing make this work
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+smallskip
+\backslash
+font
+\backslash
+sixrm=cmr6 
+\backslash
+sixrm 
+\backslash
+baselineskip=7pt
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+fontdimen3
+\backslash
+font = 1.8pt 
+\backslash
+fontdimen4
+\backslash
+font = 0.9pt
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+noindent 
+\backslash
+hfuzz 0.1pt
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+parshape 30 0pt 120pt 1pt 118pt 2pt 116pt 4pt 112pt 6pt
+\end_layout
+
+\begin_layout LyX-Code
+108pt 9pt 102pt 12pt 96pt 15pt 90pt 19pt 84pt 23pt 77pt
+\end_layout
+
+\begin_layout LyX-Code
+27pt 68pt 30.5pt 60pt 35pt 52pt 39pt 45pt 43pt 36pt 48pt
+\end_layout
+
+\begin_layout LyX-Code
+27pt 51.5pt 21pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt 53pt
+\end_layout
+
+\begin_layout LyX-Code
+16.75pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt
+\end_layout
+
+\begin_layout LyX-Code
+53pt 14.6pt 48pt 24pt 45pt 30.67pt 36.5pt 51pt 23pt 76.3pt
+\end_layout
+
+\begin_layout LyX-Code
+The wines of France and California may be the best
+\end_layout
+
+\begin_layout LyX-Code
+known, but they are not the only fine wines.
+ Spanish
+\end_layout
+
+\begin_layout LyX-Code
+wines are often underestimated, and quite old ones may
+\end_layout
+
+\begin_layout LyX-Code
+be available at reasonable prices.
+ For Spanish wines
+\end_layout
+
+\begin_layout LyX-Code
+the vintage is not so critical, but the climate of the
+\end_layout
+
+\begin_layout LyX-Code
+Bordeaux region varies greatly from year to year.
+ Some
+\end_layout
+
+\begin_layout LyX-Code
+vintages are not as good as others,
+\end_layout
+
+\begin_layout LyX-Code
+so these years ought to be
+\end_layout
+
+\begin_layout LyX-Code
+s
+\backslash
+kern -.1pt p
+\backslash
+kern -.1pt e
+\backslash
+kern -.1pt c
+\backslash
+hfil ially
+\end_layout
+
+\begin_layout LyX-Code
+n
+\backslash
+kern .1pt o
+\backslash
+kern .1pt t
+\backslash
+kern .1pt e
+\backslash
+kern .1pt d
+\backslash
+hfil:
+\end_layout
+
+\begin_layout LyX-Code
+1962, 1964, 1966.
+ 1958, 1959, 1960, 1961, 1964,
+\end_layout
+
+\begin_layout LyX-Code
+1966 are also good California vintages.
+\end_layout
+
+\begin_layout LyX-Code
+Good luck finding them!
+\end_layout
+
+\begin_layout Standard
+欣赏一下输出结果：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% A small font and close interline spacing make this work
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+smallskip
+\backslash
+font
+\backslash
+sixrm=cmr6 
+\backslash
+sixrm 
+\backslash
+baselineskip=7pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fontdimen3
+\backslash
+font = 1.8pt 
+\backslash
+fontdimen4
+\backslash
+font = 0.9pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\backslash
+hfuzz 0.1pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+parshape 30 0pt 120pt 1pt 118pt 2pt 116pt 4pt 112pt 6pt
+\end_layout
+
+\begin_layout Plain Layout
+
+108pt 9pt 102pt 12pt 96pt 15pt 90pt 19pt 84pt 23pt 77pt
+\end_layout
+
+\begin_layout Plain Layout
+
+27pt 68pt 30.5pt 60pt 35pt 52pt 39pt 45pt 43pt 36pt 48pt
+\end_layout
+
+\begin_layout Plain Layout
+
+27pt 51.5pt 21pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt 53pt
+\end_layout
+
+\begin_layout Plain Layout
+
+16.75pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt
+\end_layout
+
+\begin_layout Plain Layout
+
+53pt 14.6pt 48pt 24pt 45pt 30.67pt 36.5pt 51pt 23pt 76.3pt
+\end_layout
+
+\begin_layout Plain Layout
+
+The wines of France and California may be the best
+\end_layout
+
+\begin_layout Plain Layout
+
+known, but they are not the only fine wines.
+ Spanish
+\end_layout
+
+\begin_layout Plain Layout
+
+wines are often underestimated, and quite old ones may
+\end_layout
+
+\begin_layout Plain Layout
+
+be available at reasonable prices.
+ For Spanish wines
+\end_layout
+
+\begin_layout Plain Layout
+
+the vintage is not so critical, but the climate of the
+\end_layout
+
+\begin_layout Plain Layout
+
+Bordeaux region varies greatly from year to year.
+ Some
+\end_layout
+
+\begin_layout Plain Layout
+
+vintages are not as good as others,
+\end_layout
+
+\begin_layout Plain Layout
+
+so these years ought to be
+\end_layout
+
+\begin_layout Plain Layout
+
+s
+\backslash
+kern -.1pt p
+\backslash
+kern -.1pt e
+\backslash
+kern -.1pt c
+\backslash
+hfil ially
+\end_layout
+
+\begin_layout Plain Layout
+
+n
+\backslash
+kern .1pt o
+\backslash
+kern .1pt t
+\backslash
+kern .1pt e
+\backslash
+kern .1pt d
+\backslash
+hfil:
+\end_layout
+
+\begin_layout Plain Layout
+
+1962, 1964, 1966.
+ 1958, 1959, 1960, 1961, 1964,
+\end_layout
+
+\begin_layout Plain Layout
+
+1966 are also good California vintages.
+\end_layout
+
+\begin_layout Plain Layout
+
+Good luck finding them!
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/latex"
+options "plain"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
