@@ -2788,6 +2788,58 @@ end{tikzpicture}
 
 \end_layout
 
+\begin_layout Section
+连字符
+\end_layout
+
+\begin_layout Description
+
+\backslash
+- 在任意位置给单词增加连字符，告诉\SpecialChar TeX
+可以从这里断行。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+discretionary {<pre-break text>}{<post-break text>}{<no-break text>}，
+\backslash
+-相当于
+\backslash
+discretionary{-}{}{}。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+hyphenation 提供一个使用连字符的单词列表
+\end_layout
+
+\begin_layout Description
+
+\backslash
+uchyph 为正数则允许大写字母开头的单词使用连字符，plain \SpecialChar TeX
+默认值为1
+\end_layout
+
+\begin_layout Description
+
+\backslash
+showhyphens 在终端和日志显示给定的单词的连字符形式
+\end_layout
+
+\begin_layout Description
+
+\backslash
+language
+\end_layout
+
+\begin_layout Description
+
+\backslash
+setlanguage
+\end_layout
+
 \begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
