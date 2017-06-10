@@ -2178,320 +2178,14 @@ found above the line, because we use vadjust to insert something between
 \begin_layout Description
 
 \backslash
-parshape 接受多个参数，第一对参数决定了第一行的缩进尺寸和长度，第二对参数决定了第二行的缩进尺寸和长度，以此类推。下面的例子可以很好的观察
-\backslash
-parshape的用法。
-\end_layout
-
-\begin_layout LyX-Code
-% A small font and close interline spacing make this work
-\end_layout
-
-\begin_layout LyX-Code
-
-\backslash
-smallskip
-\backslash
-font
-\backslash
-sixrm=cmr6 
-\backslash
-sixrm 
-\backslash
-baselineskip=7pt
-\end_layout
-
-\begin_layout LyX-Code
-
-\backslash
-fontdimen3
-\backslash
-font = 1.8pt 
-\backslash
-fontdimen4
-\backslash
-font = 0.9pt
-\end_layout
-
-\begin_layout LyX-Code
-
-\backslash
-noindent 
-\backslash
-hfuzz 0.1pt
-\end_layout
-
-\begin_layout LyX-Code
-
-\backslash
-parshape 30 0pt 120pt 1pt 118pt 2pt 116pt 4pt 112pt 6pt
-\end_layout
-
-\begin_layout LyX-Code
-108pt 9pt 102pt 12pt 96pt 15pt 90pt 19pt 84pt 23pt 77pt
-\end_layout
-
-\begin_layout LyX-Code
-27pt 68pt 30.5pt 60pt 35pt 52pt 39pt 45pt 43pt 36pt 48pt
-\end_layout
-
-\begin_layout LyX-Code
-27pt 51.5pt 21pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt 53pt
-\end_layout
-
-\begin_layout LyX-Code
-16.75pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt
-\end_layout
-
-\begin_layout LyX-Code
-53pt 14.6pt 48pt 24pt 45pt 30.67pt 36.5pt 51pt 23pt 76.3pt
-\end_layout
-
-\begin_layout LyX-Code
-The wines of France and California may be the best
-\end_layout
-
-\begin_layout LyX-Code
-known, but they are not the only fine wines.
- Spanish
-\end_layout
-
-\begin_layout LyX-Code
-wines are often underestimated, and quite old ones may
-\end_layout
-
-\begin_layout LyX-Code
-be available at reasonable prices.
- For Spanish wines
-\end_layout
-
-\begin_layout LyX-Code
-the vintage is not so critical, but the climate of the
-\end_layout
-
-\begin_layout LyX-Code
-Bordeaux region varies greatly from year to year.
- Some
-\end_layout
-
-\begin_layout LyX-Code
-vintages are not as good as others,
-\end_layout
-
-\begin_layout LyX-Code
-so these years ought to be
-\end_layout
-
-\begin_layout LyX-Code
-s
-\backslash
-kern -.1pt p
-\backslash
-kern -.1pt e
-\backslash
-kern -.1pt c
-\backslash
-hfil ially
-\end_layout
-
-\begin_layout LyX-Code
-n
-\backslash
-kern .1pt o
-\backslash
-kern .1pt t
-\backslash
-kern .1pt e
-\backslash
-kern .1pt d
-\backslash
-hfil:
-\end_layout
-
-\begin_layout LyX-Code
-1962, 1964, 1966.
- 1958, 1959, 1960, 1961, 1964,
-\end_layout
-
-\begin_layout LyX-Code
-1966 are also good California vintages.
-\end_layout
-
-\begin_layout LyX-Code
-Good luck finding them!
-\end_layout
-
-\begin_layout Standard
-欣赏一下输出结果：
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
+parshape 参见
+\begin_inset Flex URL
 status open
 
 \begin_layout Plain Layout
 
-% A small font and close interline spacing make this work
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-smallskip
-\backslash
-font
-\backslash
-sixrm=cmr6 
-\backslash
-sixrm 
-\backslash
-baselineskip=7pt
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-fontdimen3
-\backslash
-font = 1.8pt 
-\backslash
-fontdimen4
-\backslash
-font = 0.9pt
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-noindent 
-\backslash
-hfuzz 0.1pt
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-parshape 30 0pt 120pt 1pt 118pt 2pt 116pt 4pt 112pt 6pt
-\end_layout
-
-\begin_layout Plain Layout
-
-108pt 9pt 102pt 12pt 96pt 15pt 90pt 19pt 84pt 23pt 77pt
-\end_layout
-
-\begin_layout Plain Layout
-
-27pt 68pt 30.5pt 60pt 35pt 52pt 39pt 45pt 43pt 36pt 48pt
-\end_layout
-
-\begin_layout Plain Layout
-
-27pt 51.5pt 21pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt 53pt
-\end_layout
-
-\begin_layout Plain Layout
-
-16.75pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt
-\end_layout
-
-\begin_layout Plain Layout
-
-53pt 14.6pt 48pt 24pt 45pt 30.67pt 36.5pt 51pt 23pt 76.3pt
-\end_layout
-
-\begin_layout Plain Layout
-
-The wines of France and California may be the best
-\end_layout
-
-\begin_layout Plain Layout
-
-known, but they are not the only fine wines.
- Spanish
-\end_layout
-
-\begin_layout Plain Layout
-
-wines are often underestimated, and quite old ones may
-\end_layout
-
-\begin_layout Plain Layout
-
-be available at reasonable prices.
- For Spanish wines
-\end_layout
-
-\begin_layout Plain Layout
-
-the vintage is not so critical, but the climate of the
-\end_layout
-
-\begin_layout Plain Layout
-
-Bordeaux region varies greatly from year to year.
- Some
-\end_layout
-
-\begin_layout Plain Layout
-
-vintages are not as good as others,
-\end_layout
-
-\begin_layout Plain Layout
-
-so these years ought to be
-\end_layout
-
-\begin_layout Plain Layout
-
-s
-\backslash
-kern -.1pt p
-\backslash
-kern -.1pt e
-\backslash
-kern -.1pt c
-\backslash
-hfil ially
-\end_layout
-
-\begin_layout Plain Layout
-
-n
-\backslash
-kern .1pt o
-\backslash
-kern .1pt t
-\backslash
-kern .1pt e
-\backslash
-kern .1pt d
-\backslash
-hfil:
-\end_layout
-
-\begin_layout Plain Layout
-
-1962, 1964, 1966.
- 1958, 1959, 1960, 1961, 1964,
-\end_layout
-
-\begin_layout Plain Layout
-
-1966 are also good California vintages.
-\end_layout
-
-\begin_layout Plain Layout
-
-Good luck finding them!
-\end_layout
-
-\begin_layout Plain Layout
-
+http://softlab.sdut.edu.cn/blog/subaochen/2017/06/%E5%B7%A7%E7%94%A8parshape%E5%AE%
+9E%E7%8E%B0%E7%89%B9%E6%AE%8A%E5%BD%A2%E7%8A%B6%E7%9A%84%E6%8E%92%E7%89%88/
 \end_layout
 
 \end_inset
@@ -2499,8 +2193,28 @@ Good luck finding them!
 
 \end_layout
 
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Standard
+欣赏一下输出结果：
+\end_layout
+
 \begin_layout Section
 断行
+\end_layout
+
+\begin_layout Standard
+此部分有些内容相当琐碎，比如\SpecialChar TeX
+断行时badness、demerits的计算方法，需要对照
+\begin_inset CommandInset citation
+LatexCommand cite
+key "texbook"
+
+\end_inset
+
+进一步消化。
 \end_layout
 
 \begin_layout Description
@@ -2594,73 +2308,145 @@ tolerance 存在hyphenation时的tolerance，默认值200
 \begin_layout Description
 
 \backslash
-emergencystretch 
+emergencystretch 正如其名，在构造水平盒子过程中这是最后的“招数”，如果emergencystretch不为0，\SpecialChar TeX
+试图将emergencystre
+tch加到每一行的stretch上面，即稍微拉长词间距看看能否满足要求。可见，emergencystretch只能够尝试解决underfull的盒子，对于ove
+rfull的盒子没有补救作用。但是，设置emergencystretch比增大tolerance要好一些。
 \end_layout
 
 \begin_layout Description
 
 \backslash
-looseness
+looseness 默认值是0，如果非0则\SpecialChar TeX
+尝试将一段落重新断行以使得行数增加或者减少给定的值，如果因此badness超出了tolerance，则将给定值自增或者
+自减1重新尝试，以此类推。
 \end_layout
 
 \begin_layout Description
 
 \backslash
-linepenalty
+linepenalty 可以在每行的badness上面叠加的一个评估因子，即\SpecialChar TeX
+不仅仅依靠badness评估断行的效果，还要依赖penalty、linepenalt
+y的设置共同获得一个demerits（计为
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$d$
+\end_layout
+
+\end_inset
+
+），具体参见
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.98"
+key "texbook"
+
+\end_inset
+
+。\SpecialChar TeX
+依赖
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$d$
+\end_layout
+
+\end_inset
+
+决定不同断行策略的优劣。
 \end_layout
 
 \begin_layout Description
 
 \backslash
-adjdemerits
+adjdemerits 评估相邻行的差异度，比如当前行是适度的，但是下一行非常松散则adjdemerits会被增加到当前行的demerits中，即当前行的评估值
+会变坏。
+\backslash
+tracingparagraphs=1会在日志文件中显示\SpecialChar TeX
+计算badness、demerits等的过程。
 \end_layout
 
 \begin_layout Description
 
 \backslash
-exhyphenpenalty
+exhyphenpenalty 用于显式(explicit hyphen)声明的连字符penalty，即当连字符是明确显式声明时，exhyphenpenalty
+决定了\SpecialChar TeX
+在这个显式声明的连字符处断行的“态度”：越大的数字告诉\SpecialChar TeX
+不要在这里断行。plain \SpecialChar TeX
+的默认值是50。
 \end_layout
 
 \begin_layout Description
 
 \backslash
-hyphenpenalty
+hyphenpenalty 用于隐式连字符，原理同
+\backslash
+exhyphenpenalty。
 \end_layout
 
 \begin_layout Description
 
 \backslash
-doublehyphendemerits
+doublehyphendemerits adjdemerits评估相邻两行的差异度，doublehyphendemerits则评估当前行和相邻的下两行的差异度
+（使用连字符的断行），并增加到当前行的demerits中。
 \end_layout
 
 \begin_layout Description
 
 \backslash
-finalhyphendemerits
+finalhyphendemerits 评估当前行到段落的最后一行的差异度（使用连字符的断行），并增加到当前行的demerits中。
 \end_layout
 
 \begin_layout Description
 
 \backslash
-binoppenalty
+binoppenalty 设置数学公式中在binary operator之后断行的penalty。
 \end_layout
 
 \begin_layout Description
 
 \backslash
-relpenalty
+relpenalty 设置数学公式中在relation之后断行的penalty。
 \end_layout
 
 \begin_layout Description
 
 \backslash
-hbadness
+badness 每一行都计算获得一个badness，表征本行词间距的大小。
 \end_layout
 
 \begin_layout Description
 
 \backslash
-hfuzz
+hbadness 当
+\backslash
+badness超出了
+\backslash
+hbadness设定的阀值时(默认值1000)，\SpecialChar TeX
+将报告overfull或者underfull错误。
+\backslash
+hbadness只影响终端或者日志中输出错误的多少，并不影响版面布局。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+hfuzz 告诉\SpecialChar TeX
+，超出hbox自然宽度多少才算是overfull？默认是0.1pt。通过修改
+\backslash
+hfuzz，可以提高排版的“容忍”程度，但是可能导致“更坏”的效果，要谨慎。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+overfullrule plain \SpecialChar TeX
+在overfull时显示的一个警告块，默认5pt宽。
 \end_layout
 
 \begin_layout Subsection
@@ -2711,6 +2497,298 @@ name "fig:TeX的断行过程"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+
+\backslash
+badness、
+\backslash
+hbadness、
+\backslash
+tolerance的关系
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+每行都会构造一个水平盒子，一个水平盒子的状态为以下五种之一：underfull、loose、normal、tight、overfull。在构造水平盒子过程中，\SpecialChar TeX
+会
+尝试不同的断行方法，不同的断行方法获得不同的badness值。当断行不会导致任何的间距伸缩调整时，水平盒子的状态为normal，此时badness的值为0；当断
+行导致词间距被压缩，此时水平盒子的状态为tight，当压缩到最大仍然不能满足时，水平盒子的状态为overfull。loose和underfull的分析以此类推。
+无论压缩词间距还是伸长词间距都会增大badness的值。当badness的值大于tolerance设定的阀值时，\SpecialChar TeX
+虽然能够放置这个水平盒子，但是会导致无法对齐的排
+版，因此对于overfull，\SpecialChar TeX
+会在行尾显示一个
+\backslash
+overfullrule（黑色块）提醒这一行发生了overfull。
+\end_layout
+
+\begin_layout Standard
+plain \SpecialChar TeX
+中
+\backslash
+tolerance的默认值是200，
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+提高
+\backslash
+tolerance的设置可能导致难看的排版效果
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+hbadness仅仅是一个报警的阀值，即当
+\backslash
+badness超过hbadness的阀值时，\SpecialChar TeX
+会在终端或者Log文件中给出警告信息。
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+hbadness并不会实际影响排版的效果
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Subsection
+
+\backslash
+hfuzz
+\end_layout
+
+\begin_layout Standard
+下面的示例很好的演示了
+\backslash
+hfuzz的效果，由于hfuzz放宽了溢出的限制，这个盒子不会overfull。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfuzz = .5in
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox to 2in{This box is some longer than two inches.}
+\end_layout
+
+\begin_layout Plain Layout
+
+% No error results
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfuzz = .5in
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox to 2in{This box is some longer than two inches.}
+\end_layout
+
+\begin_layout Plain Layout
+
+% No error results
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw(0,0)--(3in,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+foreach 
+\backslash
+x in {0,1,2,3}{
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+draw[semithick] (
+\backslash
+x in,0) -- (
+\backslash
+x in,-.3);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[right,scale=0.8] at (3in,-.15){3in};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+foreach 
+\backslash
+x in {0.1,0.2,...,2.9}{
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+draw (
+\backslash
+x in,0) -- (
+\backslash
+x in,-0.1);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+foreach 
+\backslash
+x in {0.5,1,...,2.5}{
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+draw (
+\backslash
+x in,0) -- (
+\backslash
+x in,-.17);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 bibfiles "/home/subaochen/git/bibref/latex"

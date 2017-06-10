@@ -1,0 +1,422 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{diagbox}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+巧用parshape实现特殊形状的排版
+\end_layout
+
+\begin_layout Standard
+parshape接受多个参数，第一个参数说明了后面有多少对参数对，第一对参数决定了第一行的缩进尺寸和长度，第二对参数决定了第二行的缩进尺寸和长度，以此类推。如果
+文本的行数超出了给定的参数对，则最后的参数对适用于超出的所有的文本行。
+\end_layout
+
+\begin_layout Standard
+在
+\begin_inset CommandInset citation
+LatexCommand cite
+key "impatient-tex-book"
+
+\end_inset
+
+中给出了一个利用
+\backslash
+parshape实现“酒杯”形状排版的例子，很有趣。源代码如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout LyX-Code
+
+% A small font and close interline spacing make this work
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+smallskip
+\backslash
+font
+\backslash
+sixrm=cmr6 
+\backslash
+sixrm 
+\backslash
+baselineskip=7pt
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+fontdimen3
+\backslash
+font = 1.8pt 
+\backslash
+fontdimen4
+\backslash
+font = 0.9pt
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+noindent 
+\backslash
+hfuzz 0.1pt
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+parshape 30 0pt 120pt 1pt 118pt 2pt 116pt 4pt 112pt 6pt 108pt 9pt 102pt
+ 12pt 96pt 15pt 90pt 19pt 84pt 23pt 77pt 27pt 68pt 30.5pt 60pt 35pt 52pt
+ 39pt 45pt 43pt 36pt 48pt 27pt 51.5pt 21pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt
+ 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt 53pt 14.6pt
+ 48pt 24pt 45pt 30.67pt 36.5pt 51pt 23pt 76.3pt
+\end_layout
+
+\begin_layout LyX-Code
+
+The wines of France and California may be the best known, but they are not
+ the only fine wines.
+ Spanish wines are often underestimated, and quite old ones may be available
+ at reasonable prices.
+ For Spanish wines the vintage is not so critical, but the climate of the
+ Bordeaux region varies greatly from year to year.
+ Some vintages are not as good as others, so these years ought to be s
+\backslash
+kern -.1pt p
+\backslash
+kern -.1pt e
+\backslash
+kern -.1pt c
+\backslash
+hfil ially n
+\backslash
+kern .1pt o
+\backslash
+kern .1pt t
+\backslash
+kern .1pt e
+\backslash
+kern .1pt d
+\backslash
+hfil:
+\end_layout
+
+\begin_layout LyX-Code
+
+1962, 1964, 1966.
+ 1958, 1959, 1960, 1961, 1964,
+\end_layout
+
+\begin_layout LyX-Code
+
+1966 are also good California vintages.
+\end_layout
+
+\begin_layout LyX-Code
+
+Good luck finding them!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+其结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% A small font and close interline spacing make this work
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+smallskip
+\backslash
+font
+\backslash
+sixrm=cmr6 
+\backslash
+sixrm 
+\backslash
+baselineskip=7pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fontdimen3
+\backslash
+font = 1.8pt 
+\backslash
+fontdimen4
+\backslash
+font = 0.9pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\backslash
+hfuzz 0.1pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+parshape 30 0pt 120pt 1pt 118pt 2pt 116pt 4pt 112pt 6pt
+\end_layout
+
+\begin_layout Plain Layout
+
+108pt 9pt 102pt 12pt 96pt 15pt 90pt 19pt 84pt 23pt 77pt
+\end_layout
+
+\begin_layout Plain Layout
+
+27pt 68pt 30.5pt 60pt 35pt 52pt 39pt 45pt 43pt 36pt 48pt
+\end_layout
+
+\begin_layout Plain Layout
+
+27pt 51.5pt 21pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt 53pt
+\end_layout
+
+\begin_layout Plain Layout
+
+16.75pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt 53pt 16.75pt
+\end_layout
+
+\begin_layout Plain Layout
+
+53pt 14.6pt 48pt 24pt 45pt 30.67pt 36.5pt 51pt 23pt 76.3pt
+\end_layout
+
+\begin_layout Plain Layout
+
+The wines of France and California may be the best
+\end_layout
+
+\begin_layout Plain Layout
+
+known, but they are not the only fine wines.
+ Spanish
+\end_layout
+
+\begin_layout Plain Layout
+
+wines are often underestimated, and quite old ones may
+\end_layout
+
+\begin_layout Plain Layout
+
+be available at reasonable prices.
+ For Spanish wines
+\end_layout
+
+\begin_layout Plain Layout
+
+the vintage is not so critical, but the climate of the
+\end_layout
+
+\begin_layout Plain Layout
+
+Bordeaux region varies greatly from year to year.
+ Some
+\end_layout
+
+\begin_layout Plain Layout
+
+vintages are not as good as others,
+\end_layout
+
+\begin_layout Plain Layout
+
+so these years ought to be
+\end_layout
+
+\begin_layout Plain Layout
+
+s
+\backslash
+kern -.1pt p
+\backslash
+kern -.1pt e
+\backslash
+kern -.1pt c
+\backslash
+hfil ially
+\end_layout
+
+\begin_layout Plain Layout
+
+n
+\backslash
+kern .1pt o
+\backslash
+kern .1pt t
+\backslash
+kern .1pt e
+\backslash
+kern .1pt d
+\backslash
+hfil:
+\end_layout
+
+\begin_layout Plain Layout
+
+1962, 1964, 1966.
+ 1958, 1959, 1960, 1961, 1964,
+\end_layout
+
+\begin_layout Plain Layout
+
+1966 are also good California vintages.
+\end_layout
+
+\begin_layout Plain Layout
+
+Good luck finding them!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+利用
+\backslash
+parshape实现特殊形状的排版效果需要精心的设计和耐心的调整（包括
+\backslash
+kern的精细调整），是一个功夫活。
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/latex"
+options "IEEEtranS"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

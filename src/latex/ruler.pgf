@@ -1,0 +1,12 @@
+\begin{tikzpicture}
+    \draw(0,0)--(3in,0);
+    \foreach \x in {0,1,2,3}{
+        \draw[semithick] (\x in,0) -- (\x in,-.3)node[right,scale=0.6]{\x\thinspace in};
+    }
+    \foreach \x in {0.1,0.2,...,2.9}{
+        \draw (\x in,0) -- (\x in,-0.1);
+    }
+    \foreach \x in {0.5,1,...,2.5}{
+        \draw (\x in,0) -- (\x in,-.17);
+    }
+\end{tikzpicture}
