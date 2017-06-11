@@ -119,6 +119,83 @@ http://softlab.sdut.edu.cn/blog/subaochen/2017/06/细说badness/
 杂，比如人为干预断行，连字符的影响，当前断行方案对段落中下面几行的影响等等，都应该在评估当前行断行效果时考虑进去。因此，\SpecialChar TeX
 设置了demerits变量综合评估当前行
 的断行效果。本部分内容重点讨论各种情况下对断行的影响，最后给出demerits的计算公式。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+每种方式举例说明，最后总结得出结论
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+人为干预断行：penalty
+\end_layout
+
+\begin_layout Standard
+penalty以及后面的各种*penalty，意味着如果在这里断行会遭受惩罚，penalty的值即为罚金！罚金为正则\SpecialChar TeX
+倾向于避免在这里断行，罚金为负则\SpecialChar TeX
+倾向于在这里
+断行。罚金值越高，倾向性越高，罚金的最大值是10000。比如设置
+\backslash
+penalty=10000，则意味着在这里断行的话会遭受重罚，penalty的值即为罚金，因此\SpecialChar TeX
+不会在这里断行。相反，如果设置为
+\backslash
+penalty=-10000，则意味着在这里断行会“重罚”-10000，其实是鼓励\SpecialChar TeX
+在这里断行的意思，\SpecialChar TeX
+则一定在这里断行（谁不喜欢这么大的红包呢！）。
+\end_layout
+
+\begin_layout Standard
+实际上，
+\backslash
+break的定义即为
+\backslash
+penalty-10000，
+\backslash
+nobreak的定义即为
+\backslash
+penalty10000，
+\backslash
+allowbreak的定义为
+\backslash
+penalty0。
+\end_layout
+
+\begin_layout Standard
+penalty是一种人为的断行干预手段，如果在一行中设置了
+\backslash
+penalty，显然会影响当前行的断行效果，因此penalty自然应该计入断行效果评估体系中，参见公式。
+\end_layout
+
+\begin_layout Section
+人为干预断行：linepenalty
+\end_layout
+
+\begin_layout Standard
+当施加一个linepenalty时，通常情况下无法使用拉伸满足两端对齐的排版要求（拉伸会导致badness很大），因此一般会采用压缩的方式降低badness，因
+此使用linepenalty的结果是，\SpecialChar TeX
+会尝试用更少的行完成排版，即排版效果更紧凑。例如：
+\end_layout
+
+\begin_layout Section
+连字符断行：hyphenpanlty/exhyphenpenalty
+\end_layout
+
+\begin_layout Standard
+对于西文而言，连字符是另外一个考虑的重要因素：如果不使用连字符就能够获得满意的排版效果，这是最理想的情况；但是如果必须通过连字符才能获得较为满意的排版效果，则在
+评估排版的综合效果时，需要扣除连字符造成的“阅读影响”，毕竟连字符硬生生的将一个完整的单词斩做两半分列两行，读者需要费脑筋在脑海中将两部分再拼成一个完整的单词。
+\end_layout
+
+\begin_layout Section
+考虑下两行的断行效果：doublehyphenpenalty
+\end_layout
+
+\begin_layout Section
+考虑最后三行的断行效果：finalhyphenpenalty
 \end_layout
 
 \begin_layout Section
@@ -194,73 +271,6 @@ name "fig:TeX的断行流程"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Section
-人为干预断行：penalty
-\end_layout
-
-\begin_layout Standard
-penalty以及后面的各种*penalty，意味着如果在这里断行会遭受惩罚，penalty的值即为罚金！罚金为正则\SpecialChar TeX
-倾向于避免在这里断行，罚金为负则\SpecialChar TeX
-倾向于在这里
-断行。罚金值越高，倾向性越高，罚金的最大值是10000。比如设置
-\backslash
-penalty=10000，则意味着在这里断行的话会遭受重罚，penalty的值即为罚金，因此\SpecialChar TeX
-不会在这里断行。相反，如果设置为
-\backslash
-penalty=-10000，则意味着在这里断行会“重罚”-10000，其实是鼓励\SpecialChar TeX
-在这里断行的意思，\SpecialChar TeX
-则一定在这里断行（谁不喜欢这么大的红包呢！）。
-\end_layout
-
-\begin_layout Standard
-实际上，
-\backslash
-break的定义即为
-\backslash
-penalty-10000，
-\backslash
-nobreak的定义即为
-\backslash
-penalty10000，
-\backslash
-allowbreak的定义为
-\backslash
-penalty0。
-\end_layout
-
-\begin_layout Standard
-penalty是一种人为的断行干预手段，如果在一行中设置了
-\backslash
-penalty，显然会影响当前行的断行效果，因此penalty自然应该计入断行效果评估体系中，参见公式。
-\end_layout
-
-\begin_layout Section
-人为干预断行：linepenalty
-\end_layout
-
-\begin_layout Standard
-当施加一个linepenalty时，通常情况下无法使用拉伸满足两端对齐的排版要求（拉伸会导致badness很大），因此一般会采用压缩的方式降低badness，因
-此使用linepenalty的结果是，\SpecialChar TeX
-会尝试用更少的行完成排版，即排版效果更紧凑。例如：
-\end_layout
-
-\begin_layout Section
-连字符断行：hyphenpanlty/exhyphenpenalty
-\end_layout
-
-\begin_layout Standard
-对于西文而言，连字符是另外一个考虑的重要因素：如果不使用连字符就能够获得满意的排版效果，这是最理想的情况；但是如果必须通过连字符才能获得较为满意的排版效果，则在
-评估排版的综合效果时，需要扣除连字符造成的“阅读影响”，毕竟连字符硬生生的将一个完整的单词斩做两半分列两行，读者需要费脑筋在脑海中将两部分再拼成一个完整的单词。
-\end_layout
-
-\begin_layout Section
-考虑下两行的断行效果：doublehyphenpenalty
-\end_layout
-
-\begin_layout Section
-考虑最后三行的断行效果：finalhyphenpenalty
 \end_layout
 
 \begin_layout Section
