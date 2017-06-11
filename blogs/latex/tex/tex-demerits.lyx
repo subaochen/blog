@@ -128,6 +128,34 @@ http://softlab.sdut.edu.cn/blog/subaochen/2017/06/细说badness/
 \end_layout
 
 \begin_layout Standard
+考虑到可能使用连字符进行断行，\SpecialChar TeX
+断行的基本过程如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TeX的断行流程"
+
+\end_inset
+
+所示，即\SpecialChar TeX
+首先尝试不使用连字符断行，如果此时获得的badness小于pretolerance的设定阀值，则万事大吉；否则尝试在这一行使用连字符断行，如果此时获得的
+badness小于tolerance的设定阀值，断行就此结束；否则在每一行的badness上面叠加一个emergencypenalty（but
+ why？），重新尝试...
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -164,10 +192,6 @@ name "fig:TeX的断行流程"
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -177,8 +201,48 @@ name "fig:TeX的断行流程"
 penalty
 \end_layout
 
+\begin_layout Standard
+penalty以及后面的各种*penalty，意味着如果在这里断行会遭受惩罚，penalty的值即为罚金！罚金为正则\SpecialChar TeX
+倾向于避免在这里断行，罚金为负则\SpecialChar TeX
+倾向于在这里
+断行。罚金值越高，倾向性越高，罚金的最大值是10000。比如设置
+\backslash
+penalty=10000，则意味着在这里断行的话会遭受重罚，penalty的值即为罚金，因此\SpecialChar TeX
+不会在这里断行。相反，如果设置为
+\backslash
+penalty=-10000，则意味着在这里断行会“重罚”-10000，其实是鼓励\SpecialChar TeX
+在这里断行的意思，\SpecialChar TeX
+则一定在这里断行（谁不喜欢这么大的红包呢！）。
+\end_layout
+
+\begin_layout Standard
+实际上，
+\backslash
+break的定义即为
+\backslash
+penalty-10000，
+\backslash
+nobreak的定义即为
+\backslash
+penalty10000，
+\backslash
+allowbreak的定义为
+\backslash
+penalty0。
+\end_layout
+
+\begin_layout Standard
+penalty是一种人为的断行干预手段，如果在一行中设置了
+\backslash
+penalty，显然会影响当前行的断行效果，因此penalty自然应该计入断行效果评估体系中，参见公式。
+\end_layout
+
 \begin_layout Section
 linepenalty
+\end_layout
+
+\begin_layout Section
+demerits
 \end_layout
 
 \end_body
