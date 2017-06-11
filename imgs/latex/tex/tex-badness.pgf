@@ -1,0 +1,14 @@
+\begin{tikzpicture}[label/.style={align=center,scale=.8}]
+    \draw (-2in,0)--(2in,0);
+    \foreach \x/\label in {-2/100,-1/50,1/50,2/100} {
+        \draw (\x in,-.5) -- (\x in,.2) node [above,label]{\label \%};
+    }
+    \draw (0,-.1)--(0,1)node[above,label]{0};
+    \draw[->](0,.7)--node[above,label]{shrink}(1.5in,.7);
+\draw[->](0,.7)--node[above,label]{stretch}(-1.5in,.7);
+    \draw[<->](-3in,-.3)--node[below,label]{underfull \\[-1ex] badness > 100}(-2in,-.3);
+    \draw[<->](-2in,-.3)--node[below,label]{loose \\[-1ex] 13 < badness < 100}+(1in,0);
+    \draw[<->](-1in,-.3)--node[below,label]{decent \\[-1ex] badness < 13}+(2in,0);
+    \draw[<->](1in,-.3)--node[below,label]{tight \\[-1ex] 13 < badness < 100}+(1in,0);
+    \draw[<->](2in,-.3)--node[below,label]{overfull \\[-1ex] badness = 10000}(3in,-.3);
+\end{tikzpicture}

@@ -1,0 +1,885 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{diagbox}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+细说badness
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Standard
+在\SpecialChar TeX
+排版时，最基本的操作是通过断行构造水平盒子，每个水平盒子的宽度（行宽）是相等的，盒子内部的文字进行两端对齐。每一个水平盒子使用badness这个参数评估其排版
+效果有多不好（badness），或者说，可以根据badness把当前行的状态划分为5种
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.97"
+key "texbook"
+
+\end_inset
+
+，也见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:badness的5种形态"
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout Enumerate
+正常态(decent)，badness <= 13，即当前行的自然宽度
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+自然宽度（natural width）是指不考虑盒子的拉伸能力时盒子内部各元素的宽度总和，包括字母、标点的宽度，也包括弹性间距的自然宽度。
+\end_layout
+
+\end_inset
+
+正好等于行宽或者实际伸缩长度小于盒子内部弹性间距的总伸缩长度的50%。
+\end_layout
+
+\begin_layout Enumerate
+松散态(loose)，100 > badness > 13，当前行的自然宽度小于行宽，水平盒子需要拉伸以满足两端对齐，拉伸的总长度为盒子内部弹性间距的总拉伸长度
+的50%–100%。
+\end_layout
+
+\begin_layout Enumerate
+下溢态(underfull)，即过渡拉伸，此时badness > 100，行的自然宽度小于行宽，水平盒子需要拉伸以满足两端对齐，拉伸的总长度大于盒子内部弹性间距
+的总拉伸长度。
+\end_layout
+
+\begin_layout Enumerate
+紧凑态(tight)，100 >= badness > 13，行的自然宽度大于行宽，水平盒子需要压缩以满足两端对齐，压缩的总长度为盒子内部弹性间距的总压缩长度的
+50%–100%。
+\end_layout
+
+\begin_layout Enumerate
+上溢态(overfull)，即过渡压缩，此时badness = 10000，行的自然宽度大于行宽，水平盒子需要压缩以满足两端对齐，压缩的总长度大于盒子内部弹性间
+距的总压缩长度。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tex/tex-badness.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+badness的5种形态
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:badness的5种形态"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+水平盒子的弹性间距
+\end_layout
+
+\begin_layout Standard
+通过
+\backslash
+hskip可以定义水平盒子的弹性间距，比如考虑下面的水平盒子：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hbox{A 
+\backslash
+hskip 20pt plus 5pt minus 2pt B}
+\end_layout
+
+\begin_layout Standard
+其自然宽度
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$w_n = w_A + 20 + w_B$
+\end_layout
+
+\end_inset
+
+，其中
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$w_A$
+\end_layout
+
+\end_inset
+
+表示字母A的宽度。当其拉伸长度 < 5pt时，盒子处于松散态；当其拉伸长度 > 5pt时，盒子处于过渡拉伸态，即underfull；当其压缩长度
+ < 2pt时，盒子处于紧凑态；当压缩长度 > 2pt时，盒子处于过渡压缩态，即overfull。
+\end_layout
+
+\begin_layout Section
+badness的计算方法
+\end_layout
+
+\begin_layout Standard
+通过以上描述可以看出，盒子是根据实际拉伸（压缩）的长度和允许的拉伸（压缩）长度的比例来确定badness的，下面分拉伸和压缩两种情况具体分析。
+\end_layout
+
+\begin_layout Subsection
+拉伸时的badness
+\end_layout
+
+\begin_layout Standard
+设盒子的实际拉伸长度为
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$x$
+\end_layout
+
+\end_inset
+
+，盒子的允许拉伸总长度（弹性间距中plus部分之和）为
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$y$
+\end_layout
+
+\end_inset
+
+，则badness的计算公式为
+\begin_inset CommandInset citation
+LatexCommand cite
+key "texinpractise_basics"
+
+\end_inset
+
+：
+\begin_inset Formula 
+\begin{equation}
+badness=\begin{cases}
+0 & x=0\\
+10000 & y=0,x\neq0\\
+min(10000,round((x/y)^{3}\times100)) & otherwise
+\end{cases}\label{eq:拉伸时的badness计算公式}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出，当实际拉伸长度
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$x$
+\end_layout
+
+\end_inset
+
+为盒子的允许拉伸总长度
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$y$
+\end_layout
+
+\end_inset
+
+的一半时，badness=13（
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$0.5^3*100$
+\end_layout
+
+\end_inset
+
+）；当实际拉伸长度
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$x$
+\end_layout
+
+\end_inset
+
+和盒子的允许拉伸总长度
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$y$
+\end_layout
+
+\end_inset
+
+相等时，badness=100。当实际拉伸长度超过了盒子的允许拉伸总长度时，badness就大于100处于underfull状态。badness越大，盒子的拉伸
+程度就越大，所造成的排版效果就越差，这就是badness一词的由来。盒子理论上是可以无限拉伸的，但是当拉伸的长度超过了允许拉伸总长度的大约4.65倍（
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$4.65^3 
+\backslash
+approx 100$
+\end_layout
+
+\end_inset
+
+）时，\SpecialChar TeX
+认为事情不能再糟糕了，于是设置了badness的上限为10000。
+\end_layout
+
+\begin_layout Standard
+plain \SpecialChar TeX
+默认的
+\backslash
+tolerance=200，即badness超过200时才认为是underfull，此时的实际拉伸长度大约为允许拉伸总长度的1.26倍。
+\end_layout
+
+\begin_layout Subsection
+压缩时的badness
+\end_layout
+
+\begin_layout Standard
+设盒子的实际压缩长度为
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$x$
+\end_layout
+
+\end_inset
+
+，盒子的允许压缩总长度（弹性间距中minus部分之和）为
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$z$
+\end_layout
+
+\end_inset
+
+由于盒子的压缩不是无限的，因此在压缩情况下的badness计算公式为：
+\begin_inset Formula 
+\begin{equation}
+badness=\begin{cases}
+0 & x=0\\
+10000 & x\neq0,x>z\\
+round((x/z)^{3}\times100) & otherwise
+\end{cases}\label{eq:压缩时的badness计算公式}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+即，当压缩的实际长度等于允许压缩的总长度之和时，badness=100；当压缩的实际长度小于允许压缩的总长度时，badness < 100；当压缩的实际长度超过
+允许压缩的总长度之和时，badness直接跳到10000，表示不允许进行压缩，盒子overfull。
+\end_layout
+
+\begin_layout Standard
+可以看出，当
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$100 < badness < 10000$
+\end_layout
+
+\end_inset
+
+时，一定是发生了盒子的拉伸。
+\end_layout
+
+\begin_layout Section
+在日志文件中观察badness
+\end_layout
+
+\begin_layout Standard
+当badness超出了
+\backslash
+hbadness设置的阀值时，badness的值将输出到日志文件中。我们可以利用这一点，设置
+\backslash
+hbadness=0，把非0的badness都输出到日志文件中进行观察，比如下面的输入：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hbadness=0
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hbox to 25pt{A 
+\backslash
+hskip 20pt plus 10pt minus 10pt B}
+\end_layout
+
+\begin_layout Standard
+很明显，这个盒子将被压缩，但是压缩到什么程度呢？观察日志文件可见：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Tight 
+\backslash
+hbox (
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+badness 87
+\end_layout
+
+\end_inset
+
+) detected at line 2
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+tenrm A B
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+hbox(6.83331+0.0)x25.0, glue set - 0.95834
+\end_layout
+
+\begin_layout Plain Layout
+.
+\backslash
+tenrm A
+\end_layout
+
+\begin_layout Plain Layout
+.
+\backslash
+glue 20.0 plus 10.0 minus 10.0
+\end_layout
+
+\begin_layout Plain Layout
+.
+\backslash
+tenrm B
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+日志告诉我们，这个hbox是个紧凑态的盒子，badness=87。第三行告诉我们，hbox的高度是6.83331pt，深度为0，宽度为设定的25pt，其压缩比例为
+0.95834（glue set前面的-表示压缩，没有-表示拉伸），即实际压缩长度和允许压缩的总长度之比为0.95834。这个例子中允许压缩的总长度为10pt，由此
+可知，实际压缩总长度为9.5834pt，根据计算公式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:压缩时的badness计算公式"
+
+\end_inset
+
+可以得出，其badness=88(不知道为什么\SpecialChar TeX
+给出的是87，也许\SpecialChar TeX
+的badness计算公式有些许的修正？)。
+\end_layout
+
+\begin_layout Standard
+修改这个hbox的长度，可以观察拉伸情况下的badness计算情况：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hbadness=0
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hbox to 50pt{A 
+\backslash
+hskip 20pt plus 10pt minus 10pt B}
+\end_layout
+
+\begin_layout Standard
+此时的日志输出为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Underfull 
+\backslash
+hbox (badness 364) detected at line 2
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+tenrm A B
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+hbox(6.83331+0.0)x50.0, glue set 1.54166
+\end_layout
+
+\begin_layout Plain Layout
+.
+\backslash
+tenrm A
+\end_layout
+
+\begin_layout Plain Layout
+.
+\backslash
+glue 20.0 plus 10.0 minus 10.0
+\end_layout
+
+\begin_layout Plain Layout
+.
+\backslash
+tenrm B
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+badness的计算过程可参照压缩情形，不再具体分析。
+\end_layout
+
+\begin_layout Section
+输出badness
+\end_layout
+
+\begin_layout Standard
+在页面输出badness可以简单的使用
+\backslash
+the命令，即在需要输出显示badness的地方调用
+\backslash
+the
+\backslash
+badness即可。
+\begin_inset CommandInset citation
+LatexCommand cite
+key "texinpractise_basics"
+
+\end_inset
+
+给出了一个更优雅的打印badness的宏（根据作者的宏略做修改）：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+PrintBadness{
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+nobreak
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+leftline{
+\backslash
+hskip 20pt (Badness of preceding box:
+\backslash
+the
+\backslash
+badness)}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+smallskip
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+下面的输入可以演示这个宏的用法：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox spread 100pt{A 
+\backslash
+hskip 10pt plus 10pt B}
+\backslash
+PrintBadness
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox spread 50pt {A 
+\backslash
+hskip 10pt plus 10pt B}
+\backslash
+PrintBadness
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox spread 20pt {A 
+\backslash
+hskip 10pt plus 10pt B}
+\backslash
+PrintBadness
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox spread 10pt {A 
+\backslash
+hskip 10pt plus 10pt B}
+\backslash
+PrintBadness
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox spread 50pt {A 
+\backslash
+hskip 10pt plus 10pt B}
+\backslash
+PrintBadness
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox spread 1pt  {A 
+\backslash
+hskip 10pt plus 10pt B}
+\backslash
+PrintBadness
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox spread -10pt {A 
+\backslash
+hskip 10pt minus 5pt B}
+\backslash
+PrintBadness
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox spread -5pt  {A 
+\backslash
+hskip 10pt minus 5pt B}
+\backslash
+PrintBadness
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox spread -2pt  {A 
+\backslash
+hskip 10pt minus 5pt B}
+\backslash
+PrintBadness
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox spread -1pt  {A 
+\backslash
+hskip 10pt minus 5pt B}
+\backslash
+PrintBadness                                
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+bye 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+请读者自行验证输出结果。
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/latex"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
