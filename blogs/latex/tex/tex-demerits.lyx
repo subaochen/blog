@@ -115,11 +115,10 @@ http://softlab.sdut.edu.cn/blog/subaochen/2017/06/细说badness/
 \end_inset
 
 中，我们已经看到，\SpecialChar TeX
-使用badness评价断行后伸缩盒子对排版效果的影响，这是评价水平盒子排版效果的主要因子，但不是唯一因子。对于西文而言，连字符是另外一个考虑的
-重要因素：如果不使用连字符就能够获得满意的排版效果，这是最理想的情况；但是如果必须通过连字符才能获得较为满意的排版效果，则在评估排版的综合效果时，需要扣除连字符
-造成的“阅读影响”，毕竟连字符硬生生的将一个完整的单词斩做两半分列两行，读者需要费脑筋在脑海中将两部分再拼成一个完整的单词。本部分内容重点讨论连字符对排版的影响
-，以及\SpecialChar TeX
-为评估连字符的影响所设置的参数。
+使用badness评价断行后伸缩盒子对排版效果的影响，这是评价水平盒子排版效果的主要因子，但不是唯一因子。事实上，实际情况远比badness复
+杂，比如人为干预断行，连字符的影响，当前断行方案对段落中下面几行的影响等等，都应该在评估当前行断行效果时考虑进去。因此，\SpecialChar TeX
+设置了demerits变量综合评估当前行
+的断行效果。本部分内容重点讨论各种情况下对断行的影响，最后给出demerits的计算公式。
 \end_layout
 
 \begin_layout Section
@@ -198,7 +197,7 @@ name "fig:TeX的断行流程"
 \end_layout
 
 \begin_layout Section
-penalty
+人为干预断行：penalty
 \end_layout
 
 \begin_layout Standard
@@ -238,7 +237,30 @@ penalty，显然会影响当前行的断行效果，因此penalty自然应该计
 \end_layout
 
 \begin_layout Section
-linepenalty
+人为干预断行：linepenalty
+\end_layout
+
+\begin_layout Standard
+当施加一个linepenalty时，通常情况下无法使用拉伸满足两端对齐的排版要求（拉伸会导致badness很大），因此一般会采用压缩的方式降低badness，因
+此使用linepenalty的结果是，\SpecialChar TeX
+会尝试用更少的行完成排版，即排版效果更紧凑。例如：
+\end_layout
+
+\begin_layout Section
+连字符断行：hyphenpanlty/exhyphenpenalty
+\end_layout
+
+\begin_layout Standard
+对于西文而言，连字符是另外一个考虑的重要因素：如果不使用连字符就能够获得满意的排版效果，这是最理想的情况；但是如果必须通过连字符才能获得较为满意的排版效果，则在
+评估排版的综合效果时，需要扣除连字符造成的“阅读影响”，毕竟连字符硬生生的将一个完整的单词斩做两半分列两行，读者需要费脑筋在脑海中将两部分再拼成一个完整的单词。
+\end_layout
+
+\begin_layout Section
+考虑下两行的断行效果：doublehyphenpenalty
+\end_layout
+
+\begin_layout Section
+考虑最后三行的断行效果：finalhyphenpenalty
 \end_layout
 
 \begin_layout Section
