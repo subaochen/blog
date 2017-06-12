@@ -17,6 +17,7 @@ note-inset
 warning-inset
 theorems-bytype
 logicalmkup
+marginnote
 \end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
@@ -238,7 +239,27 @@ reference "sec:人为干预断行：penalty"
 
 \begin_layout Standard
 \SpecialChar TeX
-针对不同的断行方案计算获得相应的demerits，并最终选取demertis最小的断行方案。
+针对不同的断行方案计算获得相应的demerits，并最终选取demertis最小的断行方案
+\begin_inset Flex Margin Note
+status collapsed
+
+\begin_layout Plain Layout
+demertis也可能是负数，甚至很大的负数，如何更好的理解？最好举例说明
+\end_layout
+
+\end_inset
+
+。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+行的demerits？段的demerits？
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -651,18 +672,55 @@ name "sec:人为干预断行：linepenalty"
 \begin_layout Standard
 当施加一个linepenalty时，通常情况下无法使用拉伸满足两端对齐的排版要求（拉伸会导致badness很大），因此一般会采用压缩的方式降低badness，因
 此使用linepenalty的结果是，\SpecialChar TeX
-会尝试用更少的行完成排版，即排版效果更紧凑。例如：
+会尝试用更少的行完成排版，即排版效果更紧凑。
+\end_layout
+
+\begin_layout Standard
+注意到
+\backslash
+linepenalty是
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+全局性
+\end_layout
+
+\end_inset
+
+的，不能单独为某一行、某一段落设置
+\backslash
+linepenalty。plain \SpecialChar TeX
+的默认
+\backslash
+linepenalty=10，这个数值对排版的影响很小，眼睛是分辨出来的。
+\begin_inset Flex Margin Note
+status open
+
+\begin_layout Plain Layout
+既然没有多少效果，D.E.K这样设置的目的是什么？
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+例如：
 \end_layout
 
 \begin_layout Section
-视觉不兼容
+视觉不兼容：adjdemerits
 \end_layout
 
 \begin_layout Standard
 \SpecialChar TeX
-根据badness将行的状态分为5种，如果相邻两行的状态不一致，被称为“视觉不兼容”现象，\SpecialChar TeX
+根据badness将行的状态分为6种，如果相邻两行的状态不一致，被称为“视觉不兼容”现象，\SpecialChar TeX
 认为这主要是当前行的断行方案不合理造成的，会在当前行的demertis
-上施加一个惩罚因子？。比如下列的情形都被看作视觉不兼容：
+上施加一个惩罚因子
+\backslash
+adjdemerits。比如下列的情形都被看作视觉不兼容：
 \end_layout
 
 \begin_layout Itemize
@@ -681,8 +739,30 @@ name "sec:人为干预断行：linepenalty"
 当前行underfull，下一行overfull。
 \end_layout
 
+\begin_layout Itemize
+等等不一而足。
+\end_layout
+
+\begin_layout Standard
+plain \SpecialChar TeX
+的默认
+\backslash
+adjdemerits=10000，看起来还是相当重的—\SpecialChar TeX
+尽力避免发生视觉不兼容现象。
+\end_layout
+
 \begin_layout Section
-连字符断行：hyphenpanlty/exhyphenpenalty
+连字符断行：hyphenpenalty/exhyphenpenalty
+\begin_inset Flex Margin Note
+status open
+
+\begin_layout Plain Layout
+这两个惩罚因子，是计算进demerits，还是badness？
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -690,17 +770,71 @@ name "sec:人为干预断行：linepenalty"
 评估排版的综合效果时，需要扣除连字符造成的“阅读影响”，毕竟连字符硬生生的将一个完整的单词斩做两半分列两行，读者需要费脑筋在脑海中将两部分再拼成一个完整的单词。
 \end_layout
 
-\begin_layout Section
-考虑下两行的断行效果：doublehyphenpenalty
+\begin_layout Standard
+当断字发生时pre-break不为空则
+\backslash
+hyphenpenalty叠加到demerits，如果pre-break为空则
+\backslash
+exhyphenpenalty叠加到demerits上。plain \SpecialChar TeX
+默认
+\backslash
+hyphenpenalty=50，
+\backslash
+exhyphenpenalty=50。
 \end_layout
 
 \begin_layout Section
-考虑最后三行的断行效果：finalhyphenpenalty
+考虑下两行的断行效果：doublehyphendemerits
+\end_layout
+
+\begin_layout Standard
+如果因为当前行的断行方案而导致接下来的两行都必须使用连字符，则当前行的demerits必须叠加一个
+\backslash
+doublehyphendemerits，以表示对当前行断行方案的“惩罚”。
+\end_layout
+
+\begin_layout Standard
+plain \SpecialChar TeX
+默认的
+\backslash
+doublehyphenemerits=10000，更大的
+\backslash
+doublehyphendemerits设置意味着不鼓励使用连字符断行。
+\end_layout
+
+\begin_layout Section
+考虑倒数第二行的断行效果：finalhyphenemerits
+\end_layout
+
+\begin_layout Standard
+如果因为当前行的断行方案而导致倒数第二行必须使用连字符，则当前行的demerits必须叠加一个
+\backslash
+doublehyphendemerits，以表示对当前行断行方案的“惩罚”。在倒数第二行使用连字符断行被认为是不美观的，因为最后一行通常有足够的空格可以容纳更多
+的单词，为什么不充分利用这些空间呢？
+\end_layout
+
+\begin_layout Standard
+plain \SpecialChar TeX
+默认的
+\backslash
+finalhyphendemerits=5000，更大的
+\backslash
+finalhyphendemerits意味着不鼓励在倒数第二行使用连字符断行。
 \end_layout
 
 \begin_layout Section
 \SpecialChar TeX
 的断行流程
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+可以从log了解断行的过程，两趟扫描
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
