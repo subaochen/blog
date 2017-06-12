@@ -34,7 +34,7 @@ logicalmkup
 \font_sf_scale 100 100
 \font_tt_scale 100 100
 \graphics default
-\default_output_format pdf5
+\default_output_format pdf4
 \output_sync 0
 \bibtex_command bibtex8
 \index_command default
@@ -105,7 +105,7 @@ logicalmkup
 \begin_layout Standard
 在\SpecialChar TeX
 排版时，最基本的操作是通过断行构造水平盒子，每个水平盒子的宽度（行宽）是相等的，盒子内部的文字进行两端对齐。每一个水平盒子使用badness这个参数评估其排版
-效果有多不好（badness），或者说，可以根据badness把当前行的状态划分为5种
+效果有多不好（badness），或者说，可以根据badness把当前行的状态划分为6种
 \begin_inset CommandInset citation
 LatexCommand cite
 after "p.97"
@@ -137,7 +137,7 @@ reference "fig:badness的5种形态"
 \end_layout
 
 \begin_layout Enumerate
-正常态(decent)，badness <= 13，即当前行的自然宽度
+适中态(decent)，badness <= 13，即当前行的自然宽度
 \begin_inset Foot
 status collapsed
 
@@ -152,22 +152,45 @@ status collapsed
 
 \begin_layout Enumerate
 松散态(loose)，100 > badness > 13，当前行的自然宽度小于行宽，水平盒子需要拉伸以满足两端对齐，拉伸的总长度为盒子内部弹性间距的总拉伸长度
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+定义为盒子的总伸长能力？
+\end_layout
+
+\end_inset
+
 的50%–100%。
 \end_layout
 
 \begin_layout Enumerate
-下溢态(underfull)，即过渡拉伸，此时badness > 100，行的自然宽度小于行宽，水平盒子需要拉伸以满足两端对齐，拉伸的总长度大于盒子内部弹性间距
-的总拉伸长度。
+空荡态(very loose)，200 > badness > 100，水平盒子伸长的总长度为盒子总伸长能力的100%–126%。
 \end_layout
 
 \begin_layout Enumerate
-紧凑态(tight)，100 >= badness > 13，行的自然宽度大于行宽，水平盒子需要压缩以满足两端对齐，压缩的总长度为盒子内部弹性间距的总压缩长度的
-50%–100%。
+下溢态(underfull)，即过渡拉伸，此时badness > 200（plain \SpecialChar TeX
+的tolerance阀值），行的自然宽度小于行宽，水平盒子需要拉伸以满足两
+端对齐，伸长的总长度大于盒子总伸长能力的126%。
 \end_layout
 
 \begin_layout Enumerate
-上溢态(overfull)，即过渡压缩，此时badness = 10000，行的自然宽度大于行宽，水平盒子需要压缩以满足两端对齐，压缩的总长度大于盒子内部弹性间
-距的总压缩长度。
+紧凑态(tight)，100 >= badness > 13，行的自然宽度大于行宽，水平盒子需要收缩以满足两端对齐，收缩的总长度为盒子内部弹性间距的总收缩长度
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+定义为盒子的总收缩能力？
+\end_layout
+
+\end_inset
+
+的50%–100%。
+\end_layout
+
+\begin_layout Enumerate
+上溢态(overfull)，即过渡收缩，此时badness = 10000，行的自然宽度大于行宽，水平盒子需要收缩以满足两端对齐，收缩的总长度大于盒子内部弹性间
+距的总收缩长度。
 \end_layout
 
 \begin_layout Standard
@@ -191,7 +214,7 @@ filename "/home/subaochen/git/blog/imgs/latex/tex/tex-badness.pgf"
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-badness的5种形态
+badness的6种形态
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:badness的5种形态"
@@ -256,8 +279,8 @@ $w_A$
 
 \end_inset
 
-表示字母A的宽度。当其拉伸长度 < 5pt时，盒子处于松散态；当其拉伸长度 > 5pt时，盒子处于过渡拉伸态，即underfull；当其压缩长度
- < 2pt时，盒子处于紧凑态；当压缩长度 > 2pt时，盒子处于过渡压缩态，即overfull。
+表示字母A的宽度。当其拉伸长度 < 5pt时，盒子处于松散态；当其拉伸长度 > 5pt时，盒子处于过渡拉伸态，即underfull；当其收缩长度
+ < 2pt时，盒子处于紧凑态；当收缩长度 > 2pt时，盒子处于过渡收缩态，即overfull。
 \end_layout
 
 \begin_layout Section
@@ -265,7 +288,7 @@ badness的计算方法
 \end_layout
 
 \begin_layout Standard
-通过以上描述可以看出，盒子是根据实际拉伸（压缩）的长度和允许的拉伸（压缩）长度的比例来确定badness的，下面分拉伸和压缩两种情况具体分析。
+通过以上描述可以看出，盒子是根据实际拉伸（收缩）的长度和允许的拉伸（收缩）长度的比例来确定badness的，下面分拉伸和收缩两种情况具体分析。
 \end_layout
 
 \begin_layout Subsection
@@ -399,11 +422,11 @@ tolerance=200，即badness超过200时才认为是underfull，此时的实际拉
 \end_layout
 
 \begin_layout Subsection
-压缩时的badness
+收缩时的badness
 \end_layout
 
 \begin_layout Standard
-设盒子的实际压缩长度为
+设盒子的实际收缩长度为
 \begin_inset ERT
 status open
 
@@ -414,7 +437,7 @@ $x$
 
 \end_inset
 
-，盒子的允许压缩总长度（弹性间距中minus部分之和）为
+，盒子的允许收缩总长度（弹性间距中minus部分之和）为
 \begin_inset ERT
 status open
 
@@ -425,7 +448,7 @@ $z$
 
 \end_inset
 
-由于盒子的压缩不是无限的，因此在压缩情况下的badness计算公式为：
+由于盒子的收缩不是无限的，因此在收缩情况下的badness计算公式为：
 \begin_inset Formula 
 \begin{equation}
 badness=\begin{cases}
@@ -441,8 +464,8 @@ round((x/z)^{3}\times100) & otherwise
 \end_layout
 
 \begin_layout Standard
-即，当压缩的实际长度等于允许压缩的总长度之和时，badness=100；当压缩的实际长度小于允许压缩的总长度时，badness < 100；当压缩的实际长度超过
-允许压缩的总长度之和时，badness直接跳到10000，表示不允许进行压缩，盒子overfull。
+即，当收缩的实际长度等于允许收缩的总长度之和时，badness=100；当收缩的实际长度小于允许收缩的总长度时，badness < 100；当收缩的实际长度超过
+允许收缩的总长度之和时，badness直接跳到10000，表示不允许进行收缩，盒子overfull。
 \end_layout
 
 \begin_layout Standard
@@ -487,7 +510,7 @@ hskip 20pt plus 10pt minus 10pt B}
 \end_layout
 
 \begin_layout Standard
-很明显，这个盒子将被压缩，但是压缩到什么程度呢？观察日志文件可见：
+很明显，这个盒子将被收缩，但是收缩到什么程度呢？观察日志文件可见：
 \end_layout
 
 \begin_layout Standard
@@ -562,9 +585,9 @@ tenrm B
 
 \begin_layout Standard
 \SpecialChar TeX
-日志告诉我们，这个hbox是个紧凑态的盒子，badness=87。第三行告诉我们，hbox的高度是6.83331pt，深度为0，宽度为设定的25pt，其压缩比例为
-0.95834（glue set前面的-表示压缩，没有-表示拉伸），即实际压缩长度和允许压缩的总长度之比为0.95834。这个例子中允许压缩的总长度为10pt，由此
-可知，实际压缩总长度为9.5834pt，根据计算公式
+日志告诉我们，这个hbox是个紧凑态的盒子，badness=87。第三行告诉我们，hbox的高度是6.83331pt，深度为0，宽度为设定的25pt，其收缩比例为
+0.95834（glue set前面的-表示收缩，没有-表示拉伸），即实际收缩长度和允许收缩的总长度之比为0.95834。这个例子中允许收缩的总长度为10pt，由此
+可知，实际收缩总长度为9.5834pt，根据计算公式
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:压缩时的badness计算公式"
@@ -659,7 +682,7 @@ tenrm B
 \end_layout
 
 \begin_layout Standard
-badness的计算过程可参照压缩情形，不再具体分析。
+badness的计算过程可参照收缩情形，不再具体分析。
 \end_layout
 
 \begin_layout Section

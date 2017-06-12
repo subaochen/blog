@@ -103,6 +103,11 @@ logicalmkup
 \end_layout
 
 \begin_layout Standard
+断行是指分段成行，即将用户输入的段落在需要的地方插入断点标志，将段落划分为可打印输出的行。用户在文本输入时的回车通常不是最终断行的依据，因此用户输入的回车都会自
+动转换成为一个空格。
+\end_layout
+
+\begin_layout Standard
 在
 \begin_inset Flex URL
 status open
@@ -132,7 +137,119 @@ status open
 \end_layout
 
 \begin_layout Section
+demerits
+\end_layout
+
+\begin_layout Standard
+demerits综合评价了当前行的断行效果，其计算公式为
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.98"
+key "texbook"
+
+\end_inset
+
+：
+\begin_inset Formula 
+\begin{equation}
+d=\begin{cases}
+(l+b)^{2}+p^{2} & 0\leq p<10000\\
+(l+b)^{2}-p^{2} & -10000<p<0\\
+(l+b)^{2} & p\leq-10000
+\end{cases}\label{eq:demerits的计算公式}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+式中：
+\end_layout
+
+\begin_layout Itemize
+d为demerits，综合评价当前行的断行效果。但是，此时的demerits还没有考虑当前方案对后面数行乃至整个段落的影响。
+\end_layout
+
+\begin_layout Itemize
+b为当前行的badness，其计算方式参见
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://softlab.sdut.edu.cn/blog/subaochen/2017/06/细说badness/
+\end_layout
+
+\end_inset
+
+。badness是\SpecialChar TeX
+内部计算所得的参数，不可人为设置。
+\end_layout
+
+\begin_layout Itemize
+l为linepenalty，人为设置的干预参数，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:人为干预断行：linepenalty"
+
+\end_inset
+
+，反映了人为干预对排版的影响。
+\end_layout
+
+\begin_layout Itemize
+p为当前行的penalty，人为设置的干预参数，通常用于强制断行或者设置不允许断行，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:人为干预断行：penalty"
+
+\end_inset
+
+，反映了人为干预对排版的影响。
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+针对不同的断行方案计算获得相应的demerits，并最终选取demertis最小的断行方案。
+\end_layout
+
+\begin_layout Section
 人为干预断行：penalty
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:人为干预断行：penalty"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -168,17 +285,400 @@ penalty0。
 \begin_layout Standard
 penalty是一种人为的断行干预手段，如果在一行中设置了
 \backslash
-penalty，显然会影响当前行的断行效果，因此penalty自然应该计入断行效果评估体系中，参见公式。
+penalty，显然会影响当前行的断行效果，因此penalty自然应该计入断行效果评估体系中，参见公式
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "eq:demerits的计算公式"
+
+\end_inset
+
+。显然，当
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$penalty 
+\backslash
+geq 10000$
+\end_layout
+
+\end_inset
+
+时，\SpecialChar TeX
+必须在这里断行（
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+体现了人类的最终意志
+\end_layout
+
+\end_inset
+
+），一切的badness、demertis计算都将失去意义，这就是公式
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "eq:demerits的计算公式"
+
+\end_inset
+
+中所有情况下
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$p < 10000$
+\end_layout
+
+\end_inset
+
+的原因：只有
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$p < 10000$
+\end_layout
+
+\end_inset
+
+时才需要计算demertis。
+\end_layout
+
+\begin_layout Standard
+事实上，当badness超出了
+\backslash
+tolerance
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+在这里，顺便进一步理解tolerance的意义：容忍度，即如果badness超过了
+\backslash
+tolerance的设定阀值是不可容忍的。比如收缩时，badness超过了
+\backslash
+tolerance则直接爆表，将badness设置为10000；如果是伸长时，badness超过了
+\backslash
+tolerance时虽然不爆表，但是报告underfull错误。发生了overfull或者underfull都意味着发生了最坏的不可容忍的情况，但是，\SpecialChar TeX
+此时能做什
+么呢？如果找不到更好的解决方案，也只能将就着排版，并显示一个
+\backslash
+overfullrule以示警告。也就是说，\SpecialChar TeX
+在断行时所做的所有努力，都是在寻找badness低于
+\backslash
+tolerance设定阀值的方案，并将找到的方案根据其demerits值进行排序，并最终选择demerits值最小的方案。
+\end_layout
+
+\end_inset
+
+或者
+\backslash
+pretolerance的设定阀值时，demerits的计算也会失去意义，其含义为：最坏的结果已经产生了，评估排版效果的参数还有什么作用呢？计算demerits
+进行断行评估的目的是为了方案的排序，最坏的结果意味着这个方案直接垫底好了，无论其demerits计算结果如何。
+\end_layout
+
+\begin_layout Standard
+比如在\SpecialChar TeX
+中输入下面的段落（要注意区分，
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "TeX中penalty的作用示例"
+
+\end_inset
+
+中的换行是我们输入文本时敲回车形成的，这些回车和换行只是为了我们输入文本方便，并非排版时真正的换行。）：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/tex-penalty.tex"
+lstparams "language=TeX,caption={TeX中penalty的作用示例},label={TeX中penalty的作用示例}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+其中，使用
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+tracingparagraphs=1
+\end_layout
+
+\end_inset
+
+打开了\SpecialChar TeX
+计算段落断行方案的调试开关，可以方便的观察\SpecialChar TeX
+是如何计算断点的。从日志文件我们观察到如下的结果：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+@firstpass
+\end_layout
+
+\begin_layout Plain Layout
+[]
+\backslash
+tenrm In computing, internationalization and localization are means 
+\end_layout
+
+\begin_layout Plain Layout
+@ via @@0 b=0 p=0 d=100
+\end_layout
+
+\begin_layout Plain Layout
+@@1: line 1.2 t=100 -> @@0
+\end_layout
+
+\begin_layout Plain Layout
+@secondpass
+\end_layout
+
+\begin_layout Plain Layout
+[]
+\backslash
+tenrm In com-put-ing, in-ter-na-tion-al-iza-tion and lo-cal-iza-tion are
+ mea
+\end_layout
+
+\begin_layout Plain Layout
+ns 
+\end_layout
+
+\begin_layout Plain Layout
+@ via @@0 b=0 p=0 d=100
+\end_layout
+
+\begin_layout Plain Layout
+@@1: line 1.2 t=100 -> @@0
+\end_layout
+
+\begin_layout Plain Layout
+of adapt-ing com-puter soft-ware
+\end_layout
+
+\begin_layout Plain Layout
+@
+\backslash
+penalty via @@1 b=10000 p=-10000 d=*
+\end_layout
+
+\begin_layout Plain Layout
+@@2: line 2.0 t=100 -> @@1
+\end_layout
+
+\begin_layout Plain Layout
+to dif-fer-ent lan-guages, re-gional dif-fer-ences and tech-ni-cal re-quire-
+\end_layout
+
+\begin_layout Plain Layout
+@
+\backslash
+discretionary via @@2 b=23 p=50 d=3589
+\end_layout
+
+\begin_layout Plain Layout
+@@3: line 3.1- t=3689 -> @@2
+\end_layout
+
+\begin_layout Plain Layout
+ments of a tar-get mar-ket.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+@
+\backslash
+par via @@3 b=0 p=-10000 d=*
+\end_layout
+
+\begin_layout Plain Layout
+@@4: line 4.2- t=3689 -> @@3
+\end_layout
+
+\begin_layout Plain Layout
+Underfull 
+\backslash
+hbox (badness 10000) in paragraph at lines 2--6
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+tenrm of adapt-ing com-puter soft-ware
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+hbox(6.94444+1.94444)x289.07999, glue set 31.12724
+\end_layout
+
+\begin_layout Plain Layout
+.
+\backslash
+tenrm o
+\end_layout
+
+\begin_layout Plain Layout
+.
+\backslash
+tenrm f
+\end_layout
+
+\begin_layout Plain Layout
+.
+\backslash
+glue 3.33333 plus 1.66666 minus 1.11111
+\end_layout
+
+\begin_layout Plain Layout
+.
+\backslash
+tenrm a
+\end_layout
+
+\begin_layout Plain Layout
+.
+\backslash
+tenrm d
+\end_layout
+
+\begin_layout Plain Layout
+.etc.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+打开tracingparagraphs开关后，日志文件的解读乍看如天书，在
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.99"
+key "texbook"
+
+\end_inset
+
+中详细解释了应该如何解读这样的日志文件，要点如下：
+\end_layout
+
+\begin_layout Itemize
+\SpecialChar TeX
+断行是一个
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+顺序扫描
+\end_layout
+
+\end_inset
+
+文件的过程，其中以@@开头的行表示，\SpecialChar TeX
+扫描到这里找到了一个适宜（decent）的断点，在这里断行badness不会超出tolerance的设定阀值。适宜的断点从@
+@1开始连续编号，段落的开头用@@0表示（这是一个特殊的断点，当然是适宜的。）。
+\end_layout
+
+\begin_layout Itemize
+以@开头的行是得到适宜断点的候选方法，即，\SpecialChar TeX
+会在几种候选方法中选择最优的断行方案。
+\end_layout
+
+\begin_layout Itemize
+不以@@和@开头的行表示\SpecialChar TeX
+扫描到什么地方了。
+\end_layout
+
+\begin_layout Standard
+比如上面的日志输出中，
 \end_layout
 
 \begin_layout Section
 人为干预断行：linepenalty
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:人为干预断行：linepenalty"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 当施加一个linepenalty时，通常情况下无法使用拉伸满足两端对齐的排版要求（拉伸会导致badness很大），因此一般会采用压缩的方式降低badness，因
 此使用linepenalty的结果是，\SpecialChar TeX
 会尝试用更少的行完成排版，即排版效果更紧凑。例如：
+\end_layout
+
+\begin_layout Section
+视觉不兼容
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+根据badness将行的状态分为5种，如果相邻两行的状态不一致，被称为“视觉不兼容”现象，\SpecialChar TeX
+认为这主要是当前行的断行方案不合理造成的，会在当前行的demertis
+上施加一个惩罚因子？。比如下列的情形都被看作视觉不兼容：
+\end_layout
+
+\begin_layout Itemize
+当前行是一个适中（decent）的行，而下一行是松散的行。
+\end_layout
+
+\begin_layout Itemize
+当前行是松散的，下一行是适中的。
+\end_layout
+
+\begin_layout Itemize
+当前行是松散的，下一行是紧凑的。
+\end_layout
+
+\begin_layout Itemize
+当前行underfull，下一行overfull。
 \end_layout
 
 \begin_layout Section
@@ -273,8 +773,16 @@ name "fig:TeX的断行流程"
 
 \end_layout
 
-\begin_layout Section
-demerits
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/latex"
+options "plain"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
