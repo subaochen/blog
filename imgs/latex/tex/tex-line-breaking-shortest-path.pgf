@@ -1,0 +1,12 @@
+\usetikzlibrary{graphs, graphdrawing,quotes}
+\usegdlibrary{trees, layered}
+\begin{tikzpicture}
+\graph [layered layout, nodes={circle,draw},level sep=2cm,sibling distance=2cm,grow'=right,
+edge quotes={fill=white,inner sep=1pt}]
+{
+0 ->1[>"2600"]->{
+    2[>"29881"]->4[>"12621"],
+    3[>"1226"]->{4[>"103101"]->6[>"5100"],5[>"15416"]->6[>"5100"]},
+}
+};
+\end{tikzpicture}

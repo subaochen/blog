@@ -8,6 +8,7 @@
 \begin_preamble
 \input{/home/subaochen/git/writing-common/article-preamble.tex}
 \usepackage{smartdiagram}
+\usepackage{marginnote}
 \end_preamble
 \use_default_options true
 \begin_modules
@@ -17,7 +18,6 @@ note-inset
 warning-inset
 theorems-bytype
 logicalmkup
-marginnote
 \end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
@@ -240,8 +240,8 @@ reference "sec:人为干预断行：penalty"
 \begin_layout Standard
 \SpecialChar TeX
 针对不同的断行方案计算获得相应的demerits，并最终选取demertis最小的断行方案
-\begin_inset Flex Margin Note
-status collapsed
+\begin_inset Marginal
+status open
 
 \begin_layout Plain Layout
 demertis也可能是负数，甚至很大的负数，如何更好的理解？最好举例说明
@@ -456,158 +456,131 @@ tracingparagraphs=1
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Shaded
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
+\begin_inset listings
+lstparams "numbers=left,basicstyle={\footnotesize}"
+inline false
 status open
 
 \begin_layout Plain Layout
+
 @firstpass
 \end_layout
 
 \begin_layout Plain Layout
-[]
-\backslash
-tenrm In computing, internationalization and localization are means 
-\end_layout
 
-\begin_layout Plain Layout
-@ via @@0 b=0 p=0 d=100
-\end_layout
-
-\begin_layout Plain Layout
-@@1: line 1.2 t=100 -> @@0
-\end_layout
-
-\begin_layout Plain Layout
 @secondpass
 \end_layout
 
 \begin_layout Plain Layout
+
 []
 \backslash
-tenrm In com-put-ing, in-ter-na-tion-al-iza-tion and lo-cal-iza-tion are
- mea
+tenrm In com-put-ing, in-ter-na-tion-al-iza-tion and lo-cal-
 \end_layout
 
 \begin_layout Plain Layout
-ns 
-\end_layout
 
-\begin_layout Plain Layout
-@ via @@0 b=0 p=0 d=100
-\end_layout
-
-\begin_layout Plain Layout
-@@1: line 1.2 t=100 -> @@0
-\end_layout
-
-\begin_layout Plain Layout
-of adapt-ing com-puter soft-ware
-\end_layout
-
-\begin_layout Plain Layout
 @
 \backslash
-penalty via @@1 b=10000 p=-10000 d=*
+discretionary via @@0 b=918 p=50 d=873684
 \end_layout
 
 \begin_layout Plain Layout
-@@2: line 2.0 t=100 -> @@1
+
+@@1: line 1.0- t=873684 -> @@0
 \end_layout
 
 \begin_layout Plain Layout
-to dif-fer-ent lan-guages, re-gional dif-fer-ences and tech-ni-cal re-quire-
+
+iza-
 \end_layout
 
 \begin_layout Plain Layout
+
 @
 \backslash
-discretionary via @@2 b=23 p=50 d=3589
+discretionary via @@0 b=5 p=50 d=2725
 \end_layout
 
 \begin_layout Plain Layout
-@@3: line 3.1- t=3689 -> @@2
+
+@@2: line 1.2- t=2725 -> @@0
 \end_layout
 
 \begin_layout Plain Layout
-ments of a tar-get mar-ket.
+
+tion are means of adapt-ing com-puter soft-ware
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\backslash
+penalty via @@1 b=555 p=-10000 d=319225
+\end_layout
+
+\begin_layout Plain Layout
+
+@@3: line 2.0 t=1192909 -> @@1
+\end_layout
+
+\begin_layout Plain Layout
+
+to dif-fer-ent lan-guages, re-gional dif-fer-ences and tech-
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\backslash
+discretionary via @@3 b=5 p=50 d=12725
+\end_layout
+
+\begin_layout Plain Layout
+
+@@4: line 3.2- t=1205634 -> @@3
+\end_layout
+
+\begin_layout Plain Layout
+
+ni-
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\backslash
+discretionary via @@3 b=33 p=50 d=14349
+\end_layout
+
+\begin_layout Plain Layout
+
+@@5: line 3.3- t=1207258 -> @@3
+\end_layout
+
+\begin_layout Plain Layout
+
+cal re-quire-ments of a tar-get mar-ket.
  
 \end_layout
 
 \begin_layout Plain Layout
+
 @
 \backslash
-par via @@3 b=0 p=-10000 d=*
+par via @@4 b=0 p=-10000 d=5100
 \end_layout
 
 \begin_layout Plain Layout
-@@4: line 4.2- t=3689 -> @@3
-\end_layout
 
-\begin_layout Plain Layout
-Underfull 
+@
 \backslash
-hbox (badness 10000) in paragraph at lines 2--6
+par via @@5 b=0 p=-10000 d=5100
 \end_layout
 
 \begin_layout Plain Layout
 
-\backslash
-tenrm of adapt-ing com-puter soft-ware
-\end_layout
-
-\begin_layout Plain Layout
-
-\backslash
-hbox(6.94444+1.94444)x289.07999, glue set 31.12724
-\end_layout
-
-\begin_layout Plain Layout
-.
-\backslash
-tenrm o
-\end_layout
-
-\begin_layout Plain Layout
-.
-\backslash
-tenrm f
-\end_layout
-
-\begin_layout Plain Layout
-.
-\backslash
-glue 3.33333 plus 1.66666 minus 1.11111
-\end_layout
-
-\begin_layout Plain Layout
-.
-\backslash
-tenrm a
-\end_layout
-
-\begin_layout Plain Layout
-.
-\backslash
-tenrm d
-\end_layout
-
-\begin_layout Plain Layout
-.etc.
+@@6: line 4.2- t=1210734 -> @@4
 \end_layout
 
 \end_inset
@@ -646,7 +619,8 @@ status open
 
 \begin_layout Itemize
 以@开头的行是得到适宜断点的候选方法，即，\SpecialChar TeX
-会在几种候选方法中选择最优的断行方案。
+会在几种候选方法中选择最优的断行方案。也就是说，每一个@开头的行都代表了一个断点，会形成一个断行方案。每一个@@开头的
+行都是到目前位置的最优断行方案。
 \end_layout
 
 \begin_layout Itemize
@@ -655,7 +629,268 @@ status open
 \end_layout
 
 \begin_layout Standard
-比如上面的日志输出中，
+下面是对日志文件的逐行分析，列表编号对应日志文件的行号：
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Quotes eld
+\end_inset
+
+@firstpass
+\begin_inset Quotes erd
+\end_inset
+
+表示\SpecialChar TeX
+对文件的第一趟扫描。第一遍扫描试图在不断词（不使用连字符）情况下找到断行的方法，即在不使用连字符情况下，寻找合适的断点（breakpoint）使得当前行的b
+adness小于
+\backslash
+pretolerance的设定阀值。对于本次输入，@firstpass后面没有任何输出，表示没有找到这样的合适断点，因此进入第二趟扫描。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+firstpass要求全部行都是不断词的吗？可以看出，secondpass中每一行的每一个单词都是断词的
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Quotes eld
+\end_inset
+
+@secondpass
+\begin_inset Quotes erd
+\end_inset
+
+表示后面是第二趟扫描的结果。在第二趟扫描中，\SpecialChar TeX
+将每一个单词都进行了分词处理。
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Quotes eld
+\end_inset
+
+[]
+\backslash
+tenrm In com-put-ing, in-ter-na-tion-al-iza-tion and lo-cal-
+\begin_inset Quotes erd
+\end_inset
+
+表示\SpecialChar TeX
+扫描到了这一行的这个位置。可以看出，每个单词已经使用连字符分好词了，并且在local-这个位置找到了一个合适的断点。
+\begin_inset Marginal
+status open
+
+\begin_layout Plain Layout
+此行最开始的[]不知道是什么意思？
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Quotes eld
+\end_inset
+
+@
+\backslash
+discretionary via @@0 b=918 p=50 d=873684
+\begin_inset Quotes erd
+\end_inset
+
+表示在local-和iza-（参见第6行）之间找到一个合适的断点，此断点是通过连字符实现的（discretionary）。开头的@表示这是一个候选的方案（在这里
+，这是唯一的候选方案），因此本行给出了经过计算后的相关参数：via @@0表示本行的起点是段落的开头（即，这是本段落的第一行），b=918表示badness=9
+18（我们设定的tolerance=1000，未超出），p=50是因为这里使用了连字符，因此需要追加
+\backslash
+hyphenpenalty（默认值是50），d=873684的计算方法（参见公式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:demerits的计算公式"
+
+\end_inset
+
+）为：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$(10+918)^2+50^2+10000$
+\end_layout
+
+\end_inset
+
+，其中10为
+\backslash
+linepenalty的默认值，918为badness，50为
+\backslash
+hyphenpenalty，10000为视觉不兼容的惩罚因子
+\backslash
+adjdemerits的默认值（参见第5行的解释）。
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Quotes eld
+\end_inset
+
+@@1: line 1.0- t=873684 -> @@0
+\begin_inset Quotes erd
+\end_inset
+
+上面第4行是目前第一行的唯一断行候选方案，因此在第4行给出了第一行的一个断行方案，编号为@@1。其中的1.0表示这是第一行的断行方案，0表示此方案下行的状态为ve
+ry loose（其他可能的数字为1：loose;2：decent;3：tight），这是因为badness=918，远远超出了very loose的默认上限2
+00。1.0-后面的小横线表示是从连字符这里断行的，t=873684表示从本段开头到当前位置总的demerits为873684（目前只有第一行的demerits数
+据，因此这里的总demerits等于第一行的demerits），->@@0表示此方案是从第@@0到@@1的断行方案。
+\end_layout
+
+\begin_layout Enumerate
+“iza-”表示\SpecialChar TeX
+扫描到了iza-这个位置。
+\end_layout
+
+\begin_layout Enumerate
+“@
+\backslash
+discretionary via @@0 b=5 p=50 d=2725”表示在iaz-这个位置又找到了一种关于第一行的合适的候选断行方案（通过via
+ @@0可以判断这是@@0的下一行的断行方案，即这是关于第一行的候选断行方案）。此方案依然是通过连字符断行（
+\backslash
+discretionary），badness=5，hyphenpenalty=50，因此demerits=2725（计算方法为：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$(10+5)^2 + 50^2$
+\end_layout
+
+\end_inset
+
+）。
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Quotes eld
+\end_inset
+
+@@2: line 1.2- t=2725 -> @@0
+\begin_inset Quotes erd
+\end_inset
+
+是基于“iza-”（参见第6行）处断行的断行方案。这是关于第一行的第二种断行方案，因为第9行（下一行）会扫描新的数据，因此\SpecialChar TeX
+认为
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+第一行的最终断行方案为@@2
+\end_layout
+
+\end_inset
+
+（优于@@1 ），此时第一行的状态是decent，虽然以连字符断行，但是总体的demertis只有2725，相当不错！事实上，\SpecialChar TeX
+在运算过程中会不断比较断行方案，后
+面出现的@@断行方案总是优于先前出现的断行方案，因此当所有计算完毕时，从最后一个@@断行方案倒推上去很容易就能够获得最终的断行方案了。
+\end_layout
+
+\begin_layout Enumerate
+“tion are means of adapt-ing com-puter soft-ware”表示\SpecialChar TeX
+扫描到了这个位置。注意到在第8行\SpecialChar TeX
+已经决断第一行的最优断行方
+案为@@2，即从“iza-”处断行，因此\SpecialChar TeX
+是从tion...开始扫描的。
+\end_layout
+
+\begin_layout Enumerate
+“@
+\backslash
+penalty via @@1 b=555 p=-10000 d=319225”表示在soft-ware处遇到了一个
+\backslash
+penalty，尝试在这里进行断行分析，形成一个候选的断行方案。via @@1表示这个断点是针对@@1方案的
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+@@1不是被抛弃了吗？
+\end_layout
+
+\end_inset
+
+，此时badness=555，设置的penalty=-10000（强制断行），因此当前行的demerits=319225（计算公式：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$(10+555)^2$
+\end_layout
+
+\end_inset
+
+）。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+画出选择路径的图，标示出最短路径
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tex/tex-line-breaking-shortest-path.pdf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\SpecialChar TeX
+的断行计算过程
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TeX的断行计算过程"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -694,7 +929,7 @@ linepenalty。plain \SpecialChar TeX
 的默认
 \backslash
 linepenalty=10，这个数值对排版的影响很小，眼睛是分辨出来的。
-\begin_inset Flex Margin Note
+\begin_inset Marginal
 status open
 
 \begin_layout Plain Layout
@@ -753,7 +988,7 @@ adjdemerits=10000，看起来还是相当重的—\SpecialChar TeX
 
 \begin_layout Section
 连字符断行：hyphenpenalty/exhyphenpenalty
-\begin_inset Flex Margin Note
+\begin_inset Marginal
 status open
 
 \begin_layout Plain Layout
@@ -809,8 +1044,8 @@ doublehyphendemerits设置意味着不鼓励使用连字符断行。
 \begin_layout Standard
 如果因为当前行的断行方案而导致倒数第二行必须使用连字符，则当前行的demerits必须叠加一个
 \backslash
-doublehyphendemerits，以表示对当前行断行方案的“惩罚”。在倒数第二行使用连字符断行被认为是不美观的，因为最后一行通常有足够的空格可以容纳更多
-的单词，为什么不充分利用这些空间呢？
+doublehyphendemerits，以表示对当前行断行方案的“惩罚”。在倒数第二行使用连字符断行被认为是不美观的，因为最后一行通常会有足够的调整空间可以帮
+助消除倒数第二行的连字符。
 \end_layout
 
 \begin_layout Standard
