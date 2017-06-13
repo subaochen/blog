@@ -8,7 +8,6 @@
 \begin_preamble
 \input{/home/subaochen/git/writing-common/article-preamble.tex}
 \usepackage{smartdiagram}
-\usepackage{marginnote}
 \end_preamble
 \use_default_options true
 \begin_modules
@@ -105,7 +104,18 @@ logicalmkup
 
 \begin_layout Standard
 断行是指分段成行，即将用户输入的段落在需要的地方插入断点标志，将段落划分为可打印输出的行。用户在文本输入时的回车通常不是最终断行的依据，因此用户输入的回车都会自
-动转换成为一个空格。
+动转换成为一个空格。断行是\SpecialChar TeX
+的核心操作之一，根据高德纳教授自己的说法，\SpecialChar TeX
+的断行机制是\SpecialChar TeX
+中最有意思的部分
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.94"
+key "texbook"
+
+\end_inset
+
+，当然也有一些复杂。
 \end_layout
 
 \begin_layout Standard
@@ -851,13 +861,12 @@ status open
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
-\begin_inset CommandInset include
-LatexCommand include
-filename "/home/subaochen/git/blog/imgs/latex/tex/tex-line-breaking-shortest-path.pdf"
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tex/tex-line-breaking-shortest-path.eps
 
 \end_inset
 
@@ -869,7 +878,7 @@ filename "/home/subaochen/git/blog/imgs/latex/tex/tex-line-breaking-shortest-pat
 
 \begin_layout Plain Layout
 \SpecialChar TeX
-的断行计算过程
+的断行计算过程，每个节点代表一个断点，节点之间的数字为当前行的demerits，竖向同列为同一行的多种断行方式
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:TeX的断行计算过程"
@@ -891,6 +900,52 @@ name "fig:TeX的断行计算过程"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+从
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TeX的断行计算过程"
+
+\end_inset
+
+中可以看出，节点2到节点5似乎应该有一条线—是的，\SpecialChar TeX
+在内部应该计算过从节点2到节点5的距离，实在是太远（严重overfull），因此舍弃了。在\SpecialChar TeX
+的log文件中，即
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TeX的断行计算过程"
+
+\end_inset
+
+中只列出了所有badness符合条件的断点，即所谓的适宜断点(feasible breakpoint)。
 \end_layout
 
 \begin_layout Section

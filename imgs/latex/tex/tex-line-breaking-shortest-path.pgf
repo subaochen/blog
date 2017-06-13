@@ -1,8 +1,8 @@
 \usetikzlibrary{graphs, graphdrawing,quotes}
 \usegdlibrary{trees, layered}
 \begin{tikzpicture}
-\graph [layered layout, nodes={circle,draw},level sep=2cm,sibling distance=2cm,grow'=right,
-edge quotes={fill=white,inner sep=1pt}]
+\graph [layered layout, nodes={circle,draw},level sep=2.5cm,sibling distance=3cm,grow'=right,
+edge quotes={fill=white,inner sep=1pt,sloped}]
 {
 0 ->1[>"2600"]->{
     2[>"29881"]->4[>"12621"],
