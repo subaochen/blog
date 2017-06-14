@@ -490,23 +490,24 @@ adjdemerits。比如下列的情形都被看作视觉不兼容：
 \end_layout
 
 \begin_layout Itemize
-当前行是一个适中（decent）的行，而下一行是松散的行。
+当前行是松散的，上一行是适中的。
 \end_layout
 
 \begin_layout Itemize
-当前行是松散的，下一行是适中的。
+当前行是松散的，上一行是紧凑的。
 \end_layout
 
 \begin_layout Itemize
-当前行是松散的，下一行是紧凑的。
-\end_layout
-
-\begin_layout Itemize
-当前行underfull，下一行overfull。
+当前行underfull，上一行overfull。
 \end_layout
 
 \begin_layout Itemize
 等等不一而足。
+\end_layout
+
+\begin_layout Standard
+当然，如果当前行的断行评价为“适宜的”（decent），则无论上一行是什么状态的，这个adjdemerits都不会影响当前行的断行评价—适宜的断行，是所有断行策
+略的终极追求。
 \end_layout
 
 \begin_layout Standard
@@ -570,17 +571,7 @@ doublehyphendemerits设置意味着不鼓励使用连字符断行。
 \end_layout
 
 \begin_layout Section
-考虑倒数第二行的断行效果：finalhyphenemerits
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-这个demerits添加到哪行？
-\end_layout
-
-\end_inset
-
-
+考虑倒数第二行的断行效果：finalhyphendemerits
 \end_layout
 
 \begin_layout Standard
@@ -1229,7 +1220,7 @@ reference "fig:TeX的断行计算过程"
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
