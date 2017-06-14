@@ -95,7 +95,8 @@ logicalmkup
 \begin_body
 
 \begin_layout Title
-断行的效果评价：demerits
+\SpecialChar TeX
+的断行机制分析
 \end_layout
 
 \begin_layout Author
@@ -134,7 +135,7 @@ http://softlab.sdut.edu.cn/blog/subaochen/2017/06/细说badness/
 使用badness评价断行后伸缩盒子对排版效果的影响，这是评价水平盒子排版效果的主要因子，但不是唯一因子。事实上，实际情况远比badness复
 杂，比如人为干预断行，连字符的影响，当前断行方案对段落中下面几行的影响等等，都应该在评估当前行断行效果时考虑进去。因此，\SpecialChar TeX
 设置了demerits变量综合评估当前行
-的断行效果。本部分内容重点讨论各种情况下对断行的影响，最后给出demerits的计算公式。
+的断行效果。本部分内容重点讨论各种情况下对断行的影响，以及demerits计算公式的用法。
 \begin_inset Note Note
 status open
 
@@ -152,7 +153,9 @@ demerits
 \end_layout
 
 \begin_layout Standard
-demerits综合评价了当前行的断行效果，其计算公式为
+\SpecialChar TeX
+中有两种demerits：行的demerits和段的demerits，段的demerits是各行的demertis之和。行的demerits综合评价了当前断行方
+案的断行效果，其计算公式为
 \begin_inset CommandInset citation
 LatexCommand cite
 after "p.98"
@@ -409,6 +412,195 @@ tolerance设定阀值的方案，并将找到的方案根据其demerits值进行
 \backslash
 pretolerance的设定阀值时，demerits的计算也会失去意义，其含义为：最坏的结果已经产生了，评估排版效果的参数还有什么作用呢？计算demerits
 进行断行评估的目的是为了方案的排序，最坏的结果意味着这个方案直接垫底（甚至放弃）好了，无论其demerits计算结果如何。
+\end_layout
+
+\begin_layout Section
+人为干预断行：linepenalty
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:人为干预断行：linepenalty"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+当施加一个linepenalty时，通常情况下无法使用拉伸满足两端对齐的排版要求（拉伸会导致badness很大），因此一般会采用压缩的方式降低badness，因
+此使用linepenalty的结果是，\SpecialChar TeX
+会尝试用更少的行完成排版，即排版效果更紧凑。
+\end_layout
+
+\begin_layout Standard
+注意到
+\backslash
+linepenalty是
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+全局性
+\end_layout
+
+\end_inset
+
+的，不能单独为某一行、某一段落设置
+\backslash
+linepenalty。plain \SpecialChar TeX
+的默认
+\backslash
+linepenalty=10，这个数值对排版的影响很小，眼睛是分辨出来的。
+\begin_inset Marginal
+status open
+
+\begin_layout Plain Layout
+既然没有多少效果，D.E.K这样设置的目的是什么？
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+例如：
+\end_layout
+
+\begin_layout Section
+视觉不兼容现象：adjdemerits
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+根据badness将行的状态分为6种，如果相邻两行的状态不一致
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+由于\SpecialChar TeX
+是顺序扫描文件的，所谓相邻两行的状态不一致是指当前行和上一行的状态相比较。
+\end_layout
+
+\end_inset
+
+，被称为“视觉不兼容”现象，\SpecialChar TeX
+认为这主要是当前行的断行方案不合理造成的，会在当前行的demertis上施加一个惩罚因子
+\backslash
+adjdemerits。比如下列的情形都被看作视觉不兼容：
+\end_layout
+
+\begin_layout Itemize
+当前行是一个适中（decent）的行，而下一行是松散的行。
+\end_layout
+
+\begin_layout Itemize
+当前行是松散的，下一行是适中的。
+\end_layout
+
+\begin_layout Itemize
+当前行是松散的，下一行是紧凑的。
+\end_layout
+
+\begin_layout Itemize
+当前行underfull，下一行overfull。
+\end_layout
+
+\begin_layout Itemize
+等等不一而足。
+\end_layout
+
+\begin_layout Standard
+plain \SpecialChar TeX
+的默认
+\backslash
+adjdemerits=10000，看起来还是相当重的—\SpecialChar TeX
+尽力避免发生视觉不兼容现象。
+\end_layout
+
+\begin_layout Section
+连字符断行：hyphenpenalty/exhyphenpenalty
+\end_layout
+
+\begin_layout Standard
+对于西文而言，连字符是另外一个考虑的重要因素：如果不使用连字符就能够获得满意的排版效果，这是最理想的情况；但是如果必须通过连字符才能获得较为满意的排版效果，则在
+评估排版的综合效果时，需要扣除连字符造成的“阅读影响”，毕竟连字符硬生生的将一个完整的单词斩做两半分列两行，读者需要费脑筋在脑海中将两部分再拼成一个完整的单词。
+\end_layout
+
+\begin_layout Standard
+当断字发生时pre-break不为空则
+\backslash
+hyphenpenalty叠加到demerits，如果pre-break为空则
+\backslash
+exhyphenpenalty叠加到demerits上。plain \SpecialChar TeX
+默认
+\backslash
+hyphenpenalty=50，
+\backslash
+exhyphenpenalty=50。
+\end_layout
+
+\begin_layout Section
+考虑连续两行的断行效果：doublehyphendemerits
+\end_layout
+
+\begin_layout Standard
+如果连续两行都使用连字符断行
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+由于\SpecialChar TeX
+是顺序扫描文件的，因此所谓连续两行都使用连字符断行是指当前行和上一行都使用连字符断行。
+\end_layout
+
+\end_inset
+
+，则当前行的demerits必须叠加一个
+\backslash
+doublehyphendemerits，以表示对当前行断行方案的“惩罚”。
+\end_layout
+
+\begin_layout Standard
+plain \SpecialChar TeX
+默认的
+\backslash
+doublehyphenemerits=10000，更大的
+\backslash
+doublehyphendemerits设置意味着不鼓励使用连字符断行。
+\end_layout
+
+\begin_layout Section
+考虑倒数第二行的断行效果：finalhyphenemerits
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+这个demerits添加到哪行？
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如果因为当前行的断行方案而导致倒数第二行必须使用连字符，则当前行的demerits必须叠加一个
+\backslash
+doublehyphendemerits，以表示对当前行断行方案的“惩罚”。在倒数第二行使用连字符断行被认为是不美观的（可以改善的），因为最后一行通常会有足够的
+调整空间可以帮助消除倒数第二行的连字符。
+\end_layout
+
+\begin_layout Standard
+plain \SpecialChar TeX
+默认的
+\backslash
+finalhyphendemerits=5000，更大的
+\backslash
+finalhyphendemerits意味着不鼓励在倒数第二行使用连字符断行。
+\end_layout
+
+\begin_layout Section
+断行实战分析
 \end_layout
 
 \begin_layout Standard
@@ -967,7 +1159,7 @@ status open
 \begin_layout Plain Layout
 \SpecialChar TeX
 的断行计算过程，每个节点代表一个断点，节点之间的数字为当前行的demerits，竖向同列为同一行的多种断行方式，即节点2、3是第2行的断点，节点4、5是第3行的
-节点。
+节点，帮助了解最短路径是如何找到的。
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:TeX的断行计算过程"
@@ -979,10 +1171,6 @@ name "fig:TeX的断行计算过程"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -1037,11 +1225,715 @@ reference "fig:TeX的断行计算过程"
 中只列出了所有badness符合条件的断点，即所谓的适宜断点(feasible breakpoint)。
 \end_layout
 
-\begin_layout Section
-人为干预断行：linepenalty
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+各个断点情况明细表，帮助了解各种惩罚因子的使用情况
 \begin_inset CommandInset label
 LatexCommand label
-name "sec:人为干预断行：linepenalty"
+name "tab:各个断点情况明细表"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="9">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="5line%">
+<column alignment="center" valignment="top" width="5line%">
+<column alignment="center" valignment="top" width="5line%">
+<column alignment="center" valignment="top" width="15line%">
+<column alignment="center" valignment="top" width="10line%">
+<column alignment="center" valignment="top" width="10line%">
+<column alignment="center" valignment="top" width="10line%">
+<column alignment="center" valignment="top" width="10line%">
+<column alignment="center" valignment="top" width="7line%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+序号
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+行号
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+badness
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+penalty(含[ex]hyphenpenalty)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+demertis
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+adjdemerits
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+doublehyphendemerits
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+finalhyphendemerits
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+状态
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@@0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@@1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+50
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2600
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+适宜
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@@2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+131
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+29881
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+空荡
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@@3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+25
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1225
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+紧凑
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@@4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+50
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+12621
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+适宜
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@@5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+44
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+50
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+15416
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+松散
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+@@6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-10000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5100
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+适宜
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -1049,159 +1941,10 @@ name "sec:人为干预断行：linepenalty"
 \end_layout
 
 \begin_layout Standard
-当施加一个linepenalty时，通常情况下无法使用拉伸满足两端对齐的排版要求（拉伸会导致badness很大），因此一般会采用压缩的方式降低badness，因
-此使用linepenalty的结果是，\SpecialChar TeX
-会尝试用更少的行完成排版，即排版效果更紧凑。
-\end_layout
-
-\begin_layout Standard
-注意到
-\backslash
-linepenalty是
-\begin_inset Flex Emph
+\begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-全局性
-\end_layout
-
-\end_inset
-
-的，不能单独为某一行、某一段落设置
-\backslash
-linepenalty。plain \SpecialChar TeX
-的默认
-\backslash
-linepenalty=10，这个数值对排版的影响很小，眼睛是分辨出来的。
-\begin_inset Marginal
-status open
-
-\begin_layout Plain Layout
-既然没有多少效果，D.E.K这样设置的目的是什么？
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-例如：
-\end_layout
-
-\begin_layout Section
-视觉不兼容：adjdemerits
-\end_layout
-
-\begin_layout Standard
-\SpecialChar TeX
-根据badness将行的状态分为6种，如果相邻两行的状态不一致，被称为“视觉不兼容”现象，\SpecialChar TeX
-认为这主要是当前行的断行方案不合理造成的，会在当前行的demertis
-上施加一个惩罚因子
-\backslash
-adjdemerits。比如下列的情形都被看作视觉不兼容：
-\end_layout
-
-\begin_layout Itemize
-当前行是一个适中（decent）的行，而下一行是松散的行。
-\end_layout
-
-\begin_layout Itemize
-当前行是松散的，下一行是适中的。
-\end_layout
-
-\begin_layout Itemize
-当前行是松散的，下一行是紧凑的。
-\end_layout
-
-\begin_layout Itemize
-当前行underfull，下一行overfull。
-\end_layout
-
-\begin_layout Itemize
-等等不一而足。
-\end_layout
-
-\begin_layout Standard
-plain \SpecialChar TeX
-的默认
-\backslash
-adjdemerits=10000，看起来还是相当重的—\SpecialChar TeX
-尽力避免发生视觉不兼容现象。
-\end_layout
-
-\begin_layout Section
-连字符断行：hyphenpenalty/exhyphenpenalty
-\begin_inset Marginal
-status open
-
-\begin_layout Plain Layout
-这两个惩罚因子，是计算进demerits，还是badness？
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-对于西文而言，连字符是另外一个考虑的重要因素：如果不使用连字符就能够获得满意的排版效果，这是最理想的情况；但是如果必须通过连字符才能获得较为满意的排版效果，则在
-评估排版的综合效果时，需要扣除连字符造成的“阅读影响”，毕竟连字符硬生生的将一个完整的单词斩做两半分列两行，读者需要费脑筋在脑海中将两部分再拼成一个完整的单词。
-\end_layout
-
-\begin_layout Standard
-当断字发生时pre-break不为空则
-\backslash
-hyphenpenalty叠加到demerits，如果pre-break为空则
-\backslash
-exhyphenpenalty叠加到demerits上。plain \SpecialChar TeX
-默认
-\backslash
-hyphenpenalty=50，
-\backslash
-exhyphenpenalty=50。
-\end_layout
-
-\begin_layout Section
-考虑下两行的断行效果：doublehyphendemerits
-\end_layout
-
-\begin_layout Standard
-如果因为当前行的断行方案而导致接下来的两行都必须使用连字符，则当前行的demerits必须叠加一个
-\backslash
-doublehyphendemerits，以表示对当前行断行方案的“惩罚”。
-\end_layout
-
-\begin_layout Standard
-plain \SpecialChar TeX
-默认的
-\backslash
-doublehyphenemerits=10000，更大的
-\backslash
-doublehyphendemerits设置意味着不鼓励使用连字符断行。
-\end_layout
-
-\begin_layout Section
-考虑倒数第二行的断行效果：finalhyphenemerits
-\end_layout
-
-\begin_layout Standard
-如果因为当前行的断行方案而导致倒数第二行必须使用连字符，则当前行的demerits必须叠加一个
-\backslash
-doublehyphendemerits，以表示对当前行断行方案的“惩罚”。在倒数第二行使用连字符断行被认为是不美观的，因为最后一行通常会有足够的调整空间可以帮
-助消除倒数第二行的连字符。
-\end_layout
-
-\begin_layout Standard
-plain \SpecialChar TeX
-默认的
-\backslash
-finalhyphendemerits=5000，更大的
-\backslash
-finalhyphendemerits意味着不鼓励在倒数第二行使用连字符断行。
-\end_layout
-
-\begin_layout Section
 \SpecialChar TeX
 的断行流程
 \begin_inset Note Note
@@ -1216,7 +1959,7 @@ status open
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 考虑到可能使用连字符进行断行，\SpecialChar TeX
 断行的基本过程如
 \begin_inset ERT
@@ -1244,7 +1987,7 @@ badness小于tolerance的设定阀值，断行就此结束；否则在每一行�
  why？），重新尝试...
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -1270,6 +2013,11 @@ filename "/home/subaochen/git/blog/imgs/latex/tex/tex-hyphen-flow.tex"
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:TeX的断行流程"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
