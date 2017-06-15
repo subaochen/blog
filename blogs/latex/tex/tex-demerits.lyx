@@ -506,8 +506,16 @@ adjdemerits。比如下列的情形都被看作视觉不兼容：
 \end_layout
 
 \begin_layout Standard
-当然，如果当前行的断行评价为“适宜的”（decent），则无论上一行是什么状态的，这个adjdemerits都不会影响当前行的断行评价—适宜的断行，是所有断行策
-略的终极追求。
+存在两个例外：
+\end_layout
+
+\begin_layout Enumerate
+如果上一行是underfull或者overfull，则当前行不进行视觉兼容性判断，因为上一行的状态没有参考价值。
+\end_layout
+
+\begin_layout Enumerate
+如果当前行的断行评价为“适宜的”（decent），则无论上一行是什么状态的，这个adjdemerits都不会影响当前行的断行评价—适宜的断行，是所有断行策略的终
+极追求。
 \end_layout
 
 \begin_layout Standard
@@ -575,10 +583,21 @@ doublehyphendemerits设置意味着不鼓励使用连字符断行。
 \end_layout
 
 \begin_layout Standard
-如果因为当前行的断行方案而导致倒数第二行必须使用连字符，则当前行的demerits必须叠加一个
-\backslash
-doublehyphendemerits，以表示对当前行断行方案的“惩罚”。在倒数第二行使用连字符断行被认为是不美观的（可以改善的），因为最后一行通常会有足够的
-调整空间可以帮助消除倒数第二行的连字符。
+在倒数第二行使用连字符断行被认为是不美观的（可以改善的），因为最后一行通常会有足够的调整空间可以帮助消除倒数第二行的连字符。因此\SpecialChar TeX
+设置了finalhyphende
+merits参数影响倒数第二行的排版效果。实验表明，finalhyphendemerits并没有计入段落的总demerits，对整个排版效果影响较小，或者这个参
+数的权重比较低。很大的finalhyphendemerits可能有助于消除在倒数第二行的例子符，比如这里的示例：
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://tex.stackexchange.com/questions/62359/hyphenation-on-next-to-last-line
+\end_layout
+
+\end_inset
+
+。
 \end_layout
 
 \begin_layout Standard

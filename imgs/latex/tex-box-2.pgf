@@ -1,6 +1,6 @@
 \newdimen\labeloffset
 \newdimen\labellength
-\labeloffset=.6cm
+\labeloffset=.65cm
 \labellength=.2cm
 \begin{tikzpicture}
     \coordinate (reference point) at (0,0); % 参考点

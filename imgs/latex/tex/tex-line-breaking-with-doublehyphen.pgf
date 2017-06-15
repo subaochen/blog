@@ -1,0 +1,11 @@
+\usetikzlibrary{graphs, graphdrawing,quotes}
+\usegdlibrary{trees, layered}
+\begin{tikzpicture}
+\graph [layered layout, nodes={circle,draw},level sep=2.5cm,sibling distance=3cm,grow'=right,
+edge quotes={color=orange,fill=white,inner sep=1pt,sloped},
+selected/.style={very thick,red}]
+{
+0 ->1[>"-24449775"]->2[>"-49393119"]->3[>"-24971536"]->4[>"*"]
+->5[>"-24997884"]->6[>"*"]->7[>"-24985644"]->8[>"*"];
+};
+\end{tikzpicture}
