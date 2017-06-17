@@ -115,6 +115,231 @@ logicalmkup
 行间距
 \end_layout
 
+\begin_layout Subsection
+影响行间距的主要参数
+\end_layout
+
+\begin_layout Standard
+以下三个参数是\SpecialChar TeX
+的primitive command：
+\end_layout
+
+\begin_layout Enumerate
+
+\backslash
+baselineskip 两行文字baseline的间距
+\end_layout
+
+\begin_layout Enumerate
+
+\backslash
+lineskiplimit 两个hbox的最小间距阀值
+\end_layout
+
+\begin_layout Enumerate
+
+\backslash
+lineskip 两个hbox的最小间距，即
+\backslash
+lineskip = 
+\backslash
+baselineskip 减去上一行的深度，再减去这一行的高度。
+\end_layout
+
+\begin_layout Standard
+当
+\backslash
+lineskip < 
+\backslash
+lineskiplimit的时候，
+\backslash
+lineskip调整为
+\backslash
+lineskiplimit，以防止两行的间距过小。这三个参数的相互关系如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:行间距调整参数示意图"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tex-lineskip.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+行间距调整参数示意图
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:行间距调整参数示意图"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+行间距的合理设置方法
+\end_layout
+
+\begin_layout Standard
+显然，行间距和字体相关，不同的字体（字体族、字体大小）应该（自动）匹配不同的行间距，因此当加载某种字体的时候，\SpecialChar TeX
+可以（应当）根据字体信息设置了默认的行间距参数。P
+lain \SpecialChar TeX
+定义了以下的宏来帮助设置默认的行间距参数：
+\end_layout
+
+\begin_layout Description
+
+\backslash
+normalbaselineskip 对应于
+\backslash
+baselineskip
+\end_layout
+
+\begin_layout Description
+
+\backslash
+normallineskiplimit 对应于
+\backslash
+lineskiplimit
+\end_layout
+
+\begin_layout Description
+
+\backslash
+normallineskip 对应于
+\backslash
+lineskip
+\end_layout
+
+\begin_layout Description
+
+\backslash
+normalbaselines 设置以上的三个参数。
+\end_layout
+
+\begin_layout Standard
+实际上，Plain \SpecialChar TeX
+默认使用10pt的罗马字体（rm），因此以上4个宏的定义为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bigskipamount=12pt plus4pt minus4pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newskip
+\backslash
+normalbaselineskip % normal value of 
+\backslash
+baselineskip
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+normalbaselineskip=12pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newskip
+\backslash
+normallineskip % normal value of 
+\backslash
+lineskip
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+normallineskip=1pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newdimen
+\backslash
+normallineskiplimit % normal value of 
+\backslash
+lineskiplimit
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+normallineskiplimit=0pt
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 段间距
 \end_layout

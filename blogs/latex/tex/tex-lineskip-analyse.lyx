@@ -1,0 +1,828 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{diagbox}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar TeX
+的行间距设置原理
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Section
+影响行间距的主要命令
+\end_layout
+
+\begin_layout Standard
+以下三个参数是\SpecialChar TeX
+的primitive command：
+\end_layout
+
+\begin_layout Enumerate
+
+\backslash
+baselineskip 两行文字baseline的间距，这是设置行间距的主要参数。
+\end_layout
+
+\begin_layout Enumerate
+
+\backslash
+lineskiplimit 两个hbox的最小间距阀值。
+\end_layout
+
+\begin_layout Enumerate
+
+\backslash
+lineskip 两个hbox的最小间距，即
+\backslash
+lineskip = 
+\backslash
+baselineskip 减去上一行的最大深度，再减去这一行的最大高度。
+\backslash
+lineskip是由\SpecialChar TeX
+计算出来的，因此不是一个可以设置的参数。
+\end_layout
+
+\begin_layout Standard
+当
+\backslash
+lineskip < 
+\backslash
+lineskiplimit的时候，
+\backslash
+lineskip调整为
+\backslash
+lineskiplimit，以防止两行的间距过小。这三个参数的相互关系如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:行间距调整参数示意图"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tex-lineskip.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+行间距调整参数示意图
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:行间距调整参数示意图"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+行间距的合理设置方法
+\end_layout
+
+\begin_layout Standard
+显然，行间距和字体相关，不同的字体（字体族、字体大小）应该（自动）匹配不同的行间距，因此当加载某种字体的时候，\SpecialChar TeX
+可以（应当）根据字体信息设置了默认的行间距参数。P
+lain \SpecialChar TeX
+定义了以下的宏来帮助设置默认的行间距参数：
+\end_layout
+
+\begin_layout Description
+
+\backslash
+normalbaselineskip 对应于
+\backslash
+baselineskip
+\end_layout
+
+\begin_layout Description
+
+\backslash
+normallineskiplimit 对应于
+\backslash
+lineskiplimit
+\end_layout
+
+\begin_layout Description
+
+\backslash
+normallineskip 对应于
+\backslash
+lineskip
+\end_layout
+
+\begin_layout Description
+
+\backslash
+normalbaselines 设置以上的三个参数。
+\end_layout
+
+\begin_layout Standard
+实际上，Plain \SpecialChar TeX
+默认使用10pt的罗马字体（rm），因此以上4个宏的定义为
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.349, p.351"
+key "texbook"
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newskip
+\backslash
+normalbaselineskip % normal value of 
+\backslash
+baselineskip
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+normalbaselineskip=12pt
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newskip
+\backslash
+normallineskip % normal value of 
+\backslash
+lineskip
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+normallineskip=1pt
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newdimen
+\backslash
+normallineskiplimit % normal value of 
+\backslash
+lineskiplimit
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+normallineskiplimit=0pt
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+normalbaselines{
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+lineskip=
+\backslash
+normallineskip
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+baselineskip=
+\backslash
+normalbaselineskip 
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+lineskiplimit=
+\backslash
+normallineskiplimit
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+对于10pt的罗马字体，12pt的行间距符合大众的审美情趣。
+\end_layout
+
+\begin_layout Standard
+Plain \SpecialChar TeX
+有了以上的定义后，只需要在解析文本之前调用
+\backslash
+normalbaselines宏
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.364"
+key "texbook"
+
+\end_inset
+
+设置字体和默认的行间距参数：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+normalbaselines
+\backslash
+rm % select roman font 
+\end_layout
+
+\begin_layout Standard
+当然，以上4个宏是Plain \SpecialChar TeX
+的默认定义，我们完全可以根据实际修改甚至重新定义，毕竟
+\backslash
+baselineskip、
+\backslash
+lineskip、
+\backslash
+lineskiplimit才是\SpecialChar TeX
+内置的行间距控制命令。
+\end_layout
+
+\begin_layout Section
+其他行间距相关命令
+\end_layout
+
+\begin_layout Description
+
+\backslash
+predepth \SpecialChar TeX
+在将一行一行的文字添加到页面时，需要知道上一行的深度以便确定
+\backslash
+lineskip，即
+\backslash
+predepth总是等于上一行的深度。如果当前是页面的第一行，则
+\backslash
+predepth=-1000pt。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+offinterlineskip 从插入点开始“忘掉”（关掉）默认的行间距设置和行间距控制手段，其目的是在特定的环境下使用特殊的手段控制行间距，比如
+\backslash
+strut。由于只是暂时关闭行间距控制，因此一般将
+\backslash
+offinterlineskip放到一个group中。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+nointerlineskip 告诉\SpecialChar TeX
+下一行不要插入行间距。这个命令只影响下一行。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+openup 在
+\backslash
+baselineskip的基础上增加当前段落的行间距。比如
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+openup .5
+\backslash
+baselineskip
+\end_layout
+
+\end_inset
+
+将当前段落设置为1.5倍行间距。
+\end_layout
+
+\begin_layout Section
+实战
+\end_layout
+
+\begin_layout Subsection
+默认行间距
+\end_layout
+
+\begin_layout Standard
+输入以下文本：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/tex-lineskip-default.tex"
+lstparams "language=TeX,caption={默认行间距效果示意文本},label={默认行间距效果示意文本}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+其输出效果如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:默认行间距的输出效果示例"
+
+\end_inset
+
+所示（默认行间距12pt）。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tex/tex-lineskip-default.png
+	width 3in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+默认行间距的输出效果示例
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:默认行间距的输出效果示例"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+2倍行间距
+\end_layout
+
+\begin_layout Standard
+使用
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+baselineskip=2
+\backslash
+baselineskip
+\end_layout
+
+\end_inset
+
+可以设置行间距为默认行间距的两倍（即24pt），效果如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:2倍行间距效果示意"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tex/tex-lineskip-double.png
+	width 3in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+2倍行间距效果示意
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:2倍行间距效果示意"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+任意行间距
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+baselineskip可以设置任意行间距，比如
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+baselineskip=14pt
+\end_layout
+
+\end_inset
+
+时的输出如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:任意行间距设置示意"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tex/tex-lineskip-14pt.png
+	width 3in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+任意行间距设置示意
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:任意行间距设置示意"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+使用
+\backslash
+lineskiplimit
+\end_layout
+
+\begin_layout Standard
+Plain \SpecialChar TeX
+的
+\backslash
+lineskiplimit设置为0，即不允许
+\backslash
+lineskip小于0，以防止过小的行间距造成文字的重叠。不过我们可以突破这个限制看一下，比如设置
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+baselineskip=2pt,
+\backslash
+lineskiplimit=-100pt
+\end_layout
+
+\end_inset
+
+。足够大的负数
+\backslash
+lineskiplimit意味着不限制行间距
+\backslash
+lineskip，2pt的行间距足以让10pt大小的文字互相堆叠在一起了，则结果如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:让\\lineskiplimit暂时失效的效果"
+
+\end_inset
+
+所示—这是《最强大脑》节目组生成混淆文字采用的方法吗？正常情况下应该没人会这么疯狂，因此设置一个合理的
+\backslash
+lineskiplimit还是很有必要的，Plain \SpecialChar TeX
+的默认设置至少保证文字之间不会重叠。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tex/tex-lineskip-3pt.png
+	width 3in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+让
+\backslash
+lineskiplimit暂时失效的效果
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:让\\lineskiplimit暂时失效的效果"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/latex"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
