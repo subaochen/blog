@@ -7,7 +7,7 @@
 \textclass ctex-article
 \begin_preamble
 \input{/home/subaochen/git/writing-common/article-preamble.tex}
-\usepackage{layouts}
+\usepackage{layout}
 \end_preamble
 \use_default_options true
 \begin_modules
@@ -34,7 +34,7 @@ logicalmkup
 \font_sf_scale 100 100
 \font_tt_scale 100 100
 \graphics default
-\default_output_format pdf5
+\default_output_format pdf4
 \output_sync 0
 \bibtex_command bibtex8
 \index_command default
@@ -51,7 +51,7 @@ logicalmkup
 \pdf_colorlinks true
 \pdf_backref false
 \pdf_pdfusetitle true
-\papersize default
+\papersize a4paper
 \use_geometry false
 \use_package amsmath 1
 \use_package amssymb 1
@@ -151,11 +151,21 @@ voffset=-.5in
 
 \end_inset
 
-。从下图中也可以帮助了解
+。这里借用\SpecialChar LaTeX
+的页面布局，也可以帮助了解
 \backslash
 hoffset和
 \backslash
-voffset的意义：
+voffset的意义（注意，Plain \SpecialChar TeX
+的页面布局和\SpecialChar LaTeX
+的页面布局不完全对应，因为\SpecialChar LaTeX
+不是基于Plain \SpecialChar TeX
+的，也不完全支持Plain \SpecialChar TeX
+的所有指令。）：
+\begin_inset Newline newline
+\end_inset
+
+
 \begin_inset ERT
 status open
 
@@ -163,72 +173,7 @@ status open
 
 
 \backslash
-begin{figure}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-currentpage
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-tryhoffset{0in}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-tryvoffset{0in}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-trytopmargin{20pt}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-tryoddsidemargin{10pt}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-tryfootskip{20pt}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-pagediagram
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-caption{page layout for this document}
-\backslash
-label{fig:pagelayout}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{figure}
+layout
 \end_layout
 
 \end_inset
@@ -276,7 +221,121 @@ parskip 决定了段落之间的间距。
 \begin_layout Description
 
 \backslash
+headline 页眉，默认为空。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+footline 页脚，默认居中显示页码。。Plain \SpecialChar TeX
+的页眉页脚很简陋，只允许
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+单行文本
+\end_layout
+
+\end_inset
+
+，因此页眉和页脚的高度很容易估算。
+\end_layout
+
+\begin_layout Description
+
+\backslash
 maxdepth 
+\end_layout
+
+\begin_layout Subsection
+实战页面布局
+\end_layout
+
+\begin_layout Standard
+首先看一下默认情况下的页面布局，输入以下的代码：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/tex-page-layout1.tex"
+lstparams "language=TeX,caption={默认的页面布局示例代码},label={默认的页面布局示例代码}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+其输出如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TeX的默认页面布局效果图"
+
+\end_inset
+
+所示。可见，第一行文本的左边界和上边界基本和页边的间距为1in，而且\SpecialChar TeX
+默认在页面的右边也留出了等宽的空白。我们设置了文字的宽度是3in，可以参照这个尺寸大致了解\SpecialChar TeX
+对
+页面布局的处理策略。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tex/tex-page-layout-1.png
+	width 5in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+TeX的默认页面布局效果图
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TeX的默认页面布局效果图"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
