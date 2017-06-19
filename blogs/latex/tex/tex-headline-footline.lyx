@@ -1,0 +1,573 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{layout}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar TeX
+的headline和footline
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Section
+基本用法
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+headline可以为每页产生一个“页眉”，
+\backslash
+footline可以为每页产生一个“页脚”。\SpecialChar TeX
+的默认页眉是空，默认页脚显示居中的页码，其实是通过以下的命令实现的：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+headline={
+\backslash
+hfil}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+footline={
+\backslash
+hss
+\backslash
+tenrm
+\backslash
+folio
+\backslash
+hss}
+\end_layout
+
+\begin_layout Standard
+由此可见，我们也很容易定制页眉和页脚的内容，比如在页眉显示页码，在页脚显示公司的地址：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+headline={
+\backslash
+hfil
+\backslash
+tenrm
+\backslash
+folio}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+footline={
+\backslash
+hfil
+\backslash
+tenrm company address here}
+\end_layout
+
+\begin_layout Standard
+不过，\SpecialChar TeX
+的页眉和页脚只支持一行文本，文本大小也有限制，具体原因参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:headline和footline的实现"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Section
+headline和footline的位置
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:layout宏包绘制的页面布局图"
+
+\end_inset
+
+是layout宏包绘制的页面布局图（A4幅面，默认布局），但是其中的页眉位置和Plain \SpecialChar TeX
+并不相符。为了考察Plain \SpecialChar TeX
+的页眉和页脚的位置，可以输入下面的代码：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/tex-page-layout3.tex"
+lstparams "language=TeX,caption={TeX的页眉页脚位置示例},label={TeX的页眉页脚位置示例}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+我们设定文本宽度为3in，高度为1in，页眉和页脚分别使用宽度为3in，高度为12pt的色块表示，正文区使用高度为1in（和vsize的设置相同）的色块表示。其
+输出结果如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:TeX的页眉和页脚位置示意图"
+
+\end_inset
+
+所示，注意到图中的圆点即为\SpecialChar TeX
+页面的原点，默认距离页面的左边距和上边距都为1in。在这里可以看到，Plain \SpecialChar TeX
+和\SpecialChar LaTeX
+对页眉页脚的处理方式是不同的，
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:layout宏包绘制的页面布局图"
+
+\end_inset
+
+中可以看出，\SpecialChar LaTeX
+的页眉是在页面原点以下的，而Plain \SpecialChar TeX
+中，页眉是在页面原点之上的。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tex/tex-headline-position.png
+	width 5in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\SpecialChar TeX
+的页眉和页脚位置示意图
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TeX的页眉和页脚位置示意图"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+layout
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+layout宏包绘制的页面布局图
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:layout宏包绘制的页面布局图"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+进一步的，我们可以增大正文区的色块大小，比如修改为1.5in（其他参数保持不变），其输出如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:增大正文区色块到1.5in时的输出结果"
+
+\end_inset
+
+所示。可以看出，正文区域的色块“插入”到了页脚中
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+显然在实际的排版中，应该尽量避免这种情况出现，即在正文中插入过高的盒子，比如图片。
+\end_layout
+
+\end_inset
+
+。这说明，页眉和页脚的位置是固定的，并不受正文区域的影响。同样的道理，修改页眉和页脚的高度也可以观察到页眉、页脚和正文的相互交叉现象，同样佐证了页眉页脚的位置在
+Plain \SpecialChar TeX
+中是固定的。用排版的专业行话来说，就是页眉和页脚的baseline在页面位置是固定的。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tex/tex-headline-position-1.png
+	width 5in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+增大正文区色块到1.5in时的输出结果
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:增大正文区色块到1.5in时的输出结果"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+headline和footline的实现
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:headline和footline的实现"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Plain \SpecialChar TeX
+的headline位置是由
+\backslash
+voffset、
+\backslash
+topskip两个参数联合决定的。实际上，Plain \SpecialChar TeX
+的页眉是由makeheadline
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.255"
+key "texbook"
+
+\end_inset
+
+宏输出的：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+makeheadline{
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+vbox to 0pt{
+\backslash
+vskip-22.5pt
+\end_layout
+
+\begin_layout LyX-Code
+        
+\backslash
+line{
+\backslash
+vbox to8.5pt{}
+\backslash
+the
+\backslash
+headline}
+\backslash
+vss
+\end_layout
+
+\begin_layout LyX-Code
+    }
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+nointerlineskip
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+在
+\begin_inset CommandInset citation
+LatexCommand cite
+key "tex-headline-gap"
+
+\end_inset
+
+中也有关于如何设置页眉和正文间距的精彩讨论。
+\end_layout
+
+\begin_layout Standard
+研究页眉和页脚的高度
+\end_layout
+
+\begin_layout Section
+headline和footline的深度定制
+\end_layout
+
+\begin_layout Subsection
+设置多行页眉和页脚
+\end_layout
+
+\begin_layout Subsection
+设置页眉和正文的间距
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/latex"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
