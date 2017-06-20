@@ -1,0 +1,1335 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{layout}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+hss/vss释疑
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Section
+有限长度的粘连
+\end_layout
+
+\begin_layout Standard
+glue（粘连）的固定伸长量和收缩量比较容易理解，比如
+\backslash
+hskip 12pt plus 6pt minus 3pt表示一个自然宽度为12pt，最大可伸长6pt，最大可收缩3pt的空白。当然，在伸长的时候\SpecialChar TeX
+实际是可以无限
+伸长的，但过渡伸长会导致下溢（underfull）。收缩不是无限的，超过规定的收缩能力直接导致上溢（overfull）。无论上溢和下溢都是\SpecialChar TeX
+的警告信息，也就是说，
+尽管发生了上溢或者下溢，\SpecialChar TeX
+依然需要进行排版的，导致的结果就是非常稀疏（下溢）或者超出了盒子的边界（上溢），比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox to 3cm{hello, world!}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox to 1cm{hello, world!}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "30line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fboxsep=0pt
+\backslash
+fbox{
+\backslash
+hbox to 3cm{hello, world!}}
+\backslash
+par
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fboxsep=0pt
+\backslash
+fbox{
+\backslash
+hbox to 1cm{hello, world!}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+一般下溢只会导致排版结果比较难看，上溢却可能导致内容超出打印范围或者造成字符的重叠，比如下面的例子：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox to 1cm{hello，}Welcome
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox to 1cm{hello, world!}Welcome
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "30line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fboxsep=0pt
+\backslash
+fbox{
+\backslash
+hbox to 1cm{hello, }}Welcome
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fboxsep=0pt
+\backslash
+fbox{
+\backslash
+hbox to 1cm{hello, world!}}Welcome
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出，由于hbox的宽度是固定的1cm，因此无论这个hbox中的内容是多少，接下来的字符都是
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+紧挨着盒子的右边界排版
+\end_layout
+
+\end_inset
+
+的。当盒子发生上溢时，盒子中的内容和盒子外的内容就发生了部分重叠了。有的时候，可以利用这一点制造特殊的效果，比如利用两个重叠的符号打印出一个新的符号，比如下面的
+代码打印了一个不等于符号：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox to 1.8pt{=}/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "30line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fboxsep=0pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fbox{
+\backslash
+hbox to 1.8pt{=}/}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+但是这种策略需要很仔细的计算盒子的宽度，而且会报告overfull，实在只能算是权宜之计，
+\backslash
+hss将完美解决这个问题。
+\end_layout
+
+\begin_layout Section
+无限长度的粘连
+\end_layout
+
+\begin_layout Standard
+有限长度的粘连允许\SpecialChar TeX
+通过badness评估排版的效果，但是无限长度的粘连（fil,fill,filll）却告诉\SpecialChar TeX
+：这就是我想要的效果，不要评估我！实际上，我们从ba
+dness的计算方法也可以看出，无限长度的粘连表达了无限的伸长或者收缩能力，其作为分母参与运算的话，badness的结果就永远是0了。
+\end_layout
+
+\begin_layout Standard
+比如下面的例子：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox spread 1cm{hello world!
+\backslash
+hfil}
+\backslash
+par
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox spread 1cm{
+\backslash
+hfil hello world!}
+\backslash
+par
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox spread 1cm{
+\backslash
+hfil hello world!
+\backslash
+hfil
+\end_layout
+
+\begin_layout Plain Layout
+
+3}
+\backslash
+par
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "30line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fboxsep=0pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fbox{
+\backslash
+hbox spread 1cm{hello world!
+\backslash
+hfil}}
+\backslash
+par
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fbox{
+\backslash
+hbox spread 1cm{
+\backslash
+hfil hello world!}}
+\backslash
+par
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fbox{
+\backslash
+hbox spread 1cm{
+\backslash
+hfil hello world!
+\backslash
+hfil}}
+\backslash
+par
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+即
+\backslash
+hfil是一个自然宽度为0pt的空白，但是可以无限伸长或者无限收缩。无限伸长意味着填满可能的所有空间，即输入点移动到
+\backslash
+hfil所在位置右边的无限远处；无限收缩意味输入点可以移动到
+\backslash
+hfil所在的位置的左边方向无限远处。这里所说的输入点是指，在
+\backslash
+hfil之后的字符的输入起点。 
+\end_layout
+
+\begin_layout Standard
+但是，这里的“无限”，还是以盒子的宽度为限的。比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox to 1cm{
+\backslash
+hfil hello world!}Welcome
+\backslash
+par
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "30line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fboxsep=0pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fbox{
+\backslash
+hbox to 1cm{
+\backslash
+hfil hello world!}}Welcome
+\backslash
+par
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+由于盒子的宽度只有1cm，因此盒子中的
+\backslash
+hfil实际上失去了意义—在这里没法伸长，也没法收缩，盒子的内容无可奈何的溢出并和盒子外面的文字重叠起来。
+\end_layout
+
+\begin_layout Standard
+为了避免这种情形，\SpecialChar TeX
+提供了
+\backslash
+hss，即两端都可以无限伸长和收缩的空白。
+\backslash
+hss的伸长和收缩能够突破盒子的宽度限制，比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox to 1cm{
+\backslash
+hss hello world!}Welcome
+\backslash
+par
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "30line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fboxsep=0pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fbox{
+\backslash
+hbox to 1cm{
+\backslash
+hss hello world!}}Welcome
+\backslash
+par
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出，
+\backslash
+hss在收缩时不受盒子宽度的限制，这一特点配合宽度为0的盒子，可以制造奇妙的效果，比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox to 0pt{=
+\backslash
+hss}/
+\backslash
+par
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "30line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fboxsep=0pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fbox{
+\backslash
+hbox to 0pt{=
+\backslash
+hss}}/
+\backslash
+par
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+实际上，
+\backslash
+llap即定义为
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+hbox to 0pt{
+\backslash
+hss #1}
+\end_layout
+
+\end_inset
+
+，rlap定义为
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+hbox to 0pt{#1 
+\backslash
+hss}
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+下面的例子在页面的空白处显示一段文字（类似于marginnote）：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox to 
+\backslash
+hsize{hello
+\backslash
+hfil
+\backslash
+hbox to 0pt{world!
+\backslash
+hss}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+其执行结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox to 
+\backslash
+hsize{hello
+\backslash
+hfil
+\backslash
+hbox to 0pt{world!
+\backslash
+hss}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+hss和
+\backslash
+vss所表现出来的效果，经常是“似乎”消除了hskip/vskip所给出的水平间隔。究其原因是，无论在vss/hss之前有多少个vskip/hskip，vss/
+hss只关心如何将其后的内容安排到指定的盒子中，因此需要移动输入点到合适的位置。比如读懂下面这个例子
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.179"
+key "impatient-tex-book"
+
+\end_inset
+
+，就算是对hss和vss彻底了解了：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language=TeX,numbers=left,numberstyle={\footnotesize}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vbox to 1pc{%盒子的高度是1pc
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+hrule width 6pc % 顶部的盒子（标尺）.
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+hbox{1} 
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+vskip 1pc%向下间距1pc，已经超出了盒子的高度
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+hbox to 2pc{
+\backslash
+hfil 2}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+vskip 1pc
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+hbox to 4pc{
+\backslash
+hfil 4}
+\end_layout
+
+\begin_layout Plain Layout
+
+	% vss的无限收缩能力使得输入点回到盒子的适当位置，好像之前所有超出盒子高度的vskip都消失了一样，目的是为了把
+\backslash
+vss后面的内容正确排到盒子中（这里盒子的高度很关键）
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+vss 
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+hbox to 3pc{
+\backslash
+hfil 3}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+hbox to 5pc{
+\backslash
+hfil 5}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+hrule width 6pc% 底部的盒子（标尺）.
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "30line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vbox to 1pc{%盒子的高度是1pc
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+hrule width 6pc % 顶部的盒子（标尺）.
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+hbox{1} 
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+vskip 1pc%向下间距1pc，已经超出了盒子的高度
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+hbox to 2pc{
+\backslash
+hfil 2}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+vskip 1pc
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+hbox to 4pc{
+\backslash
+hfil 4}
+\end_layout
+
+\begin_layout Plain Layout
+
+	% vss的无限收缩能力使得输入点回到盒子的适当位置，好像之前所有超出盒子高度的vskip都消失了一样，目的是为了把
+\backslash
+vss后面的内容正确排到盒子中（这里盒子的高度很关键）
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+vss 
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+hbox to 3pc{
+\backslash
+hfil 3}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+hbox to 5pc{
+\backslash
+hfil 5}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+hrule width 6pc% 底部的盒子（标尺）.
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/latex"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
