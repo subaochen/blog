@@ -487,6 +487,13 @@ key "texbook"
 \end_layout
 
 \begin_layout LyX-Code
+\begin_inset listings
+lstparams "language=TeX,numbers=left"
+inline false
+status open
+
+\begin_layout LyX-Code
+
 
 \backslash
 def
@@ -495,14 +502,23 @@ makeheadline{
 \end_layout
 
 \begin_layout LyX-Code
+
     
 \backslash
-vbox to 0pt{
+vbox to 0pt{%和
+\backslash
+vss配合使得盒子可以接受任意高度的内容不会导致TeX抱怨overfill
+\end_layout
+
+\begin_layout LyX-Code
+
+        
 \backslash
 vskip-22.5pt
 \end_layout
 
 \begin_layout LyX-Code
+
         
 \backslash
 line{
@@ -511,23 +527,36 @@ vbox to8.5pt{}
 \backslash
 the
 \backslash
-headline}
-\backslash
-vss
+headline}%vbox to 8.5pt{}是一个strut，使得页眉至少占据8.5pt的垂直空间
 \end_layout
 
 \begin_layout LyX-Code
+
+        
+\backslash
+vss%消除了vskip-22.5pt造成的垂直间隔，即让输入点回到vskip之前的状态
+\end_layout
+
+\begin_layout LyX-Code
+
     }
 \end_layout
 
 \begin_layout LyX-Code
+
     
 \backslash
 nointerlineskip
 \end_layout
 
 \begin_layout LyX-Code
+
 }
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
