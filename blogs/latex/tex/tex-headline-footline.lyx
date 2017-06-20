@@ -505,9 +505,7 @@ makeheadline{
 
     
 \backslash
-vbox to 0pt{%和
-\backslash
-vss配合使得盒子可以接受任意高度的内容不会导致TeX抱怨overfill
+vbox to 0pt{
 \end_layout
 
 \begin_layout LyX-Code
@@ -534,7 +532,7 @@ headline}%vbox to 8.5pt{}是一个strut，使得页眉至少占据8.5pt的垂直
 
         
 \backslash
-vss%消除了vskip-22.5pt造成的垂直间隔，即让输入点回到vskip之前的状态
+vss%使得页面首行的输出不受任何影响
 \end_layout
 
 \begin_layout LyX-Code
@@ -560,6 +558,78 @@ nointerlineskip
 \end_layout
 
 \begin_layout Standard
+\SpecialChar TeX
+巧妙的利用了0pt高度的vbox和
+\backslash
+vss，使得页眉的基线精确定位到页面“原点”之上22.5pt的位置，并且不妨碍页面首行的输出。22.5pt的计算原理如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:页眉位置计算原理图"
+
+\end_inset
+
+所示，其出发点是使得页面首行和页眉的基线间隔24pt，因此从页面原点向上回退的距离为：10pt-24pt-8.5pt=-22.5pt。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset CommandInset include
+LatexCommand include
+filename "/home/subaochen/git/blog/imgs/latex/tex/headline.pgf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+页眉位置计算原理图
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:页眉位置计算原理图"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 在
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -567,23 +637,7 @@ key "tex-headline-gap"
 
 \end_inset
 
-中也有关于如何设置页眉和正文间距的精彩讨论。
-\end_layout
-
-\begin_layout Standard
-研究页眉和页脚的高度
-\end_layout
-
-\begin_layout Section
-headline和footline的深度定制
-\end_layout
-
-\begin_layout Subsection
-设置多行页眉和页脚
-\end_layout
-
-\begin_layout Subsection
-设置页眉和正文的间距
+中也有关于如何设置页眉和正文间距的精彩讨论，可以参考。
 \end_layout
 
 \begin_layout Standard
