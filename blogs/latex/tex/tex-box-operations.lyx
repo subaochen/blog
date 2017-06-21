@@ -349,6 +349,234 @@ hbox{A}B}，而box4最终的结果是
 hbox{AB}。
 \end_layout
 
+\begin_layout Section
+移动盒子
+\end_layout
+
+\begin_layout Description
+
+\backslash
+moveleft 左移垂直盒子
+\end_layout
+
+\begin_layout Description
+
+\backslash
+moveright 右移垂直盒子
+\end_layout
+
+\begin_layout Description
+
+\backslash
+raise 升高水平盒子
+\end_layout
+
+\begin_layout Description
+
+\backslash
+lower 降低水平盒子
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+TeX的实际定义是：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+TeX{T
+\backslash
+kern-.1667em 
+\backslash
+lower.5ex
+\backslash
+hbox{E}
+\backslash
+kern-.125em X}
+\end_layout
+
+\begin_layout Standard
+也就是说，将大写字母E下沉半个字符的高度并适当紧排这三个字母。
+\end_layout
+
+\begin_layout Section
+获取盒子的尺寸
+\end_layout
+
+\begin_layout Description
+
+\backslash
+ht height
+\end_layout
+
+\begin_layout Description
+
+\backslash
+dp depth
+\end_layout
+
+\begin_layout Description
+
+\backslash
+wd width
+\end_layout
+
+\begin_layout Standard
+例如，输入如下的代码：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+setbox0=
+\backslash
+vtop{
+\backslash
+hbox{a}
+\backslash
+hbox{beige}
+\backslash
+hbox{bunny}} 
+\end_layout
+
+\begin_layout LyX-Code
+The box has wdith 
+\backslash
+the
+\backslash
+wd0, height 
+\backslash
+the
+\backslash
+ht0, and the depth 
+\backslash
+the
+\backslash
+dp0.
+\backslash
+par 
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+box0 
+\end_layout
+
+\begin_layout Standard
+其输出结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+setbox0=
+\backslash
+vtop{
+\backslash
+hbox{a}
+\backslash
+hbox{beige}
+\backslash
+hbox{bunny}} 
+\end_layout
+
+\begin_layout Plain Layout
+
+The box has wdith 
+\backslash
+the
+\backslash
+wd0, height 
+\backslash
+the
+\backslash
+ht0, and the depth 
+\backslash
+the
+\backslash
+dp0.
+\backslash
+par 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+box0 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，
+\backslash
+ht0等只是获取box0的高度，并不会清空box0。
+\end_layout
+
+\begin_layout Standard
+但是，如果
+\backslash
+box0在
+\backslash
+ht0之前执行，则
+\backslash
+ht0将无法获取box0的高度—
+\backslash
+box0阅毕即焚了。
+\end_layout
+
+\begin_layout Section
+支架、幻影和空盒子
+\end_layout
+
+\begin_layout Subsection
+
+\backslash
+strut
+\end_layout
+
+\begin_layout Standard
+支架是一个宽度为0的水平盒子，其默认高度是8.5pt，深度是3.5pt，即Plain \SpecialChar TeX
+中cmr10字体的最大高度和深度。由于支架不占水平位置，因此其常被用来调整水平
+盒子的高度和深度：如果盒子中的元素高度和深度不够大，则可以在水平盒子的任意位置插入一个支架，整个盒子的高度和深度就和支架一样大了。
+\end_layout
+
+\begin_layout Standard
+如果不使用cmr10字体，需要根据字体的尺寸重新定义
+\backslash
+strut。一个简单的
+\backslash
+strut可以定义为：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+struct{
+\backslash
+vrule width0pt height8.5pt depth3.5pt}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
 \begin_layout Example
 \start_of_appendix
 \begin_inset CommandInset bibtex
