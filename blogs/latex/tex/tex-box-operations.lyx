@@ -1,0 +1,365 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{layout}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+盒子的操作
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Section
+赋值和读取盒子
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+的盒子（box）即可以存储hbox，也可以存储vbox。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+setbox<register> 设置盒子的内容。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+box<register> 获取（读取、显示）盒子的内容，阅毕即焚。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+copy<register> 复制盒子的内容，不清空盒子。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Example
+体会
+\backslash
+box阅毕即焚的特点
+\end_layout
+
+\begin_layout Example
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "40line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+setbox0=
+\backslash
+hbox{hello}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setbox1=vbox{
+\backslash
+copy0
+\backslash
+box0
+\backslash
+box0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+box1
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+box1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "40line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+hello
+\end_layout
+
+\begin_layout Plain Layout
+hello
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Example
+可以看出，在
+\backslash
+setbox1中，最后一个
+\backslash
+box0失效了，因为前面一个
+\backslash
+box0调用已经清空了box0的内容。同样的道理，连续的两个
+\backslash
+box1调用也只有第一个有效，因此输出的结果只有两个hello。
+\end_layout
+
+\begin_layout Section
+读取和复制盒子的内容
+\end_layout
+
+\begin_layout Description
+
+\backslash
+unhbox 读取水平盒子的内容，但不包含盒子本身，阅毕即焚。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+unvbox
+\end_layout
+
+\begin_layout Description
+
+\backslash
+unhcopy 只复制盒子的内容，不清空盒子。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+unvcopy
+\end_layout
+
+\begin_layout Example
+体会
+\backslash
+unhbox只读取盒子内容的特点
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.120"
+key "texbook"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Example
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+setbox3=
+\backslash
+hbox{A} 
+\backslash
+setbox3=
+\backslash
+hbox{
+\backslash
+box3 B}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setbox4=
+\backslash
+hbox{A} 
+\backslash
+setbox4=
+\backslash
+hbox{
+\backslash
+unhbox4 B}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Example
+box3最终的结果是
+\backslash
+hbox{
+\backslash
+hbox{A}B}，而box4最终的结果是
+\backslash
+hbox{AB}。
+\end_layout
+
+\begin_layout Example
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/latex"
+options "IEEEtranS"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

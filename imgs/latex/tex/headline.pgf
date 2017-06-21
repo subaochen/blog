@@ -1,10 +1,10 @@
 \begin{tikzpicture}[label/.style={font=\scriptsize}]
-\draw(0,0)--+(3,0) node[right,label]{é¡µé¢é¦è¡åºçº¿};
+\draw(0,0)--+(3,0) node[right,label]{页面首行基线};
 \draw[color=red] (0,1) circle[radius=1pt];
-\draw(0,1)node[left,label]{é¡µé¢åç¹}--+(3,0);
-\draw(0,2.4) --+(3,0)node[right,label]{é¡µçåºçº¿};
+\draw(0,1)node[left,label]{页面原点}--+(3,0);
+\draw(0,2.4) --+(3,0)node[right,label]{页眉基线};
 \draw(1,3.25)--+(1,0);
-\draw[<->](1.5,2.4)--node[right,midway,label]{é¡µçé«8.5pt}(1.5,3.25);
-\draw[<->](2.5,0)--node[right,midway,label]{topskip=10pt}(2.5,1);
-\draw[<->](.5,0)--node[right,midway,label]{24pt}(.5,2.4);
+\draw[<->](1.5,2.4)--node[right,midway,label]{页眉高度8.5pt}(1.5,3.25);
+\draw[<->](.5,0)--node[right,midway,label]{topskip=10pt}(.5,1);
+\draw[<->](2.5,0)--node[right,midway,label]{页眉和页面首页基线间距24pt}(2.5,2.4);
 \end{tikzpicture}

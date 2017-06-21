@@ -645,7 +645,7 @@ key "tex-headline-gap"
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 bibfiles "/home/subaochen/git/bibref/latex"
-options "plain"
+options "IEEEtranS"
 
 \end_inset
 
