@@ -544,9 +544,19 @@ box0阅毕即焚了。
 \end_layout
 
 \begin_layout Subsection
-
+水平支架
 \backslash
 strut
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+有没有垂直支架？
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -573,7 +583,697 @@ struct{
 vrule width0pt height8.5pt depth3.5pt}
 \end_layout
 
+\begin_layout Standard
+一个关于支架应用的例子：
+\end_layout
+
 \begin_layout LyX-Code
+
+\backslash
+noindent
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+offinterlineskip
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+vtop{
+\backslash
+hbox{.}
+\backslash
+hbox{.(}
+\backslash
+hbox{.x}
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+hbox{.
+\backslash
+vrule height4pt depth0pt}}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+vtop{
+\backslash
+hbox{.
+\backslash
+strut}
+\backslash
+hbox{.(
+\backslash
+strut}
+\backslash
+hbox{.x
+\backslash
+strut}
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+hbox{.
+\backslash
+vrule height4pt depth0pt
+\backslash
+strut}}
+\end_layout
+
+\begin_layout Standard
+其输出结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+offinterlineskip
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+vtop{
+\backslash
+hbox{.}
+\backslash
+hbox{.(}
+\backslash
+hbox{.x}
+\backslash
+hbox{.
+\backslash
+vrule height4pt depth0pt}}
+\backslash
+hskip 20pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+vtop{
+\backslash
+hbox{.
+\backslash
+strut}
+\backslash
+hbox{.(
+\backslash
+strut}
+\backslash
+hbox{.x
+\backslash
+strut}
+\backslash
+hbox{.
+\backslash
+vrule height4pt depth0pt
+\backslash
+strut}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+数学支架mathstrut
+\end_layout
+
+\begin_layout Standard
+创建一个宽度为0,高度和深度和左大括号相同的盒子，用于数学公式的高度对齐，例如：
+\end_layout
+
+\begin_layout LyX-Code
+$$
+\backslash
+displaylines{ 
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+overline{a_1a_2} 
+\backslash
+land 
+\backslash
+overline{b_1b_2}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+quad{
+\backslash
+rm versus}
+\backslash
+quad
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+overline{a_1a_2
+\backslash
+mathstrut} 
+\backslash
+land 
+\backslash
+overline{b_1b_2
+\backslash
+mathstrut}
+\backslash
+cr
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+sqrt{
+\backslash
+epsilon} + 
+\backslash
+sqrt{
+\backslash
+xi}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+quad{
+\backslash
+rm versus}
+\backslash
+quad
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+sqrt{
+\backslash
+epsilon
+\backslash
+mathstrut} + 
+\backslash
+sqrt{
+\backslash
+xi
+\backslash
+mathstrut}
+\backslash
+cr
+\end_layout
+
+\begin_layout LyX-Code
+}$$
+\end_layout
+
+\begin_layout Standard
+其输出结果为：
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tex/mathstrut.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出，使用了mathstrut后的公式漂亮多了！
+\end_layout
+
+\begin_layout Subsection
+幻影
+\backslash
+phantom
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+phantom能够产生一个占位的空盒子，就像占位的字符存在一样，只是你看不到，也就是说，空盒子的宽度、高度和深度和参数字符是相同的。比如：
+\end_layout
+
+\begin_layout LyX-Code
+$1
+\backslash
+phantom{911}2$
+\end_layout
+
+\begin_layout Standard
+其输出结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$1
+\backslash
+phantom{911}2$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+水平幻影
+\backslash
+hphantom和垂直幻影
+\backslash
+vphantom
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+hphantom产生的水平幻影盒子和参数具有相同的宽度，但是高度和深度为0（区别于
+\backslash
+phantom），
+\backslash
+vphantom产生的垂直幻影盒子高度、深度和参数相同，但是宽度为0。
+\backslash
+phantom和
+\backslash
+hphantom、
+\backslash
+vphantom的区别在于，
+\backslash
+phantom产生的幻影是由参数的宽、高、深度完全决定的，而
+\backslash
+hphamtom、
+\backslash
+vphantom只有三个参数中的一个。比如：
+\end_layout
+
+\begin_layout LyX-Code
+$$
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+
+\backslash
+left[
+\backslash
+vphantom{u
+\backslash
+over v}t
+\backslash
+right]%
+\backslash
+vphantom保证了包围t的中括号的尺寸 
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+star
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+left[{u
+\backslash
+over v}
+\backslash
+right]
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+quad
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+{
+\backslash
+hphantom{xx}
+\backslash
+}%
+\backslash
+hphantom决定了{}中空格的多少
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+$$
+\end_layout
+
+\begin_layout Standard
+产生的结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$$
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+left[
+\backslash
+vphantom{u
+\backslash
+over v}t
+\backslash
+right] 
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+star
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+left[{u
+\backslash
+over v}
+\backslash
+right]
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+quad
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+{
+\backslash
+hphantom{xx}
+\backslash
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+$$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+\backslash
+smash
+\end_layout
+
+\begin_layout Subsection
+空盒子
+\backslash
+null
+\end_layout
+
+\begin_layout Section
+从输出列表中获取最后一个项目
+\end_layout
+
+\begin_layout Standard
+有的时候，我们需要从输出列表中获取最后一个项目：
+\end_layout
+
+\begin_layout Description
+
+\backslash
+lastkern 最后一个kern
+\end_layout
+
+\begin_layout Description
+
+\backslash
+lastskip 最后一个skip
+\end_layout
+
+\begin_layout Description
+
+\backslash
+lastpenalty 最后一个penalty
+\end_layout
+
+\begin_layout Description
+
+\backslash
+lastbox 最后一个box
+\end_layout
+
+\begin_layout Standard
+需要注意的是，显然这4个命令不能单独使用，只能作为其他命令的参数。
+\backslash
+lastbox除了获取输出列表中的最后一个项目外，还从列表中删除这个box，因此
+\backslash
+lastbox的额外作用是取消这个box的打印输出，比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+a{two
+\backslash
+kern 15pt}
+\end_layout
+
+\begin_layout Plain Layout
+
+one 
+\backslash
+a
+\backslash
+a 
+\backslash
+hskip 2
+\backslash
+lastkern three
+\backslash
+par                      
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+a{
+\backslash
+hbox{two,four}}
+\end_layout
+
+\begin_layout Plain Layout
+
+one 
+\backslash
+a
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setbox0=
+\backslash
+lastbox
+\end_layout
+
+\begin_layout Plain Layout
+
+three 
+\backslash
+box0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "40line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+a{two
+\backslash
+kern 15pt}
+\end_layout
+
+\begin_layout Plain Layout
+
+one 
+\backslash
+a
+\backslash
+a 
+\backslash
+hskip 2
+\backslash
+lastkern three
+\backslash
+par                      
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+a{
+\backslash
+hbox{two,four}}
+\end_layout
+
+\begin_layout Plain Layout
+
+one 
+\backslash
+a
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setbox0=
+\backslash
+lastbox
+\end_layout
+
+\begin_layout Plain Layout
+
+three 
+\backslash
+box0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
