@@ -102,6 +102,11 @@ logicalmkup
 宿宝臣<subaochen@126.com>
 \end_layout
 
+\begin_layout Standard
+《\SpecialChar TeX
+ for the impatient》的读书笔记。
+\end_layout
+
 \begin_layout Section
 赋值和读取盒子
 \end_layout
@@ -892,11 +897,7 @@ hphantom、
 \backslash
 vphantom的区别在于，
 \backslash
-phantom产生的幻影是由参数的宽、高、深度完全决定的，而
-\backslash
-hphamtom、
-\backslash
-vphantom只有三个参数中的一个。比如：
+phantom产生的幻影是由参数的宽、高、深度完全决定的。比如：
 \end_layout
 
 \begin_layout LyX-Code
@@ -1035,10 +1036,104 @@ $$
 smash
 \end_layout
 
+\begin_layout Standard
+smash和hphantom很相似，唯一的区别是smash会打印出参数字符来，但是将包含参数字符的盒子高度和深度设为0。例如：
+\end_layout
+
+\begin_layout LyX-Code
+$${
+\backslash
+smash{r_m 
+\backslash
+brace r_n}
+\backslash
+vphantom{r}} 
+\backslash
+Longrightarrow r$$
+\end_layout
+
+\begin_layout Standard
+输出结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$${
+\backslash
+smash{r_m 
+\backslash
+brace r_n}
+\backslash
+vphantom{r}} 
+\backslash
+Longrightarrow r$$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+注意，smash是主动将盒子的高度和深度设置为0，因此不会报告overfill错误。
+\end_layout
+
 \begin_layout Subsection
 空盒子
 \backslash
 null
+\end_layout
+
+\begin_layout Standard
+产生一个高度、深度和宽度为0的盒子。 
+\end_layout
+
+\begin_layout Section
+盒子异常相关参数
+\end_layout
+
+\begin_layout Description
+
+\backslash
+overfullrule 上溢时默认显示一个5pt宽度的黑盒子以示警告。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+hbaddness 水平badness警告阀值。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+vbadness 垂直badness警告阀值。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+badness 行或者列排版效果的综合评估。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+hfuzz 对水平溢出的容忍度，默认0.1pt。即在现有overfull上限的基础上增加一个
+\backslash
+hfuzz。通过
+\backslash
+hfuzz可以人为微调对上溢（overfull）的限制，毕竟一般文档的留边比较多，稍微溢出一点不会影响太大—人眼几乎无法辨识0.1pt（35.146微米）的偏差。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+vfuzz 对垂直溢出的容忍度，默认0.1pt。
 \end_layout
 
 \begin_layout Section
@@ -1071,6 +1166,24 @@ lastpenalty 最后一个penalty
 
 \backslash
 lastbox 最后一个box
+\end_layout
+
+\begin_layout Description
+
+\backslash
+unkern 删除列表中的最后一个kern
+\end_layout
+
+\begin_layout Description
+
+\backslash
+unskip 删除列表中的最后一个skip
+\end_layout
+
+\begin_layout Description
+
+\backslash
+unpenalty 删除列表中的最后一个penalty
 \end_layout
 
 \begin_layout Standard
@@ -1271,6 +1384,471 @@ box0
 
 
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+标尺
+\end_layout
+
+\begin_layout Description
+
+\backslash
+hrule 水平标尺
+\end_layout
+
+\begin_layout Description
+
+\backslash
+vrule 垂直标尺
+\end_layout
+
+\begin_layout Standard
+通过下例认真体会hrule和baseline的关系：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+leftline{
+\end_layout
+
+\begin_layout LyX-Code
+   
+\backslash
+vbox{
+\backslash
+hrule width.6in}
+\end_layout
+
+\begin_layout LyX-Code
+   
+\backslash
+vbox{
+\backslash
+hrule width.6in height5pt depth0pt}
+\end_layout
+
+\begin_layout LyX-Code
+   
+\backslash
+vbox{
+\backslash
+hrule width.6in height0pt depth8pt}
+\end_layout
+
+\begin_layout LyX-Code
+   
+\backslash
+vbox{
+\backslash
+hrule width.6in height5pt depth8pt}
+\end_layout
+
+\begin_layout LyX-Code
+   
+\backslash
+vbox{
+\backslash
+hbox{ baseline}
+\backslash
+kern 3pt 
+\backslash
+hrule width.6in}
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+其输出结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+leftline{
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+vbox{
+\backslash
+hrule width.6in}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+vbox{
+\backslash
+hrule width.6in height5pt depth0pt}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+vbox{
+\backslash
+hrule width.6in height0pt depth8pt}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+vbox{
+\backslash
+hrule width.6in height5pt depth8pt}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+vbox{
+\backslash
+hbox{ baseline}
+\backslash
+kern 3pt 
+\backslash
+hrule width.6in}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+另外一个例子，可以看出，\SpecialChar TeX
+智能的设置了vrule没有明确声明的参数（深度和高度）。注意到，字母x正好“坐”在baseline上：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hbox{( {
+\backslash
+vrule} {
+\backslash
+vrule width8pt} )}
+\backslash
+vskip 3pt
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hbox{( {
+\backslash
+vrule height13pt depth0pt} {
+\backslash
+vrule height13pt depth 7pt} x)}
+\end_layout
+
+\begin_layout Standard
+输出结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox{( {
+\backslash
+vrule} {
+\backslash
+vrule width8pt} x)}
+\backslash
+vskip 3pt
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox{( {
+\backslash
+vrule height13pt depth0pt} {
+\backslash
+vrule height13pt depth 7pt} x)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+前导符
+\end_layout
+
+\begin_layout Standard
+即在目录中标题和页码之间的符号（一般为句点，也可能是空格或者其他任意模式）。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+leaders 左端对齐的前导符
+\end_layout
+
+\begin_layout Description
+
+\backslash
+cleaders 居中显示的前导符
+\end_layout
+
+\begin_layout Description
+
+\backslash
+xleaders 两端对齐的前导符
+\end_layout
+
+\begin_layout Description
+
+\backslash
+dotfil 使用位于基线的点填充封闭的水平空间
+\end_layout
+
+\begin_layout Description
+
+\backslash
+hrulefil 使用位于基线的水平线填充封闭的水平空间
+\end_layout
+
+\begin_layout Description
+
+\backslash
+leftarrowfill 使用向左的箭头填充封闭的水平空间
+\end_layout
+
+\begin_layout Description
+
+\backslash
+rightarrowfill 使用向右的箭头填充封闭的水平空间
+\end_layout
+
+\begin_layout Standard
+示例：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hbox to 3in{
+\backslash
+vrule 
+\backslash
+rightarrowfill 
+\backslash
+ 3 in 
+\backslash
+leftarrowfill
+\backslash
+vrule}
+\end_layout
+
+\begin_layout Standard
+结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hbox to 3in{
+\backslash
+vrule 
+\backslash
+rightarrowfill 
+\backslash
+ 3 in 
+\backslash
+leftarrowfill
+\backslash
+vrule}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+示例：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+bulletfil{
+\backslash
+vbox to 3ex{
+\backslash
+vfil
+\backslash
+hbox{$
+\backslash
+bullet$}
+\backslash
+vfil}}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+mybox#1{
+\backslash
+vbox to 1in{#1}}%也可以写做：
+\backslash
+def
+\backslash
+mybox{
+\backslash
+vbox to 1in}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+myrule{
+\backslash
+hrule width4pt}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hsize2in
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hrule 
+\backslash
+line{
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+mybox{
+\backslash
+myrule depth8pt 
+\backslash
+leaders
+\backslash
+bulletfil
+\backslash
+vfill}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+mybox{
+\backslash
+myrule depth15pt 
+\backslash
+leaders
+\backslash
+bulletfil
+\backslash
+vfill}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+mybox{
+\backslash
+myrule depth18pt 
+\backslash
+cleaders
+\backslash
+bulletfil
+\backslash
+vfill}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+mybox{
+\backslash
+myrule depth12pt 
+\backslash
+xleaders
+\backslash
+bulletfil
+\backslash
+vfill}
+\end_layout
+
+\begin_layout LyX-Code
+}  
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hrule
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+bye
+\end_layout
+
+\begin_layout Standard
+其结果为：
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tex/leaders-demo.png
+	width 50line%
 
 \end_inset
 
