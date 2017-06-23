@@ -135,27 +135,29 @@ cr
 tabalign
 \end_layout
 
+\begin_layout Description
+
+\backslash
+settabs
+\end_layout
+
+\begin_layout Description
+
+\backslash
+cleartabs
+\end_layout
+
 \begin_layout Standard
 示例：
 \end_layout
 
-\begin_layout Standard
-结果：
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
+\begin_layout LyX-Code
 
 \backslash
 cleartabs                  
 \end_layout
 
-\begin_layout Plain Layout
-
+\begin_layout LyX-Code
 
 \backslash
 +{
@@ -167,8 +169,7 @@ bf then}&
 cr                   
 \end_layout
 
-\begin_layout Plain Layout
-
+\begin_layout LyX-Code
 
 \backslash
 +&&$a[i] := a[i+1]$;
@@ -176,8 +177,7 @@ cr
 cr 
 \end_layout
 
-\begin_layout Plain Layout
-
+\begin_layout LyX-Code
 
 \backslash
 +&&{
@@ -189,8 +189,7 @@ bf true};
 cr
 \end_layout
 
-\begin_layout Plain Layout
-
+\begin_layout LyX-Code
 
 \backslash
 +&{
@@ -200,8 +199,7 @@ bf else}&
 cr           
 \end_layout
 
-\begin_layout Plain Layout
-
+\begin_layout LyX-Code
 
 \backslash
 +&&{
@@ -213,8 +211,7 @@ bf false};
 cr
 \end_layout
 
-\begin_layout Plain Layout
-
+\begin_layout LyX-Code
 
 \backslash
 +&{
@@ -222,6 +219,304 @@ cr
 bf end if};
 \backslash
 cr  
+\end_layout
+
+\begin_layout Standard
+结果：
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tex/tabalignment.png
+	width 50line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+settabs示例：
+\end_layout
+
+\begin_layout Standard
+{
+\backslash
+hsize 3in 
+\backslash
+settabs 3 
+\backslash
+columns
+\end_layout
+
+\begin_layout Standard
+
+\backslash
++$1$ & one & first
+\backslash
+cr
+\end_layout
+
+\begin_layout Standard
+
+\backslash
++$2$ & two & second
+\backslash
+cr
+\end_layout
+
+\begin_layout Standard
+
+\backslash
++$3$ & three & third
+\backslash
+cr}
+\end_layout
+
+\begin_layout Standard
+结果：
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tex/settabs-demo.png
+	width 3in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+settabs示例2：
+\end_layout
+
+\begin_layout Standard
+%第一行是模板 
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+settabs 
+\backslash
++$1$
+\backslash
+qquad & three
+\backslash
+qquad & seventh
+\backslash
+cr
+\end_layout
+
+\begin_layout Standard
+
+\backslash
++$1$ & one & first
+\backslash
+cr
+\end_layout
+
+\begin_layout Standard
+
+\backslash
++$2$ & two & second
+\backslash
+cr
+\end_layout
+
+\begin_layout Standard
+
+\backslash
++$3$ & three & third
+\backslash
+cr
+\end_layout
+
+\begin_layout Standard
+结果：
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/tex/settabs-1.png
+	width 40line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+一般对齐
+\end_layout
+
+\begin_layout Description
+
+\backslash
+halign
+\end_layout
+
+\begin_layout Description
+
+\backslash
+halign
+\begin_inset space \space{}
+\end_inset
+
+to
+\end_layout
+
+\begin_layout Description
+
+\backslash
+halign
+\begin_inset space \space{}
+\end_inset
+
+spread
+\end_layout
+
+\begin_layout Standard
+通过模板实现任意的水平对齐，非常灵活，例如：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+tabskip=1em 
+\backslash
+halign{
+\end_layout
+
+\begin_layout LyX-Code
+%第一行是模板,#为占位符
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+hfil
+\backslash
+it#
+\backslash
+hfil & 
+\backslash
+hfil#
+\backslash
+hfil & # & 
+\backslash
+hfil
+\backslash
+$#
+\backslash
+cr
+\end_layout
+
+\begin_layout LyX-Code
+United States & Washington & dollar & 1.00
+\backslash
+cr
+\end_layout
+
+\begin_layout LyX-Code
+France & Paris & franc & 0.174
+\backslash
+cr
+\end_layout
+
+\begin_layout LyX-Code
+Israel & Jerusalem & shekel & 0.507
+\backslash
+cr
+\end_layout
+
+\begin_layout LyX-Code
+Chinese & Beijing & RMB & 6.8
+\backslash
+cr
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tabskip=1em 
+\backslash
+halign{
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfil
+\backslash
+it#
+\backslash
+hfil & 
+\backslash
+hfil#
+\backslash
+hfil & # & 
+\backslash
+hfil
+\backslash
+$#
+\backslash
+cr
+\end_layout
+
+\begin_layout Plain Layout
+
+United States & Washington & dollar & 1.00
+\backslash
+cr
+\end_layout
+
+\begin_layout Plain Layout
+
+France & Paris & franc & 0.174
+\backslash
+cr
+\end_layout
+
+\begin_layout Plain Layout
+
+Israel & Jerusalem & shekel & 0.507
+\backslash
+cr
+\end_layout
+
+\begin_layout Plain Layout
+
+Chinese & Beijing & RMB & 6.8
+\backslash
+cr
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset
