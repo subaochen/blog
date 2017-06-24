@@ -106,6 +106,13 @@ logicalmkup
 
 \begin_layout Section
 token list和宏展开
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:token-list和宏展开"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -583,16 +590,96 @@ let <token1>=<token3>，即复制token3的内容到token1中。
 
 \begin_layout Enumerate
 \SpecialChar TeX
-从token list中删除token1。
+从token list中删除token1。我们在
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:token-list和宏展开"
+
+\end_inset
+
+中已经看到，\SpecialChar TeX
+会将最终的token list输出，因此不需要输出的token要从token list中去除，比如这里的token1。注意，只是将token1从to
+ken list中拿掉，而不是删除token1本身。
 \end_layout
 
 \begin_layout Enumerate
 \SpecialChar TeX
-展开token2。
+展开token2。在展开token2时，往往根据token1的内容（从token3复制过来的，实际上是token3的内容）做进一步的判断，决定实际执行的代码。
 \end_layout
 
 \begin_layout Section
 futurelet实战解析
+\end_layout
+
+\begin_layout Standard
+这是
+\begin_inset CommandInset citation
+LatexCommand cite
+key "a-tutorial-futurelet"
+
+\end_inset
+
+中给出的非常好的例子。在\SpecialChar LaTeX
+中经常用到可选参数的命令，即允许在[]中给出不同的参数决定命令的执行路径，也可以没有这个参数。比如定义一个带可选参数的宏
+\backslash
+xx，则有两种方式使用这个宏：
+\end_layout
+
+\begin_layout Enumerate
+使用可选参数调用宏：
+\backslash
+xx[opt]{arg}，可选参数opt位于[]内。
+\end_layout
+
+\begin_layout Enumerate
+不使用可选参数调用宏：
+\backslash
+xx{arg}。
+\end_layout
+
+\begin_layout Standard
+对应于这两种使用方式，可以定义两个宏：
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+def
+\backslash
+xxWithOpt[#1]#2{...}
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+def
+\backslash
+xxNoOpt#1{...}
+\end_layout
+
+\begin_layout Standard
+显然，对于宏的使用者而言，同样的功能宏定义越少越好，那么有没有办法将上面两个宏“隐藏”起来，只提供给使用者一个
+\backslash
+xx宏定义呢？办法就是使用
+\backslash
+futurelet，参见以下的代码：
+\end_layout
+
+\begin_layout Standard
+进一步的，可以将xxWithOpt和xxNoOpt设置为“内部（私有）命令”，避免用户直接调用。
 \end_layout
 
 \begin_layout Standard
