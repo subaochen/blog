@@ -1,0 +1,611 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{trees,force,layered}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-bytype
+theorems-chap-bytype
+coderemarks
+note-inset
+tip-inset
+warning-inset
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Serif"
+\font_sans "default" "DejaVu Sans"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #d8daeb
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+说说futurelet
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Section
+token list和宏展开
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+处理文本时，首先将文本拆解成一个一个的token，组成一个token list。token有两种形式：普通的字符或者控制序列，比如文本``{
+\backslash
+hskip 36 pt}``（不包括两端的双引号），\SpecialChar TeX
+会得到一个包含8个token的token list
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.38"
+key "texbook"
+
+\end_inset
+
+（token之间使用黑色圆点隔开）：
+\end_layout
+
+\begin_layout Standard
+{
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+
+\backslash
+hskip
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ 3
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ 6
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \textvisiblespace{}
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ p
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ t
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+}
+\end_layout
+
+\begin_layout Standard
+注意到
+\backslash
+hskip和3之间的空格不是一个token，因为\SpecialChar TeX
+会忽略紧跟控制序列后面的空格。
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+的宏往往层层嵌套，不仔细梳理就如同天书。掌握了\SpecialChar TeX
+构建token list的原则和过程，也就拿到了理解宏定义和宏展开的钥匙。先看一个小例子，有如下的宏定义和调用：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+a{
+\backslash
+b}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+b{hello}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+a world
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+在解析``
+\backslash
+a world``的时候，看到的是如下的token list：
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+a
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ w
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ o
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ r
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ l
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ d
+\end_layout
+
+\begin_layout Standard
+其中的
+\backslash
+a又被展开为
+\backslash
+b，因此token list变为：
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+b
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ w
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ o
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ r
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ l
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ d
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+b又被展开为hello，token list变为为：
+\end_layout
+
+\begin_layout Standard
+h
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ e
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ l
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ l
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ o
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ w
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ o
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ r
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ l
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+bullet
+\end_layout
+
+\end_inset
+
+ d
+\end_layout
+
+\begin_layout Standard
+此时，token list没有需要展开的宏，\SpecialChar TeX
+将这个token list输出。注意到，hello和world之间并没有空格。
+\end_layout
+
+\begin_layout Section
+
+\backslash
+futurelet
+\end_layout
+
+\begin_layout Standard
+理解了\SpecialChar TeX
+拆解token list的原理，再来看futurelet就容易一些了。
+\backslash
+futurelet的定义如下：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+futurelet<token1><token2><token3>
+\end_layout
+
+\begin_layout Standard
+其执行过程如下：
+\end_layout
+
+\begin_layout Enumerate
+\SpecialChar TeX
+执行
+\backslash
+let <token1>=<token3>，即复制token3的内容到token1中。
+\end_layout
+
+\begin_layout Enumerate
+\SpecialChar TeX
+从token list中删除token1。
+\end_layout
+
+\begin_layout Enumerate
+\SpecialChar TeX
+展开token2。
+\end_layout
+
+\begin_layout Section
+futurelet实战解析
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "../../../../bibref/latex"
+options "IEEEtranS"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
