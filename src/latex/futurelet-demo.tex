@@ -1,5 +1,5 @@
-\def\xxWithOpt[#1]#2{\message opt is #1, arg is #2}
-\def\xxNoOpt#1{\message arg is #1}
+\def\xxWithOpt[#1]#2{opt is #1, arg is #2}
+\def\xxNoOpt#1{arg is #1}
 \def\xx{
     \futurelet\xxLookedAtToken\xxDecide
 }
@@ -14,5 +14,5 @@
 }
 
 \xx[a]{b}
-\xx{a}
+%\xx{a}
 \bye
