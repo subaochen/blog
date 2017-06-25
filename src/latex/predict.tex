@@ -1,0 +1,9 @@
+\def\predict#1{\toks0={#1}\futurelet\next\printer}
+\def\printer#1{A \punc\ lies ahead for \the\toks0. }
+\def\punc{
+    \ifx\next;semicolon\else
+    \ifx\next,comma\else
+    \next \fi\fi%其他情况使用\next本身
+}
+\predict{March};\predict{April},\predict{July}/
+\bye

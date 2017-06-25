@@ -104,6 +104,19 @@ logicalmkup
 宿宝臣<subaochen@126.com>
 \end_layout
 
+\begin_layout Standard
+
+\backslash
+futurelet这个primitive command，其实迷迷糊糊折腾了我一天，幸得TUGboat的一篇老文章
+\begin_inset CommandInset citation
+LatexCommand cite
+key "a-tutorial-futurelet"
+
+\end_inset
+
+救我于水火之中，值得记录一下。
+\end_layout
+
 \begin_layout Section
 token list和宏展开
 \begin_inset CommandInset label
@@ -562,6 +575,13 @@ bullet
 
 \backslash
 futurelet
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:\\futurelet"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -621,7 +641,7 @@ ken list中拿掉，而不是删除token1本身。
 \end_layout
 
 \begin_layout Section
-futurelet实战解析
+futurelet实例分析
 \end_layout
 
 \begin_layout Standard
@@ -675,11 +695,1019 @@ xxNoOpt#1{...}
 \backslash
 xx宏定义呢？办法就是使用
 \backslash
-futurelet，参见以下的代码：
+futurelet，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "futurelet应用示例:predict"
+
+\end_inset
+
+。
 \end_layout
 
 \begin_layout Standard
-进一步的，可以将xxWithOpt和xxNoOpt设置为“内部（私有）命令”，避免用户直接调用。
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/futurelet-demo.tex"
+lstparams "language=TeX,caption={futurelet应用示例},label={futurelet应用示例}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+初看起来，其中关于
+\backslash
+futurelet的调用有点怪：
+\backslash
+futurelet不是需要三个参数吗，怎么
+\backslash
+xx的宏定义中只有两个参数：
+\backslash
+futurelet
+\backslash
+xxLookedAtToken
+\backslash
+xxDecide？让我们祭出“宏展开”为token list大法，看看到底是怎么回事。
+\end_layout
+
+\begin_layout Standard
+初始的token list为：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+xx
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+[
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+a
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+]
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+{
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+b
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+}
+\end_layout
+
+\begin_layout Standard
+进一步的对
+\backslash
+xx进行宏展开为
+\backslash
+futurelet
+\backslash
+xxLookedAtToken
+\backslash
+xxDecide，token list变为：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+futurelet
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+
+\backslash
+xxLookedAtToken
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+
+\backslash
+xxDecide
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+[
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+a
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+]
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+{
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+b
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+}
+\end_layout
+
+\begin_layout Standard
+现在可以看的比较清楚了，
+\backslash
+futurelet的三个参数对应为：token1为`
+\backslash
+xxLookedAtToken`，token2为`
+\backslash
+xxDecide`，token3为`]`。下一步执行
+\backslash
+futurelet（
+\backslash
+futurelet为primitive命令，无需展开）。根据
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:\\futurelet"
+
+\end_inset
+
+中的描述，
+\backslash
+futurelet的执行分为三个步骤：
+\end_layout
+
+\begin_layout Enumerate
+执行
+\backslash
+let 
+\backslash
+xxLookedAtToken=]。
+\end_layout
+
+\begin_layout Enumerate
+从token list中删除
+\backslash
+xxLookedAtToken，此时的token list为：
+\begin_inset Newline newline
+\end_inset
+
+
+\backslash
+xxDecide
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+[
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+a
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+]
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+{
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+b
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+}
+\end_layout
+
+\begin_layout Enumerate
+展开token2，即
+\backslash
+xxDecide。此时看
+\backslash
+xxDecide的用意已经比较明显：比较
+\backslash
+xxLookedAtToken是否等于`]`，如果相等则
+\backslash
+next等于
+\backslash
+xxWithOpt，否则
+\backslash
+next等于
+\backslash
+xxNoOpt。不管怎样，
+\backslash
+xxDecide的展开总是获得
+\backslash
+next，因此
+\backslash
+xxDecide展开后的token list为：
+\begin_inset Newline newline
+\end_inset
+
+
+\backslash
+next
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+[
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+a
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+]
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+{
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+b
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+}
+\begin_inset Newline newline
+\end_inset
+
+如果是带可选参数调用
+\backslash
+xx，比如本例中
+\backslash
+xx[a]{b}，则
+\backslash
+next展开为
+\backslash
+xxWithOpt，于是token list为：
+\begin_inset Newline newline
+\end_inset
+
+
+\backslash
+xxWithOpt
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+[
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+a
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+]
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+{
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+b
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+bullet$
+\end_layout
+
+\end_inset
+
+}
+\begin_inset Newline newline
+\end_inset
+
+这正是我们想要的结果。
+\end_layout
+
+\begin_layout Standard
+至此，
+\backslash
+xx的调用过程分析完毕。由此可以看出
+\backslash
+futurelet这个命令中“future”的含义：
+\backslash
+futurelet真正展开（执行）的宏是token2，但是通过将token3赋值给token1,事先“偷看”了token2后面的代码，并在token2中根据偷看
+到的情节进行了相应的处理。本例中，
+\backslash
+futurelet偷看到了`]`符号(`]`是token3)，于是判断
+\backslash
+xx是有可选参数的（
+\backslash
+xxDecide中根据token1进行判断）。之所以不直接使用
+\backslash
+token3而要把token3赋值给token1,实际上是为了不影响后续代码的正常执行—\SpecialChar TeX
+中对命令的调用是“阅毕即焚”的，即命令执行完毕后，再次执行这个命令将没有
+结果。
+\end_layout
+
+\begin_layout Standard
+分析
+\backslash
+xx{b}的执行过程和
+\backslash
+xx[a]{b}类似，不再赘述。
+\end_layout
+
+\begin_layout Standard
+再看一个来自
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.233"
+key "impatient-tex-book"
+
+\end_inset
+
+的例子，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "futurelet应用示例:predict"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/predict.tex"
+lstparams "language=TeX,caption={futurelet应用示例:predict},label={futurelet应用示例:predict}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+简单分析其中的一种情况。`
+\backslash
+predict{March};`进行宏展开后的token list为：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+toks0={March}
+\backslash
+futurelet
+\backslash
+next
+\backslash
+printer;
+\end_layout
+
+\begin_layout Standard
+因此，token1为`
+\backslash
+next`，token2为`
+\backslash
+printer`，token3为`;`,即
+\backslash
+next的值取为`;`，继续展开
+\backslash
+printer，token list变为：
+\end_layout
+
+\begin_layout LyX-Code
+A 
+\backslash
+punc
+\backslash
+ lies ahead for March.
+\end_layout
+
+\begin_layout Standard
+继续展开
+\backslash
+punc。由于
+\backslash
+next为`;`，因此
+\backslash
+punc最终展开为semicolon，因此最后的token list为：
+\end_layout
+
+\begin_layout LyX-Code
+A semicolon lies adead for March.
+\end_layout
+
+\begin_layout Standard
+注意到，此例以极简练的手法展示了\SpecialChar TeX
+“令人迷惑”的一面：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+ifx
+\backslash
+next;semicolon
+\backslash
+else
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+ifx
+\backslash
+next,comma
+\backslash
+else
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+next
+\backslash
+fifi
+\end_layout
+
+\begin_layout Standard
+如果用更容易懂但是很罗嗦的方式来表达：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+ifx 
+\backslash
+next ;
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+let 
+\backslash
+token=semicolon
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+else
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+ifx 
+\backslash
+next ,
+\end_layout
+
+\begin_layout LyX-Code
+        
+\backslash
+let 
+\backslash
+token=comma
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+else
+\end_layout
+
+\begin_layout LyX-Code
+        
+\backslash
+let 
+\backslash
+token=
+\backslash
+next
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+fi
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+fi
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+token
+\end_layout
+
+\begin_layout Standard
+另外，
+\backslash
+printer带有一个参数，因此token3（`;`）即是
+\backslash
+futurelet的第三个参数，也是
+\backslash
+printer的参数。但是，
+\backslash
+printer中并没有使用这个参数，相当于
+\backslash
+printer吃掉了这个参数，即在输出中不显示`;`。如果去掉
+\backslash
+printer定义中的#1参数，则输出中会显示`;`，反而不符合这里的用意。
+\end_layout
+
+\begin_layout Standard
+predict{April},
+\backslash
+predict{July}/的分析于此类似。
+\end_layout
+
+\begin_layout Section
+
+\backslash
+futurelet中的“私有宏”
+\end_layout
+
+\begin_layout Standard
+在
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "futurelet应用示例:predict"
+
+\end_inset
+
+中，我们定义了三个宏：
+\backslash
+xx、
+\backslash
+xxWithOpt、
+\backslash
+xxNoOpt，但实际上我们只希望用户使用
+\backslash
+xx这个宏，
+\backslash
+xxWithOpt和
+\backslash
+xxNoOpt只是供
+\backslash
+xx调用。换用面向对象的观点来看，
+\backslash
+xxWithOpt和
+\backslash
+xxNoOpt应该设置为“私有”的，这样用户就不会看看到
+\backslash
+xxWithOpt和
+\backslash
+xxNoOpt这两个宏了。那么在\SpecialChar TeX
+中如何定义“私有宏”呢？注意到\SpecialChar TeX
+的命令（宏）名称必须是字母，即catcode
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+catcode的概念参见
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p.37"
+key "texbook"
+
+\end_inset
+
+。
+\end_layout
+
+\end_inset
+
+为11的字符。我们可以巧妙的在宏名中“混入”非字母字符，使得用户在使用这个宏时不那么方便（正常情况下无法使用这样的宏），达到定义“私有宏”的目的。比如常见的做法
+是以@开头的宏被认为是“私有宏”。我们改造本文中的例子为私有宏，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "futurelet中使用私有宏的示例"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/futurelet-private-demo.tex"
+lstparams "language=TeX,caption={futurelet中使用私有宏的示例},label={futurelet中使用私有宏的示例}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "futurelet中使用私有宏的示例"
+
+\end_inset
+
+中，首先使用
+\backslash
+catcode`@=11将`@`的catcode设置为11（字母字符），即在此后的代码中将`@`视作普通字母，因此`@`可以出现在宏名中，将原先的
+\backslash
+xxWithOpt定义为
+\backslash
+@xxWithOpt，
+\backslash
+xxNoOpt定义为
+\backslash
+@xxNoOpt。在代码的最后，或者合适的位置，必须将`@`的catcode恢复到12（其他字符），即执行
+\backslash
+catcode`@=12，防止影响其他代码的执行
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+一般来说，如果通过
+\backslash
+catcode改变了常见字符的catcode，必须在合适的位置恢复此字符的catcode设置。比如\SpecialChar TeX
+已经规定了16种catcode，虽然我们可以任意定义字符的ca
+tcode，但是对于约定俗成的用法的改变还是要慎之又慎，否则可能一着不慎，满盘皆输。
+\end_layout
+
+\end_inset
+
+。
 \end_layout
 
 \begin_layout Standard

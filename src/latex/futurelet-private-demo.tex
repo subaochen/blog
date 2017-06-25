@@ -1,0 +1,20 @@
+\catcode`@=11
+\def\@xxWithOpt[#1]#2{opt is #1, arg is #2}
+\def\@xxNoOpt#1{arg is #1}
+\def\xx{
+    \futurelet\xxLookedAtToken\xxDecide
+}
+
+\def\xxDecide{
+    \ifx\xxLookedAtToken [
+        \let\next = \@xxWithOpt
+    \else
+        \let\next = \@xxNoOpt
+    \fi
+    \next
+}
+
+\xx[a]{b}
+%\xx{a}
+\catcode`@=12
+\bye
