@@ -1,0 +1,142 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{layout}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar TeX
+的一点历史常识
+\end_layout
+
+\begin_layout Standard
+1979年：\SpecialChar TeX
+发布，其中的字体叫做“Almost Computer Modern”。彼时字体的可选择范围并不大，“Almost Computer
+ Modern
+\begin_inset Quotes erd
+\end_inset
+
+也是高德纳教授亲自设计。
+\end_layout
+
+\begin_layout Standard
+1984年：\SpecialChar LaTeX
+第一次发布，字体的使用策略没有发生变化，只有字体的名字从“Almost Computer Modern”变为“Computer Modern”。
+\end_layout
+
+\begin_layout Standard
+1989年：NSFF诞生，结束了\SpecialChar TeX
+绑定“Computer Modern”的历史，允许从5个维度选择字体。
+\end_layout
+
+\begin_layout Standard
+1994年：\SpecialChar LaTeX2e
+诞生，采用了NSFF2,即目前的字体选择策略。
+\end_layout
+
+\begin_layout Standard
+1995年：\SpecialChar LaTeX
+3项目启动，直到今天没有正式发布。
+\end_layout
+
+\begin_layout Standard
+见下图：
+\end_layout
+
+\begin_layout Standard
+很巧合，在最初的日子里，每5年\SpecialChar TeX
+就发生一次比较大的变化—主要是字体的选择策略。
+\end_layout
+
+\end_body
+\end_document
