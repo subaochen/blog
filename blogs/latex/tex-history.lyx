@@ -146,15 +146,19 @@ logicalmkup
 就发生一次比较大的变化—主要是字体的选择策略。
 \end_layout
 
-\begin_layout Standard
-参考：
+\begin_layout Section*
+参考
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 http://gad.qq.com/college/articledetail/6077
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
+http://lyanry.is-programmer.com/posts/332.html
+\end_layout
+
+\begin_layout Itemize
 The LaTeX Companion
 \end_layout
 
