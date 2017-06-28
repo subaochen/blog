@@ -100,6 +100,10 @@ logicalmkup
 \end_layout
 
 \begin_layout Standard
+1977年：高德纳教授开工TeX。
+\end_layout
+
+\begin_layout Standard
 1979年：\SpecialChar TeX
 发布，其中的字体叫做“Almost Computer Modern”。彼时字体的可选择范围并不大，“Almost Computer
  Modern
@@ -120,6 +124,10 @@ logicalmkup
 \end_layout
 
 \begin_layout Standard
+1990年：TeX 3.1发布，高德纳教授宣布“冰封”TeX。
+\end_layout
+
+\begin_layout Standard
 1994年：\SpecialChar LaTeX2e
 诞生，采用了NSFF2,即目前的字体选择策略。
 \end_layout
@@ -136,6 +144,18 @@ logicalmkup
 \begin_layout Standard
 很巧合，在最初的日子里，每5年\SpecialChar TeX
 就发生一次比较大的变化—主要是字体的选择策略。
+\end_layout
+
+\begin_layout Standard
+参考：
+\end_layout
+
+\begin_layout Standard
+http://gad.qq.com/college/articledetail/6077
+\end_layout
+
+\begin_layout Standard
+The LaTeX Companion
 \end_layout
 
 \end_body
