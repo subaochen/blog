@@ -7,29 +7,25 @@
 \textclass ctex-article
 \begin_preamble
 \input{/home/subaochen/git/writing-common/article-preamble.tex}
-\usepackage{dingbat}
-\usepackage{wasysym}
-\usepackage{marvosym}
-\usepackage[clock]{ifsym}
+\usepackage{layout}
 \end_preamble
 \use_default_options true
 \begin_modules
-theorems-bytype
-theorems-chap-bytype
 coderemarks
-note-inset
 tip-inset
+note-inset
 warning-inset
+theorems-bytype
 logicalmkup
 \end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
 \language_package default
-\inputencoding utf8-plain
+\inputencoding auto
 \fontencoding global
-\font_roman "default" "DejaVu Serif"
-\font_sans "default" "DejaVu Sans"
-\font_typewriter "default" "DejaVu Sans Mono"
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
 \font_math "auto" "auto"
 \font_default_family default
 \use_non_tex_fonts true
@@ -38,24 +34,24 @@ logicalmkup
 \font_sf_scale 100 100
 \font_tt_scale 100 100
 \graphics default
-\default_output_format pdf5
+\default_output_format pdf4
 \output_sync 0
-\bibtex_command default
+\bibtex_command bibtex8
 \index_command default
 \float_placement tbph
 \paperfontsize default
 \spacing single
 \use_hyperref true
 \pdf_bookmarks true
-\pdf_bookmarksnumbered false
-\pdf_bookmarksopen false
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
 \pdf_bookmarksopenlevel 3
 \pdf_breaklinks true
 \pdf_pdfborder true
 \pdf_colorlinks true
 \pdf_backref false
 \pdf_pdfusetitle true
-\papersize default
+\papersize a4paper
 \use_geometry false
 \use_package amsmath 1
 \use_package amssymb 1
@@ -69,20 +65,20 @@ logicalmkup
 \use_package undertilde 1
 \cite_engine basic
 \cite_engine_type default
-\biblio_style plain
+\biblio_style IEEETranS
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
 \suppress_date false
 \justification true
 \use_refstyle 1
-\boxbgcolor #d8daeb
+\boxbgcolor #c3c3c3
 \index Index
 \shortcut idx
 \color #008000
 \end_index
 \secnumdepth 3
-\tocdepth 2
+\tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
 \quotes_language english
@@ -99,137 +95,76 @@ logicalmkup
 \begin_body
 
 \begin_layout Title
-几个有趣的图形符号宏包
+\SpecialChar LaTeX
+的字体机制
 \end_layout
 
-\begin_layout Description
-dingbat： 比如
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-leftpointright
-\backslash
-quad
-\backslash
-smallpencil
-\backslash
-quad
-\backslash
-eye
-\backslash
-quad
-\backslash
-anchor
-\end_layout
-
-\end_inset
-
-。
-\end_layout
-
-\begin_layout Description
-wasysym： 各种符号，比如
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-phone
-\end_layout
-
-\end_inset
-
-。
-\end_layout
-
-\begin_layout Description
-marvosym： 比如：
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-Mobilefone
-\backslash
-quad
-\backslash
-Yinyang
-\backslash
-quad
-\backslash
-Smiley
-\backslash
-quad
-\backslash
-ManFace
-\end_layout
-
-\end_inset
-
-。
-\end_layout
-
-\begin_layout Description
-ifsym： 比较有特色的是精确的时钟，比如：
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-showclock{3}{20}
-\backslash
-quad
-\backslash
-textbf{
-\backslash
-showclock{6}{17}}
-\backslash
-quad
-\backslash
-StopWatchStart{}
-\backslash
-quad
-\backslash
-StopWatchEnd{}
-\backslash
-quad
-\backslash
-Interval{}
-\end_layout
-
-\end_inset
-
-还可以表达高低电平：
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textifsym{LLL|H|L|h|l}
-\end_layout
-
-\end_inset
-
-
+\begin_layout Section
+\SpecialChar LaTeX
+字体的维度
 \end_layout
 
 \begin_layout Standard
-这里列出的几个宏包甚至算不上抛砖引玉，完整的关于\SpecialChar LaTeX
-的图形符号宏包的描述参见The Comprehensive \SpecialChar LaTeX
- Symbol List，200多页的索引表，只怕挑
-花了眼:-)。
+\SpecialChar LaTeX
+的字体有五个维度，分别为：
+\end_layout
+
+\begin_layout Description
+编码 即
+\backslash
+fontenconding，不同的编码意味着\SpecialChar LaTeX
+需要加载不同区域的字体信息，更换字体的编码会使得文档呈现完全不同的结果（其他4个参数只是影响最终输出的字体的外形），
+这是对整篇文档影响最大的字体设置参数。\SpecialChar LaTeX
+也支持对文档中的部分段落指定特定的编码。
+\end_layout
+
+\begin_layout Description
+字体族 即
+\backslash
+fontfamily，这是字体参数中第二重要的—不同家族的字体有鲜明的特点，比如衬线（serif）字体和无衬线（sans）字体。
+\end_layout
+
+\begin_layout Description
+字体序列 即
+\backslash
+fontseries，主要指粗体和加宽字体。
+\end_layout
+
+\begin_layout Description
+字体形状 即
+\backslash
+fontshape，常规上指直立体（常规的，罗马体，upshape）、意大利体（italic）、斜体（slanted）、打印机体（等宽体）。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+可能记忆有误
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+字体大小 即
+\backslash
+fontsize
+\end_layout
+
+\begin_layout Standard
+任何时候，\SpecialChar LaTeX
+都维护着当前正在使用的字体的五维信息。注意，不是所有的字体都有完整的五维属性。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+给出例子
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
