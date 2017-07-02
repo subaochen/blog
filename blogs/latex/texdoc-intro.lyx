@@ -1,0 +1,137 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{layout}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+使用texdoc命令
+\end_layout
+
+\begin_layout Standard
+了解一个宏包的最佳路径是阅读其官方文档，在CTAN上可以找到每一个宏包及其相关文档、源代码。如果一个宏包已经在TexLive中包括了呢？texdoc可以非常方便
+的打开宏包的文档，比如查看layout宏包的文档，只需要敲入命令：
+\end_layout
+
+\begin_layout LyX-Code
+texdoc layout
+\end_layout
+
+\begin_layout Standard
+任何在texlive中包括的宏包，都可以如此操作，不需要辛苦的翻CTAN了！
+\end_layout
+
+\begin_layout Standard
+texdoc不仅仅可以打开宏包的手册，实际上收录于texlive的所有文档都可以通过texdoc（模糊）搜索和打开。比如查找和图形（graphic）相关的文档，
+可以使用如下的命令：
+\end_layout
+
+\begin_layout LyX-Code
+texdoc -l graphic
+\end_layout
+
+\begin_layout Standard
+-l表示texdoc处于“列表”模式，即texdoc搜索整个texlive目录树，给出和graphic相关的文件列表供选择。如果不使用-l，则texdoc自动匹
+配一个最合适的文档并打开—通常对于宏包文档而言就可以了。
+\end_layout
+
+\begin_layout Standard
+BTW，这个简短的texdoc介绍，大部分内容来自
+\end_layout
+
+\begin_layout LyX-Code
+texdoc texdoc
+\end_layout
+
+\end_body
+\end_document
