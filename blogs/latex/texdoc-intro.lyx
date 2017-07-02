@@ -122,7 +122,7 @@ texdoc -l graphic
 
 \begin_layout Standard
 -l表示texdoc处于“列表”模式，即texdoc搜索整个texlive目录树，给出和graphic相关的文件列表供选择。如果不使用-l，则texdoc自动匹
-配一个最合适的文档并打开—通常对于宏包文档而言就可以了。
+配一个最合适的文档并打开—通常对于宏包文档而言就可以了。-l模式的另外一个好处是，可以籍此观察texlive的文档都放到哪里了。
 \end_layout
 
 \begin_layout Standard
@@ -131,6 +131,27 @@ BTW，这个简短的texdoc介绍，大部分内容来自
 
 \begin_layout LyX-Code
 texdoc texdoc
+\end_layout
+
+\begin_layout Standard
+下面是几个“重量级”的文档，解释了如何定制\SpecialChar LaTeX
+（皆位于texmf-dist/doc/latex/base目录下）：
+\end_layout
+
+\begin_layout Itemize
+texdoc fntguide
+\end_layout
+
+\begin_layout Itemize
+texdoc clsguide
+\end_layout
+
+\begin_layout Itemize
+texdoc modguilde
+\end_layout
+
+\begin_layout Itemize
+texdoc usrguide
 \end_layout
 
 \end_body
