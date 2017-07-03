@@ -126,7 +126,7 @@ texdoc -l graphic
 \end_layout
 
 \begin_layout Standard
-BTW，这个简短的texdoc介绍，大部分内容来自
+BTW，这个简短的texdoc介绍，大部分内容来自：
 \end_layout
 
 \begin_layout LyX-Code
@@ -138,20 +138,25 @@ texdoc texdoc
 （皆位于texmf-dist/doc/latex/base目录下）：
 \end_layout
 
-\begin_layout Itemize
-texdoc fntguide
+\begin_layout Description
+cfgguide 配置指南
 \end_layout
 
-\begin_layout Itemize
-texdoc clsguide
+\begin_layout Description
+fntguide 字体指南
 \end_layout
 
-\begin_layout Itemize
-texdoc modguilde
+\begin_layout Description
+clsguide class和package编写指南
 \end_layout
 
-\begin_layout Itemize
-texdoc usrguide
+\begin_layout Description
+modguilde 修改\SpecialChar LaTeX
+指南
+\end_layout
+
+\begin_layout Description
+usrguide 简要使用指南
 \end_layout
 
 \end_body
