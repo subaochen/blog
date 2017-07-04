@@ -1,0 +1,205 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar TeX
+中字母b的N种表示方法
+\end_layout
+
+\begin_layout Description
+b 最“正宗”最简单的字母b的表示方法
+\end_layout
+
+\begin_layout Description
+
+\backslash
+b 转义的字母b，当然还是字母b
+\end_layout
+
+\begin_layout Description
+
+\backslash
+char98 其中的98是字母b的ascii码。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+char'142 '表示8进制的数字，即'142=98。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+char''62 ''表示16进制数字，即''62=98。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+char`b `b获得字符b的ASCII码值，因此这里的效果等同于
+\backslash
+char98。
+\end_layout
+
+\begin_layout Description
+^^
+\begin_inset Quotes erd
+\end_inset
+
+ 字母b的一种“奇怪”的表示方法，其要点是，^^后面的字符的ASCII码其值如果在0–63之间，则加64为真实的字母的ASCII码值，反之则减去64。在这里，
+\begin_inset Quotes erd
+\end_inset
+
+的ASCII码值为34，因此^^
+\begin_inset Quotes erd
+\end_inset
+
+表示的真实的字符的ASCII值应该是34+64=98，即字母b。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+char`^^
+\begin_inset Quotes erd
+\end_inset
+
+ 字母b的最“繁琐”的表示方法。
+\end_layout
+
+\begin_layout Standard
+注意到，
+\backslash
+char<number>的意义是从当前字体中找到序号为number的符号（glyph），因此同样的
+\backslash
+char98，在不同情况下可能得到不同的结果，取决于当前所使用的字体。当然，大多数情况下，字体的前256个字符都用来表示ASCII码，如果number<256，
+其结果相同并不意外。
+\end_layout
+
+\begin_layout Section*
+参考
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://softlab.sdut.edu.cn/blog/subaochen/2017/06/tex中数字的4种表示方法/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://softlab.sdut.edu.cn/blog/subaochen/2017/06/tex的字符输入/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
