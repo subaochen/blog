@@ -1,0 +1,227 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{layout}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar LaTeX
+的章节控制原理
+\end_layout
+
+\begin_layout Standard
+\SpecialChar LaTeX
+章节相关的命令，按照从大到小排列为：
+\end_layout
+
+\begin_layout Description
+
+\backslash
+part
+\end_layout
+
+\begin_layout Description
+
+\backslash
+chapter
+\end_layout
+
+\begin_layout Description
+
+\backslash
+sectiion
+\end_layout
+
+\begin_layout Description
+
+\backslash
+subsection
+\end_layout
+
+\begin_layout Description
+
+\backslash
+subsubsection
+\end_layout
+
+\begin_layout Description
+
+\backslash
+paragraph
+\end_layout
+
+\begin_layout Description
+
+\backslash
+subpargraph
+\end_layout
+
+\begin_layout Description
+
+\backslash
+subsubparagraph
+\end_layout
+
+\begin_layout Standard
+其中
+\backslash
+part和
+\backslash
+chapter只有在book类中才有。
+\end_layout
+
+\begin_layout Standard
+每个章节命令实际上执行了如下的动作：
+\end_layout
+
+\begin_layout Itemize
+产生正确的章节层次编号。
+\end_layout
+
+\begin_layout Itemize
+在.toc文件中保存章节的信息，以便在目录中引用。
+\end_layout
+
+\begin_layout Itemize
+如果设置了“短标题”，保存短标题信息以便（可能）用在页眉（ running head? ）。
+\end_layout
+
+\begin_layout Itemize
+格式化章节的样式，比如字体、字号、缩进、对齐方式等。
+\end_layout
+
+\begin_layout Section
+章节层次控制
+\end_layout
+
+\begin_layout Standard
+章节层次的深度由
+\backslash
+secnumdepth控制，即
+\backslash
+secnumdepth决定了章节编号的级数。比如
+\backslash
+secnumdepth=3（这是\SpecialChar LaTeX
+的book/article类的默认值），则章节编号最大到
+\backslash
+subsubsection，也就是说，
+\backslash
+paragraph没有编号。如果修改
+\backslash
+secnumdepth为5，即在导言区设置：
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+setcounter{secnumdepth}{5}
+\end_layout
+
+\begin_layout Standard
+则
+\backslash
+paragraph和
+\backslash
+subpargraph
+\end_layout
+
+\begin_layout Section
+章节序号的产生
+\end_layout
+
+\begin_layout Section
+章节字体及其样式控制
+\end_layout
+
+\end_body
+\end_document
