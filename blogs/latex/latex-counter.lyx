@@ -1,0 +1,1627 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{layout}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar LaTeX
+的计数器（counter）
+\end_layout
+
+\begin_layout Section
+创建简单计数器
+\end_layout
+
+\begin_layout Standard
+在\SpecialChar LaTeX
+中创建一个简单计数器的方法是：
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+newcounter{counterName}
+\end_layout
+
+\end_inset
+
+，比如创建一个简单计数器叫做counterA：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcounter{counterA}
+\end_layout
+
+\begin_layout Standard
+计数器的计数范围为-2
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+63
+\end_layout
+
+\end_inset
+
+-1–2
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+63
+\end_layout
+
+\end_inset
+
+-1（即long integer），通常足敷使用了。默认的，计数器的初值为0。
+\end_layout
+
+\begin_layout Section
+使用简单计数器
+\end_layout
+
+\begin_layout Standard
+使用简单计数器通常涉及到以下几方面的操作：
+\end_layout
+
+\begin_layout Subsection
+赋值计数器
+\end_layout
+
+\begin_layout Standard
+使用
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+setcounter
+\end_layout
+
+\end_inset
+
+可以直接赋值计数器，比如：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+setcounter{counterA}{1}
+\end_layout
+
+\begin_layout Standard
+使用
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+addtocounter
+\end_layout
+
+\end_inset
+
+可以在计数器原有数值的基础上增减，比如：
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+addtocounter{counterA}{1}
+\end_layout
+
+\end_inset
+
+意为counterA的数值增加1。同样的，
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+addtocounter{counterA}{-1}
+\end_layout
+
+\end_inset
+
+意为counterA的数值减少1。计数器的步进增减如此常用，\SpecialChar LaTeX
+专门定义了
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+stepcounter
+\end_layout
+
+\end_inset
+
+命令，相当于
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+addtocounter{counterName}{1}
+\end_layout
+
+\end_inset
+
+，比如：
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+stepcounter{counterA}
+\end_layout
+
+\end_inset
+
+即实现了计数器counterA的数值增加1的操作。
+\end_layout
+
+\begin_layout Subsection
+读取计数器的当前值
+\end_layout
+
+\begin_layout Standard
+计数器的当前值通常有如下的几个方法可以获得（假设计数器的名字为counterName）：
+\end_layout
+
+\begin_layout Description
+
+\backslash
+theCounterName 用于显示计数器counterName的当前值（字符串）
+\end_layout
+
+\begin_layout Description
+
+\backslash
+value{counterName} 获取计数器的当前数字（数字），不能单独使用，只能作为其他计数器的参数或者参加运算。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+arabic{counterName} 显示获取计数器的当前数字形式。
+\end_layout
+
+\begin_layout Standard
+注意区分这三种读取计数器当前值的不同用法，比如下列：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "55line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout LyX-Code
+
+
+\backslash
+newcounter{counterA}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+newcounter{counterB}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+setcounter{counterA}{1}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+setcounter{counterB}{
+\backslash
+value{counterA}}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+thecounterA
+\backslash
+quad
+\backslash
+arabic{counterA}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "38line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcounter{counterA}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcounter{counterB}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{counterA}{1}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{counterB}{
+\backslash
+value{counterA}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+thecounterA
+\backslash
+quad
+\backslash
+arabic{counterA}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在这里，给counterB赋值时，可以使用
+\backslash
+value{counterA}获取counterA的当前数字并赋值给coutnerA，但是不能使用
+\backslash
+theCounterA，因此
+\backslash
+theCounterA是一个字符串，而
+\backslash
+setcounter要求使用数字作为参数。
+\end_layout
+
+\begin_layout Standard
+注意到，
+\backslash
+setcounter{counterB}{
+\backslash
+arabic{counter}}也是可以的—
+\backslash
+arabic即可以显示计数器的当前数值，也可以当作数字来处理。但是，有些计数器不是数字形式的，需要注意
+\backslash
+arabic返回的是相应的数字值，不一定代表计数器的真实内容，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:计数器的个性化样式"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Section
+创建关联计数器
+\end_layout
+
+\begin_layout Standard
+\SpecialChar LaTeX
+中的计数器，
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+最有特色
+\end_layout
+
+\end_inset
+
+的是可以创建关联计数器，即将计数器A和计数器B关联在一起，当计数器B的数值递进改变时，计数器A会被复位（清零）。将两个计数器关联起来要使用\SpecialChar LaTeX
+的内部命令
+\backslash
+@addtoreset，比如将两个计数器counterA和counterB关联起来：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "55line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout LyX-Code
+
+
+\backslash
+newcounter{counterA}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+newcounter{counterB}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+setcounter{counterA}{1}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+setcounter{counterB}{1}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+makeatletter
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+@addtoreset{counterA}{counterB}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+makeatother
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+stepcounter{counterB}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+thecounterA
+\backslash
+quad
+\backslash
+thecounterB
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "38line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcounter{counterC}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcounter{counterD}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{counterC}{1}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{counterD}{1}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+makeatletter
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+@addtoreset{counterC}{counterC}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+makeatother
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+stepcounter{counterD}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+thecounterC
+\backslash
+quad
+\backslash
+thecounterD
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+注意到，只有使用
+\backslash
+stepcounter{counterB}递进改变counterB的数值时，counterA才会被清零复位，使用
+\backslash
+addtocounter或者
+\backslash
+setcounter命令设置counterB的数值，不会影响counterA的数值，这是\SpecialChar LaTeX
+在设计@addtoreset时的基本用意。
+\end_layout
+
+\begin_layout Standard
+由于创建关联计数器很常见，而且调用\SpecialChar LaTeX
+的内部命令不太方便，\SpecialChar LaTeX
+定义了更方便的创建关联计数器的命令，即：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcounter{counterA}[counterB]
+\end_layout
+
+\begin_layout Standard
+意即，创建一个计数器counterA，并将counterA和counterB关联在一起，当counterB递进改变时，counterA会被复位清零，实验代码如下
+：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "55line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout LyX-Code
+
+
+\backslash
+newcounter{counterB}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+newcounter{counterA}[counterB]
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+setcounter{counterA}{1}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+setcounter{counterB}{1}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+stepcounter{counterB}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+thecounterA
+\backslash
+quad
+\backslash
+thecounterB
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "38line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcounter{counterF}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcounter{counterE}[counterF]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{counterE}{1}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{counterF}{1}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+stepcounter{counterF}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+thecounterE
+\backslash
+quad
+\backslash
+thecounterF
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+计数器的个性化样式
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:计数器的个性化样式"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+每个计数器都可以通过如下的命令获取计数器的不同数字样式：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+命令
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+示例
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\backslash
+arabic
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1,2,3...
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\backslash
+alph
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+a,b,c...
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\backslash
+Alph
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A,B,C...
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\backslash
+roman
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+i,ii,iii...
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\backslash
+Roman
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I,II,III...
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\backslash
+fnsymbol
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+在脚注中使用特定的符号表示计数器的值
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+通过下面的代码可以了解以上命令的实际效果：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "68line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout LyX-Code
+
+
+\backslash
+newcounter{myCounter}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+stepcounter{myCounter}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+arabic{myCounter}
+\backslash
+quad
+\backslash
+alph{myCounter}
+\backslash
+quad
+\backslash
+Alph{myCounter}
+\backslash
+quad
+\backslash
+roman{myCounter}
+\backslash
+quad
+\backslash
+Roman{myCounter}
+\backslash
+quad
+\backslash
+fnsymbol{myCounter}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+stepcounter{myCounter}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+par
+\backslash
+arabic{myCounter}
+\backslash
+quad
+\backslash
+alph{myCounter}
+\backslash
+quad
+\backslash
+Alph{myCounter}
+\backslash
+quad
+\backslash
+roman{myCounter}
+\backslash
+quad
+\backslash
+Roman{myCounter}
+\backslash
+quad
+\backslash
+fnsymbol{myCounter}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+stepcounter{myCounter}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+par
+\backslash
+arabic{myCounter}
+\backslash
+quad
+\backslash
+alph{myCounter}
+\backslash
+quad
+\backslash
+Alph{myCounter}
+\backslash
+quad
+\backslash
+roman{myCounter}
+\backslash
+quad
+\backslash
+Roman{myCounter}
+\backslash
+quad
+\backslash
+fnsymbol{myCounter}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+stepcounter{myCounter}
+\end_layout
+
+\begin_layout LyX-Code
+
+
+\backslash
+par
+\backslash
+arabic{myCounter}
+\backslash
+quad
+\backslash
+alph{myCounter}
+\backslash
+quad
+\backslash
+Alph{myCounter}
+\backslash
+quad
+\backslash
+roman{myCounter}
+\backslash
+quad
+\backslash
+Roman{myCounter}
+\backslash
+quad
+\backslash
+fnsymbol{myCounter}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "25line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcounter{myCounter}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+stepcounter{myCounter}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+arabic{myCounter}
+\backslash
+quad
+\backslash
+alph{myCounter}
+\backslash
+quad
+\backslash
+Alph{myCounter}
+\backslash
+quad
+\backslash
+roman{myCounter}
+\backslash
+quad
+\backslash
+Roman{myCounter}
+\backslash
+quad
+\backslash
+fnsymbol{myCounter}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+stepcounter{myCounter}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+par
+\backslash
+arabic{myCounter}
+\backslash
+quad
+\backslash
+alph{myCounter}
+\backslash
+quad
+\backslash
+Alph{myCounter}
+\backslash
+quad
+\backslash
+roman{myCounter}
+\backslash
+quad
+\backslash
+Roman{myCounter}
+\backslash
+quad
+\backslash
+fnsymbol{myCounter}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+stepcounter{myCounter}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+par
+\backslash
+arabic{myCounter}
+\backslash
+quad
+\backslash
+alph{myCounter}
+\backslash
+quad
+\backslash
+Alph{myCounter}
+\backslash
+quad
+\backslash
+roman{myCounter}
+\backslash
+quad
+\backslash
+Roman{myCounter}
+\backslash
+quad
+\backslash
+fnsymbol{myCounter}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+stepcounter{myCounter}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+par
+\backslash
+arabic{myCounter}
+\backslash
+quad
+\backslash
+alph{myCounter}
+\backslash
+quad
+\backslash
+Alph{myCounter}
+\backslash
+quad
+\backslash
+roman{myCounter}
+\backslash
+quad
+\backslash
+Roman{myCounter}
+\backslash
+quad
+\backslash
+fnsymbol{myCounter}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Section
+计数器在章节序号中的应用
+\end_layout
+
+\begin_layout Standard
+\SpecialChar LaTeX
+的每个章节命令都对应着一个计数器，比如report类中包含如下的定义：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcounter{part}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcounter{chapter}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcounter{section}[chapter]
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcounter{subsection}[section]
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcounter{subsubsection}[subsection]
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcounter{paragraph}[subsubsection]
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcounter{subparagraph}[paragraph]
+\end_layout
+
+\begin_layout Standard
+以上计数器的初值都被设置为0（默认值）。
+\end_layout
+
+\begin_layout Standard
+可以看出，计数器section是和计数器chapter关联在一起的，计数器subection是和计数器section关联在一起的……比如article类，当\SpecialChar LaTeX
+顺序
+扫描文件时，发现第一个
+\backslash
+section命令，则首先将section这个计数器增加1（执行
+\backslash
+stepcounter命令），于是当前section的章节号变为1。当扫描到第二个
+\backslash
+section时，计数器section的值变为2，以此类推。当计数器section等于1时，如果扫描到
+\backslash
+subsection命令，则计数subsection做同样的递进增加动作，直到碰到新的
+\backslash
+section命令，计数器subsection被复位清零—这正是我们需要的效果。
+\end_layout
+
+\begin_layout Standard
+不过，文章实际输出的时候，我们看到章节标题的编号不是一个纯粹的数字，比如
+\backslash
+subsection形成的标题，一般是2.1这样的形式，\SpecialChar LaTeX
+是如何做到的呢？以
+\backslash
+subsection命令为例，其相应的计数器的定义是
+\backslash
+newcounter{subsection}[section]，计数器的值可以通过
+\backslash
+thesubsection取得。但是，
+\backslash
+thesubsection是一个整数，并不符合常规的标题序号的要求，因此可以重新定义
+\backslash
+thesubsection，使用
+\backslash
+thesection和
+\backslash
+thesubsection组合起来（使用.连接
+\backslash
+thesection和
+\backslash
+thesubsection）获得常规的标题序号，即：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+renewcommand
+\backslash
+thesubsection{
+\backslash
+thesection.
+\backslash
+arabic{subsection}}
+\end_layout
+
+\begin_layout Standard
+很容易想到，如果希望获得“第n节”这样形式的标题，可以重定义
+\backslash
+thesection如下：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+renewcommand
+\backslash
+thesection{第
+\backslash
+arabic{section}节}
+\end_layout
+
+\begin_layout Standard
+以此类推，
+\backslash
+thesubsection、
+\backslash
+thesubsubsection也需要相应重定义。熟悉了计数器，\SpecialChar LaTeX
+的标题序号就可以玩弄于掌股之间:-)。
+\end_layout
+
+\begin_layout Standard
+在附录中，常见的做法是使用大写字母作为章节的序号，结合
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:计数器的个性化样式"
+
+\end_inset
+
+很容易想到如下的定义方式：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+renewcommand
+\backslash
+thesection{
+\backslash
+Alph{section}}
+\end_layout
+
+\begin_layout Standard
+实际上，定理编号、公式编号等，也是通过定义相应的计数器实现的，不难揣测其实现方式。
+\end_layout
+
+\end_body
+\end_document
