@@ -1513,8 +1513,18 @@ newcounter{subparagraph}[paragraph]
 扫描文件时，发现第一个
 \backslash
 section命令，则首先将section这个计数器增加1（执行
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
 \backslash
-stepcounter命令），于是当前section的章节号变为1。当扫描到第二个
+stepcounter
+\end_layout
+
+\end_inset
+
+命令），于是当前section的章节号变为1。当扫描到第二个
 \backslash
 section时，计数器section的值变为2，以此类推。当计数器section等于1时，如果扫描到
 \backslash
@@ -1528,18 +1538,78 @@ section命令，计数器subsection被复位清零—这正是我们需要的效
 \backslash
 subsection形成的标题，一般是2.1这样的形式，\SpecialChar LaTeX
 是如何做到的呢？以
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
 \backslash
-subsection命令为例，其相应的计数器的定义是
+subsection
+\end_layout
+
+\end_inset
+
+命令为例，其相应的计数器的定义是
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
 \backslash
-newcounter{subsection}[section]，计数器的值可以通过
+newcounter{subsection}[section]
+\end_layout
+
+\end_inset
+
+，计数器的值可以通过
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
 \backslash
-thesubsection取得。但是，
+thesubsection
+\end_layout
+
+\end_inset
+
+取得。但是，
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
 \backslash
-thesubsection是一个整数，并不符合常规的标题序号的要求，因此可以重新定义
+thesubsection
+\end_layout
+
+\end_inset
+
+是一个整数，并不符合常规的标题序号的要求，因此可以重新定义
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
 \backslash
-thesubsection，使用
+thesubsection
+\end_layout
+
+\end_inset
+
+，使用
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
 \backslash
-thesection和
+thesection
+\end_layout
+
+\end_inset
+
+和
 \backslash
 thesubsection组合起来（使用.连接
 \backslash
