@@ -7,8 +7,7 @@
 \textclass ctex-article
 \begin_preamble
 \input{/home/subaochen/git/writing-common/article-preamble.tex}
-\usetikzlibrary{graphs,graphdrawing}
-\usegdlibrary{trees,force,layered}
+\usepackage{layouts}
 \end_preamble
 \use_default_options true
 \begin_modules
@@ -101,20 +100,291 @@ logicalmkup
 的标题样式定制
 \end_layout
 
+\begin_layout Standard
+章节和标题的样式是\SpecialChar LaTeX
+中最富于变化的部分，也是最容易彰显个性的设计，因此\SpecialChar LaTeX
+提供了完善的定制接口，允许几乎任意的设计章节和标题的样式。其中内部命令
+\backslash
+@startsection可以通过定制标题的名称、层次、缩进、间距、字体等方面定制标题，内部命令
+\backslash
+@secdef则可以几乎任意的设置标题。
+\end_layout
+
 \begin_layout Section
-标题样式定制命令
+
+\backslash
+@startsection
+\end_layout
+
+\begin_layout Standard
+\SpecialChar LaTeX
+把标题作为一个
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+独立的段落
+\end_layout
+
+\end_inset
+
+看待，只是标题一般只有一行。
+\backslash
+@startsection用来定义标题的样式，括以下几部分内容：
+\end_layout
+
+\begin_layout Description
+名称（name） 标题的名称用来在文档中定义标题，比如\SpecialChar LaTeX
+常见类中已经预定义的section、subsection等，
+\backslash
+@startsection可以用来重新定义这些已经预定义的标题，也可以定义新的标题。
+\end_layout
+
+\begin_layout Description
+层次（level） 标题的层次决定了标题在目录中是否展示。
+\end_layout
+
+\begin_layout Description
+缩进（indent） 标题的缩进就是段落的缩进，缩进尺寸决定了标题的起始位置，甚至可以设置“负”的缩进使得标题突出正文边界。控制缩进的命令为
+\backslash
+parindent。
+\end_layout
+
+\begin_layout Description
+段前间距（beforeskip） 标题作为独立的特殊段落，除了受一般的段落间距
+\backslash
+parskip影响外，还受
+\backslash
+beforeskip的影响。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+负值的意义?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+段后间距（afterskip） 和
+\backslash
+beforeskip类似，标题的段后间距也受
+\backslash
+afterskip的影响。
+\backslash
+beforeskip和
+\backslash
+afterskip的作用见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ref{标题相关参数的意义}
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Description
+样式 标题的对齐方式、字体等。
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{figure}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setlayoutscale{1}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+headingdiagram{ }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+caption{标题相关参数的意义}
+\backslash
+label{fig:标题相关参数的意义}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{figure}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+@startsection命令的完整形式为：
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+@startsection{name}{level}{indent}{beforeskip}{afterskip}{style}
 \end_layout
 
 \begin_layout Subsection
+article类的section定义
+\end_layout
+
+\begin_layout Standard
+研究一下\SpecialChar LaTeX
+中标准的article类中section的定义，有助于理解
+\backslash
+@startsection的用法。
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
 
 \backslash
-startsection
+newcommand
+\backslash
+section{
+\backslash
+@startsection 
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+{section}%标题的名称为section，因此文档中可以使用
+\backslash
+section定义此标题
+\end_layout
+
+\begin_layout LyX-Code
+{1}%一级标题
+\end_layout
+
+\begin_layout LyX-Code
+{
+\backslash
+z@}%缩进设置，还不知道具体啥意思
+\end_layout
+
+\begin_layout LyX-Code
+{-3.5ex 
+\backslash
+@plus -1ex 
+\backslash
+@minus -.2ex}%段前间距
+\end_layout
+
+\begin_layout LyX-Code
+{2.3ex 
+\backslash
+@plus.2ex}%段后间距
+\end_layout
+
+\begin_layout LyX-Code
+{
+\backslash
+normalfont
+\backslash
+Large
+\backslash
+bfseries}%字体设置，大号粗体
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
+定义新的标题
+\end_layout
+
+\begin_layout Subsection
+长标题问题
+\end_layout
+
+\begin_layout Standard
+标题是一个独立的段落，因此长标题并不是一个“特殊”的问题，当作一个多行段落处理即可。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+举例说明
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 
 \backslash
-secdef
+@secdef
 \end_layout
 
 \begin_layout Section
@@ -123,6 +393,10 @@ secdef
 
 \begin_layout Subsection
 fncychap
+\end_layout
+
+\begin_layout Subsection
+quotchap
 \end_layout
 
 \begin_layout Subsection
