@@ -130,7 +130,7 @@ status open
 
 看待，只是标题一般只有一行。
 \backslash
-@startsection用来定义标题的样式，括以下几部分内容：
+@startsection用来定义标题的样式， 包括以下几部分内容：
 \end_layout
 
 \begin_layout Description
@@ -141,7 +141,11 @@ status open
 \end_layout
 
 \begin_layout Description
-层次（level） 标题的层次决定了标题在目录中是否展示。
+层次（level） 标题的层次决定了标题是否显示一个序号（如果小于
+\backslash
+secnumdepth的话）或者标题在目录中是否展示（如果小于
+\backslash
+tocdepth的话）。
 \end_layout
 
 \begin_layout Description
@@ -262,7 +266,7 @@ end{figure}
 @startsection命令的完整形式为：
 \end_layout
 
-\begin_layout Standard
+\begin_layout LyX-Code
 
 \backslash
 @startsection{name}{level}{indent}{beforeskip}{afterskip}{style}
@@ -274,7 +278,17 @@ article类的section定义
 
 \begin_layout Standard
 研究一下\SpecialChar LaTeX
-中标准的article类中section的定义，有助于理解
+中标准的article类中section的定义
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+参见/usr/share/texlive/texmf-dist/tex/latex/base/article.cls，如果是标准apt安装texlive的话。
+\end_layout
+
+\end_inset
+
+，有助于理解
 \backslash
 @startsection的用法。
 \end_layout
@@ -363,6 +377,17 @@ bfseries}%字体设置，大号粗体
 定义新的标题
 \end_layout
 
+\begin_layout Standard
+作为\SpecialChar LaTeX
+的内部命令，
+\backslash
+@startsection不仅可以用来重新定义常见的标题，比如
+\backslash
+section，
+\backslash
+subsection等，当然也可以用来定义新的标题，这在定义新的文档类时特别有用。
+\end_layout
+
 \begin_layout Subsection
 长标题问题
 \end_layout
@@ -384,7 +409,470 @@ status open
 \begin_layout Section
 
 \backslash
-@secdef
+secdef
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+secdef可以方便的定义存在三种形式的命令（这在\SpecialChar LaTeX
+中是很常见的情形），即如果这样定义命令：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcommand
+\backslash
+cmd
+\backslash
+{
+\backslash
+secdef
+\backslash
+cmda
+\backslash
+cmdb}
+\end_layout
+
+\begin_layout Standard
+则实际调用cmd命令的三种情形为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\backslash
+cmd{argument}
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+实际调用：
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\backslash
+cmda[argument]{argument}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\backslash
+cmd[options]{argument}
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+实际调用：
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\backslash
+cmda[options]{argument}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\backslash
+cmd*{argument}
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+实际调用：
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\backslash
+cmdb{argument}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+下面以自定义附录为例，说明
+\backslash
+secdef的用法。自定义附录的命令为
+\backslash
+appendix，用法如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+	
+\backslash
+appendix
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+section{the list of all commands}
+\end_layout
+
+\begin_layout Plain Layout
+
+	The follows the text of the first section in the appendix.
+ Some more text in the appendix.
+ Some more text in the appendix.
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+section
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这看起来和一个普通的段落没有什么两样，看一下
+\backslash
+appendix、
+\backslash
+Appendix、
+\backslash
+sAppendix的定义：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+makeatletter
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand
+\backslash
+appendix{
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+renewcommand
+\backslash
+section{%重定义section
+\end_layout
+
+\begin_layout Plain Layout
+
+    	
+\backslash
+newpage
+\backslash
+thispagestyle{plain}%新起一页，并设置页面样式为plain，即只在页面底部显示页码
+\end_layout
+
+\begin_layout Plain Layout
+
+    	
+\backslash
+suppressfloats[t]% no top floats
+\end_layout
+
+\begin_layout Plain Layout
+
+    	
+\backslash
+@afterindentfalse% no indent
+\end_layout
+
+\begin_layout Plain Layout
+
+    	
+\backslash
+secdef
+\backslash
+Appendix
+\backslash
+sAppendix%执行
+\backslash
+Appendix or 
+\backslash
+sAppendix
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+setcounter{section}{0}% 复位section计数器
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+renewcommand
+\backslash
+thesection{
+\backslash
+Alph{section}}%
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcommand
+\backslash
+Appendix[2][?]{% 附录的复杂形式
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+refstepcounter{section}%step counter/ set label
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+addcontentsline{toc}{appendix}{%创建目录条目
+\end_layout
+
+\begin_layout Plain Layout
+
+		
+\backslash
+protect
+\backslash
+numberline{
+\backslash
+appendixname~
+\backslash
+thesection}#1
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+	{
+\backslash
+raggedleft
+\backslash
+large
+\backslash
+bfseries 
+\backslash
+appendixname
+\backslash
+ %目录名称和序号
+\end_layout
+
+\begin_layout Plain Layout
+
+		
+\backslash
+thesection
+\backslash
+par 
+\backslash
+centering#2
+\backslash
+par
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+sectionmark{#1}% add to running head
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+@afterheading%prepare indentation handling
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+addvspace{
+\backslash
+baselineskip}% space after heading
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcommand
+\backslash
+sAppendix[1]{%简单的目录样式（star form）
+\end_layout
+
+\begin_layout Plain Layout
+
+	{
+\backslash
+raggedleft
+\backslash
+large
+\backslash
+bfseries
+\backslash
+appendixname
+\backslash
+par
+\backslash
+centering#1
+\backslash
+par}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+@afterheading
+\backslash
+addvspace{
+\backslash
+baselineskip}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+makeatother
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -395,12 +883,24 @@ status open
 fncychap
 \end_layout
 
+\begin_layout Standard
+正如其名，fncychap实现了7种不同的chapter样式—但是不支持中文。
+\end_layout
+
 \begin_layout Subsection
 quotchap
 \end_layout
 
+\begin_layout Standard
+可以在每章的开头（或者指定的位置）显示一句“名言警句”，但是不能针对每章定制，灵活性不够好。
+\end_layout
+
 \begin_layout Subsection
 titlesec
+\end_layout
+
+\begin_layout Standard
+可以对标题进行非常详细的定制，对中文的支持不够好。
 \end_layout
 
 \end_body
