@@ -45,7 +45,7 @@ varwidth
 \paperfontsize default
 \spacing single
 \use_hyperref false
-\papersize default
+\papersize a4paper
 \use_geometry false
 \use_package amsmath 1
 \use_package amssymb 1
@@ -101,6 +101,333 @@ emph和emphstyle可以就emph指定的词汇列表以emphstyle给定的方式显
 \end_layout
 
 \begin_layout Standard
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstset{emph={Sum,N},emphstyle=
+\backslash
+color{red},
+\end_layout
+
+\begin_layout Plain Layout
+
+	emph=[2]I,emphstyle=[2]
+\backslash
+underbar}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=Ada]
+\end_layout
+
+\begin_layout Plain Layout
+
+Sum: Integer;
+\end_layout
+
+\begin_layout Plain Layout
+
+Sum := 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+for I in 1..N loop
+\end_layout
+
+\begin_layout Plain Layout
+
+Sum := Sum + A(I);
+\end_layout
+
+\begin_layout Plain Layout
+
+end loop;
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language={[LaTeX]TeX},escapechar={\@}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{listings,color}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstset{emph={Sum,N},emphstyle=
+\backslash
+color{red},
+\end_layout
+
+\begin_layout Plain Layout
+
+	emph=[2]I,emphstyle=[2]
+\backslash
+underbar}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=Ada]
+\end_layout
+
+\begin_layout Plain Layout
+
+Sum: Integer;
+\end_layout
+
+\begin_layout Plain Layout
+
+Sum := 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+for I in 1..N loop
+\end_layout
+
+\begin_layout Plain Layout
+
+Sum := Sum + A(I);
+\end_layout
+
+\begin_layout Plain Layout
+
+end loop;
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\backslash
+textbackslash@end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+行内的代码
+\end_layout
+
+\begin_layout Standard
+如果在正常文本中嵌入少许代码，可以使用
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+lstinline
+\end_layout
+
+\end_inset
+
+，比之设置文本样式，其好处是可以充分利用listings宏包提供的关键字加量等特性，比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstset{language=Java}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Java的常见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline[keywordstyle=
+\backslash
+underbar]!for!
+\end_layout
+
+\end_inset
+
+循环示例：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline!i=0;i<n;i++!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstset{language=Java}
+\end_layout
+
+\begin_layout Plain Layout
+
+Java的常见
+\backslash
+lstinline[keywordstyle=
+\backslash
+underbar]!for!循环示例:
+\backslash
+lstinline!i=0;i<n;i++!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
