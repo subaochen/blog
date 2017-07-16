@@ -1,0 +1,551 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}%清空页眉页脚
+\fancyhead[LE,RO]{\thepage}%页码位置：偶数页居左，奇数页居右
+\fancyhead[RE]{\leftmark}%在偶数页显示\leftmark，通常为章节标题
+\fancyhead[LO]{\rightmark}%在奇数页左边显示\rightmark，通常为章节标题
+
+\fancypagestyle{plain}{%重新定义plain样式，在章的首页使用plain样式
+    \fancyhf{}
+    \cfoot{\thepage}
+    \renewcommand\headrulewidth{0pt}
+}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+fancyhdr宏包
+\end_layout
+
+\begin_layout Standard
+fancyhdr是自定义页眉和页脚的“神器”。fancyhdr把页眉和页脚划分为6个区域，因此也相应的提供了6个基本的命令：
+\backslash
+lhead{}、
+\backslash
+chead{}、
+\backslash
+rhead{}、
+\backslash
+lfoot{}、
+\backslash
+cfoot{}、
+\backslash
+rfoot{}来设置这6个区域的内容。通常，页眉和页脚通过横线和正文隔开，
+\backslash
+headrule{}和
+\backslash
+footrule{}分别用来定义横线的样式，
+\backslash
+headrulewidth{}、
+\backslash
+footrulewidth{}可以用来设置横线的宽度。
+\end_layout
+
+\begin_layout Section
+模拟plain页面样式
+\end_layout
+
+\begin_layout Standard
+使用fancyhdr模拟\SpecialChar LaTeX
+默认的plain page style，即页眉为空，页脚显示居中的页码，其代码如下：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+usepackage{fancyhdr}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+pagestyle{fancy}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+lhead{} 
+\backslash
+chead{} 
+\backslash
+rhead{}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+lfoot{} 
+\backslash
+cfoot{
+\backslash
+thepage} 
+\backslash
+rfoot{}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+renewcommand
+\backslash
+headrulewidth{0pt}%隐藏页眉横线
+\end_layout
+
+\begin_layout Standard
+如果页码要显示为“-5-”的样子，只需要定义
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+cfoot{-
+\backslash
+thepage-}
+\end_layout
+
+\end_inset
+
+即可。
+\end_layout
+
+\begin_layout Section
+多行的页眉和页脚
+\end_layout
+
+\begin_layout Standard
+默认的页眉和页脚是为一行文本设计的，高度一般为12pt（10号字体时）。如果要在页眉和页脚中使用多行字体，要记得修改页眉、页脚的高度，一般为12pt的倍数，即有
+几行就设置12pt的几倍，比如下例：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+usepackage{fancyhdr}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+pagestyle{fancy}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+setlength
+\backslash
+headheight{23pt}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+lhead{From: Frank
+\backslash
+
+\backslash
+ To: Michel}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+rhead{Page: 
+\backslash
+thepage
+\backslash
+
+\backslash
+ 
+\backslash
+today}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+chead{} 
+\backslash
+lfoot{} 
+\backslash
+cfoot{} 
+\backslash
+rfoot{}
+\end_layout
+
+\begin_layout Standard
+其结果如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:多行页眉效果"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/multi-line-header.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+多行页眉效果
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:多行页眉效果"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+多行页眉的文本对齐
+\end_layout
+
+\begin_layout Standard
+在页眉中使用多行文本时，文本的对齐方式并非总是居左对齐的：
+\backslash
+lhead和
+\backslash
+lfoot中的文本居左对齐，
+\backslash
+chead和
+\backslash
+cfoot中的文本居中对齐，而
+\backslash
+rhead和
+\backslash
+rfoot中的文本居右对齐。如果此种默认设置不满足要求，可以借助于tabular实现任意的文本对齐，比如上例中，可以将rhead重新定义为：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+rhead{
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+begin{tabular}[b]{l@{}}
+\end_layout
+
+\begin_layout LyX-Code
+    Page: 
+\backslash
+thepage
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+today
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+end{tabular}
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+这里，巧妙的使用tabular环境实现了rhead的左对齐。当然，也可以实现居中对齐。注意到，tabular的选项b保证了表格是 bottom
+ align的，即表格的底部和页眉的基线对齐，否则表格和页眉的其他部分会存在错位现象。另外，@{}帮助“吃掉”在表格一行后面可能的任何空格，使得页眉的rhead
+部分紧贴页面的右边界。
+\end_layout
+
+\begin_layout Section
+
+\backslash
+fancyhead和
+\backslash
+fancyfoot
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+lhead、
+\backslash
+rhead等命令虽然简单直接，但是无法应对单双页的情形，于是fancyhdr宏包提供了更高层的封装
+\backslash
+fancyhead和
+\backslash
+fancyfoot来设置页眉和页脚，使用L/C/R指定页眉/页脚的三个区域，使用O表示奇数页（Odd page），E表示偶数页（Even page），于是
+\backslash
+fancyhead[LO]{...}表示设置奇数页页眉的左部，
+\backslash
+fancyhead[L]表示设置所有页面页眉的左部。
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+fancyhead{}和
+\backslash
+fancyfoot{}默认清除所有的页眉和页脚设置，因此在设置页眉和页脚之前，一般应该先调用
+\backslash
+fancyhead{}和
+\backslash
+fancyfoot{}。
+\end_layout
+
+\begin_layout Standard
+下面是常见的book类中设置页眉和页脚的方法：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+usepackage{fancyhdr}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+pagestyle{fancy}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+fancyhf{}%清空页眉页脚
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+fancyhead[LE,RO]{
+\backslash
+thepage}%页码位置：偶数页居左，奇数页居右
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+fancyhead[RE]{
+\backslash
+leftmark}%在偶数页显示
+\backslash
+leftmark，通常为章节标题
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+fancyhead[LO]{
+\backslash
+rightmark}%在奇数页左边显示
+\backslash
+rightmark，通常为章节标题
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+fancypagestyle{plain}{%重新定义plain样式，在章的首页使用plain样式
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+fancyhf{}
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+cfoot{
+\backslash
+thepage}
+\end_layout
+
+\begin_layout LyX-Code
+    
+\backslash
+renewcommand
+\backslash
+headrulewidth{0pt}
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout Standard
+具体显示效果，可参考本文的pdf文档。
+\end_layout
+
+\begin_layout Standard
+注意到，在章节或者文章的首页，\SpecialChar LaTeX
+会自动采用plain页面样式，即清空页眉，页脚只显示居中的页码，这是合理的设置，因此为了安全起见，一般在导言区中也重新定义plai
+n页面样式。当然，如果要设置“特别”的文章或者章节首页样式，也可以定义“特别”的plain样式。
+\end_layout
+
+\begin_layout Standard
+上面的定义中使用了
+\backslash
+fancyhf，这是比
+\backslash
+fancyhead和
+\backslash
+fancyfoot更底层一些的命令，即
+\backslash
+fancyhead{}等于
+\backslash
+fancyhf{H}，
+\backslash
+fancyfoot{}等于
+\backslash
+fancyhf{F}，当调用
+\backslash
+fancyhead[RO]，相当于调用
+\backslash
+fancyhf[FRO]。
+\end_layout
+
+\begin_layout Section
+
+\backslash
+thispagestyle
+\end_layout
+
+\end_body
+\end_document
