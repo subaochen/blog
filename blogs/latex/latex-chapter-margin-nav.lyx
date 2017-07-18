@@ -1,0 +1,766 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{trees,force,layered}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-bytype
+theorems-chap-bytype
+coderemarks
+note-inset
+tip-inset
+warning-inset
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Serif"
+\font_sans "default" "DejaVu Sans"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #d8daeb
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle empty
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+页边章序号导航的实现
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Standard
+所谓“页边章序号导航”是指在书的页边（边注位置）显示当前页所在章的序号，通常也将此序号使用带底色的矩形或者半圆等修饰一下，便于读者快速定位章的范围，这对一些大部
+头的书籍尤其有用，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:章序号导航的效果示意"
+
+\end_inset
+
+所展示的效果。
+\end_layout
+
+\begin_layout Section
+实现原理
+\end_layout
+
+\begin_layout Standard
+在
+\begin_inset CommandInset href
+LatexCommand href
+name "stackexchange"
+target "https://tex.stackexchange.com/questions/202450/show-current-chapter-number-on-each-page-margin-with-appendix"
+
+\end_inset
+
+中给出了一个基本的实现思路：
+\end_layout
+
+\begin_layout Enumerate
+首先借助于totcount宏包获取图书总的章数。
+\end_layout
+
+\begin_layout Enumerate
+借助于assoccnt解决了附录会重置章序号问题。
+\end_layout
+
+\begin_layout Enumerate
+使用background宏包将一个矩形或者任意的其他图形作为背景放置到页边。
+\end_layout
+
+\begin_layout Standard
+但是原始的实现对于带附录情况时总章数统计不对，下面是本人修正后的代码，供大家参考，代码中已经增加了一些注释以帮助理解执行的流程及其一些变化的方法。修正的主要内容
+为：
+\end_layout
+
+\begin_layout Itemize
+修复了带附录时总章数统计不读的问题。
+\end_layout
+
+\begin_layout Itemize
+将矩形底色框修改为圆形底色框，似乎更为美观。
+\end_layout
+
+\begin_layout Standard
+下一步需要进一步完善的地方为：
+\end_layout
+
+\begin_layout Itemize
+如果书籍的章数很多，比如超过20章，则章序号线性排列就不太合适了，最好能够设计一个最小章序号宽度的阀值，如果小于这个阀值则考虑更好的算法，比如折回的排列方式。
+\end_layout
+
+\begin_layout Itemize
+vshift的计算应该根据
+\backslash
+marginparsep和
+\backslash
+marginparwidth自动确定。
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=TeX,escapechar={\@}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+% see https://tex.stackexchange.com/questions/202450/show-current-chapter-number-o
+n-each-page-margin-with-appendix
+\end_layout
+
+\begin_layout Plain Layout
+
+% 在
+\backslash
+appendix之前执行
+\backslash
+cleardoublepage
+\end_layout
+
+\begin_layout Plain Layout
+
+% 在页边显示章节序号
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage[contents={},opacity=1,scale=1,color=white]{background}%将tikz对象置为页面的背景
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{tikzpagenodes}%定义了页面的text area/header/footer等node
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{totcount}%获取计数器的最大值
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usetikzlibrary{calc}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+usepackage{assoccnt}%创建辅助计数器和给定的计数器一起变化
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newif
+\backslash
+ifMaterial
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+definecolor{bgcolor}{rgb}{0.8,0.85,1}%页边色块底色
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newlength
+\backslash
+LabelSize
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setlength
+\backslash
+LabelSize{2cm}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+% auxiliary counter
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcounter{chapshift} %跟踪章序号的变化，即使
+\backslash
+appendix之后也可以跟踪（默认的，
+\backslash
+appendix会reset chapter counter）
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newtotcounter{totalchapters} %记录章的总数
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+DeclareAssociatedCounters{chapter}{chapshift,totalchapters}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+AtBeginDocument{%
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+ifnum
+\backslash
+totvalue{totalchapters}>0
+\backslash
+relax%防止初始没有章的时候报错
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+setlength
+\backslash
+LabelSize{
+\backslash
+dimexpr
+\backslash
+textheight/
+\backslash
+totvalue{totalchapters}
+\backslash
+relax}
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+ifdim
+\backslash
+LabelSize>2cm
+\backslash
+relax%TODO没有考虑
+\backslash
+LabelSize过小的情况？
+\end_layout
+
+\begin_layout Plain Layout
+
+            
+\backslash
+global
+\backslash
+setlength
+\backslash
+LabelSize{2cm}
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+fi
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+fi
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcommand
+\backslash
+AddLabels{%
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Materialtrue%
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+AddEverypageHook{%
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ifMaterial%
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ifodd
+\backslash
+value{page} %
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+backgroundsetup{
+\end_layout
+
+\begin_layout Plain Layout
+
+  angle=90,
+\end_layout
+
+\begin_layout Plain Layout
+
+  position={current page.east|-current page text area.north  east},
+\end_layout
+
+\begin_layout Plain Layout
+
+  vshift=3pt,
+\end_layout
+
+\begin_layout Plain Layout
+
+  hshift=-
+\backslash
+thechapshift*
+\backslash
+LabelSize+
+\backslash
+LabelSize,%TODO是否可以根据hshift超出了
+\backslash
+textheight来进行回退处理？可以有效解决
+\backslash
+LabelSize过小的情形
+\end_layout
+
+\begin_layout Plain Layout
+
+  contents={% 去掉circle/minimum size将画出矩形
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+tikz
+\backslash
+node[draw, circle,minimum size=
+\backslash
+LabelSize, fill=bgcolor,anchor=west,text width=
+\backslash
+LabelSize,
+\end_layout
+
+\begin_layout Plain Layout
+
+    align=center,text height=15pt,text depth=23pt,font=
+\backslash
+large
+\backslash
+sffamily] {
+\backslash
+thechapter};
+\end_layout
+
+\begin_layout Plain Layout
+
+  }%
+\end_layout
+
+\begin_layout Plain Layout
+
+ }
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+else
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+backgroundsetup{
+\end_layout
+
+\begin_layout Plain Layout
+
+  angle=90,
+\end_layout
+
+\begin_layout Plain Layout
+
+  position={current page.west|-current page text area.north west},
+\end_layout
+
+\begin_layout Plain Layout
+
+  vshift=-3pt,
+\end_layout
+
+\begin_layout Plain Layout
+
+  hshift=-
+\backslash
+thechapshift*
+\backslash
+LabelSize+
+\backslash
+LabelSize,
+\end_layout
+
+\begin_layout Plain Layout
+
+  contents={%
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+tikz
+\backslash
+node[draw, circle,minimum size=
+\backslash
+LabelSize, fill=bgcolor,anchor=west,text width=
+\backslash
+LabelSize,
+\end_layout
+
+\begin_layout Plain Layout
+
+    align=center,text height=23pt,text depth=15pt,font=
+\backslash
+large
+\backslash
+sffamily] {
+\backslash
+rotatebox{180}{
+\backslash
+thechapter}};
+\end_layout
+
+\begin_layout Plain Layout
+
+  }%
+\end_layout
+
+\begin_layout Plain Layout
+
+ }
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+fi
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+BgMaterial%
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+else
+\backslash
+relax
+\backslash
+fi}%
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcommand
+\backslash
+RemoveLabels{
+\backslash
+Materialfalse}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+用法
+\end_layout
+
+\begin_layout Standard
+将以上代码加到导言区之后，只需要在第一章的前面增加命令
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+AddLabels
+\end_layout
+
+\end_inset
+
+即可，效果如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:章序号导航的效果示意"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/chapter-margin-nav.png
+	width 90line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+章序号导航的效果示意
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:章序号导航的效果示意"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+注意事项
+\end_layout
+
+\begin_layout Itemize
+适合于双面印刷（twoside）大型书籍的排版，如果是简单的单面文件或者页码比较少的书籍意义不大。
+\end_layout
+
+\begin_layout Itemize
+虽然在页边画出的是一个圆形，但是裁切完毕后就只剩下一个半圆了。
+\end_layout
+
+\begin_layout Itemize
+在目录后面和附录前面使用
+\backslash
+cleardoublepages命令清理一下，否则可能导致章序号的位置计算失误。
+\end_layout
+
+\end_body
+\end_document
