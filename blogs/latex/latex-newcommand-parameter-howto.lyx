@@ -1,0 +1,343 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{layout}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+详解newcommand的参数和默认值
+\end_layout
+
+\begin_layout Standard
+newcommand有如下的三种使用方式：
+\end_layout
+
+\begin_layout Section
+定义无参数的命令
+\end_layout
+
+\begin_layout Standard
+这是newcommand最简单的使用方式，比如嫌每次输入“中华人民共和国”很麻烦，可以定义命令：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcommand
+\backslash
+prc{中华人民共和国}
+\end_layout
+
+\begin_layout Standard
+以后就可以通过输入命令
+\backslash
+prc来输入“中华人民共和国”了。
+\end_layout
+
+\begin_layout Section
+定义有参数的命令
+\end_layout
+
+\begin_layout Standard
+定义有参数命令的通用形式为：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcommand
+\backslash
+cmd[参数个数]{命令的定义}
+\end_layout
+
+\begin_layout Standard
+方括号中定义了命令的参数个数（最多9个），在命令的定义中，可以使用#1引用第一个参数，#2引用第二个参数，以此类推，比如：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcommand
+\backslash
+answer[1]{the answer is #1}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcommand
+\backslash
+parabola[3]{
+\backslash
+ensuremath{y=#1x^2 + #2x + #3}}
+\end_layout
+
+\begin_layout Section
+定义带默认值参数的命令
+\end_layout
+
+\begin_layout Standard
+在定义带参数的命令时，\SpecialChar LaTeX
+也允许其中的一个参数有默认值，即在调用命令时可以不给出这个参数，直接取用该参数的默认值。这个带默认值的参数，在\SpecialChar LaTeX
+中
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+永远使用#1来引用
+\end_layout
+
+\end_inset
+
+。定义带默认值参数的命令的通用形式为：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcommand
+\backslash
+cmd[参数个数][参数的默认值]{命令的定义}
+\end_layout
+
+\begin_layout Standard
+需要特别注意的是，当调用这个命令时，使用{}形式给出的参数列表要比定义命令时
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+少一个
+\end_layout
+
+\end_inset
+
+—带默认值的参数不能以{}的形式给出。要么使用参数的默认值，这样就不需要给出#1这个参数；要么
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+使用[]在其他参数前面重新定义默认值
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+显然，带默认值参数的命令，至少有一个参数。
+\end_layout
+
+\begin_layout Standard
+下面是一个具有一个参数且有默认值的命令：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcommand
+\backslash
+lvec[1][n]{
+\backslash
+ensuremath{x_1 + 
+\backslash
+cdots + x_{#1}}}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+lvec
+\backslash
+par%使用参数的默认值n
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+lvec[i]%重新定义参数的默认值为i
+\end_layout
+
+\begin_layout Standard
+下面是一个具有2个参数，其中#1为带默认值的参数的命令：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcommand
+\backslash
+lvec[2][n]{
+\backslash
+ensuremath{#2_1 + 
+\backslash
+cdots + #2_{#1}}}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+lvec{x}
+\backslash
+par
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+lvec[i]{x}
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+lvec[2][n]的输出和
+\backslash
+lvec[1][n]是一样的，但是显然
+\backslash
+lvec[2][n]更灵活一些。
+\end_layout
+
+\begin_layout Standard
+下面使用带默认值的参数重新定义抛物线：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcommand
+\backslash
+parabola[3][x]{
+\backslash
+ensuremath{y=#2{#1}^2 + #3#1 + #4}}
+\end_layout
+
+\begin_layout Section
+注意事项
+\end_layout
+
+\begin_layout Standard
+有编程经验的童鞋很容易写出下面的代码：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcommand
+\backslash
+str1{this is a string}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newcommand
+\backslash
+str2{this is another string}
+\end_layout
+
+\begin_layout Standard
+但是却不小心掉进了\SpecialChar TeX
+的“陷阱”！\SpecialChar LaTeX
+的命令和\SpecialChar TeX
+的命令一样，只允许普通字符（26个字母的大小写形式）作为命令的名称，不允许出现数字、特殊字符等。当然，这不是一个不可逾越的
+鸿沟。本质上来说，只要catcode=11的字符都可以作为命令的名称，因此只要修改字符的catcode为11，这个字符就可以出现在命令的名称中。\SpecialChar LaTeX
+的内部命令中，
+\backslash
+makeatletter命令的实质就是修改字符@的catcode为11，这样@就可以出现在命令名称中了。
+\backslash
+makeatother重新修改@的catcode为12，不允许@出现在命令的名字中。
+\end_layout
+
+\end_body
+\end_document
