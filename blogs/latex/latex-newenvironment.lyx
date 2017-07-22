@@ -7,21 +7,22 @@
 \textclass ctex-article
 \begin_preamble
 \input{/home/subaochen/git/writing-common/article-preamble.tex}
-\usepackage{layout}
 \end_preamble
 \use_default_options true
 \begin_modules
+logicalmkup
 coderemarks
 tip-inset
 note-inset
 warning-inset
 theorems-bytype
-logicalmkup
+theorems-chap-bytype
+tcolorbox
 \end_modules
 \maintain_unincluded_children false
 \language chinese-simplified
 \language_package default
-\inputencoding auto
+\inputencoding utf8-plain
 \fontencoding global
 \font_roman "default" "FreeSerif"
 \font_sans "default" "FreeSans"
@@ -36,22 +37,21 @@ logicalmkup
 \graphics default
 \default_output_format pdf4
 \output_sync 0
-\bibtex_command bibtex8
+\bibtex_command default
 \index_command default
-\float_placement tbph
 \paperfontsize default
 \spacing single
 \use_hyperref true
 \pdf_bookmarks true
-\pdf_bookmarksnumbered true
-\pdf_bookmarksopen true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
 \pdf_bookmarksopenlevel 3
 \pdf_breaklinks true
 \pdf_pdfborder true
 \pdf_colorlinks true
 \pdf_backref false
 \pdf_pdfusetitle true
-\papersize a4paper
+\papersize default
 \use_geometry false
 \use_package amsmath 1
 \use_package amssymb 1
@@ -65,26 +65,26 @@ logicalmkup
 \use_package undertilde 1
 \cite_engine basic
 \cite_engine_type default
-\biblio_style IEEETranS
+\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
 \suppress_date true
 \justification true
 \use_refstyle 1
-\boxbgcolor #c3c3c3
+\boxbgcolor #dad3d7
 \index Index
 \shortcut idx
 \color #008000
 \end_index
 \secnumdepth 3
-\tocdepth 3
+\tocdepth 1
 \paragraph_separation indent
 \paragraph_indentation default
 \quotes_language english
 \papercolumns 1
 \papersides 1
-\paperpagestyle default
+\paperpagestyle empty
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -95,81 +95,34 @@ logicalmkup
 \begin_body
 
 \begin_layout Title
-\SpecialChar LaTeX
-的命令修饰符*
+详解newenvironment命令
+\end_layout
+
+\begin_layout Section
+语法
 \end_layout
 
 \begin_layout Standard
-\SpecialChar LaTeX
-的各种命令中，经常使用*作为修饰符，在不同的场景下其意义不同，总结如下：
+当标准的article/book/report类提供的environment不够用时，可以使用newenvironment/renewenvironment定义
+新的环境，其语法格式为：
 \end_layout
 
-\begin_layout Description
-
-\backslash
-section* 还有
-\backslash
-chapter*，
-\backslash
-subsection*，
-\backslash
-subsubsection*，
-\backslash
-paragraph*，
-\backslash
-subpagraph*，表示章节、段落等没有序号，也不进入目录。
-\end_layout
-
-\begin_layout Description
-
-\backslash
-newcommand*{
-\backslash
-cmd}{} 表示此命令的参数中不允许出现空行或者
-\backslash
-par命令，即命令的参数不能是整段文字。
-\end_layout
-
-\begin_layout Description
-
-\backslash
-providecommand* 这里*的含义和
-\backslash
-newcommand*中是一样的。
-\end_layout
-
-\begin_layout Description
-
-\backslash
-DelcareRobustCommand* 这里*的含义和
-\backslash
-newcommand*中是一样的。
-\end_layout
-
-\begin_layout Description
-
-\backslash
-CheckCommand* 这里*的含义和
-\backslash
-newcommand*中是一样的。
-\end_layout
-
-\begin_layout Description
-
-\backslash
-hspace*
-\backslash
-vspace* 相对于
-\backslash
-hspace（可断行的空白），
-\backslash
-hspace*表示不可在此空白处断行，参见：
-\begin_inset Flex URL
+\begin_layout Standard
+\begin_inset Flex Color Box
 status open
 
-\begin_layout Plain Layout
+\begin_layout Verbatim*
 
-https://tex.stackexchange.com/questions/89082/hspace-vs-hspace
+
+\backslash
+newenvironment{新环境名称}[参数个数]{开始部分定义}{结束部分定义}
+\end_layout
+
+\begin_layout Verbatim*
+
+
+\backslash
+renewenvironment{新环境名称}[参数个数]{开始部分定义}{结束部分定义}
 \end_layout
 
 \end_inset
@@ -177,42 +130,48 @@ https://tex.stackexchange.com/questions/89082/hspace-vs-hspace
 
 \end_layout
 
-\begin_layout Description
-
+\begin_layout Standard
+其中参数的用法和
 \backslash
-MakeShortVerb*{
-\backslash
-c} 和
-\backslash
-MakeShortVerb{
-\backslash
-c}比较，
-\backslash
-MakeShortVerb*使用
-\backslash
-verb*
+newcommand相同，最多允许9个参数，顺序使用#1、#2等引用参数。如果没有使用参数，则[0]可以省略。假设myenv环境的调用如下：
 \end_layout
 
-\begin_layout Description
+\begin_layout LyX-Code
 
 \backslash
-verb*
+begin{myenv}{arg_1}...{arg_k}
 \end_layout
 
-\begin_layout Description
+\begin_layout Standard
+则可以在“开始部分定义”中使用#1，...#k来引用参数，这是newenvironment传递参数的方式。在这里要特别注意两点：
+\end_layout
 
-\backslash
-begin{macrocode*} 将文档中的空格显示为可见空格
-\begin_inset space \textvisiblespace{}
+\begin_layout Enumerate
+目前newenvironment命令没有默认值参数，这一点和newcommand是不同的
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+也许有待完善？似乎newenvironment命令增加默认参数的支持也是合理的，比如例子中的Citation环境，可以将Citation作为默认值，也允许修改为
+其他内容。
+\end_layout
+
 \end_inset
 
 。
 \end_layout
 
-\begin_layout Description
-
+\begin_layout Enumerate
+newenvironment的参数只有在“开始部分定义”中才能使用，即“结束部分定义”中的代码无法获取参数。因此，如果要在“结束部分定义”中使用新环境的参数，必
+须在“开始部分定义”中保存到寄存器中，比如通过
 \backslash
-verbatim*
+newsavebox和
+\backslash
+sbox等命令。
+\end_layout
+
+\begin_layout Section
+举例
 \end_layout
 
 \end_body
