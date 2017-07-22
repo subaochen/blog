@@ -1,9 +1,9 @@
 \documentclass{article}
 \pagestyle{empty}
 \setlength\textwidth{3in}
-	\newcounter{Citctr}
-	\newsavebox{\Citename}
-	\newenvironment{Citation}[1]
+\newcounter{Citctr}
+\newsavebox{\Citename}
+\newenvironment{Citation}[1]
 	{%begin part，每一次碰到newenvironment{Citation}都会执行
 		\sbox\Citename{\emph{#1}}%暂时保存#1到\Citename，在\end{Citation}时需要用到
 		\stepcounter{Citctr}
@@ -12,17 +12,21 @@
 	}
 	{%end part
 		\hspace*{\fill}\nolinebreak[3]
-		\hspace*{\fill}%如果发生了断行，此设置保证\Citation是局右的。
+		\hspace*{\fill}%如果发生了断行，此设置保证\Citation是居右的。
 		%\finalhyphendemerits=0
 		\usebox{\Citename}%是begin{Citation}时保存起来的
 		\end{description}
 	}
 \begin{document}
-\begin{Citation}{Protagoras}Man is the measure of all things.\end{Citation}
+\begin{Citation}{Protagoras}
+	Man is the measure of all things.
+\end{Citation}
 This is some reguar text in between two Citation enviroments.
 \begin{Citation}{Blaise Pascal}
-	On mourra seal.\end{Citation}
+	On mourra seal.
+\end{Citation}
 More regular text.\ldots
 \begin{Citation}{William Pitt}
-	Necessity is the plea for every infringement of human freedom.\end{Citation}
+	Necessity is the plea for every infringement of human freedom.
+\end{Citation}
 \end{document}

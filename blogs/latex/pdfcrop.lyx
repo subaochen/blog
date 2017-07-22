@@ -1,0 +1,165 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\usepackage{layout}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+pdf文件处理工具：pdfcrop
+\end_layout
+
+\begin_layout Standard
+一般的，在文章中插入pdf文件（图片）之前需要处理一下，去掉pdf文件（图片）的留白。一切都是傻傻的打开inkscape，利用inkscape的“缩放页面到内容
+”功能实现去留白，但是经过inkscape处理后的pdf文件，往往字体会发生一些变化（替换），效果不是很理想。当然，如果pdf文件只是纯图片，inkscape处
+理后的效果还是不错的。
+\end_layout
+
+\begin_layout Standard
+偶然在
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://tex.stackexchange.com/questions/25806/how-can-i-crop-included-pdf-document
+s
+\end_layout
+
+\end_inset
+
+看到，原来texlive已经自带了pdfcrop这个工具，完美解决pdf文件的去留白，效果相当不错，不会改变源文件的字体，这一点比inkscape强！用法很简单
+：
+\end_layout
+
+\begin_layout LyX-Code
+pdfcrop src-file.pdf dest-file.pdf
+\end_layout
+
+\begin_layout Standard
+如果需要留下少许的白边，使用margins参数，比如四边留取5pt的白边：
+\end_layout
+
+\begin_layout LyX-Code
+pdfcrop -margins 5 src-file.pdf dest-file.pdf
+\end_layout
+
+\begin_layout Standard
+更多选项参见
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+pdfcrop 
+\backslash
+-
+\backslash
+-help
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+BTW，如果是\SpecialChar LaTeX
+文件，一般最好在导言区明确文本的宽度，比如：
+\backslash
+setlength
+\backslash
+textwidth{3in}，这样经过pdfcrop后的pdf文件宽度就是精确的3in，当作为图片插入到文件中时，可以选择图片宽度为3in，精确匹配，效果杠杠的
+。
+\end_layout
+
+\end_body
+\end_document

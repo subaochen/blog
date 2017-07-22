@@ -174,5 +174,239 @@ sbox等命令。
 举例
 \end_layout
 
+\begin_layout Standard
+先看一个简单的文章“摘要”（Abstract）的例子：假设，摘要的标题—摘要（Abstract）两个字加粗居中显示，正文使用quote格式，完整的示例文件参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "abstract environment demo"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/abstract-env.tex"
+lstparams "language=TeX,caption={定义abstract环境示例},label={abstract environment demo}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+其结果如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:摘要环境执行结果"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/src/latex/abstract-env-crop.pdf
+	width 3in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+摘要环境执行结果
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:摘要环境执行结果"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+下面设计一个带参数的环境，用于在文中引用名言警句。名言警句的格式要求：使用序号标记名言警句，在名言警句的右对齐末尾注明出处，完整的示意文件如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "citation environment demo"
+
+\end_inset
+
+所示，效果如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:citation environment"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+这个例子值得深入探讨一下。首先，由于名言警句需要编号，因此首先定义了一个计数器CitCtr，在每次进入这个环境时该计数器自动增长（stepcounter），这样
+就获得了一个全局有效的名言警句的序号了，可以通过
+\backslash
+arabic{CitCtr}获取此序号的数字形式。其次，由于名言的出处在最后才会显示，我们在环境的结束定义部分无法获取名言的出处，因此需要在环境的开始定义部分使
+用
+\backslash
+newsavebox创建一个寄存器暂存名言出处（来自参数），这样在环境的结束定义部分才能够拿到名言出处，并按照指定的格式显示出来。对于名言出处的断行处理也值得研
+究一下—由于\SpecialChar TeX
+默认的断行策略中有所谓的“末两行使用连字符”的惩罚因子（finalhyphendemerits），即如果在段落的最末两行发生使用连字符断行的情况则认
+为很不美观，默认的finalhyphendemerits=10000，这样会导致本例中最后一个名言出处可能和名言不在一行，即使在本行有足够的空间可以显示出处。解
+决这个问题的办法有两个，其一是设置finalhyphendemerits=0，明确告诉\SpecialChar TeX
+，我不在乎末两行存在连字符断行；其二，在决定名言出处的格式时，使用
+\backslash
+nolinebreak[3]明确告诉\SpecialChar LaTeX
+此处强烈不建议断行。读者可自行在\SpecialChar LaTeX
+源文件中尝试这两种方法的效果，尤其注意观察
+\backslash
+nolinebreak设置1,2,3,4时的不同表现。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/citation-demo.tex"
+lstparams "language=TeX,caption={定义名言警句的环境示例},label={citation environment demo}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/src/latex/citation-demo-crop.pdf
+	width 3in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+名言警句执行结果
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:citation environment"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+参考资料
+\end_layout
+
+\begin_layout Itemize
+\SpecialChar LaTeX
+ Companion, edition 2
+\end_layout
+
 \end_body
 \end_document
