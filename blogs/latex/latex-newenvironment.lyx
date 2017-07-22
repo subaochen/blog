@@ -107,22 +107,35 @@ tcolorbox
 新的环境，其语法格式为：
 \end_layout
 
-\begin_layout Standard
-\begin_inset Flex Color Box
+\begin_layout LyX-Code
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
 status open
 
-\begin_layout Verbatim*
-
+\begin_layout LyX-Code
 
 \backslash
-newenvironment{新环境名称}[参数个数]{开始部分定义}{结束部分定义}
+newenvironment{新环境名称}[参数个数][参数默认值]{开始部分定义}{结束部分定义}
 \end_layout
 
-\begin_layout Verbatim*
-
+\begin_layout LyX-Code
 
 \backslash
-renewenvironment{新环境名称}[参数个数]{开始部分定义}{结束部分定义}
+renewenvironment{新环境名称}[参数个数][参数默认值]{开始部分定义}{结束部分定义}
 \end_layout
 
 \end_inset
@@ -143,27 +156,9 @@ begin{myenv}{arg_1}...{arg_k}
 \end_layout
 
 \begin_layout Standard
-则可以在“开始部分定义”中使用#1，...#k来引用参数，这是newenvironment传递参数的方式。在这里要特别注意两点：
-\end_layout
-
-\begin_layout Enumerate
-目前newenvironment命令没有默认值参数，这一点和newcommand是不同的
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-也许有待完善？似乎newenvironment命令增加默认参数的支持也是合理的，比如例子中的Citation环境，可以将Citation作为默认值，也允许修改为
-其他内容。
-\end_layout
-
-\end_inset
-
-。
-\end_layout
-
-\begin_layout Enumerate
-newenvironment的参数只有在“开始部分定义”中才能使用，即“结束部分定义”中的代码无法获取参数。因此，如果要在“结束部分定义”中使用新环境的参数，必
-须在“开始部分定义”中保存到寄存器中，比如通过
+则可以在“开始部分定义”中使用#1，...#k来引用参数，这是newenvironment传递参数的方式。需要特别注意的是，newenvironment的参数只有在“
+开始部分定义”中才能使用，即“结束部分定义”中的代码无法获取参数。因此，如果要在“结束部分定义”中使用新环境的参数，必须在“开始部分定义”中保存到寄存器中，比如
+通过
 \backslash
 newsavebox和
 \backslash
@@ -405,7 +400,7 @@ name "fig:citation environment"
 
 \begin_layout Itemize
 \SpecialChar LaTeX
- Companion, edition 2
+ Companion, 2nd edition
 \end_layout
 
 \end_body
