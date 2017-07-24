@@ -227,5 +227,17 @@ verbatim* 将空格显示为可见空格
 。
 \end_layout
 
+\begin_layout Description
+
+\backslash
+DeclareOption*{code} 在class/package中使用，在本类或者包中没有Declare的选项（option）执行此默认规则（代码）。
+\end_layout
+
+\begin_layout Description
+
+\backslash
+ProcessOption* 
+\end_layout
+
 \end_body
 \end_document
