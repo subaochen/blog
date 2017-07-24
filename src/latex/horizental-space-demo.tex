@@ -1,0 +1,18 @@
+\documentclass{article}
+\pagestyle{empty}
+\setlength\textwidth{4in}
+\begin{document}
+\newcommand\HS[1][1.]{\hspace{\stretch{#1}}}
+\begin{center}
+	left\hfill right\\
+	left\HS right\\
+	left\HS middle \HS right\\
+	left\HS middle \hfill right\\
+	left\HS[2] \fbox{$\frac{2}{5}$} \HS[5] right\\
+	left\hrulefill middle \hrulefill right\\
+	left \dotfill right\\
+	left \dotfill \HS[.5] \dotfill right\\
+	left \dotfill \HS \dotfill right\\
+	left \dotfill \HS[2] \dotfill right\\
+\end{center}
+\end{document}

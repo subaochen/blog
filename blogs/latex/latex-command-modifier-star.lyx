@@ -196,7 +196,15 @@ verb*
 \begin_layout Description
 
 \backslash
-verb*
+verb* 和
+\backslash
+verb的区别在于，
+\backslash
+verb*将空格显示为可见空格
+\begin_inset space \textvisiblespace{}
+\end_inset
+
+。
 \end_layout
 
 \begin_layout Description
@@ -212,7 +220,11 @@ begin{macrocode*} 将文档中的空格显示为可见空格
 \begin_layout Description
 
 \backslash
-verbatim*
+verbatim* 将空格显示为可见空格
+\begin_inset space \textvisiblespace{}
+\end_inset
+
+。
 \end_layout
 
 \end_body
