@@ -97,78 +97,7 @@ logicalmkup
 \begin_body
 
 \begin_layout Title
-fragile command和moving argument
-\end_layout
-
-\begin_layout Standard
-控制如何展开宏，相关命令为：
-\end_layout
-
-\begin_layout Standard
-
-\backslash
-expandafter 读入expandafter后面的记号（记做t）但是先不展开，接着读入t后面的记号并展开，然后展开t并放到原来的位置。亦即，对于宏中的记号
-AB，如果不使用expandafter则顺序展开A和B，但是如果
-\backslash
-expandafter{A}B，则首先展开B，假设其内容为eB，然后再展开A，假设其内容为eA，最后的结果为eAeB。你可能会说，这和顺序展开A和B有什么区别吗
-？区别在于，当展开B时不会受到A的影响。
-\end_layout
-
-\begin_layout Standard
-比如\SpecialChar LaTeX
-的内部命令
-\backslash
-@undefined的定义为：
-\end_layout
-
-\begin_layout LyX-Code
-
-\backslash
-def
-\backslash
-@ifundefined#1{%
-\end_layout
-
-\begin_layout LyX-Code
-  
-\backslash
-expandafter
-\backslash
-ifx
-\backslash
-csname#1
-\backslash
-endcsname
-\backslash
-relax
-\end_layout
-
-\begin_layout LyX-Code
-    
-\backslash
-expandafter
-\backslash
-@firstoftwo
-\end_layout
-
-\begin_layout LyX-Code
-  
-\backslash
-else
-\end_layout
-
-\begin_layout LyX-Code
-    
-\backslash
-expandafter
-\backslash
-@secondoftwo
-\end_layout
-
-\begin_layout LyX-Code
-  
-\backslash
-fi}
+expandafter的用法
 \end_layout
 
 \end_body
