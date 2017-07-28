@@ -97,7 +97,574 @@ logicalmkup
 \begin_body
 
 \begin_layout Title
+
+\backslash
 expandafter的用法
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+解析记号（token）的时候做了两件事情：
+\end_layout
+
+\begin_layout Description
+展开（expansion） 如果该记号是可以展开的，即不是原生命令（primitive command or primitive control
+ sequence），展开该命令并使用展开的形式替换相应的文本。
+\end_layout
+
+\begin_layout Description
+执行（execution） 如果该记号是原生命令，则直接执行（显示）。
+\end_layout
+
+\begin_layout Standard
+由于\SpecialChar TeX
+的宏允许嵌套，造成了宏展开时的情形比较复杂—在遇到嵌套的宏时，需要马上展开吗？如果不是马上展开，如何确定展开的顺序？如何告诉\SpecialChar TeX
+不要展开宏？如何告诉\SpecialChar TeX
+递归的展开宏
+？
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+expandafter
+\end_layout
+
+\end_inset
+
+适用于改变宏展开的顺序
+\begin_inset CommandInset citation
+LatexCommand cite
+key "expandafter-tutorial"
+
+\end_inset
+
+，即暂时不展开
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+expandafter
+\end_layout
+
+\end_inset
+
+紧跟着的宏，而是首先展开其后的宏，回过头来再展开紧跟着的宏。比如
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+A
+\backslash
+B
+\end_layout
+
+\end_inset
+
+两个宏，\SpecialChar TeX
+会按照顺序读入并展开，即首先读入
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+A
+\end_layout
+
+\end_inset
+
+并展开，然后读入
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+B
+\end_layout
+
+\end_inset
+
+再展开。但是如果使用
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+expandafter
+\end_layout
+
+\end_inset
+
+限定
+\backslash
+A，即
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+expandafter
+\backslash
+A
+\backslash
+B
+\end_layout
+
+\end_inset
+
+，则首先展开
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+B
+\end_layout
+
+\end_inset
+
+，然后再回头展开
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+A
+\end_layout
+
+\end_inset
+
+，并将
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+A
+\end_layout
+
+\end_inset
+
+展开的结果插入原位置。一个小小的展开顺序调整，所获得结果往往截然不同。考虑下面的宏定义：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+xx[#1]{argument is #1}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+yy{[ABC]}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+zz{
+\backslash
+yy}
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后考虑下面的调用：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+xx
+\backslash
+yy
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+expandafter
+\backslash
+xx
+\backslash
+yy
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+xx
+\backslash
+zz
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+expandafter
+\backslash
+xx
+\backslash
+zz
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+首先分析
+\backslash
+xx
+\backslash
+yy的执行过程。\SpecialChar TeX
+首先读入
+\backslash
+xx，再读入
+\backslash
+yy。根据
+\backslash
+xx的定义，该宏需要一个使用中括号包围起来的参数，于是
+\backslash
+yy被认为是
+\backslash
+xx的参数。
+\backslash
+yy这个时候展开吗？根据\SpecialChar TeX
+的规则
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p215, When TeX is readming the arguments of a macro."
+key "texbook"
+
+\end_inset
+
+，宏的参数是不会被展开的，显然记号
+\backslash
+yy不符合
+\backslash
+xx参数的要求，因此\SpecialChar TeX
+会提示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+! Use of 
+\backslash
+xx doesn't match its definition.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+那么
+\backslash
+expandafter
+\backslash
+xx
+\backslash
+yy的执行过程如何呢？还是首先读入
+\backslash
+xx，接着读入
+\backslash
+yy，但是由于
+\backslash
+expandafter要求展开
+\backslash
+yy，因此展开
+\backslash
+yy后的形式为
+\backslash
+xx[ABC]。接着\SpecialChar TeX
+再尝试展开
+\backslash
+xx，最终结果为：argment is ABC。
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+使用步骤讲解展开过程更清晰。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+显然
+\backslash
+xx
+\backslash
+zz和
+\backslash
+xx
+\backslash
+yy存在同样的问题，不再赘述。
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+expandafter
+\backslash
+xx
+\backslash
+zz又如何呢？首先读入
+\backslash
+xx，接着读入并展开
+\backslash
+zz，得到
+\backslash
+xx
+\backslash
+yy。注意到，
+\backslash
+yy不会进一步展开，即
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+expandafter仅限于一次展开
+\end_layout
+
+\end_inset
+
+。显然，根据前面的分析，
+\backslash
+xx
+\backslash
+yy在语法上是错误的。\SpecialChar TeX
+的输出也确实证实了这一点（可以看出
+\backslash
+zz被展开成了
+\backslash
+yy）：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+*
+\backslash
+expandafter
+\backslash
+xx
+\backslash
+zz
+\end_layout
+
+\begin_layout Plain Layout
+! Use of 
+\backslash
+xx doesn't match its definition.
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+zz ->
+\backslash
+yy 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+纠正这个问题的方法是使用edef：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+edef
+\backslash
+temp{
+\backslash
+noexpand
+\backslash
+xx
+\backslash
+zz}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+temp
+\end_layout
+
+\begin_layout Standard
+其中，
+\backslash
+noexpand告诉\SpecialChar TeX
+不要展开
+\backslash
+xx，
+\backslash
+edef告诉\SpecialChar TeX
+递归展开宏
+\backslash
+temp中的每一个命令（使用
+\backslash
+noexpand限定的除外）。因此，当\SpecialChar TeX
+读入
+\backslash
+temp时，顺序发生了以下事件：
+\end_layout
+
+\begin_layout Enumerate
+根据
+\backslash
+temp宏的定义，获得了记号序列
+\backslash
+noexpand
+\backslash
+xx
+\backslash
+zz
+\end_layout
+
+\begin_layout Enumerate
+执行
+\backslash
+noexpand，因此不展开
+\backslash
+xx，此时的记号序列为：
+\backslash
+xx
+\backslash
+zz
+\end_layout
+
+\begin_layout Enumerate
+继续读入
+\backslash
+zz，展开成为
+\backslash
+yy，此时的记号序列为
+\backslash
+xx
+\backslash
+yy
+\end_layout
+
+\begin_layout Enumerate
+继续展开
+\backslash
+yy，此时的记号序列为
+\backslash
+xx[ABC]
+\end_layout
+
+\begin_layout Enumerate
+执行
+\backslash
+xx，输出argument is ABC
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/latex"
+options "IEEEtranS"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
