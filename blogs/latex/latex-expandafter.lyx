@@ -264,7 +264,15 @@ A
 
 \end_inset
 
-展开的结果插入原位置。一个小小的展开顺序调整，所获得结果往往截然不同。考虑下面的宏定义：
+展开的结果插入原位置。一个小小的展开顺序调整，所获得结果往往截然不同。
+\end_layout
+
+\begin_layout Section
+示例1
+\end_layout
+
+\begin_layout Standard
+考虑下面的宏定义：
 \end_layout
 
 \begin_layout LyX-Code
@@ -653,6 +661,142 @@ xx[ABC]
 执行
 \backslash
 xx，输出argument is ABC
+\end_layout
+
+\begin_layout Standard
+同样的道理，以下的定义也是可以的：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+edef
+\backslash
+temp{
+\backslash
+noexpand
+\backslash
+xx
+\backslash
+yy}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+temp
+\end_layout
+
+\begin_layout Section
+示例2
+\end_layout
+
+\begin_layout Standard
+如下的宏定义：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+xx{
+\backslash
+yy}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+expandafter
+\backslash
+def
+\backslash
+xx{This is fun}
+\end_layout
+
+\begin_layout Standard
+其解析的过程如下：
+\end_layout
+
+\begin_layout Enumerate
+跳过
+\backslash
+def命令，展开
+\backslash
+xx为
+\backslash
+yy，获得记号序列：
+\backslash
+def
+\backslash
+yy{This is fun}
+\end_layout
+
+\begin_layout Enumerate
+回头展开
+\backslash
+def，由于是primitive command，因此展开的形式不变，最终的记号序列依然为：
+\backslash
+def
+\backslash
+yy{This is fun}
+\end_layout
+
+\begin_layout Subsection*
+启示
+\end_layout
+
+\begin_layout Standard
+实在想不通，绕这么大一弯，是为了啥？
+\end_layout
+
+\begin_layout Section
+示例3—利用expandafter分离参数
+\end_layout
+
+\begin_layout Standard
+如下的宏定义：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+PickFirstOfTwo#1#2{#1}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+PickSecondOfTwo#1#2{#2}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+a{{First part}{Second part}}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+expandafter
+\backslash
+PickFirstOfTwo
+\backslash
+a
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+expandafter
+\backslash
+PickSecondOfTwo
+\backslash
+a
 \end_layout
 
 \begin_layout Standard
