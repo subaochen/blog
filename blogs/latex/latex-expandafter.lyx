@@ -800,6 +800,28 @@ a
 \end_layout
 
 \begin_layout Standard
+理解了
+\backslash
+expandafter的解析流程，使用
+\backslash
+expandafter分离参数的方法就很容易理解了：在解析
+\backslash
+expandafter
+\backslash
+PickFirstOfTwo
+\backslash
+a时，首先展开
+\backslash
+a（同时去掉了
+\backslash
+expandafter），于是整个记号序列变为：
+\backslash
+PickFirstOfTwo{First part}{Second part}，再执行
+\backslash
+PickFirstOfTwo，就顺理成章了。
+\end_layout
+
+\begin_layout Standard
 \start_of_appendix
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
