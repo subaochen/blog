@@ -412,7 +412,9 @@ dimen0
 \end_layout
 
 \begin_layout Standard
-可见，字母f的斜体校正值此时为0.77779pt，而字母c的斜体校正值为0pt。
+可见，字母f的斜体校正值此时为0.77779pt，而字母c的斜体校正值为0pt。但是，在《The \SpecialChar TeX
+book》的p14说，字母f的斜体校正是字母c的4倍，似乎和实验
+的结果不符，怎么回事？
 \end_layout
 
 \end_body
