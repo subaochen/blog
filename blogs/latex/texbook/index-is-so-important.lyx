@@ -1,0 +1,247 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+为什么索引很重要
+\end_layout
+
+\begin_layout Author
+宿宝臣<subaochen@126.com>
+\end_layout
+
+\begin_layout Standard
+一部优秀的著作，尤其是技术类的著作，配备完善的索引很重要，《The \SpecialChar TeX
+book》的索引堪称典范。《The \SpecialChar TeX
+book》的索引不仅仅给出了每一个命令在书中的引用页码，
+其中命令的定义或者“正式介绍”所在页码还特地加了下划线。很多时候，第一次使用某个命令的时候未必需要给出详细的介绍，甚至会有意忽略掉一些特性，这是因为这个命令也许
+不是当前讲解的重点，也许命令有太多的参数，过于详细的讲解会分散读者的注意力。但是，读者迟早有一天会想看一下命令的完整定义或者完整用法，作者很难预料读者什么时候有
+这个冲动，毕竟读者的水平层次不同。这个时候，完善的索引系统就显得特别重要了。
+\end_layout
+
+\begin_layout Standard
+举个简单的例子，在《The \SpecialChar TeX
+book》的第5页讲到，如果从键盘上不能输入左、右单引号（碰巧键盘上的这两个键坏掉了？），则可以通过
+\backslash
+lq（left quote）和
+\backslash
+rq（right quote）这两个命令代替。作为一个第一次接触\SpecialChar TeX
+的读者，也许会觉得很神奇甚至好玩，仅此而已。而对于一个对\SpecialChar TeX
+略有了解的读者，也许想知道为什么输入
+\backslash
+lq的效果等同于左单引号呢？作者在这里并没有给出解答，毕竟这才翻到第5页。但是，《The \SpecialChar TeX
+book》完善的索引系统可以帮上大忙！翻到本书的第470页找到
+\backslash
+lq的索引项如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:lq的索引项"
+
+\end_inset
+
+中红色线所标示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../../../imgs/latex/texbook/index-is-so-important.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+lq的索引项
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:lq的索引项"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出，在第351页有
+\backslash
+lq命令的定义（页码带下划线），在第5、48页等有
+\backslash
+lq命令的使用。此时如果希望查看
+\backslash
+lq命令的定义，直接翻到351页即可；如果希望了解
+\backslash
+lq命令在不同场景的使用方式，可以在第5、48、369和395页查找
+\backslash
+lq命令的用法示例。
+\end_layout
+
+\begin_layout Standard
+另外，用心的作者还在索引中给出了额外的两个信息：
+\end_layout
+
+\begin_layout Description
+
+\backslash
+lq命令的本质 注意到索引项中
+\backslash
+lq命令后面紧跟着的小括号，直接给出了这个命令实际上是打印左单引号，直截了当。
+\end_layout
+
+\begin_layout Description
+该命令是否primitive
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ 
+\end_layout
+
+\end_inset
+
+command 《The \SpecialChar TeX
+book》一书中，索引项前面带*的命令表示primitive command，因此
+\backslash
+lq不是一个primitive command，通过查看
+\backslash
+lq命令的定义可以确认这一点。
+\end_layout
+
+\begin_layout Standard
+BTW，电子书阅读器对索引的支持不够好。阅读纸质书时，可以迅速翻到索引页（通过书签或者记住索引所在页码），而如果电子书阅读器，假设使用书签记忆索引的情况下，需要
+首先切换到阅读模式（一般处于笔记模式下，可以手写笔记），点击打开书签列表，再点击索引书签。如果指定的内容不在索引的第一页，就需要一页一页的翻找了。要经过至少4次
+点击才能打开索引，显然改进的余地还相当大。不过，抛开电子书阅读器不说（假设无法改进电子书阅读器的阅读方式），PDF文件能否可以做到像html页面那样嵌入超链接呢
+？如果可以，将被索引的内容变为“超链接”，点击直接跳转到索引页的索引项就方便多了。这大概需要\SpecialChar LaTeX
+的后续改进支持，在makeindex的时候也同时修改被索引内容的格式
+。在电子书逐渐“上位”的今天，希望\SpecialChar TeX
+/\SpecialChar LaTeX
+也与时俱进啊！
+\end_layout
+
+\begin_layout Standard
+判断一本书是否值得买，是否值得认真阅读，可以先看一下是否提供了贴心的索引，不失为一个好的判断标准—见微知著。
+\end_layout
+
+\end_body
+\end_document

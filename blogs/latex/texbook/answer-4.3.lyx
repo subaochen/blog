@@ -1,0 +1,419 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+练习4.3的解答
+\end_layout
+
+\begin_layout Author
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mycopyright
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+题目
+\end_layout
+
+\begin_layout Standard
+定义一个宏
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+ic
+\end_layout
+
+\end_inset
+
+，当调用`
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+ic c
+\end_layout
+
+\end_inset
+
+'时将字母
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+c
+\end_layout
+
+\end_inset
+
+的斜体校正值存入\SpecialChar TeX
+的寄存器
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+dimen0
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Section*
+解答
+\end_layout
+
+\begin_layout Standard
+宏
+\backslash
+ic的定义如下：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+ic#1{
+\backslash
+setbox0=
+\backslash
+hbox{#1
+\backslash
+/}
+\backslash
+dimen0=
+\backslash
+wd0 
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+setbox0=
+\backslash
+hbox{#1}
+\backslash
+advance
+\backslash
+dimen0 by -
+\backslash
+wd0}
+\end_layout
+
+\begin_layout Standard
+这里巧妙的构造了两个hbox，借助于这两个hbox的宽度差计算得到给定字母的斜体校正值，逐行解析如下：
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+setbox0=
+\backslash
+hbox{#1
+\backslash
+/}
+\end_layout
+
+\end_inset
+
+构造一个hbox并存入box0，此盒子的内容为给定的字母和该字母的斜体校正。\SpecialChar TeX
+允许创建256个盒子，编号从0到255。
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+dimen0=
+\backslash
+wd0
+\end_layout
+
+\end_inset
+
+将盒子0的宽度
+\backslash
+wd0存入
+\backslash
+dimen0。wd0是\SpecialChar TeX
+预设的box0的宽度，同理，wd1是box1的宽度，ht0是盒子box0的高度，dp0是盒子box0的深度，详情参见《The
+ \SpecialChar TeX
+book》p120。
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+setbox0=
+\backslash
+hbox{#1}
+\end_layout
+
+\end_inset
+
+重新构造盒子box0，此时只使用字母作为盒子的内容，不包括字母的斜体校正。
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+advance
+\backslash
+dimen0 by -
+\backslash
+wd0
+\end_layout
+
+\end_inset
+
+将
+\backslash
+dimen0的数值减去box0的宽度wd0。注意到，
+\backslash
+dimen0原先的值是第一次创建box0时的宽度，而这里的wd0是第二次创建box0时的宽度，两者相减即为字母c的斜体校正值。
+\end_layout
+
+\begin_layout Standard
+可以在\SpecialChar TeX
+系统中验证：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+$ tex
+\end_layout
+
+\begin_layout Plain Layout
+This is TeX, Version 3.14159265 (TeX Live 2015/Debian) (preloaded format=tex)
+\end_layout
+
+\begin_layout Plain Layout
+**
+\backslash
+relax
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+def
+\backslash
+ic#1{
+\backslash
+setbox0=
+\backslash
+hbox{#1
+\backslash
+/}
+\backslash
+dimen0=
+\backslash
+wd0 
+\backslash
+setbox0=
+\backslash
+hbox{#1}
+\backslash
+advance
+\backslash
+dimen0 by -
+\backslash
+wd0}
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+ic f
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+showthe
+\backslash
+dimen0
+\end_layout
+
+\begin_layout Plain Layout
+> 0.77779pt.
+\end_layout
+
+\begin_layout Plain Layout
+<*> 
+\backslash
+showthe
+\backslash
+dimen0
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+ic c
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+showthe
+\backslash
+dimen0
+\end_layout
+
+\begin_layout Plain Layout
+> 0.0pt.
+\end_layout
+
+\begin_layout Plain Layout
+<*> 
+\backslash
+showthe
+\backslash
+dimen0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可见，字母f的斜体校正值此时为0.77779pt，而字母c的斜体校正值为0pt。
+\end_layout
+
+\end_body
+\end_document
