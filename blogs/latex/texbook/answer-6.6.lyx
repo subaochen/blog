@@ -1,0 +1,201 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+练习6.6的解答
+\end_layout
+
+\begin_layout Author
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mycopyright
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+题目
+\end_layout
+
+\begin_layout Standard
+认真观察实验4的输出，尤其是第3页会发现，在页面比较窄时，如果行内的其他空白被拉伸，此时在破折号两边也增加一定的空白，看起来效果更好一些（更均衡）。请定义一个宏
+\backslash
+dash达到这一目的。
+\end_layout
+
+\begin_layout Section*
+解答
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+extraspace{
+\backslash
+nobreak 
+\backslash
+hskip 0pt plus 0.5em
+\backslash
+relax}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+dash{
+\backslash
+unskip
+\backslash
+extraspace---
+\backslash
+extraspace}
+\end_layout
+
+\begin_layout Standard
+首先，在破折号两边增加的空白要定义为“弹性长度”，便于\SpecialChar TeX
+根据断行的要求决定为破折号两边留多大的空白。
+\backslash
+extraspace中的
+\backslash
+relax防止紧跟着破折号如果是minus造成的误读。其次，
+\backslash
+unskip的作用是消除（吃掉）破折号之前的空白，因此允许在
+\backslash
+dash宏之前输入任意的空白，在实际输出时都会被吃掉。定义和使用
+\backslash
+dash宏的story版本参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "story with dash"
+
+\end_inset
+
+，注意在破折号之前故意增加了几个空格，以便于观察
+\backslash
+unskip的效果。读者可自行调整
+\backslash
+extraspace中plus部分的长度数值，比如0.1em，0.5em，甚至2em，注意观察在不同的设置下，生成的dvi文件效果会有多大的不同，认真体会\SpecialChar TeX
+的断行算法
+和策略。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/texbook/story-dash.tex"
+lstparams "language=TeX,caption={使用\\dash的story},label={story with dash}"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

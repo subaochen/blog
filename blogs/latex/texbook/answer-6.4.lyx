@@ -108,15 +108,108 @@ mycopyright
 \end_layout
 
 \begin_layout Standard
-在`Drof-nats |'中，为什么在`|'之前有一个空格？
+在`Drof-nats.
+ |'中，为什么在`|'之前有一个空格？
 \end_layout
 
 \begin_layout Section*
 解答
 \end_layout
 
+\begin_layout Standard
+注意到，Drof-nats.恰好是第一段的结尾。\SpecialChar TeX
+在每一个段落的结尾都会放一个
+\backslash
+parfillskip以控制段落最后一行的样式，很容易想到，0pt plus 1fil是
+\backslash
+parfillskip的默认值，即默认情况下，段落的最后一行是左对齐的。
+\end_layout
+
+\begin_layout Standard
+本例中，由于最后一行已经overfull了，因此
+\backslash
+parfillskip的值是0pt，实际输出时，在overfull标尺和Drof-nats.之间是没有空格的。但是\SpecialChar TeX
+规定，如果发生了overfull，所有的hski
+p在终端的overfull消息（或日志文件）中都显示为一个空格，即使这个hskip为0pt也不例外。因此，本例中在终端上，Drof-nats.和overfull标
+尺之间显示了一个空格，如果查看日志文件，也会发现这个空格。
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+为什么要这样规定呢？究其原因是一旦发生了overfull，我们一般希望通过调整hskip的设置来消除overfull，因此通过空格的方式明确告诉用户在什么地方使
+用了hskip是有参考价值的。
+\end_layout
+
 \begin_layout Section*
-解析
+引申：方方正正的段落
+\end_layout
+
+\begin_layout Standard
+输入如下的命令：
+\end_layout
+
+\begin_layout LyX-Code
+**
+\backslash
+parfillskip 0pt 
+\backslash
+input story
+\end_layout
+
+\begin_layout LyX-Code
+(./story.tex
+\end_layout
+
+\begin_layout LyX-Code
+Underfull 
+\backslash
+hbox (badness 10000) in paragraph at lines 12--16
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+tenrm beau-ti-ful doc-u-ments.
+\end_layout
+
+\begin_layout LyX-Code
+[1])
+\end_layout
+
+\begin_layout LyX-Code
+*
+\backslash
+end
+\end_layout
+
+\begin_layout Standard
+查看生成的dvi文件可以发现，最后一行的排版实在是太丑陋了，Unferfull已经超过了极限（badness 10000）。两个单词分列左右两旁，这实际上是
+\backslash
+parfillskip 0pt的造成的：最后一个单词距离右边界0pt。对照默认情况下的排版效果，可见
+\backslash
+parfillskip设置为0pt是不合理的，0pt plus 1fil是合理的设置。
+\end_layout
+
+\begin_layout Standard
+不过，如果你希望段落总是方方正正的，那么可以巧妙的利用
+\backslash
+parfillskip 0pt：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+noindent 
+\backslash
+parfillskip 0pt
+\end_layout
+
+\begin_layout Standard
+其中，
+\backslash
+noindent取消段首缩进，
+\backslash
+parfillskip 0pt使得最后一行两端对齐，实现了“方正”的段落效果。
 \end_layout
 
 \end_body
