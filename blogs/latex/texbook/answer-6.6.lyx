@@ -190,7 +190,7 @@ extraspace中plus部分的长度数值，比如0.1em，0.5em，甚至2em，注�
 \begin_inset CommandInset include
 LatexCommand lstinputlisting
 filename "/home/subaochen/git/blog/src/latex/texbook/story-dash.tex"
-lstparams "language=TeX,caption={使用\\dash的story},label={story with dash}"
+lstparams "language=TeX,caption={使用dash宏的story},label={story with dash}"
 
 \end_inset
 
