@@ -1,0 +1,174 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+input的相对路径问题
+\end_layout
+
+\begin_layout Standard
+\SpecialChar LaTeX
+的
+\backslash
+input命令可以用于导言区（
+\backslash
+include不可以），但是
+\backslash
+input不能跨项目路径（
+\backslash
+include允许相对路径），否则只能使用绝对路径引用外部文件。比如有两个项目：
+\end_layout
+
+\begin_layout LyX-Code
+/myproject1/file1.tex
+\end_layout
+
+\begin_layout LyX-Code
+/myproject2/file2.tex
+\end_layout
+
+\begin_layout Standard
+如果在file2.tex中使用
+\backslash
+input包含file1.tex，只能：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+input{/myproject1/file1.tex}
+\end_layout
+
+\begin_layout Standard
+如果使用相对路径会报告找不到file1.tex：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+input{../file1.tex}
+\end_layout
+
+\begin_layout Standard
+有没有办法使用相对路径跨项目input文件呢？实际上，input是根据环境变量TEXINPUTS指定的路径来搜索文件的，默认的TEXINPUTS环境变量只包括了
+当前路径，因此
+\backslash
+input{../file1.tex}自然会报错。
+\end_layout
+
+\begin_layout Standard
+正确使用input跨项目包含文件的姿态是分两个步骤：
+\end_layout
+
+\begin_layout Enumerate
+设置TEXINPUTS环境变量 在本例中，TEXINPUTS环境变量可以设置为：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+export TEXINPUTS=$TEXINPUTS:/myproject1//:
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+其中，最后的//允许搜索myproject1的子目录。如果是使用\SpecialChar LyX
+，则在首选项的路径中设置TEXINPUTS前缀即可。
+\end_layout
+
+\begin_layout Enumerate
+正确使用input包含文件 在设置了正确的TEXINPUTS环境变量的前提下，使用input包含文件就一目了然了：
+\backslash
+input{file1.tex}。
+\end_layout
+
+\end_body
+\end_document
