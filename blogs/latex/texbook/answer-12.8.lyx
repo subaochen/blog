@@ -84,33 +84,139 @@ warning-inset
 \begin_body
 
 \begin_layout Title
-风趣的D.E.K
+练习12.8的解答
+\end_layout
+
+\begin_layout Section*
+题目
 \end_layout
 
 \begin_layout Standard
-D.E.K在写作《The \SpecialChar TeX
-book》时，文笔还是相当风趣的，试举几例：
+假设
+\backslash
+box1的高度、深度和宽度为1pt，
+\backslash
+box2的高度、深度和宽度为2pt，
+\backslash
+box3的定义如下：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+setbox3=
+\backslash
+hbox to3pt{
+\backslash
+hfil
+\backslash
+lower3pt
+\backslash
+box1
+\backslash
+hskip-3pt plus3fil
+\backslash
+box2}
 \end_layout
 
 \begin_layout Standard
-p29：Hurray! There are no overfull boxes this time.
- 作者使用Hurray表示对overfull现象的“深恶痛绝”。
+那么
+\backslash
+box3的高度、深度和宽度各为多少？找出box1和box2的基准点相对于box3的基准点的位置。
+\end_layout
+
+\begin_layout Section*
+解答
 \end_layout
 
 \begin_layout Standard
-p40：category 10 will be assigned to the character '
-\begin_inset space \textvisiblespace{}
+首先，
+\backslash
+box3有两个盒子box1和box2以及2个glue组成，两个glue分别如下：
+\end_layout
+
+\begin_layout LyX-Code
+glue1，
+\backslash
+hfil，
+\backslash
+hskip 0pt plus 1fil
+\end_layout
+
+\begin_layout LyX-Code
+glue2，
+\backslash
+hskip-3pt plus3fil
+\end_layout
+
+\begin_layout Standard
+box3的自然宽度为：1pt+2pt+0pt-3pt=0pt，box3的设计宽度为3pt，因此box3将被拉伸，拉伸长度为3pt。其总拉伸能力为：0pt-3pt
++1fil+3fil=-3pt+4fil，即拉伸调整阶次（glue set order）为1，拉伸调整系数（glue set ratio）为(3-0)/4=3/
+4。因此glue1拉伸为0pt+3/4*1pt=.75pt，glue2拉伸为-3pt+3/4*3pt=-.75pt。
+\end_layout
+
+\begin_layout Standard
+于是可以画出box3如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
 \end_inset
 
-'(black space) if a space character somehow sneaks into the name of a control
- sequence.
- 作者使用sneak一词表达不太常见的情形。
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:box3"
+
+\end_inset
+
+所示，三个box的基准点显而易见。
 \end_layout
 
 \begin_layout Standard
-p66：your log file will contain the following mumbo jumbo:...确实，\SpecialChar TeX
-的日志输出不太容易读懂，因此作者形容为“
-mumbo jumbo”—胡言乱语。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/texbook/12.8.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+box3的最后形态
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:box3"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
