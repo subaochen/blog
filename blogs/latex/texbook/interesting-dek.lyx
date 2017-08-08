@@ -113,5 +113,19 @@ p66：your log file will contain the following mumbo jumbo:...确实，\SpecialC
 mumbo jumbo”—胡言乱语。
 \end_layout
 
+\begin_layout Standard
+p85：Just as people get into different moods, \SpecialChar TeX
+ gets into different 
+\begin_inset Quotes eld
+\end_inset
+
+modes
+\begin_inset Quotes erd
+\end_inset
+
+(Except that \SpecialChar TeX
+ is more predictable than people).
+\end_layout
+
 \end_body
 \end_document

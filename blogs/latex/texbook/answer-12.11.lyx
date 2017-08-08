@@ -1,0 +1,226 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+练习12.11的解答
+\end_layout
+
+\begin_layout Section*
+题目
+\end_layout
+
+\begin_layout Standard
+假设
+\backslash
+box1的高度、宽度和深度都是1pt，
+\backslash
+box2的高度、宽度和深度都是2pt，
+\backslash
+baselineskip、
+\backslash
+lineskip、
+\backslash
+lineskiplimit都为0pt，
+\backslash
+boxmaxdepth的值很大。第三个盒子的定义如下：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+setbox3=
+\backslash
+vbox to3pt{
+\backslash
+moveright3pt
+\backslash
+box1
+\backslash
+vskip-3pt plus3fil
+\backslash
+box2}
+\end_layout
+
+\begin_layout Standard
+请问
+\backslash
+box3的高度、宽度和深度各为多少？根据第三个盒子，请给出盒子1和盒子2的基点位置。
+\end_layout
+
+\begin_layout Section*
+解答
+\end_layout
+
+\begin_layout Standard
+首先需要明确两点：
+\end_layout
+
+\begin_layout Enumerate
+盒子3的基点就是最后加入盒子3的盒子2的基点。
+\end_layout
+
+\begin_layout Enumerate
+由于
+\backslash
+baselineskip、
+\backslash
+lineskip、
+\backslash
+lineskiplimit都为0pt，因此盒子1和盒子2之间没有interlineskip，因此盒子1和盒子2之间的间距只由给给定的粘连决定。
+\end_layout
+
+\begin_layout Standard
+最终的盒子3由三部分组成：box1，box2及其之间的粘连（glue）vskip-3pt plus3fil，因此盒子3的自然高度为：1+1+2-3=1pt，其中
+的2个1是盒子1的高度和深度，2为盒子2的高度，-3为粘连的自然长度。盒子2的深度不计入盒子3的自然高度之中。由于盒子3的设计高度为3pt，因此盒子3的拉伸系数
+为：(3-1)/3=2/3，则粘连的实际长度为：-3+3*2/3=-1pt，亦即，盒子2位于盒子1之下，但是两个盒子有1pt的重叠。由此可知盒子的高度为1+1+
+2-1=3pt，盒子3的深度即为盒子2的深度2pt，盒子3的宽度为4pt。盒子3的形状如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:box3"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/texbook/12.11.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+盒子3
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:box3"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
