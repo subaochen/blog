@@ -1,0 +1,260 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+练习18.39的解答
+\end_layout
+
+\begin_layout Section*
+题目
+\end_layout
+
+\begin_layout Standard
+挑战题目13：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$$
+\backslash
+def
+\backslash
+
+\backslash
+#1#2{(1-q^{#1_#2+n})}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Pi_R{a_1,a_2,
+\backslash
+ldots,a_M 
+\backslash
+atopwithdelims[] b_1,b_2,
+\backslash
+ldots,b_N}=
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+prod_{n=0}^R{
+\backslash
+
+\backslash
+a1
+\backslash
+
+\backslash
+a2
+\backslash
+ldots
+\backslash
+
+\backslash
+aM 
+\backslash
+over 
+\backslash
+
+\backslash
+b1
+\backslash
+
+\backslash
+b2
+\backslash
+ldots
+\backslash
+
+\backslash
+bn}.
+\end_layout
+
+\begin_layout Plain Layout
+
+$$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+解答
+\end_layout
+
+\begin_layout Standard
+代码如下：
+\end_layout
+
+\begin_layout LyX-Code
+$$
+\backslash
+def
+\backslash
+
+\backslash
+#1#2{(1-q^{#1_#2+n})}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+Pi_R{a_1,a_2,
+\backslash
+ldots,a_M 
+\backslash
+atopwithdelims[] b_1,b_2,
+\backslash
+ldots,b_N}=
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+prod_{n=0}^R{
+\backslash
+
+\backslash
+a1
+\backslash
+
+\backslash
+a2
+\backslash
+ldots
+\backslash
+
+\backslash
+aM 
+\backslash
+over 
+\backslash
+
+\backslash
+b1
+\backslash
+
+\backslash
+b2
+\backslash
+ldots
+\backslash
+
+\backslash
+bn}.
+\end_layout
+
+\begin_layout LyX-Code
+$$
+\end_layout
+
+\begin_layout Standard
+注意以下几点：
+\end_layout
+
+\begin_layout Enumerate
+定义一个宏
+\backslash
+#1#2可以减少输入的工作量，同时也减少输入出错的几率。
+\end_layout
+
+\begin_layout Enumerate
+注意到
+\backslash
+atopwithdelims[]的用法，很实用，自动增加大小合适的指定分界符。
+\end_layout
+
+\end_body
+\end_document

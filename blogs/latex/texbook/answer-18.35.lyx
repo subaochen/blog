@@ -1,0 +1,182 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+练习18.35的解答
+\end_layout
+
+\begin_layout Section*
+题目
+\end_layout
+
+\begin_layout Standard
+挑战题目9：下面的公式：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+	$$x_{2m}
+\backslash
+equiv
+\backslash
+cases{Q(X_m^2-P_2W_m^2)-2S^2&($m$ odd)
+\backslash
+cr
+\end_layout
+
+\begin_layout Plain Layout
+
+	    P_2^2(X_m^2-P_2W_m^2)-2S^2&($m$ even)
+\backslash
+cr} 
+\backslash
+pmod N.$$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+解答
+\end_layout
+
+\begin_layout Standard
+代码为：
+\end_layout
+
+\begin_layout LyX-Code
+$$x_{2m}
+\backslash
+equiv
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+cases{Q(X_m^2-P_2W_m^2)-2S^2&($m$ odd)
+\backslash
+cr
+\end_layout
+
+\begin_layout LyX-Code
+         P_2^2(X_m^2-P_2W_m^2)-2S^2&($m$ even)
+\backslash
+cr} 
+\backslash
+pmod N.$$
+\end_layout
+
+\begin_layout Standard
+注意以下几个方面：
+\end_layout
+
+\begin_layout Itemize
+使用
+\backslash
+cases表达条件，其格式和表格、矩阵的输入非常像。
+\end_layout
+
+\begin_layout Itemize
+条件中的m为斜体，应该使用数学符号$括起来。
+\end_layout
+
+\begin_layout Itemize
+
+\backslash
+pmod会自动增加和前面文本的间隔，因此不需要在
+\backslash
+pmod之前使用
+\backslash
+qquad等画蛇填足。
+\end_layout
+
+\end_body
+\end_document
