@@ -1,0 +1,361 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+marginnote
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+newif的用法
+\end_layout
+
+\begin_layout Section
+概念
+\end_layout
+
+\begin_layout Standard
+
+\backslash
+newif是plain \SpecialChar TeX
+（\SpecialChar LaTeX2e
+中依然支持）中创建逻辑变量
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+变量（variable）、控制序列（control sequence）、命令（command）、宏（macro）在\SpecialChar TeX
+中基本是同义词
+\end_layout
+
+\end_inset
+
+的方法，语法很简单：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newif
+\backslash
+ifboolcondition
+\end_layout
+
+\begin_layout Standard
+简单的语法却有不简单的含义！简单的说，这同时创建了三个命令：
+\end_layout
+
+\begin_layout Description
+
+\backslash
+ifboolcondition 创建逻辑变量ifboolcondition（只有true/false两种状态），并根据相应的状态执行相应的代码，需要配合
+\backslash
+fi一起使用，即一旦通过
+\backslash
+newif创建了逻辑变量ifboolcondition，在实际使用时一般的形式为：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Doublebox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+
+\backslash
+ifboolcondition
+\begin_inset Newline newline
+\end_inset
+
+    ...%ifboolcondition为true时的输出
+\begin_inset Newline newline
+\end_inset
+
+
+\backslash
+else
+\begin_inset Newline newline
+\end_inset
+
+    ...%ifboolcondition为false时的输出
+\begin_inset Newline newline
+\end_inset
+
+
+\backslash
+fi
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\backslash
+boolconditiontrue 将
+\backslash
+ifboolcondition设置为true。注意，这个命令不包含if！
+\end_layout
+
+\begin_layout Description
+
+\backslash
+boolconditionfalse 将
+\backslash
+ifboolcondition设置为false。注意，这个命令不包含if！
+\end_layout
+
+\begin_layout Standard
+默认的，
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+newif
+\backslash
+ifboolcondition
+\end_layout
+
+\end_inset
+
+命令创建一个false状态的逻辑变量
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+ifboolcondition
+\end_layout
+
+\end_inset
+
+，即
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+new
+\backslash
+ifboolcondition
+\end_layout
+
+\end_inset
+
+等价于：
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+new
+\backslash
+ifboolcondition 
+\backslash
+boolconditionfalse
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+有了
+\backslash
+newif创建逻辑变量，关于分支的处理就方便多了：在合适的时候使用
+\backslash
+xxxtrue或者
+\backslash
+xxxfalse设置
+\backslash
+xxx逻辑变量的状态，通过监测
+\backslash
+xxx的状态决定输出的文本即可。
+\end_layout
+
+\begin_layout Section
+举例
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+newif
+\backslash
+ifstudent
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+printstudent{
+\backslash
+ifstudent here is a student.
+ 
+\backslash
+else here is not a student.
+\backslash
+fi}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+studenttrue
+\backslash
+printstudent
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+studentfalse
+\backslash
+printstudent
+\end_layout
+
+\begin_layout Standard
+输出结果为：
+\end_layout
+
+\begin_layout Standard
+here is a student.
+ here is not a student.
+\end_layout
+
+\begin_layout Section
+勿滥用newif
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+提供了大量的
+\backslash
+if开头的条件判断命令，比如
+\backslash
+if、
+\backslash
+ifx、
+\backslash
+ifodd、
+\backslash
+ifnum、
+\backslash
+ifdim、
+\backslash
+ifvmode、
+\backslash
+ifhmode、
+\backslash
+ifmmode、
+\backslash
+ifinner等等，显然应该优先使用这些预定义的条件判断命令。当以上命令无法表达当前的逻辑关系时，才考虑使用
+\backslash
+newif自定义逻辑变量。
+\end_layout
+
+\end_body
+\end_document
