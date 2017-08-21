@@ -1,0 +1,549 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+def和edef释疑
+\end_layout
+
+\begin_layout Section
+区别
+\end_layout
+
+\begin_layout Standard
+def和edef都可以定义宏，其区别是：def定义宏时，其宏体不做展开操作；而edef定义宏时，其宏体需要进行展开操作，直到不能再展开为止。def定义的宏，在实
+际调用时才进行展开，因此宏定义时可以引用还没有定义的其他的宏；edef定义宏时，由于马上就进行展开操作，因此不能引用还没有定义的宏。无论def定义的宏还是ede
+f定义的宏，在实际调用时都会进行“彻底”的展开操作。
+\end_layout
+
+\begin_layout Standard
+既然宏最终还是要展开的，在定义时展开（edef）和在调用时展开（两种情况下都是）到底有什么区别呢？首先看一下def的常见用法（*为\SpecialChar TeX
+提示符，删除了部分不影响理解的
+输出）：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+*
+\backslash
+tracingall
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+def
+\backslash
+b{b}
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+def
+\backslash
+c{
+\backslash
+b}
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+def
+\backslash
+a{
+\backslash
+b
+\backslash
+c}
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+a
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+a ->
+\backslash
+b 
+\backslash
+c 
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+b ->b
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+c ->
+\backslash
+b 
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+b ->b%输出bb
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+def
+\backslash
+b{foo}
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+a
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+a ->
+\backslash
+b 
+\backslash
+c 
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+b ->foo
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+c ->
+\backslash
+b 
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+b ->foo%输出foofoo
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可见，宏
+\backslash
+a的定义是
+\backslash
+b
+\backslash
+c，每次执行
+\backslash
+a，其内容会随
+\backslash
+b或者
+\backslash
+c的不同定义而发生变化。再观察一下edef的常见用法：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+*
+\backslash
+tracingall
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+def
+\backslash
+b{b}
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+def
+\backslash
+c{
+\backslash
+b}
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+edef
+\backslash
+a{
+\backslash
+b
+\backslash
+c}
+\end_layout
+
+\begin_layout Plain Layout
+{
+\backslash
+edef}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+b ->b
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+c ->
+\backslash
+b 
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+b ->b
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+a
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+a ->bb%输出bb
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+def
+\backslash
+b{foo}
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+a
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+a ->bb%输出bb
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可见，当使用edef定义宏
+\backslash
+a时，在定义时
+\backslash
+b
+\backslash
+c就展开成为了bb，即宏
+\backslash
+a成为固定不变的字符串bb，不再随
+\backslash
+b或者
+\backslash
+c发生变化。
+\end_layout
+
+\begin_layout Section
+noexpand配合edef的用法
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:noexpand配合edef的用法"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+既然edef定义宏时就要展开，如何设置能够禁止某些特定的宏在edef中展开呢？办法有很多
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p216"
+key "texbook"
+
+\end_inset
+
+，最常规和最简单的做法是使用
+\backslash
+noexpand命令，比如：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+a{a}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+b{b}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+c{c}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+edef
+\backslash
+foo{
+\backslash
+a
+\backslash
+noexpand
+\backslash
+b
+\backslash
+c}%
+\backslash
+foo此时为a
+\backslash
+b c
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+foo%a
+\backslash
+b c继续展开为abc
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+b{bar}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+foo%输出为：afooc
+\end_layout
+
+\begin_layout Standard
+可以看出，使用
+\backslash
+noexpand禁止某些宏展开，保证了edef所定义的宏具有一定的灵活性。在本例中，
+\backslash
+foo的输出内容还是可以跟随
+\backslash
+b发生变化的。如果不使用
+\backslash
+noexpand
+\backslash
+b的话，
+\backslash
+foo就成为固定不变的‘abc’了。
+\end_layout
+
+\begin_layout Section
+expandafter配合def的用法
+\end_layout
+
+\begin_layout Standard
+和
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:noexpand配合edef的用法"
+
+\end_inset
+
+中的情形相反，有的时候需要在edef定义的宏中马上展开一个宏，这个时候expandafter就派上用场了，比如：
+\end_layout
+
+\begin_layout Section
+edef和let
+\end_layout
+
+\begin_layout Standard
+edef展开宏定义，let不展开宏定义。
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/latex"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
