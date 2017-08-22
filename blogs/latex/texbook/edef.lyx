@@ -522,7 +522,69 @@ reference "sec:noexpand配合edef的用法"
 
 \end_inset
 
-中的情形相反，有的时候需要在edef定义的宏中马上展开一个宏，这个时候expandafter就派上用场了，比如：
+中的情形相反，有的时候需要在def定义的宏中马上展开一个宏，怎么办？如果大量的宏需要展开，直接切换edef是良策；如果只有个别的宏需要展开，可以首先展开这个宏，
+然后把展开的宏“拼接”进去，如下所示：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+a{a}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+b{b}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+c{c}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+toks0=
+\backslash
+expandafter{
+\backslash
+b}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+foo{
+\backslash
+a
+\backslash
+the
+\backslash
+toks0
+\backslash
+b
+\backslash
+c}
+\end_layout
+
+\begin_layout Section
+权衡
+\end_layout
+
+\begin_layout Standard
+使用def还是edef来定义宏，取决于宏定义时需要展开多少宏，以及为什么要展开宏。展开某些宏的目的是让宏的定义“固化”，防止在宏定义后“不经意”或者“有意”的修
+改（侵犯），提高了宏的安全性。
 \end_layout
 
 \begin_layout Section
@@ -530,7 +592,140 @@ edef和let
 \end_layout
 
 \begin_layout Standard
-edef展开宏定义，let不展开宏定义。
+edef展开宏定义，let不展开宏定义，如下的指令执行序列可以证明
+\backslash
+let不会展开：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+*
+\backslash
+tracingall
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+def
+\backslash
+b{
+\backslash
+c
+\backslash
+d}
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+def
+\backslash
+c{c}
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+def
+\backslash
+d{d}
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+let
+\backslash
+a=
+\backslash
+b
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+a%调用宏
+\backslash
+a，输出cd
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+a ->
+\backslash
+c 
+\backslash
+d 
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+c ->c
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+d ->d
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出，调用
+\backslash
+a时展开了
+\backslash
+b
+\backslash
+c从而输出“cd”。let操作时，
+\backslash
+a仅仅复制了
+\backslash
+b的内容（tokens），即
+\backslash
+c
+\backslash
+d，并没有展开
+\backslash
+c
+\backslash
+d。
+\end_layout
+
+\begin_layout Standard
+\SpecialChar TeX
+中似乎没有
+\backslash
+redef命令，因此无法验证重新给
+\backslash
+c或者
+\backslash
+d赋值时的情形。
 \end_layout
 
 \begin_layout Standard
