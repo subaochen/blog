@@ -1,0 +1,602 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf5
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar TeX
+求字符串的长度
+\end_layout
+
+\begin_layout Standard
+求非空字符串的长度，在各种语言中都有经典的解答，D.E.K给出的纯\SpecialChar TeX
+口味代码
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p219"
+key "texbook"
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+length#1{{
+\backslash
+count0=0 
+\backslash
+getlength#1
+\backslash
+end 
+\backslash
+number
+\backslash
+count0}}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+getlength#1{
+\backslash
+ifx#1
+\backslash
+end 
+\backslash
+let
+\backslash
+next=
+\backslash
+relax
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+else
+\backslash
+advance
+\backslash
+count0 by1 
+\backslash
+let
+\backslash
+next=
+\backslash
+getlength
+\backslash
+fi 
+\backslash
+next}
+\end_layout
+
+\begin_layout Standard
+首先从代码的执行过程体会一下整体思路：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+*
+\backslash
+tracingmacros=1
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+tracingonline=1
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+def
+\backslash
+length#1{{
+\backslash
+count0=0 
+\backslash
+getlength#1
+\backslash
+end 
+\backslash
+number
+\backslash
+count0}}
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+def
+\backslash
+getlength#1{
+\backslash
+ifx#1
+\backslash
+end 
+\backslash
+let
+\backslash
+next=
+\backslash
+relax 
+\backslash
+else
+\backslash
+advance
+\backslash
+count0 by1 
+\backslash
+let
+\backslash
+next=
+\backslash
+getlength
+\backslash
+fi 
+\backslash
+next}
+\end_layout
+
+\begin_layout Plain Layout
+*
+\backslash
+length{name}
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+length #1->{
+\backslash
+count 0=0 
+\backslash
+getlength #1
+\backslash
+end 
+\backslash
+number 
+\backslash
+count 0}
+\end_layout
+
+\begin_layout Plain Layout
+#1<-name
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+getlength #1->
+\backslash
+ifx #1
+\backslash
+end 
+\backslash
+let 
+\backslash
+next =
+\backslash
+relax 
+\backslash
+else 
+\backslash
+advance 
+\backslash
+count 0 by1 
+\backslash
+let 
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+next =
+\backslash
+getlength 
+\backslash
+fi 
+\backslash
+next 
+\end_layout
+
+\begin_layout Plain Layout
+#1<-n
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+next #1->
+\backslash
+ifx #1
+\backslash
+end 
+\backslash
+let 
+\backslash
+next =
+\backslash
+relax 
+\backslash
+else 
+\backslash
+advance 
+\backslash
+count 0 by1 
+\backslash
+let 
+\backslash
+next
+\end_layout
+
+\begin_layout Plain Layout
+=
+\backslash
+getlength 
+\backslash
+fi 
+\backslash
+next 
+\end_layout
+
+\begin_layout Plain Layout
+#1<-a
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+next #1->
+\backslash
+ifx #1
+\backslash
+end 
+\backslash
+let 
+\backslash
+next =
+\backslash
+relax 
+\backslash
+else 
+\backslash
+advance 
+\backslash
+count 0 by1 
+\backslash
+let 
+\backslash
+next
+\end_layout
+
+\begin_layout Plain Layout
+=
+\backslash
+getlength 
+\backslash
+fi 
+\backslash
+next 
+\end_layout
+
+\begin_layout Plain Layout
+#1<-m
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+next #1->
+\backslash
+ifx #1
+\backslash
+end 
+\backslash
+let 
+\backslash
+next =
+\backslash
+relax 
+\backslash
+else 
+\backslash
+advance 
+\backslash
+count 0 by1 
+\backslash
+let 
+\backslash
+next
+\end_layout
+
+\begin_layout Plain Layout
+=
+\backslash
+getlength 
+\backslash
+fi 
+\backslash
+next 
+\end_layout
+
+\begin_layout Plain Layout
+#1<-e
+\end_layout
+
+\begin_layout Plain Layout
+
+\backslash
+next #1->
+\backslash
+ifx #1
+\backslash
+end 
+\backslash
+let 
+\backslash
+next =
+\backslash
+relax 
+\backslash
+else 
+\backslash
+advance 
+\backslash
+count 0 by1 
+\backslash
+let 
+\backslash
+next
+\end_layout
+
+\begin_layout Plain Layout
+=
+\backslash
+getlength 
+\backslash
+fi 
+\backslash
+next 
+\end_layout
+
+\begin_layout Plain Layout
+#1<-
+\backslash
+end 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+仔细解读这段代码，我们可以学到很多。首先看一下
+\backslash
+length的定义，借用count0来统计字符串的长度，这很容易理解。但是要注意
+\backslash
+getlength#1
+\backslash
+end的调用，这是本段代码的关键点之一。getlength宏的参数为#1
+\backslash
+end，比如字符串为
+\begin_inset Quotes erd
+\end_inset
+
+name
+\begin_inset Quotes erd
+\end_inset
+
+，则getlength的参数为：name
+\backslash
+end，即5个token，其中的
+\backslash
+end是一个宏，但是由于参数中的宏不会展开，因此这里的
+\backslash
+end不需要定义，我们只是拿来表示字符串的结束（getlength参数的结束）而已。
+\backslash
+getlength#1
+\backslash
+end会首先将#1中的第一个字母作为参数，这里即为将n作为getlength的参数。处理完第一个字母，下一步会处理第二个字母，直到遇到
+\backslash
+end为止。
+\end_layout
+
+\begin_layout Standard
+如果
+\backslash
+getlength name
+\backslash
+end只执行一次，那么会输出
+\backslash
+getlength n的结果，nme
+\backslash
+end会原样输出（实际上，由于
+\backslash
+end没有定义，如果
+\backslash
+getlength name
+\backslash
+end只执行一次，会报告
+\backslash
+end没有定义的错误）。因此，
+\backslash
+getlength宏巧妙的实现了一个看起来像是递归的过程：
+\end_layout
+
+\begin_layout Enumerate
+首先将
+\backslash
+getlength的参数和
+\backslash
+end比较，如果相同则表示字符串处理完毕，将
+\backslash
+next设置为
+\backslash
+relax。注意到，整个
+\backslash
+getlength宏的可执行部分只有
+\backslash
+next宏。
+\end_layout
+
+\begin_layout Enumerate
+如果
+\backslash
+getlength的参数不是
+\backslash
+end，则将
+\backslash
+count0增加1，并且设置
+\backslash
+next宏为
+\backslash
+getlength：这样就实现了递归调用，因为
+\backslash
+getlength的可执行代码只有
+\backslash
+next，而
+\backslash
+next是重新执行
+\backslash
+getlength宏，即读入token序列的下一个字母作为参数继续处理。
+\end_layout
+
+\begin_layout Standard
+注意到，
+\backslash
+getlength name
+\backslash
+end的执行过程是，\SpecialChar TeX
+首先将这个命令及其参数切分为token序列：
+\backslash
+getlength、
+\begin_inset space \textvisiblespace{}
+\end_inset
+
+、n、a、m、e、
+\backslash
+end，然后从这个token序列中依次读出token进行处理。
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "../../../../bibref/latex"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
