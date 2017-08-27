@@ -1,0 +1,287 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+练习21.3的解答
+\end_layout
+
+\begin_layout Section*
+题目
+\end_layout
+
+\begin_layout Standard
+定义一个控制序列
+\backslash
+boxit，使得
+\backslash
+boxit{<box>}把所给定的盒子在四周使用双线条（线条间距为3pt）围起来。
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Box Doublebox
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "60line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+For example, the sentence you are now reading was typeset as part of the
+ displayed formula $$
+\backslash
+boxit{
+\backslash
+boxit{
+\backslash
+box4}}$$, where box 4 was created by `
+\backslash
+setbox4=
+\backslash
+vbox{
+\backslash
+hsize 23pc 
+\backslash
+noindent 
+\backslash
+strut For example, the sentence you are reading...
+ 
+\backslash
+strut}`.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+解答
+\end_layout
+
+\begin_layout Standard
+这是一个值得深入探究的题目，对理解\SpecialChar TeX
+的盒子模型及其组合方式很有帮助—\SpecialChar TeX
+是如何
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+抽丝剥茧般构造文本块
+\end_layout
+
+\end_inset
+
+的。代码如下：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+boxit#1{
+\backslash
+vbox{
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+hrule
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+hbox{
+\backslash
+vrule
+\backslash
+hskip3pt
+\backslash
+vbox{
+\backslash
+vskip3pt#1
+\backslash
+vskip3pt}
+\backslash
+hskip3pt
+\backslash
+vrule}
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+hrule
+\end_layout
+
+\begin_layout LyX-Code
+}}
+\end_layout
+
+\begin_layout Standard
+首先，整体上即最外层是一个vbox。这个vbox分为三个上中下三个部分，其中上下两个部分是分别是hrule，其长度取决于vbox的宽度，后面我们会看到最外层的v
+box宽度如何确定。重点是中间层的hbox，由5部分组成，分别是：
+\end_layout
+
+\begin_layout Enumerate
+左边的vrule，画出左边的竖线。注意到vrule的高度取决于内容块vbox的高度。
+\end_layout
+
+\begin_layout Enumerate
+间距hskip3pt，使得左边的竖线和内容块间距为3pt。
+\end_layout
+
+\begin_layout Enumerate
+内容块，又是一个vbox，这个vbox也分为三层，上层的vskip3pt实现了内容块和上边线间距3pt，下层的vskip3pt实现了内容块和下边线间距3pt。很
+容易想到，真正要显示的内容也要放到一个vbox中作为内容块的中间层。
+\end_layout
+
+\begin_layout Enumerate
+间距hskip3pt，使得右边的竖线和内容块的间距为3pt。
+\end_layout
+
+\begin_layout Enumerate
+右边的vrule，画出右边的竖线。
+\end_layout
+
+\begin_layout Standard
+注意到，最外层vbox的宽度取决于中间层hbox的宽度。
+\end_layout
+
+\begin_layout Standard
+完成的测试用例代码列表如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/texbook/boxit.tex"
+lstparams "language=TeX"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+输出结果为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "/home/subaochen/git/blog/src/latex/texbook/boxit.tex"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
