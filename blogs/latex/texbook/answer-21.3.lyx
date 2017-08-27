@@ -97,6 +97,23 @@ logicalmkup
 练习21.3的解答
 \end_layout
 
+\begin_layout Standard
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mycopyright
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section*
 题目
 \end_layout
@@ -281,6 +298,68 @@ filename "/home/subaochen/git/blog/src/latex/texbook/boxit.tex"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+换一种思路，如果首先构造hbox呢？参见下面的代码：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+boxit#1{
+\backslash
+hbox{
+\backslash
+vrule
+\backslash
+vbox{
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+hrule 
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+vskip3pt
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+hbox{
+\backslash
+hskip3pt#1
+\backslash
+hskip3pt}
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+vskip3pt
+\end_layout
+
+\begin_layout LyX-Code
+  
+\backslash
+hrule 
+\end_layout
+
+\begin_layout LyX-Code
+}
+\backslash
+vrule}} 
+\end_layout
+
+\begin_layout Standard
+效果完全一致，值得认真玩味，尤其是，如何防止竖线和横线不连贯？构造盒子的次序非常重要！
 \end_layout
 
 \end_body

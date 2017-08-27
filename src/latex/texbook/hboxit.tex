@@ -1,0 +1,11 @@
+\def\boxit#1{\hbox{\vrule\vbox{
+  \hrule
+  \vskip3pt
+  \hbox{\hskip3pt#1\hskip3pt}
+  \vskip3pt
+  \hrule
+}\vrule}}
+
+\def\sample{some sample text}
+\boxit{\boxit{\vbox{\hsize3in\noindent\strut\sample\sample\sample\sample\sample
+\sample\sample\sample\sample\sample\strut}}}
