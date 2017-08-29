@@ -1,0 +1,244 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+练习22.7的解答
+\end_layout
+
+\begin_layout Section*
+题目
+\end_layout
+
+\begin_layout Standard
+设计一个“导言”，使得下列表格：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "../../../src/latex/texbook/ex-22.7.tex"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以通过如下的方式输入：
+\end_layout
+
+\begin_layout LyX-Code
+maehi=she&ydy hi=is hse&roedd hi=she was
+\backslash
+cr
+\end_layout
+
+\begin_layout Section*
+解答
+\end_layout
+
+\begin_layout Standard
+仔细观察表格可以发现有两个特点：
+\end_layout
+
+\begin_layout Enumerate
+等号前面的字符串是粗体的。
+\end_layout
+
+\begin_layout Enumerate
+等号两边需要额外的空格。
+\end_layout
+
+\begin_layout Standard
+因此，如果直接将单元格的内容输入，比如maehi=she是无法满足以上两点要求的，尤其是等号两边需要额外的空格这一条，和给定的输入方式有较大差异，意即，输入和输
+出需要进行一定的适配，定义一个宏可以做到这一点：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def
+\backslash
+tabitem#1={{
+\backslash
+bf #1} = }
+\end_layout
+
+\begin_layout Standard
+即，当输入
+\backslash
+tabitem maehi=she时，其输出是：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+tabitem#1={{
+\backslash
+bf #1} = }
+\backslash
+tabitem maehi=she
+\end_layout
+
+\end_inset
+
+。这个宏利用了等号作为参数匹配的标志物，
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+分离
+\end_layout
+
+\end_inset
+
+出了实际输入中等号前面的部分作为#1，等号后面的部分原样输出。本例中，maehi成为#1，she原样输出，因此maehi粗体显示，并且输出了一个两边有空格的等号
+，紧接着的she原样输出。
+\end_layout
+
+\begin_layout Standard
+有了宏tabitem，整个表格的导言就比较容易设计了：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+halign to 
+\backslash
+hsize{
+\backslash
+tabitem#
+\backslash
+hfil
+\backslash
+tabskip1em plus 1em&
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+tabitem#
+\backslash
+hfil&
+\backslash
+tabitem#
+\backslash
+hfil
+\backslash
+tabskip0pt
+\backslash
+cr...}
+\end_layout
+
+\begin_layout Standard
+完整的测试代码如下：
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/texbook/ex-22.7.tex"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
