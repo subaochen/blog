@@ -1,0 +1,521 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+active character释疑
+\end_layout
+
+\begin_layout Section
+概念
+\end_layout
+
+\begin_layout Standard
+一直对\SpecialChar TeX
+中“active character”这个概念熟视无睹，也许对于初学者真的没太大意义，但是编写宏的过程中，active character却担当重任。
+\end_layout
+
+\begin_layout Standard
+所谓的active character是指\SpecialChar TeX
+
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+将单个字符作为控制序列
+\end_layout
+
+\end_inset
+
+来看待，因此这个字符就不再是一个普通的字符，而是“活动的”，即可以执行的控制序列，其catcode为13（
+\backslash
+active）。每次\SpecialChar TeX
+遇到这个active character时，都会执行这个active character所对应的命令序列。因此，定义一个active
+ character分为两个步骤：第一，设置这个字符的catcode为
+\backslash
+active（13)；第二，定义这个active character的命令序列。\SpecialChar TeX
+默认只定义了一个active character即众所周知的`~`，是一个不可断
+行的空格，其定义为：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+catcode`
+\backslash
+~=
+\backslash
+active
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def~{
+\backslash
+penalty10000
+\backslash
+ }
+\end_layout
+
+\begin_layout Standard
+我们可以将任意字符定义为active character，比如下面的例子
+\begin_inset CommandInset citation
+LatexCommand cite
+key "active-character"
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+catcode`
+\backslash
+z=
+\backslash
+active
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def z{Yawn, I’m tired}
+\end_layout
+
+\begin_layout LyX-Code
+xyz%输出：xyYawn, I'm tired
+\end_layout
+
+\begin_layout Standard
+注意到，字母z定义为active character后便成为一个命令了，因此下面的定义：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def z{Yawnz, I'm tired}
+\end_layout
+
+\begin_layout Standard
+将成为一个无限循环而导致\SpecialChar TeX
+异常退出。因此，将普通字母定义为active character是有风险的，一般情况下不建议这样做。另外，以上的定义也可以写为：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+catcode`
+\backslash
+z=
+\backslash
+active
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+defz{Yawn, I'm tired}
+\end_layout
+
+\begin_layout Standard
+z现在是一个active character了，因此\SpecialChar TeX
+将z解释为一个命令，
+\backslash
+def和z连在一起就是可以的。
+\end_layout
+
+\begin_layout Standard
+active character前面不能使用
+\backslash
+来表示控制序列，事实上，`
+\backslash
+~`和`~`具有截然不同的含义：`
+\backslash
+~`打印出字符`~`，而`~`打印出一个不可断行的空格。
+\end_layout
+
+\begin_layout Section
+实战
+\end_layout
+
+\begin_layout Standard
+比如，下划线`
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+_
+\end_layout
+
+\end_inset
+
+`在\SpecialChar TeX
+中是解释为数学环境的下标的，那么如何输入一个字符`_`呢？可以将`_`重新定义为active character：
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+catcode`
+\backslash
+_=
+\backslash
+active
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+def_{
+\backslash
+_}
+\end_layout
+
+\begin_layout Standard
+定义active character需要相当谨慎，比如上例，一般情况下要将此定义限制在一个分组内，以免和常见的`_`（数学下标）定义冲突。
+\end_layout
+
+\begin_layout Standard
+下面分析一下
+\backslash
+obeylines的实现思路
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p174"
+key "beginner_book_tex"
+
+\end_inset
+
+。
+\backslash
+obeylines只是简单的将输入的^^M（回车符）转换为
+\backslash
+par即可，因此一个很容易想到的思路是如下定义并使用
+\backslash
+obeylines:
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/obeylines-test-wrong.tex"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可是当执行时，\SpecialChar TeX
+会抱怨：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+Runaway definition?
+\end_layout
+
+\begin_layout LyX-Code
+->
+\backslash
+catcode `
+\backslash
+^^M=
+\backslash
+active 
+\backslash
+def 
+\backslash
+obeylines { first line second line } 
+\end_layout
+
+\begin_layout LyX-Code
+! File ended while scanning definition of 
+\backslash
+obeylines.
+\end_layout
+
+\begin_layout LyX-Code
+<inserted text> 
+\end_layout
+
+\begin_layout LyX-Code
+                }
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，\SpecialChar TeX
+发现
+\backslash
+obeylines的定义不对（Runaway definition）。仔细分析一下obeylines的定义会发现，尽管定义的第一句是
+\backslash
+catcode`
+\backslash
+^^M=
+\backslash
+active，但是实际上这是在obeylines的定义中，只有执行obeylines时才会真正执行（展开），在定义时是不会展开的，即当\SpecialChar TeX
+读到这一句时，并不会设置^
+^M的catcode为13！因此当\SpecialChar TeX
+接着往下解析的时候，问题出现了：
+\backslash
+def^^M...，当读到^^M时，\SpecialChar TeX
+解读为一个回车符，忽略掉^^M后面的内容直接跳到到下一行，导致了obeylines的定义出错—没有匹配的右大括号。
+\end_layout
+
+\begin_layout Standard
+是否可以在定义obeylines之前将^^M定义为普通字符呢？像下面这样：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/obeylines-test-still-wrong.tex"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+出错信息为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+! Missing control sequence inserted.
+\end_layout
+
+\begin_layout LyX-Code
+<inserted text> 
+\end_layout
+
+\begin_layout LyX-Code
+                
+\backslash
+inaccessible 
+\end_layout
+
+\begin_layout LyX-Code
+<to be read again> 
+\end_layout
+
+\begin_layout LyX-Code
+                   ^^M
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+obeylines ->
+\backslash
+catcode `
+\backslash
+^^M=
+\backslash
+active 
+\backslash
+def ^^M
+\end_layout
+
+\begin_layout LyX-Code
+                                            {
+\backslash
+par }
+\end_layout
+
+\begin_layout LyX-Code
+l.3 
+\backslash
+obeylines
+\end_layout
+
+\begin_layout LyX-Code
+              {
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，在解释
+\backslash
+def^^M时报错：此时^^M为一个catcode为12的普通字符，显然
+\backslash
+def^^M的形式是不允许的，只能将^^M的catcode设置为13才能这样使用，因此正确的定义为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/obeylines-test-right.tex"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+此处，为了将^^M的catcode更改的影响减小最小，将obeylines的定义放到一个分组中，因此同时需要将obeylines的定义修改为
+\backslash
+gdef，使之成为一个全局的定义。
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "../../../../bibref/latex"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
