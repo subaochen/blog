@@ -1,0 +1,314 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\SpecialChar TeX
+画表格原理分析
+\end_layout
+
+\begin_layout Standard
+如果不需要画表格线，\SpecialChar TeX
+展现表格还是很方便的，halign的强大模板功能使得输入速度甚至比图形方式还要快—在模板（导言）中定义好数据的格式，甚至在模板（导言）中提前
+输入重复的数据部分，真正的数据只需要按部就班的使用&分割开来逐行（使用
+\backslash
+cr断开）就可以了。这种设计思路非常类似于CSS样式表，导言相当于CSS的样式表，将数据的格式和数据本身分离出来，简化了数据的输入，未来调整数据的格式也很简单。
+\end_layout
+
+\begin_layout Standard
+如果需要画出表格线，在\SpecialChar TeX
+中就要费些功夫了，需要借助于
+\backslash
+vrule画出竖线，
+\backslash
+hrule画出横线。看一下《the TeXbook》中的例子
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+比原书的例子多了
+\backslash
+BC、
+\backslash
+AD的定义，估计作者忘记定义了。
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after "chapter 22:alignment, p246"
+key "texbook"
+
+\end_inset
+
+：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/latex/texbook/rule-table.tex"
+lstparams "language=TeX"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+画出来的表格杠杠的：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "/home/subaochen/git/blog/src/latex/texbook/rule-table.tex"
+lstparams "language=TeX"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+下面诸句分析\SpecialChar TeX
+画表格的基本原理。开头的
+\backslash
+offinterlineskip消除了行间距设置，也就是说，不再自动在表格行之间插入默认的
+\backslash
+interlineskip，如果表格行之间需要一定的间距，需要我们自己“主动”插入，后面还会提及。显然，表格的横线可以使用
+\backslash
+hrule画出，由于整个表格在一个vbox中，因此画最顶端表格横向的
+\backslash
+hrule命令不需要给出任何参数，自动根据vbox的宽度画出表格的第一条横线。表格的最后一条横线类似的方式画出，这也是最后一条语句
+\backslash
+hrule的用意。
+\end_layout
+
+\begin_layout Standard
+表格的主体使用
+\backslash
+halign，对于两栏数据的表格而言，其实需要设计五栏：两栏数据+三个竖线栏。也就是说，对于N栏数据的表格而言，需要设计
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$2
+\backslash
+times N+1$
+\end_layout
+
+\end_inset
+
+个栏的表格。我们还是以两栏数据的本例来看，其中的1、3、5栏为竖线栏。每条竖线可以通过
+\backslash
+vrule画出，竖线的高度一般取数据的自然高度即可，仔细观察表格会发现，表格的1、2列和3、4列样式是一样的，第5列和第1列的样式也是一样的（如果存在第6列就看
+的更清楚了），因此只需要定义第1、2列的样式即可，即导言可以这样设计：
+\end_layout
+
+\begin_layout LyX-Code
+&
+\backslash
+vrule#&
+\backslash
+strut
+\backslash
+quad
+\backslash
+hfil#
+\backslash
+quad
+\backslash
+cr
+\end_layout
+
+\begin_layout Standard
+其中的第一个&表示后面的导言设计被重复利用，即第3、4列，第5、6列\SpecialChar ldots
+的样式和第1、2列的样式相同。
+\backslash
+vrule#画出第1列（奇数列）的竖线，参数#一般是height#pt，决定了竖线的高度。
+\backslash
+strut
+\backslash
+quad
+\backslash
+hfil#
+\backslash
+quad是数据列（偶数列）的格式，
+\backslash
+strut决定了数据列的高度。
+\end_layout
+
+\begin_layout Standard
+为了美观起见，在第一行数据之前和最后一行数据之后各增加一个2pt的行间距，但是这个行间距也是需要有竖线的，因此这个行间距是通过增加一个2pt的空行实现的—hei
+ght2pt&
+\backslash
+omit&&
+\backslash
+omit&
+\backslash
+cr。height2pt是第1列竖线的高度，根据导言可知，第1列的实际内容为：
+\backslash
+vrule height2pt，即画一个2pt高度的竖线。第2列是数据列，其内容为空并且设置为
+\backslash
+omit，即忽略导言中第2列的样式设置，不会产生
+\backslash
+quad这样的空格。第3列内容为空，即执行
+\backslash
+vrule。由于halign的一行是封装在一个hbox中的，因此这里的
+\backslash
+vrule高度取决于第1列的vrule的高度，即2pt。第4列和第2列相同，第5列的内容为空，样式和第1列相同，即执行
+\backslash
+vrule（无参数），画出了表格最右边的竖线，高度为2pt。
+\end_layout
+
+\begin_layout Standard
+理解了行间距的产生原理，填充数据就简单了，比如
+\end_layout
+
+\begin_layout LyX-Code
+&8000
+\backslash
+BC&&5,000,000&
+\backslash
+cr
+\end_layout
+
+\begin_layout Standard
+&表示第1列内容为空，根据导言设置，即执行
+\backslash
+vrule画出最左边的竖线，其高度为此行的默认高度。第2列为8000
+\backslash
+BC，第3列为空，画出中间的竖线；第4列数据根据导言的格式列出，第5列为空，画出最右边的竖线。
+\end_layout
+
+\begin_layout Standard
+在表格标题和内容之间还有一条横线，是通过
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+noalign{
+\backslash
+hrule}
+\end_layout
+
+\end_inset
+
+画出的， 这是在表格内部画横线的方法。
+\end_layout
+
+\begin_layout Standard
+理解了这个示例，其实很容易画出3栏以及更多栏数据的表格。
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/subaochen/git/bibref/latex"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
