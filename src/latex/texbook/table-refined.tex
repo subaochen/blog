@@ -1,0 +1,23 @@
+\vbox{\tabskip=0pt \offinterlineskip
+\def\tablerule{\noalign{\hrule}}
+\halign to 200pt{\strut\vrule#\tabskip=1em plus 2em&%第1列，画最右边的竖线，设置列间距
+  \hfil#&%第2列，第1栏的内容，右对齐
+  \vrule#&%第3列，第1栏和第2栏之间的竖线
+  \hfil#\hfil&%第4列，第2栏的内容，居中对齐
+  \vrule#&%第5列，第2栏和第3栏之间的竖线
+  \hfil#&%第6列，第3栏的内容，右对齐
+  \vrule#\tabskip=0pt%第7列，画最右边的竖线
+  \cr\tablerule
+&\multispan5\hfil AT\&T Common Stock\hfil&\cr\tablerule
+&\omit\hidewidth Year\hidewidth&&%\hidewidth的作用是消除此栏对栏宽的影响，只根据数据栏决定本栏的宽度,\omit忽略了导言中的此栏对齐设置
+ \omit\hidewidth Price\hidewidth&&
+ \omit\hidewidth Divided\hidewidth&\cr\tablerule
+&1971&&41--54&&\$2.60&\cr\tablerule
+&   2&&41--54&&2.70&\cr\tablerule
+&   3&&46--55&&2.87&\cr\tablerule
+&   4&&40--53&&3.24&\cr\tablerule
+&   5&&45--52&&3.4&\cr\tablerule
+&   6&&51--59&&.95\rlap*&\cr\tablerule
+\noalign{\smallskip}
+\multispan7* (first quarter only)\hfil\cr
+}}
