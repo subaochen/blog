@@ -532,7 +532,7 @@ headline}%vbox to 8.5pt{}是一个strut，使得页眉至少占据8.5pt的垂直
 
         
 \backslash
-vss%使得页面首行的输出不受任何影响
+vss%移动headline内容到盒子的基线以下
 \end_layout
 
 \begin_layout LyX-Code
@@ -558,10 +558,23 @@ nointerlineskip
 \end_layout
 
 \begin_layout Standard
-\SpecialChar TeX
-巧妙的利用了0pt高度的vbox和
+参考
 \backslash
-vss，使得页眉的基线精确定位到页面“原点”之上22.5pt的位置，并且不妨碍页面首行的输出。22.5pt的计算原理如
+llap的定义可以比较容易理解这里的逻辑：定义一个高度为0pt的vbox，首先将此vbox的参考点向上移动22.5pt（即
+\backslash
+vskip-22.5pt），然后输出一个高度为8.5pt的
+\backslash
+line，即headline的文字部分。注意到此时这个
+\backslash
+line是在vbox的参照点之上的，但是接着的
+\backslash
+vss为了满足vbox高度为零的要求，会施展无限压缩之神功，将这个
+\backslash
+line（即headline的文字内容）移动到vbox的参照点之下。
+\end_layout
+
+\begin_layout Standard
+22.5pt的计算原理如
 \begin_inset ERT
 status open
 
