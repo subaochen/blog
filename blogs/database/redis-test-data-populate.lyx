@@ -1,0 +1,247 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{/home/subaochen/git/writing-common/article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-bytype
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "FreeSerif"
+\font_sans "default" "FreeSans"
+\font_typewriter "default" "FreeMono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 3
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #c3c3c3
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+redis产生测试数据的方法
+\end_layout
+
+\begin_layout Standard
+如果对测试数据的格式没有特别的要求，只是需要产生大量的测试数据，则redis自带的debug就很好用，如下的命令产生10000条测试数据：
+\end_layout
+
+\begin_layout LyX-Code
+redis-cli debug populate 10000
+\end_layout
+
+\begin_layout Standard
+keys指令显示，debug创建的测试数据内容为：key:#->value:#，比如key:123->value:123。
+\end_layout
+
+\begin_layout Standard
+下面通过创建10000000条数据，测试一下keys指令的执行效率：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+127.0.0.1:6379>debug populate 10000000
+\end_layout
+
+\begin_layout Plain Layout
+127.0.0.1:6379> keys key:255893*
+\end_layout
+
+\begin_layout Plain Layout
+1) "key:2558939"
+\end_layout
+
+\begin_layout Plain Layout
+2) "key:2558935"
+\end_layout
+
+\begin_layout Plain Layout
+3) "key:2558931"
+\end_layout
+
+\begin_layout Plain Layout
+4) "key:2558930"
+\end_layout
+
+\begin_layout Plain Layout
+5) "key:2558932"
+\end_layout
+
+\begin_layout Plain Layout
+6) "key:2558938"
+\end_layout
+
+\begin_layout Plain Layout
+7) "key:2558936"
+\end_layout
+
+\begin_layout Plain Layout
+8) "key:255893"
+\end_layout
+
+\begin_layout Plain Layout
+9) "key:2558937"
+\end_layout
+
+\begin_layout Plain Layout
+10) "key:2558933"
+\end_layout
+
+\begin_layout Plain Layout
+11) "key:2558934"
+\end_layout
+
+\begin_layout Plain Layout
+(1.40s)
+\end_layout
+
+\begin_layout Plain Layout
+127.0.0.1:6379> keys key:2558934*
+\end_layout
+
+\begin_layout Plain Layout
+1) "key:2558934"
+\end_layout
+
+\begin_layout Plain Layout
+(1.40s)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可见，在千万记录情形下，keys指令模糊匹配的执行时间超过1秒！数据量越大，keys的执行效率越低，因此keys指令在线上环境应该禁止使用，会导致严重的redi
+s阻塞问题—除非数据的规模非常小。但是，非常小的数据规模，为啥多此一举使用redis呢？
+\end_layout
+
+\begin_layout Standard
+BTW，也可以使用shell创建测试数据，脚本如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/blog/src/database/redis-data-populate.sh"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+当然，效率远没有debug命令高：debug命令产生100万条测试数据只需要不到10s，上面的脚本大概需要运行67分钟！
+\end_layout
+
+\begin_layout Standard
+debug命令的更多选项请参考：
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://m.aliyun.com/yunqi/articles/33
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

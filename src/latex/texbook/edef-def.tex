@@ -1,0 +1,12 @@
+\def\b{b}
+\def\double#1{#1#1}
+\def\c{\double\b}
+\def\d{d}
+\edef\a{\b\noexpand\c\d}
+\a\par
+\edef\a{\b\c\d}
+\a\par
+\def\a{\b\noexpand\c\d}
+\a\par
+\def\a{\b\c\d}
+\a\par
