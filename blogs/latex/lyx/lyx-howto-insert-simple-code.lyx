@@ -1,0 +1,144 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{article-preamble.tex}
+\usepackage{menukeys}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+如何在文章中插入简单程序行
+\end_layout
+
+\begin_layout Standard
+在文章中插入简单程序行大致有如下几种方法：
+\end_layout
+
+\begin_layout Itemize
+直接当作纯文本插入，简单粗暴，但是代码的字体等格式等同于其他文字，往往效果不尽人意。
+\end_layout
+
+\begin_layout Itemize
+当作LyX code插入。LyX默认采用等宽字体，基本上能满足程序行的显示，但是当程序行超宽时无法自动换行。
+\end_layout
+
+\begin_layout Itemize
+当作程序列表插入。通过菜单
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+menu[,]{插入,程序列表}
+\end_layout
+
+\end_inset
+
+插入程序代码，其实是使用了listings环境，可以复用你在listings宏包中设置的代码列表样式，比如：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+lstparams "language=Java,breaklines=true"
+inline true
+status open
+
+\begin_layout Plain Layout
+
+Notification notification = new NotificationCompat.Builder(Context).build();
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+结论：建议插入代码时一律采用第三种方式：当作程序列表插入，并且设置如下的属性：
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/latex/lyx/insert-code-settings.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
