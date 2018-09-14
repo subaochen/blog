@@ -1,0 +1,365 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{../preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Fragment综合练习-step by step
+\end_layout
+
+\begin_layout Standard
+Android的Fragment
+\end_layout
+
+\begin_layout Section
+创建项目，建立模型
+\end_layout
+
+\begin_layout Standard
+相信你已经对如何创建一个只包含空白活动（Empty Activity）的项目耳熟能详了，不再赘述。我们要编写一个管理书籍的App，“书”是这个App中最基本的元
+素，根据面向对象的分析的基本方法，在创建项目后，首先创建一个模型类Book来描述一本书的基本属性。右键点击包名，即可方便的创建这个包下面的类了，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:创建Book类"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/android-tutorial/imgs/fragment/new_book_class.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+创建Book类
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:创建Book类"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Book类很简单，这里只有3个属性及其setter/getter方法，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore_Book.java"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code/fragment/bookstore/app/src/main/java/cn/edu/sdut/android/bookstore/Book.java"
+lstparams "caption={Book类},label={bookstore_Book.java}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+此时运行程序，和空白项目是没有区别的，下面我们创建一个仅仅展示书籍列表的页面。
+\end_layout
+
+\begin_layout Section
+创建展示列表的Fragment
+\end_layout
+
+\begin_layout Standard
+如果仅仅为了展示书籍列表，就创建一个Activity好了，简单直接。但是我们需要兼容平板和手机，希望完成后的App在平板上分两栏显示，在手机上只显示一个书名列表
+。显然，平板上的书名列表页面和手机的书名列表页面是可以完全相同的，因此有必要“复用”这个书名列表页面。碎片（Fragment）的设计目的就是为了页面的复用，因此
+在这里使用碎片（Fragment）实现书名列表页面很自然。
+\end_layout
+
+\begin_layout Standard
+首先创建碎片（Fragment）的xml定义文件fragment_book_list.xml，在res上面点击右键，选择
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+menu[,]{New,Layout resource file}
+\end_layout
+
+\end_inset
+
+，在接下来的
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:创建碎片的布局文件"
+
+\end_inset
+
+中填写碎片布局的文件名fragment_book_list
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+文件名的选取也有讲究，这里以fragment开头，一看便知这个布局文件是关于碎片的。比较一下，如果文件名是book_list_fragment，目光移动到文件名
+的最后才能知道这个布局文件是关于碎片的，当然还是fragment_book_list更恰当。
+\end_layout
+
+\end_inset
+
+以及选择合适的布局管理器，这里使用最简单的LinearLayout即可。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/android-tutorial/imgs/fragment/fragment_book_list_xml.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+创建碎片的布局文件
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:创建碎片的布局文件"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+打开刚刚创建的碎片布局文件fragment_book_list.xml，添加两个TextView，分别用来展示图书的id和标题，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore_fragment_book_list.xml"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code/fragment/bookstore/app/src/main/res/layout/fragment_book_list.xml"
+lstparams "language=XML,texcl=true,escapeinside={//}{\\^^M},caption={fragment_book_list.xml},label={bookstore_fragment_book_list.xml}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+创建RecylerView的Adapter
+\end_layout
+
+\begin_layout Section
+创建展示内容的Fragment
+\end_layout
+
+\begin_layout Section
+创建展示内容的Activity
+\end_layout
+
+\begin_layout Section
+界面优化
+\end_layout
+
+\begin_layout Standard
+手机App的界面优化不完全是美工的活：你必须熟练的将美工的效果通过Android的语法表现出来。下面我们一步一步来优化这个简单App的界面，进一步复习一下xx章
+学过的内容。
+\end_layout
+
+\end_body
+\end_document

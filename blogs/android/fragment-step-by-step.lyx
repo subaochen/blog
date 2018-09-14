@@ -1,0 +1,3121 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+tip-inset
+note-inset
+warning-inset
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command bibtex8
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style IEEETranS
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #babdb6
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+碎片（Fragment）的综合练习
+\end_layout
+
+\begin_layout Author
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mycopyright
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+本文不是关于碎片的介绍或者教程，而是一个综合练习，采用步步为营的方式实现了一个简单的图书信息展示界面。对于手机而言，首先会展示一个图书列表，点击书名会跳转到图书
+详情页面，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:手机运行效果图"
+
+\end_inset
+
+所示。对于平板而言，展示一个两栏的页面，左栏显示图书列表，点击图书则在同一页的右栏显示图书详情，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:平板运行效果图"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+通过这个综合练习，可以掌握以下知识点：
+\end_layout
+
+\begin_layout Itemize
+碎片（Fragment）是Android实现界面复用的重要手段。
+\end_layout
+
+\begin_layout Itemize
+每个碎片（Fragment）都是自治的，即都有自己独立的生命周期，都需要编写一个相应的碎片处理程序。
+\end_layout
+
+\begin_layout Itemize
+每个页面布局可以包含多个碎片（Fragment）。
+\end_layout
+
+\begin_layout Itemize
+RecyclerView是Google推荐的代替ListView的列表组件，每个RecyclerView都应该提供一个Adapter管理列表数据。
+\end_layout
+
+\begin_layout Standard
+对于Android初学者而言，这个综合练习可能略微有点难度，但是只要跟随每一个步骤，相信不会遇到多少坑。个人给出两点建议，第一，练习中的每一个字母都要亲自敲入！
+当然，可借助Android Studio自动生成的文件模板和智能提示。正确输入程序，以及快速定位输入错误的的能力也是很重要的。第二，经常阶段性的验证程序是否正确
+运行，不要指望程序全部录入后一次执行成功，那样往往会遭受沉重打击。本文在不同的阶段都给出了测试运行的提示，当然这是作者的理解，你应该根据程序的功能点设置和自己的
+节奏决定在什么时候测试运行程序。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/android-tutorial/imgs/fragment/phone-output.png
+	width 95col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+手机运行效果图
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:手机运行效果图"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/android-tutorial/imgs/fragment/tablet-output.png
+	width 95col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+平板运行效果图
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:平板运行效果图"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+碎片综合练习运行效果图
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:碎片综合练习运行效果图"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+创建项目，建立模型
+\end_layout
+
+\begin_layout Standard
+相信你已经对如何创建一个只包含空白活动（Empty Activity）的项目耳熟能详了，不再赘述。我们要编写一个管理书籍的App，“书”是这个App中最基本的元
+素，根据面向对象的分析的基本方法，在创建项目后，首先创建一个模型类Book来描述一本书的基本属性。右键点击包名，即可方便的创建这个包下面的类了，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:创建Book类"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/android-tutorial/imgs/fragment/new_book_class.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+创建Book类
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:创建Book类"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Book类很简单，这里只有3个属性及其setter/getter方法，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore_Book.java"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code/fragment/bookstore/app/src/main/java/cn/edu/sdut/android/bookstore/Book.java"
+lstparams "caption={Book类},label={bookstore_Book.java}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+此时运行程序，和空白项目是没有区别的，下面我们创建一个仅仅展示书籍列表的页面。
+\end_layout
+
+\begin_layout Section
+创建展示列表的Fragment
+\end_layout
+
+\begin_layout Standard
+如果仅仅为了展示书籍列表，就创建一个Activity好了，简单直接。但是我们需要兼容平板和手机，希望完成后的App在平板上分两栏显示，在手机上只显示一个书名列表
+。显然，平板上的书名列表页面和手机的书名列表页面是可以完全相同的，因此有必要“复用”这个书名列表页面。碎片（Fragment）的设计目的就是为了页面的复用，因此
+在这里使用碎片（Fragment）实现书名列表页面很自然。
+\end_layout
+
+\begin_layout Standard
+首先创建碎片（Fragment）的xml定义文件fragment_book_list.xml，在res上面点击右键，选择
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+menu[,]{New,Layout resource file}
+\end_layout
+
+\end_inset
+
+，在接下来的
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:创建碎片的布局文件"
+
+\end_inset
+
+中填写碎片布局的文件名fragment_book_list
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+文件名的选取也有讲究，这里以fragment开头，一看便知这个布局文件是关于碎片的。比较一下，如果文件名是book_list_fragment，目光移动到文件名
+的最后才能知道这个布局文件是关于碎片的，当然还是fragment_book_list更恰当。
+\end_layout
+
+\end_inset
+
+以及选择合适的布局管理器，这里使用最简单的LinearLayout即可。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/android-tutorial/imgs/fragment/fragment_book_list_xml.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+创建碎片的布局文件
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:创建碎片的布局文件"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+打开刚刚创建的碎片布局文件fragment_book_list.xml，添加两个TextView，分别用来展示图书的id和标题，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore_fragment_book_list1.xml"
+
+\end_inset
+
+所示
+\begin_inset Marginal
+status open
+
+\begin_layout Plain Layout
+每一个布局文件中的match_parent和wrap_content都值得认真琢磨和实验。
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code-snippet/fragment/fragment_book_list1.xml"
+lstparams "caption={fragment\\_book\\_list.xml},label={bookstore_fragment_book_list1.xml}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在这个碎片布局中，仅仅通过两个TextView来展示图书的id和书名即可。目前还不需要对布局做过多的优化，关于界面的优化参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:界面优化"
+
+\end_inset
+
+：
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:界面优化"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+下面创建使用这个碎片的Java类BookListFragment，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:创建碎片的支持类"
+
+\end_inset
+
+所示。BookListFragment类需要重写onCreateView方法，在BookListFragment类的空白处按下
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{Alt+Insert}
+\end_layout
+
+\end_inset
+
+，随后选择override methods...，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:自动插入重写方法"
+
+\end_inset
+
+所示，在接下来的窗口中选择onCreateView方法即可，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore_BookListFragment1.java"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code-snippet/fragment/BookListFragment1.java"
+lstparams "language=Java,caption={BookListFragment.java},label={bookstore_BookListFragment1.java}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+BookListFragment的意义显而易见，从fragment_book_list这个碎片的布局文件创建一个视图（View），显示其中的内容。
+\end_layout
+
+\begin_layout Standard
+显然，碎片是要依附于活动（Activity）的，因此还需要修改main_activity.xml，使之包含fragment_book_list这个碎片。为了简化问
+题，首先修改main_activity.xml的默认布局管理器为LinearLayout，在ConstrainLayout上面右键点击并选择Convert
+ View...，在接下来的窗口选择LinearLayout即可，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:修改默认布局管理器"
+
+\end_inset
+
+。修改后的main_activity.xml内容如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore_main_activity.xml"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code/fragment/bookstore/app/src/main/res/layout/activity_main.xml"
+lstparams "caption={main\\_activity.xml},label={bookstore_main_activity.xml}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+此时，可以运行一下App看看了！目前，我们还没有针对平板或者手机作任何特别的处理，因此在平板或者手机的模拟器上运行，其结果都是相同的，这里以手机运行结果例，见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:增加Fragment后的初步运行结果"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/android-tutorial/imgs/fragment/fragment_book_list_class.png
+	width 70line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+创建碎片的支持类
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:创建碎片的支持类"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/android-tutorial/imgs/fragment/fragment_override_metohds.png
+	width 50line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+自动插入重写方法
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:自动插入重写方法"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/android-tutorial/imgs/fragment/convert_view.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+修改默认布局管理器
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:修改默认布局管理器"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/android-tutorial/imgs/fragment/phone_result1.png
+	width 40line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+增加Fragment后的初步运行结果
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:增加Fragment后的初步运行结果"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+到这一步，我们验证了碎片（Fragment）的使用方法：首先需要创建碎片对应的布局文件（这里是
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+fragment_book_list.xml
+\end_layout
+
+\end_inset
+
+）和管理碎片的Java类（这里是
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+BookListFragment
+\end_layout
+
+\end_inset
+
+），然后在活动（Activity）的布局文件（这里是
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+main_activity.xml
+\end_layout
+
+\end_inset
+
+）中包含碎片（使用fragment标签），这样App在显示这个活动界面的时候就会显示相应碎片的内容了。在一个活动的布局文件中可以包含多个碎片，在
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:创建展示内容的Fragment"
+
+\end_inset
+
+中我们会看到这一点。
+\end_layout
+
+\begin_layout Section
+创建RecylerView及其Adapter
+\end_layout
+
+\begin_layout Standard
+显然，
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:增加Fragment后的初步运行结果"
+
+\end_inset
+
+所示的运行结果不是我们想要的：这应该是一个图书列表页面，应该分行列出图书的id和图书标题，而目前只是列出了fragment_book_list.xml碎片布局中写
+死了的id和title字段。当然，也不是全无用处，至少我们看出了一行这样的内容是什么样子。如何展示一个图书列表呢？当前Google推荐的方法是使用Recycle
+rView，这部分内容相对比较多，下面我们一步一步走。
+\end_layout
+
+\begin_layout Standard
+首先，我们复制一下fragment_book_list.xml文件
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+此时的fragment_book_list.xml布局，恰好仅仅显示了一本书，因此我们采取了“偷懒”的方法，直接拿来给RecylerView用。
+\end_layout
+
+\end_inset
+
+，复制为book_item.xml，这将是RecylerView中单条记录的显示样式。接着修改fragment_book_list.xml布局文件，删除两个Text
+View，增加RecyclerView。增加RecyclerView时，最好通过设计器托放进去，这样可以自动增加RecyclerView的依赖。如果是手工修改f
+ragment_book_list.xml文件，需要在app/build.properties中手工增加RecyclerView的依赖声明，如下所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+dependencies {
+\end_layout
+
+\begin_layout LyX-Code
+    ...
+\end_layout
+
+\begin_layout LyX-Code
+    implementation 'com.android.support:recyclerview-v7:28.0.0-rc01'
+\end_layout
+
+\begin_layout LyX-Code
+    ...
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+修改后的fragment_book_list.xml文件内容如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore_fragment_book_list2.xml"
+
+\end_inset
+
+所示，其中只是包含了一个RecyclerView。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code-snippet/fragment/fragment_book_list2.xml"
+lstparams "caption={fragment\\_book\\_list.xml},label={bookstore_fragment_book_list2.xml}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+此时是可以运行App的，不过啥也看不到，甚至在上一步中能够显示的一行图书内容也看不到了：毕竟，book_item.xml只是一个模板，在模板中写死的图书id和图书
+标题，将来会被替换为真实的id和标题。因此，book_item.xml中的两个android:text属性实际上是可以删除的。
+\end_layout
+
+\begin_layout Standard
+那么，这个RecyclerView和刚刚创建的book_item.xml布局文件是什么关系呢？RecyclerView又是如何展现一个图书列表的呢？图书列表中的图
+书信息从何而来？下面将一一揭开这几个谜团。
+\end_layout
+
+\begin_layout Standard
+可以看出，这个RecylcerView是在fragment_book_list布局中的，每个RecyclerView都需要一个Adapter来绑定数据和模板文件
+，这里作为BookListFragment的内部类就可以了，因此修改BookListFragment，在其中增加RecyclerView的Adapter，修改后
+的BookListFragment内容如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore_BookListFragment2.java"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code-snippet/fragment/BookListFragment2.java"
+lstparams "language=Java,caption={BookListFragment.java},label={bookstore_BookListFragment2.java}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+和
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore_BookListFragment1.java"
+
+\end_inset
+
+比较一下可以看出，此时的BookListFragment膨胀了很多，我们需要认真消化一下。
+\end_layout
+
+\begin_layout Standard
+首先，在BookListFragment内部创建Adapter类的框架：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+public class BookListFragment extends Fragment {
+\end_layout
+
+\begin_layout LyX-Code
+    ....
+\end_layout
+
+\begin_layout LyX-Code
+    class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
+\end_layout
+
+\begin_layout LyX-Code
+    }
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+此时，由于Adapter.ViewHolder还没有创建，Android Studio会报告出错，因此鼠标移动到ViewHolder上面，同时按下
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{Alt+Enter}
+\end_layout
+
+\end_inset
+
+，选择“Create class ViewHolder”自动创建Adapter.ViewHolder类：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+    class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
+\end_layout
+
+\begin_layout LyX-Code
+        public class ViewHolder {
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+    }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+此时，Android Studio还是会报错，因为Adapter还需要实现Recycler.Adapter必须的三个方法。再次在Adapter.ViewHolder
+上同时按下
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{Alt+Enter}
+\end_layout
+
+\end_inset
+
+，选择“Implements methods”，自动创建三个方法：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+    class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
+\end_layout
+
+\begin_layout LyX-Code
+        @NonNull
+\end_layout
+
+\begin_layout LyX-Code
+        @Override
+\end_layout
+
+\begin_layout LyX-Code
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
+ int i) {
+\end_layout
+
+\begin_layout LyX-Code
+            return null;
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+        @Override
+\end_layout
+
+\begin_layout LyX-Code
+        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int
+ i) {
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+        @Override
+\end_layout
+
+\begin_layout LyX-Code
+        public int getItemCount() {
+\end_layout
+
+\begin_layout LyX-Code
+            return 0;
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+        public class ViewHolder {
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+    }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+此时，Android Studio还是报错，报告：ViewHolder应该继承自android.support.v7.widget.RecyclerView.ViewHo
+lder，再次把鼠标放到Adapter.ViewHolder（已经第三次把鼠标放到这个位置了），再次同时按下
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{Alt+Enter}
+\end_layout
+
+\end_inset
+
+，选择“Make ViewHolder extends android.support.v7.widget.RecyclerView.ViewHolder”：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+    class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
+\end_layout
+
+\begin_layout LyX-Code
+        @NonNull
+\end_layout
+
+\begin_layout LyX-Code
+        @Override
+\end_layout
+
+\begin_layout LyX-Code
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
+ int i) {
+\end_layout
+
+\begin_layout LyX-Code
+            return null;
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+        @Override
+\end_layout
+
+\begin_layout LyX-Code
+        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int
+ i) {
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+        @Override
+\end_layout
+
+\begin_layout LyX-Code
+        public int getItemCount() {
+\end_layout
+
+\begin_layout LyX-Code
+            return 0;
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+        public class ViewHolder extends RecyclerView.ViewHolder {
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+    }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+接着会发现，Android Studio报告ViewHolder缺少默认的构造器，于是在RecyclerView.ViewHolder上面按下
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{Alt+Enter}
+\end_layout
+
+\end_inset
+
+，选择“Create constructor matching super”，至此Android Studio不再报错，我们看一下在Android
+ Studio帮助下获得的Adapter框架：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+    class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
+\end_layout
+
+\begin_layout LyX-Code
+        @NonNull
+\end_layout
+
+\begin_layout LyX-Code
+        @Override
+\end_layout
+
+\begin_layout LyX-Code
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
+ int i) {
+\end_layout
+
+\begin_layout LyX-Code
+            return null;
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+        @Override
+\end_layout
+
+\begin_layout LyX-Code
+        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int
+ i) {
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+        @Override
+\end_layout
+
+\begin_layout LyX-Code
+        public int getItemCount() {
+\end_layout
+
+\begin_layout LyX-Code
+            return 0;
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+        public class ViewHolder extends RecyclerView.ViewHolder {
+\end_layout
+
+\begin_layout LyX-Code
+            public ViewHolder(@NonNull View itemView) {
+\end_layout
+
+\begin_layout LyX-Code
+                super(itemView);
+\end_layout
+
+\begin_layout LyX-Code
+            }
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+    }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+下面首先实现ViewHolder类。ViewHolder作为一个缓存容器，表示了RecyclerView中的每一行。本例中，每一行图书有两个元素：id和titl
+e，因此ViewHolder类应该添加两个私有变量bookId和bookTitle，并在构造方法中实例化这两个私有变量，所以完整的ViewHolder类为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+        public class ViewHolder extends RecyclerView.ViewHolder {
+\end_layout
+
+\begin_layout LyX-Code
+            private TextView bookId;
+\end_layout
+
+\begin_layout LyX-Code
+            private TextView bookTitle;
+\end_layout
+
+\begin_layout LyX-Code
+            public ViewHolder(@NonNull View itemView) {
+\end_layout
+
+\begin_layout LyX-Code
+                super(itemView);
+\end_layout
+
+\begin_layout LyX-Code
+                bookId = (TextView)itemView.findViewById(R.id.book_id);
+\end_layout
+
+\begin_layout LyX-Code
+                bookTitle = (TextView)itemView.findViewById(R.id.book_titile);
+\end_layout
+
+\begin_layout LyX-Code
+            }
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+有了ViewHolder的基础，下面我们看一下onCreateViewHolder方法的实现。顾名思义，这个方法是在创建ViewHolder的时候被调用的，因此
+在这里要根据RecyclerView的布局模板创建合适的View对象作为ViewHolder构造方法的参数，具体来说，我们根据给定的ViewGroup的Cont
+ext创建一个layoutInflater对象，然后根据book_item布局模板创建一个View对象表征这个布局模板：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
+ int i) {
+\end_layout
+
+\begin_layout LyX-Code
+            View view = LayoutInflater.from(viewGroup.getContext())
+\end_layout
+
+\begin_layout LyX-Code
+                    .inflate(R.layout.book_item,viewGroup,false);
+\end_layout
+
+\begin_layout LyX-Code
+            final ViewHolder viewHolder = new ViewHolder(view);
+\end_layout
+
+\begin_layout LyX-Code
+            return viewHolder;
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+至此，我们解决了在Adapter中列表中的每一行如何表达：在onCreateViewHolder中创建ViewHolder对象来缓存列表中的每一行。那么列表中的
+数据从哪里来呢？一般的，首先需要在Adapter类中添加一个列表对象表示列表元素，然后通过onBindViewHolder方法来完成数据和ViewHolder的
+绑定：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+    class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
+\end_layout
+
+\begin_layout LyX-Code
+        private List<Book> bookList;
+\end_layout
+
+\begin_layout LyX-Code
+        ....
+\end_layout
+
+\begin_layout LyX-Code
+        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int
+ i) {
+\end_layout
+
+\begin_layout LyX-Code
+            Book book = bookList.get(i);
+\end_layout
+
+\begin_layout LyX-Code
+            viewHolder.bookId.setText(String.valueOf(book.getId()));
+\end_layout
+
+\begin_layout LyX-Code
+            viewHolder.bookTitle.setText(book.getTitle());
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+        ....
+\end_layout
+
+\begin_layout LyX-Code
+    }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+getItemCount方法就比较简单了，Adapter类通过这个方法了解列表元素的个数：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+        public int getItemCount() {
+\end_layout
+
+\begin_layout LyX-Code
+            return bookList.size();
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Adapter自然需要知晓所有的图书信息，那么如何传递所有图书信息给Adapter呢？自然在构造方法中最方便：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+    class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
+\end_layout
+
+\begin_layout LyX-Code
+        private List<Book> bookList;
+\end_layout
+
+\begin_layout LyX-Code
+        ....
+\end_layout
+
+\begin_layout LyX-Code
+        public BookAdapter(List<Book> list) {
+\end_layout
+
+\begin_layout LyX-Code
+            bookList = list;
+\end_layout
+
+\begin_layout LyX-Code
+        }
+\end_layout
+
+\begin_layout LyX-Code
+        ....
+\end_layout
+
+\begin_layout LyX-Code
+    }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+至此，我们完成了BookAdapter类的几乎所有代码，我们看一下BookAdapter目前的完整代码
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+由于BookAdapter是BookListFragment的内部类，这里依然列出的是BookListFragment的完整代码。
+\end_layout
+
+\end_inset
+
+，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore_BookListFragment3.java"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code-snippet/fragment/BookListFragment3.java"
+lstparams "caption={BookListFragment.java},label={bookstore_BookListFragment3.java}"
+
+\end_inset
+
+写了半天的代码，你一定迫不及待想测试一下代码是否正常吧？这是很好的思想，稳打稳扎，步步为营，但是如果现在在模拟器上运行App，发现还是白茫茫一片啥也看不到！是的
+，我们还没有给BookAdapter提供数据呢。显然，在BookListFragment的onCreateView方法中提供数据比较方便：此时正需要合适的数据填
+充图书列表页面，改造后的BookListFragment参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore_BookListFragment4.java"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code-snippet/fragment/BookListFragment4.java"
+lstparams "language=Java,caption={BookListFragment.java},label={bookstore_BookListFragment4.java}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+可以看出，为了获得理想的测试数据，我们在BookListFragment中增加了getBooks和getRandomBookDesc方法，这两个方法很容易理解，
+不再赘述。
+\end_layout
+
+\begin_layout Standard
+现在可以测试一下了！目前我们只是实现了图书列表功能，因此在手机和平板运行的结果是类似的，这里以平板为例，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:在平板上只显示图书列表的运行界面"
+
+\end_inset
+
+所示，根据平板尺寸的大小，显示了若干列图书的id和书名。这个界面太丑了！别着急，让我们逐步完善它。记住，步步为营，每一步都可运行可测试是很重要的。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/android-tutorial/imgs/fragment/fragment-only-booklist.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+在平板上只显示图书列表的运行界面
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:在平板上只显示图书列表的运行界面"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+创建展示内容的Fragment
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:创建展示内容的Fragment"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+到目前为止，图书列表的展示功能算是基本完成了，下面看一下如何实现在平板上展示图书详情。在手机上展示图书详情的实现方法参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:创建展示内容的Activity"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+在平板上，图书列表在左栏，图书详情在右栏，显然左右两栏分别是两个Fragment比较合理：这两个Fragment会在手机界面的设计中被复用。图书列表的Fragm
+ent我们已经基本设计完成了，下面看一下展示图书详情的右栏的设计。首先在
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+directory{res/layout}
+\end_layout
+
+\end_inset
+
+目录下创建一个新的碎片（fragment）布局文件fragment_book_content，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore-fragment_book_content.xml"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code-snippet/fragment/fragment_book_content1.xml"
+lstparams "language=XML,caption={fragment\\_book\\_content.xml},label={bookstore-fragment_book_content.xml}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+接着，需要创建管理这个碎片的BookContentFragment.java文件，有了编写BookListFragment的基础，我们不再赘述，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore-BookContentFragment.java"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code/fragment/bookstore/app/src/main/java/cn/edu/sdut/android/bookstore/BookContentFragment.java"
+lstparams "language=Java,caption={BookContentFragment.java},label={bookstore-BookContentFragment.java}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这个碎片布局是包含在哪个Activity的布局中呢？显然应该是在activity_main.xml布局文件中。为了更好的适用平板布局，可以采用Android的限定
+府，让平板布局和手机布局区分开来，比如在res目录下创建layout-sw600dp目录，即为当平板的宽度超过600dp时Android自动采用本目录下的界面布
+局。因此，我们首先创建目录
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+directory{res/layout-sw600dp}
+\end_layout
+
+\end_inset
+
+，在这个目录下创建activity_main.xml布局文件，内容如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "layout-sw600dp/activity_main.xml"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code/fragment/bookstore/app/src/main/res/layout-sw600dp/activity_main.xml"
+lstparams "language=XML,caption={activity\\_main.xml},label={layout-sw600dp/activity_main.xml}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+现在可以运行一下看看了，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:初步的图书列表和图书详情页面"
+
+\end_inset
+
+所示。为了清楚起见，我把fragment_book_content的背景色设置为#00ff00，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore-fragment_book_content.xml"
+
+\end_inset
+
+中的
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+android:background=#00ff00
+\end_layout
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/android-tutorial/imgs/fragment/book-list-content-init.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+初步的图书列表和图书详情页面
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:初步的图书列表和图书详情页面"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+在
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:初步的图书列表和图书详情页面"
+
+\end_inset
+
+中，图书详情是空的！是的，到目前为止，我们并没有实现图书条目的点击逻辑，图书详情从何而来呢？下面在BookListFragment中实现图书列表的点击逻辑，完成
+图书详情的展示设计。
+\end_layout
+
+\begin_layout Standard
+再次打开BookListFragment，我们发现图书列表的每一行是有book_item布局模板决定的，在BookListFragment的onCreateVi
+ew中我们已经获得了相应于book_item模板的View对象，因此在这个View对象上绑定click事件响应相关代码即可，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore-BookListFragment5.java"
+
+\end_inset
+
+所示，在onClick中做了三件事：
+\end_layout
+
+\begin_layout Enumerate
+获取当前的book对象，以便传递给BookContentFragment展示图书详情。
+\end_layout
+
+\begin_layout Enumerate
+获取BookContentFragment对象。
+\end_layout
+
+\begin_layout Enumerate
+调用BookContentFragment的refresh方法刷新碎片内容。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code-snippet/fragment/BookListFragment5.java"
+lstparams "language=Java,caption={BookListFragment.java},label={bookstore-BookListFragment5.java}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+现在在平板模拟器上运行一下，已经可以看到大致的模样了，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:初步实现图书的点击事件，展示图书详情"
+
+\end_inset
+
+所示，点击左栏的图书标题
+\begin_inset Marginal
+status collapsed
+
+\begin_layout Plain Layout
+可以尝试点击图书的序号、当前行的空白处看看？
+\end_layout
+
+\end_inset
+
+，右栏即可以显示相应的图书详情了。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/android-tutorial/imgs/fragment/fragment-booklist-and-content.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+初步实现图书的点击事件，展示图书详情
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:初步实现图书的点击事件，展示图书详情"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+不过，当你尝试放在手机模拟器上运行时，却得不到期望的结果，更糟糕的是，程序“闪退”，崩溃了！下面我们就着力解决程序的兼容性问题：让程序在手机和平板上都能运行，并
+且自动适应不同的屏幕大小。
+\end_layout
+
+\begin_layout Section
+创建展示图书详情的活动（Activity）
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:创建展示内容的Activity"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+要让程序也能够在手机上正常运行，需要作两个方面的工作：
+\end_layout
+
+\begin_layout Enumerate
+编写一个展示图书详情的活动（Activity）。显然，展示图书详情的活动（Activity）所使用的布局文件应该复用fragment_book_content.x
+ml这个碎片（Fragment），这也是碎片的主要存在价值。
+\end_layout
+
+\begin_layout Enumerate
+在左栏的点击事件处理中，需要判断程序当前是运行在平板上还是手机上，以便决定图书详情的显示方式：在平板上直接在右栏展示图书详情，在手机上需要启动另外一个活动（Ac
+tivity）展示图书详情。显然，手机和平板的入口不一样，手机是通过res/layout/activity_main.xml进入的，平板是通过res/layout
+-sw600dp/activity_main.xml进入的。观察这两个不同的布局文件可以发现，如果我们能够识别res/layout-sw600dp/activit
+y_main.xml中特有的双栏布局，就可以区分当前是运行在手机还是平板了：设置一个isTwoPane逻辑变量，当进入双栏布局时设置此变量为true即可。
+\end_layout
+
+\begin_layout Standard
+下面我们首先编写图书详情的活动（Activity），创建一个空的活动BookContentActivity即可，将自动生成的布局文件activity_book_
+content修改为如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore-activity_book_content.xml"
+
+\end_inset
+
+所示，直接嵌入fragment_book_content即可。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code/fragment/bookstore/app/src/main/res/layout/activity_book_content.xml"
+lstparams "language=XML,caption={activity\\_book\\_content.xml},label={bookstore-activity_book_content.xml}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+活动（Activity）的实现如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore-BookContentActivity.java"
+
+\end_inset
+
+所示
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+这里的actionStart方法参照了《第一行代码Android》
+\end_layout
+
+\end_inset
+
+。由于我们复用了fragment_book_content，因此需要在活动BookContentActivity的onCreate方法中获取BookConten
+tFragment对象并调用其refresh方法刷新碎片的内容。另外，在BookContentActivity中也设计了一个方便的类方法actionStart用
+来启动Activity，这是一种很好的启动Activity的策略，值得效仿。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code/fragment/bookstore/app/src/main/java/cn/edu/sdut/android/bookstore/BookContentActivity.java"
+lstparams "language=Java,caption={BookContentActivity.java},label={bookstore-BookContentActivity.java}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后，需要在res/layout-sw600dp/activity_main.xml中作一个特殊的标记，这里采用的方法是将最外层的LinearLayout标记为“
+two_column_layout”：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+<?xml version="1.0" encoding="utf-8"?>
+\end_layout
+
+\begin_layout LyX-Code
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+\end_layout
+
+\begin_layout LyX-Code
+    android:layout_width="match_parent"
+\end_layout
+
+\begin_layout LyX-Code
+    android:layout_height="match_parent"
+\end_layout
+
+\begin_layout LyX-Code
+    
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+
+\color brown
+android:id="@+id/two_column_layout"
+\end_layout
+
+\end_inset
+
+>
+\end_layout
+
+\begin_layout LyX-Code
+    <fragment
+\end_layout
+
+\begin_layout LyX-Code
+        android:id="@+id/book_list_fragment"
+\end_layout
+
+\begin_layout LyX-Code
+    ....
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+这样就可以在BookListFragment中通过识别这个标记来决定isTwoPane的值了，关键代码如下所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+public class BookListFragment extends Fragment {
+\end_layout
+
+\begin_layout LyX-Code
+    ....
+\end_layout
+
+\begin_layout LyX-Code
+    @Override
+\end_layout
+
+\begin_layout LyX-Code
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+\end_layout
+
+\begin_layout LyX-Code
+        super.onActivityCreated(savedInstanceState);
+\end_layout
+
+\begin_layout LyX-Code
+        if(
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+
+\color brown
+getActivity().findViewById(R.id.two_column_layout)
+\end_layout
+
+\end_inset
+
+ != null) {
+\end_layout
+
+\begin_layout LyX-Code
+            isTwoPane = true;
+\end_layout
+
+\begin_layout LyX-Code
+        } else
+\end_layout
+
+\begin_layout LyX-Code
+            isTwoPane = false;
+\end_layout
+
+\begin_layout LyX-Code
+    }
+\end_layout
+
+\begin_layout LyX-Code
+    ....
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+界面优化
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:界面优化"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+手机App的界面优化不完全是美工的活：你必须熟练的将美工的效果通过Android的语法表现出来。下面我们一步一步来优化这个简单App的界面，也借此复习一下xx章
+学过的内容。
+\end_layout
+
+\begin_layout Subsection
+设置fragment_book_content的可见性
+\end_layout
+
+\begin_layout Standard
+初次在平板上运行时，默认并没有选中任何书目，因此右栏是空白的，显得不太协调，这里有两种常见的处理策略：
+\end_layout
+
+\begin_layout Enumerate
+初始情况下设置右栏为隐藏状态，只有选择书目后才显示右栏。
+\end_layout
+
+\begin_layout Enumerate
+默认选中一条书目，使得右栏显示默认的书目详情。
+\end_layout
+
+\begin_layout Standard
+第二种处理策略留给读者自行思考实现，下面我们实现第一种处理策略，很简单，首先修改fragment_book_content.xml碎片布局文件，设置为默认不显示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+\end_layout
+
+\begin_layout LyX-Code
+    android:orientation="vertical"
+\end_layout
+
+\begin_layout LyX-Code
+    android:layout_width="match_parent"
+\end_layout
+
+\begin_layout LyX-Code
+    android:layout_height="match_parent"
+\end_layout
+
+\begin_layout LyX-Code
+    android:background="#00ff00"
+\end_layout
+
+\begin_layout LyX-Code
+    android:id="@+id/book_content_layout"
+\end_layout
+
+\begin_layout LyX-Code
+    
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+android:visibility="invisible"
+\end_layout
+
+\end_inset
+
+>
+\end_layout
+
+\begin_layout LyX-Code
+    <TextView
+\end_layout
+
+\begin_layout LyX-Code
+        android:id="@+id/book_title"
+\end_layout
+
+\begin_layout LyX-Code
+....
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+然后修改BookContentFragment的refresh方法中设置fragment_book_content可见即可：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout LyX-Code
+    public void refresh(Book book){
+\end_layout
+
+\begin_layout LyX-Code
+        
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+view.setVisibility(View.VISIBLE);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+        TextView bookTitle = view.findViewById(R.id.book_title);
+\end_layout
+
+\begin_layout LyX-Code
+        ....
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+设置图书列表的间距和文字大小
+\end_layout
+
+\begin_layout Standard
+适当增大书目列表之间的间距，字体调大一些，效果会更美观一些，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:调整间距和字体后的显示效果"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/android-tutorial/imgs/fragment/bookstore-adjust-textsize-margin.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+调整间距和字体后的显示效果
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:调整间距和字体后的显示效果"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+调整方法主要是使用和android:layout_marginXXX的若干属性，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore-book_item-adjusted.xml"
+
+\end_inset
+
+和
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "bookstore-fragment_book_content-adjusted.xml"
+
+\end_inset
+
+。也可以通过android:paddingXXX达到相似的效果，请读者自行测试。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code/fragment/bookstore/app/src/main/res/layout/book_item.xml"
+lstparams "language=XML,caption={book\\_item.xml},label={bookstore-book_item-adjusted.xml}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code/fragment/bookstore/app/src/main/res/layout/fragment_book_content.xml"
+lstparams "language=XML,caption={fragment\\_book\\_content.xml},label={bookstore-fragment_book_content-adjusted.xml}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+进一步的拓展
+\end_layout
+
+\begin_layout Standard
+支持数据库存储、支持图书信息的增查删改、支持用户身份验证、支持网络操作等
+\end_layout
+
+\begin_layout Section
+FAQ
+\end_layout
+
+\begin_layout Subsection
+view.findViewById()返回null是怎么回事？
+\end_layout
+
+\begin_layout Standard
+首先要检查拼写错误！笔者曾经遇到这样的语句：view.findViewById(R.id.book_titile)返回了null导致程序闪退，百思不得其解。一顿折腾之
+后才发现，原来在另外一个layout文件中，错误的命名图书标题id为book_titile（应该是book_title），这样在系统中就存在两个非常类似的图书标
+题的id，很容易混淆，导致莫名的错误。细致，是一个程序员必须具备的素质。
+\end_layout
+
+\begin_layout Standard
+其次，要考虑指定的组件和view真的是包含关系吗？是否考虑使用getActivity().findViewById扩大查找的范围？
+\end_layout
+
+\begin_layout Subsection
+Fragment和Activity之间是什么关系？
+\end_layout
+
+\begin_layout Standard
+Fragment/Activity/View, getFragmentManager, getSupportedFragmentManager,
+ findFragmentById, findViewId
+\end_layout
+
+\end_body
+\end_document

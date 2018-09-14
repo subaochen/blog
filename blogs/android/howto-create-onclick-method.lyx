@@ -1,0 +1,962 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\bullet 0 3 25 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+在Android Studio中如何自动创建onClick方法
+\end_layout
+
+\begin_layout Standard
+对于初学者而言，按钮等的onClick方法似乎有点“麻烦”，每次都手工敲出来会不胜其烦，降低学习的效率和兴趣的。实际上，Android Studio提供了非常人
+性化的快捷键帮助自动编写onClick方法，跟我来...这里以按钮为例说明如何方便的添加onClick方法，根据情况可以采用两种不同的方法。
+\end_layout
+
+\begin_layout Section
+使用匿名类
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:使用匿名类"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如果页面上的按钮不多，比如只有一个时，使用匿名类实现事件对象很方便，代码量也是最小的。其步骤是：
+\end_layout
+
+\begin_layout Enumerate
+查询并获取按钮对象，这一步没什么稀奇的了：
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Button button = (Button)findViewById(R.id.send_notice);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+接着敲入button.，注意在“.”处稍作停顿，Android Studio即可弹出一个自动补全代码的提示列表，其中第一项往往就是我们需要的代码（Android
+ Studio很智能的），如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:自动补全代码的提示列表"
+
+\end_inset
+
+所示。
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/android/button-onclick-shot1.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+自动补全代码的提示列表
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:自动补全代码的提示列表"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+选择希望的自动补全代码后，直接按回车键即可，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:自动补全部分代码后的样子"
+
+\end_inset
+
+所示，可见Android Studio自动添加了setOnClickListener方法，并且提示（参见setOnClickListener方法参数列表上方的气
+泡）setOnclickListener方法的参数应该是一个OnClickListener对象。
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/android/button-onclick-shot2.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+自动补全部分代码后的样子
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:自动补全部分代码后的样子"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+很显然，经过了第3步后，我们已经知道setOnclickListener方法的参数应该是一个OnClickListener对象，可是如何创建这个对象呢？显然要使
+用new操作符了，因此只要在setOnclickListener方法中输入new
+\begin_inset space \textvisiblespace{}
+\end_inset
+
+（注意一定要输入一个空格键），然后按下快捷键
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{Ctrl+Shift+Space}
+\end_layout
+
+\end_inset
+
+，Android Studio有足够的智能知道你在这里要创建什么类型的对象，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:自动补全OnClickListener对象"
+
+\end_inset
+
+所示。
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/android/button-onclick-shot3.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+自动补全OnClickListener对象
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:自动补全OnClickListener对象"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+在第4步中，Android Studio自动猜到了我们要创建的对象类型为View.OnClickListener，因此只要在补全列表中选择第一个（默认已经选中了）
+按下回车键确认即可，结果如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:自动补全OnClickListener对象之后"
+
+\end_inset
+
+所示。
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/android/button-onclick-shot4.png
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+自动补全OnClickListener对象之后
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:自动补全OnClickListener对象之后"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+最后一步！在第5步中可以看到，自动补全的OnClickListener对象下面画着红色的波浪线，表示这段代码有问题。将鼠标移动到红色波浪线标出的代码上，按下快捷
+键
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{Alt+Enter}
+\end_layout
+
+\end_inset
+
+，Android Studio给出了如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:自动补全onClick方法的补全列表"
+
+\end_inset
+
+所示的提示，选择Implement methods（默认已选中）按下回车键确认，在接下来如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:自动补全onClick方法的选择窗口"
+
+\end_inset
+
+所示的窗口中选择onClick方法（默认已自动选中），即可自动创建所需要的onClick方法，如下所示：
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+        Button button = (Button)findViewById(R.id.send_notice);
+\end_layout
+
+\begin_layout Plain Layout
+
+        button.setOnClickListener(new View.OnClickListener() {
+\end_layout
+
+\begin_layout Plain Layout
+
+            @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+            public void onClick(View v) {
+\end_layout
+
+\begin_layout Plain Layout
+
+                
+\end_layout
+
+\begin_layout Plain Layout
+
+            }
+\end_layout
+
+\begin_layout Plain Layout
+
+        });
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/android/button-onclick-shot5.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+自动补全onClick方法的补全列表
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:自动补全onClick方法的补全列表"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/android/button-onclick-shot6.png
+	width 50line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+自动补全onClick方法的选择窗口
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:自动补全onClick方法的选择窗口"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+看起来自动生成onClick方法好麻烦啊！但是其实只需要输入为数不多的几个字母，再记住两个快捷键，就非常便捷了。实际上，对于本例，输入的键盘序列为：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{b+u+t+t+o+n+.+Enter+n+e+w+Space+Ctrl+Alt+Space+Enter}
+\end_layout
+
+\end_inset
+
+。多练习几次，就能够很熟练的掌握这个方法的。
+\end_layout
+
+\begin_layout Standard
+如果足够熟练，你会发现另外一个更快的输入方法，键盘序列为：
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{b+u+t+t+o+n+.+Enter+n+e+w+Space+O+Enter}
+\end_layout
+
+\end_inset
+
+，读者可自行尝试，并思考：为什么要输入字母O？
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+解释：在上面第3步我们已经看到，Android Studio自动提示setOnclickListener方法需要一个OnClickListener对象，因此在这
+里输入字母O，Android Studio能够智能的判断我们希望创建一个以字母O开头的对象，在这里即View.OnClickListener。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+实现接口
+\end_layout
+
+\begin_layout Standard
+如果页面中包含多个按钮，使用
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:使用匿名类"
+
+\end_inset
+
+中介绍的匿名类方法就显得比较啰嗦，此时可以让当前的Activity类实现OnClickListener接口，在一个onClick方法中处理多个按钮的点击事件。下
+面介绍快速生成代码框架的方法。
+\end_layout
+
+\begin_layout Enumerate
+首先获取button对象，假设这里有两个按钮，分别是button1和button2：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+        Button button1 = (Button)findViewById(R.id.button1);
+\end_layout
+
+\begin_layout Plain Layout
+
+        Button button2 = (Button)findViewById(R.id.button2);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+添加两个按钮的事件响应代码，参考
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:使用匿名类"
+
+\end_inset
+
+中的第2步，生成的代码为：
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+        button1.setOnClickListener(this);
+\end_layout
+
+\begin_layout Plain Layout
+
+        button2.setOnClickListener(this);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+注意到，在第2步中，我们将this作为setOnClickListener方法的参数，而我们知道，setOnClickListener的参数应该是一个View.O
+nClickListener类型的对象，因此就需要在this中实现View.OnClickListener接口的方法，这样this就可以“向上收窄”为一个View.
+OnClickListener类型的对象。快捷的操作方式是，将光标移动到this上面，按下
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+keys{Alt+Enter}
+\end_layout
+
+\end_inset
+
+，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:prepare-for-create-onclick-method"
+
+\end_inset
+
+所示选择MainActivity实现View.OnClickListener接口，然后在接下来的窗口中选择实现onClick方法，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:window-to-select-onclick-method"
+
+\end_inset
+
+。
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/android/button-onclick-shot7.png
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+准备自动创建onClick方法
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:prepare-for-create-onclick-method"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/android/button-onclick-shot8.png
+	width 70line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+选择onClick方法的窗口
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:window-to-select-onclick-method"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+如此操作后你会发现，Android Studio自动声明MainActivity实现了View.OnClickListener接口，并自动给出了一个onClick
+方法的框架，很方便。在自动生成的onClick方法中再区分不同的按钮就行事件处理就可以了，大致的代码逻辑如下所示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void onClick(View v) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        switch(v.getId()){
+\end_layout
+
+\begin_layout Plain Layout
+
+            case R.id.button1:
+\end_layout
+
+\begin_layout Plain Layout
+
+                // button1 logic
+\end_layout
+
+\begin_layout Plain Layout
+
+                break;
+\end_layout
+
+\begin_layout Plain Layout
+
+            case R.id.button2:
+\end_layout
+
+\begin_layout Plain Layout
+
+                // button2 logic
+\end_layout
+
+\begin_layout Plain Layout
+
+                break;
+\end_layout
+
+\begin_layout Plain Layout
+
+            default:
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

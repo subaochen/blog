@@ -1,0 +1,431 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{article-preamble.tex}
+\usepackage{tikz}
+%\usetikzlibrary{positioning}
+%\usepackage{showframe}
+\end_preamble
+\use_default_options true
+\begin_modules
+coderemarks
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "新宋体"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\bullet 0 3 25 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Android读取联系人案例分析
+\end_layout
+
+\begin_layout Author
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mycopyright
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+通过读取联系人，可以熟悉和掌握以下的Android编程概念和技巧：
+\end_layout
+
+\begin_layout Itemize
+理解和掌握Android的权限控制方法，尤其是Android 6.0以后增加的运行时权限（Runtime Permission）。
+\end_layout
+
+\begin_layout Itemize
+理解和掌握ContentProvider的基本用法，这里主要是如何使用ContentProvider，不涉及如何实现一个自己的ContentProvider。
+\end_layout
+
+\begin_layout Itemize
+进一步理解Context，如何在不同的场景下获取当前的Context。
+\end_layout
+
+\begin_layout Section
+创建案例
+\end_layout
+
+\begin_layout Standard
+为了简化问题突出重点，这里有意忽略了如何展示读取到的手机联系人，只是通过
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+Log.i
+\end_layout
+
+\end_inset
+
+在Logcat中打印出来。借助ContentProiver读取手机联系人其实很简单，所需的代码量也很少，步骤如下：
+\end_layout
+
+\begin_layout Subsection
+创建默认项目
+\end_layout
+
+\begin_layout Standard
+老生常谈了，过程这里不再赘述，我们创建的项目名字叫做ContactsDemo。
+\end_layout
+
+\begin_layout Subsection
+申请读取联系人权限
+\end_layout
+
+\begin_layout Standard
+打开AndroidManifest.xml文件，在其中增加读取联系人权限，修改后的内容如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "ContactsDemo-AndroidManifest.xml"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code-snippet/contentprovider/AndroidManifest.xml"
+lstparams "language=XML,caption={AndroidManifest.xml},label={ContactsDemo-AndroidManifest.xml}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+增加按钮及其事件响应代码
+\end_layout
+
+\begin_layout Standard
+在主界面增加一个按钮，我们希望点击按钮后读取所有联系人并在Logcat打印出来。增加按钮的逻辑很简单，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "ContactsDemo-activity_main.xml"
+
+\end_inset
+
+。按钮的事件响应代码参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstlistingname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Contacts-MainActivity.java"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code/content-provider/ContactsDemo/app/src/main/res/layout/activity_main.xml"
+lstparams "language=XML,caption={activity\\_main.xml},label={ContactsDemo-activity_main.xml}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/home/subaochen/git/android-tutorial/code-snippet/contentprovider/MainActivity.java"
+lstparams "language=Java,caption={MainActivity.java},label={Contacts-MainActivity.java}"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+案例分析
+\end_layout
+
+\begin_layout Standard
+初次执行这个案例的时候，有两个地方需要注意：
+\end_layout
+
+\begin_layout Enumerate
+程序需要读取联系人的运行时权限，因此第一次运行时会要求用户确认，是否允许这个App读取联系人，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:App询问是否授权读取联系人权限"
+
+\end_inset
+
+所示。
+\begin_inset Marginal
+status collapsed
+
+\begin_layout Plain Layout
+这是Android 6.0才提供的新特性，建议读者新建一个Android 6.0之前版本的模拟器测试一下。
+\end_layout
+
+\end_inset
+
+从这个角度看，Android 6.0极大的加强了应用程序的安全控制：尽管应用程序可以申请任意多的权限，但是在实际执行时（运行时）需要用户一一确认。这样，App的权
+限就不再是App的开发者所独立决定的了，也就是说，App开发时和安装时所申请的权限，并不是App运行时的实际权限：只有用户任何的权限才是App能够实际拿到的权限
+。
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/android/contactsdemo-ask-permission.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+App询问是否授权读取联系人权限
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:App询问是否授权读取联系人权限"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+一般情况下，模拟器的联系人是空的，因此在运行示例程序之前最好先在模拟器里面添加几个联系人。
+\end_layout
+
+\begin_layout Standard
+运行此示例程序，在Logcat窗口可以看到如下的输出：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Verbatim
+
+09-03 15:05:06.146 29558-29558/cn.edu.sdut.android.contactsdemo I/MainActivity:
+ 
+\end_layout
+
+\begin_layout Verbatim
+
+    readContacts: displayName=Zhang San,number=1 333-333-3333
+\end_layout
+
+\begin_layout Verbatim
+
+    readContacts: displayName=Li Si,number=1 355-555-5555
+\end_layout
+
+\begin_layout Verbatim
+
+    readContacts: displayName=Wang Wu,number=1 399-999-9999
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Section
+拓展
+\end_layout
+
+\begin_layout Subsection
+展示联系人（ListView, RecyclerView）
+\end_layout
+
+\begin_layout Subsection
+过滤联系人（搜索王姓联系人）
+\end_layout
+
+\begin_layout Subsection
+引导用户到添加联系人界面
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
