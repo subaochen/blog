@@ -1,0 +1,311 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{article-preamble.tex}
+\end_preamble
+\options fontset=ubuntu
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "新宋体"
+\font_sans "default" "新宋体"
+\font_typewriter "default" "文泉驿等宽微米黑"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\bullet 0 3 25 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+ubuntu下面的ctex字体选择问题
+\end_layout
+
+\begin_layout Standard
+今天写一篇小文，发现编译的时候通不过，报告错误：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Missing character: There is no 啰 in font [FandolSong-Regular.otf]/OT!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+确实，文章中有“啰嗦”二字，看来是FondolSong-Regular这个字体中缺少了“啰”这个字造成的。为什么ctex默认会使用FondolSong这种字体呢
+？这大概是唯一在windows和linux下面都能够合法使用的中文字体了，但是根据网上的评价，似乎FondolSong字体不全，比如这里就碰到了没有“啰”这个字
+。
+\end_layout
+
+\begin_layout Standard
+怎么办呢？在
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+/usr/share/texlive/texmf-dist/tex/latex/ctex/fontset
+\end_layout
+
+\end_inset
+
+查看ctex的字体集定义，发现除了fandol字体集外，还有若干其他字体集定义：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+ctex-fontset-adobe.def ctex-fontset-mac.def ctex-fontset-windowsnew.def
+\end_layout
+
+\begin_layout Plain Layout
+ctex-fontset-fandol.def ctex-fontset-ubuntu.def ctex-fontset-windowsold.def
+\end_layout
+
+\begin_layout Plain Layout
+ctex-fontset-founder.def ctex-fontset-windows.def
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+尝试在文档类中设置
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+fontset=ubuntu
+\end_layout
+
+\end_inset
+
+，成功解决问题！也就是说，告诉ctex使用ubuntu的系统字体，不要使用fandol字体即可。
+\end_layout
+
+\begin_layout Standard
+如果ubuntu字体依然不能解决问题，可以去/etc/fonts/conf.d编辑一下69-language-selector-zh-cn.conf文件，把希望的中
+文字体提升到更高优先级即可，比如我这里把wqy字体提升到了第一位：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+....
+\end_layout
+
+\begin_layout Plain Layout
+
+       <match target="pattern">
+\end_layout
+
+\begin_layout Plain Layout
+
+        <test name="lang">
+\end_layout
+
+\begin_layout Plain Layout
+
+            <string>zh-cn</string>
+\end_layout
+
+\begin_layout Plain Layout
+
+        </test>
+\end_layout
+
+\begin_layout Plain Layout
+
+                <test qual="any" name="family">
+\end_layout
+
+\begin_layout Plain Layout
+
+                        <string>serif</string>
+\end_layout
+
+\begin_layout Plain Layout
+
+                </test>
+\end_layout
+
+\begin_layout Plain Layout
+
+                <edit name="family" mode="prepend" binding="strong">
+\end_layout
+
+\begin_layout Plain Layout
+
+                        <string>WenQuanYi Bitmap Song</string>
+\end_layout
+
+\begin_layout Plain Layout
+
+                        <string>Noto Serif CJK SC</string>
+\end_layout
+
+\begin_layout Plain Layout
+
+                        <string>HYSong</string>
+\end_layout
+
+\begin_layout Plain Layout
+
+                        <string>AR PL UMing CN</string>
+\end_layout
+
+\begin_layout Plain Layout
+
+                        <string>AR PL UMing HK</string>
+\end_layout
+
+\begin_layout Plain Layout
+
+                        <string>AR PL New Sung</string>
+\end_layout
+
+\begin_layout Plain Layout
+
+                        <string>AR PL UKai CN</string>
+\end_layout
+
+\begin_layout Plain Layout
+
+                        <string>AR PL ZenKai Uni</string>
+\end_layout
+
+\begin_layout Plain Layout
+
+                </edit>
+\end_layout
+
+\begin_layout Plain Layout
+
+        </match>
+\end_layout
+
+\begin_layout Plain Layout
+
+....
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

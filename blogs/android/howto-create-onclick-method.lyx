@@ -8,6 +8,7 @@
 \begin_preamble
 \input{article-preamble.tex}
 \end_preamble
+\options fontset=ubuntu
 \use_default_options true
 \begin_modules
 logicalmkup
@@ -24,7 +25,7 @@ coderemarks
 \fontencoding global
 \font_roman "default" "新宋体"
 \font_sans "default" "新宋体"
-\font_typewriter "default" "新宋体"
+\font_typewriter "default" "文泉驿等宽微米黑"
 \font_math "auto" "auto"
 \font_default_family default
 \use_non_tex_fonts true
@@ -512,7 +513,7 @@ status open
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -554,7 +555,7 @@ name "fig:自动补全onClick方法的补全列表"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -841,7 +842,7 @@ name "fig:prepare-for-create-onclick-method"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
