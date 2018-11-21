@@ -1,0 +1,325 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{article-preamble.tex}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+tcolorbox
+note-inset
+tip-inset
+warning-inset
+coderemarks
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "文泉驿点阵正黑"
+\font_sans "default" "文泉驿点阵正黑"
+\font_typewriter "default" "文泉驿等宽微米黑"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\boxbgcolor #dad3d7
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\bullet 0 3 25 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+如何理解MainActivity.this中的this？
+\end_layout
+
+\begin_layout Section
+this的含义
+\end_layout
+
+\begin_layout Standard
+Javac在编译Java源代码的时候，会在每个类的内部自动维护一个this和super指针：this指向当前对象，super指向父类对象。比如一个简单的Test.
+java：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public class Test{}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+编译后的Test.class如果使用javap -v反编译可以看到：
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+this是指针，还是class?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public class Test
+\end_layout
+
+\begin_layout Plain Layout
+
+  minor version: 0
+\end_layout
+
+\begin_layout Plain Layout
+
+  major version: 54
+\end_layout
+
+\begin_layout Plain Layout
+
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+\end_layout
+
+\begin_layout Plain Layout
+
+  this_class: #2                          // Test
+\end_layout
+
+\begin_layout Plain Layout
+
+  super_class: #3                         // java/lang/Object
+\end_layout
+
+\begin_layout Plain Layout
+
+  interfaces: 0, fields: 0, methods: 1, attributes: 1
+\end_layout
+
+\begin_layout Plain Layout
+
+Constant pool:
+\end_layout
+
+\begin_layout Plain Layout
+
+   #1 = Methodref          #3.#10         // java/lang/Object."<init>":()V
+\end_layout
+
+\begin_layout Plain Layout
+
+   #2 = Class              #11            // Test
+\end_layout
+
+\begin_layout Plain Layout
+
+   #3 = Class              #12            // java/lang/Object
+\end_layout
+
+\begin_layout Plain Layout
+
+   #4 = Utf8               <init>
+\end_layout
+
+\begin_layout Plain Layout
+
+   #5 = Utf8               ()V
+\end_layout
+
+\begin_layout Plain Layout
+
+   #6 = Utf8               Code
+\end_layout
+
+\begin_layout Plain Layout
+
+   #7 = Utf8               LineNumberTable
+\end_layout
+
+\begin_layout Plain Layout
+
+   #8 = Utf8               SourceFile
+\end_layout
+
+\begin_layout Plain Layout
+
+   #9 = Utf8               Test.java
+\end_layout
+
+\begin_layout Plain Layout
+
+  #10 = NameAndType        #4:#5          // "<init>":()V
+\end_layout
+
+\begin_layout Plain Layout
+
+  #11 = Utf8               Test
+\end_layout
+
+\begin_layout Plain Layout
+
+  #12 = Utf8               java/lang/Object
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  public Test();
+\end_layout
+
+\begin_layout Plain Layout
+
+    descriptor: ()V
+\end_layout
+
+\begin_layout Plain Layout
+
+    flags: (0x0001) ACC_PUBLIC
+\end_layout
+
+\begin_layout Plain Layout
+
+    Code:
+\end_layout
+
+\begin_layout Plain Layout
+
+      stack=1, locals=1, args_size=1
+\end_layout
+
+\begin_layout Plain Layout
+
+         0: aload_0
+\end_layout
+
+\begin_layout Plain Layout
+
+         1: invokespecial #1                  // Method java/lang/Object."<init>"
+:()V
+\end_layout
+
+\begin_layout Plain Layout
+
+         4: return
+\end_layout
+
+\begin_layout Plain Layout
+
+      LineNumberTable:
+\end_layout
+
+\begin_layout Plain Layout
+
+        line 1: 0
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+SourceFile: "Test.java"
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+内部类的this
+\end_layout
+
+\begin_layout Section
+MainActivity.this释义
+\end_layout
+
+\end_body
+\end_document
