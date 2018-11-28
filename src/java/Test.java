@@ -1,8 +1,8 @@
 public class Test {
-    private int var;
+    private int m;
 
 	public int inc(){
-	    return var + 1;
+	    return m + 1;
 	}
 }
 
