@@ -192,7 +192,7 @@ class的内部结构，因此引用到全限定名时皆指诸如java/lang/Objec
 \end_layout
 
 \begin_layout Standard
-在表达属性、方法和类时，除了其名称（全限定名）外，其他的特性刻画需要依靠描述符（Descriptor）。
+在表达属性、方法时，除了其名称（全限定名）外，其他的特性刻画需要依靠描述符（Descriptor）。
 \end_layout
 
 \begin_layout Subsubsection
@@ -294,7 +294,7 @@ status open
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -663,7 +663,40 @@ name "tab:属性描述符的数据类型定义"
 \end_layout
 
 \begin_layout Standard
-方法的描述符是指描述方法的返回值和参数列表的字符串，其中参数列表在前，返回值紧跟其后。其中，参数列表为空只给出()即可，返回值为void使用V表示。
+方法的描述符是指描述方法的返回值和参数列表的字符串，其中参数列表在前，返回值紧跟其后。其中，参数列表为空只给出()即可。返回值的类型除了常规的数据类型如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tablename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:属性描述符的数据类型定义"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+之外，
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+如果为void使用V表示
+\end_layout
+
+\end_inset
+
+，这一点比较特殊，需要注意一下。
 \begin_inset ERT
 status open
 
@@ -693,7 +726,7 @@ noprefix "false"
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -764,6 +797,15 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+void doSomething(int a,double b,Thread t){...}
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
@@ -773,6 +815,15 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+(IDLjava/lang/Thread;)V
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
@@ -784,6 +835,15 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+void doSomething(int[][] a)
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
@@ -793,6 +853,15 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+([[I)V
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
@@ -831,41 +900,38 @@ name "tab:方法描述符示例"
 
 \end_inset
 
-因此下面的方法：
+
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-String doSomething(int a, double b,Thread t){...}
-\end_layout
+这里引申出一个比较有意思的问题：Java的方法允许有多少个参数
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p92"
+key "jvm-specifications"
+literal "false"
 
 \end_inset
 
 
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "java-method-parameters-limit"
+literal "false"
 
-\begin_layout Standard
-的描述符为：
-\end_layout
+\end_inset
 
-\begin_layout Standard
-\begin_inset Flex Code
+？结论是，Java的方法最多允许255个单位的参数，其中int等类型的参数算作一个单位，long和double类型的参数算作2个单位
+\begin_inset Foot
 status open
 
 \begin_layout Plain Layout
-(IDLjava/lang/Thread;)Ljava/lang/String
+为什么long和double算作两个2单位？这大概和JVM设计之初的一个不合理规定有关，参见xxx。
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Subsubsection
-类描述符
+。这个问题作者还没有搞的太清楚，应该需要从Java虚拟机调用方法的栈机制去调查，从方法描述符的限制中找不到线索。
 \end_layout
 
 \begin_layout Section
@@ -896,7 +962,70 @@ noprefix "false"
 
 \end_inset
 
-所示。
+所示，一个u2表示常量池的表项数量，后面紧跟着constant_pool_length个表项。这里要注意两点：第一，constant_pool_length不是
+常量池的总字节尺寸，而是表项数量。表项结构各不相同，因此常量池的总长度由所有表项的长度相加计算而得；第二，constant_pool_length的索引是从1开
+始的，因此真正的表项数量是constant_pool_length - 1。如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:常量池表项数量"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+所示，我们的示例代码Person.class中，常量池表项的数量应为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+常量池表项数量
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:常量池表项数量"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -956,7 +1085,7 @@ u2
 \begin_inset Text
 
 \begin_layout Plain Layout
-constant_pool_size
+constant_pool_length
 \end_layout
 
 \end_inset
@@ -994,7 +1123,7 @@ info[]
 \begin_inset Text
 
 \begin_layout Plain Layout
-constant_pool_size
+constant_pool_length - 1
 \end_layout
 
 \end_inset
@@ -2009,6 +2138,19 @@ name "subsec:字段常量"
 
 \begin_layout Section
 属性表
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "/home/subaochen/git/bibref/java"
+options "IEEEtranS"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
