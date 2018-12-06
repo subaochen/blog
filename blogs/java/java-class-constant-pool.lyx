@@ -987,7 +987,7 @@ noprefix "false"
 
 \end_inset
 
-所示，我们的示例代码Person.class中，常量池表项的数量应为：
+所示，我们的示例代码Person.class中，常量池表项的数量应为：0x0014 - 1项，即19项。
 \end_layout
 
 \begin_layout Standard
@@ -997,6 +997,13 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/class-cp-length.png
+	width 80line%
+
+\end_inset
+
 
 \end_layout
 
