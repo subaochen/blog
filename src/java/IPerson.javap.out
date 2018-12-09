@@ -1,0 +1,26 @@
+Classfile /home/subaochen/git/blog/src/java/IPerson.class
+  Last modified 2018年12月9日; size 119 bytes
+  MD5 checksum 2b865ff3610a20333b6df52384c1c38d
+  Compiled from "IPerson.java"
+public interface IPerson
+  minor version: 0
+  major version: 55
+  flags: (0x0601) ACC_PUBLIC, ACC_INTERFACE, ACC_ABSTRACT
+  this_class: #1                          // IPerson
+  super_class: #2                         // java/lang/Object
+  interfaces: 0, fields: 0, methods: 1, attributes: 1
+Constant pool:
+  #1 = Class              #7              // IPerson
+  #2 = Class              #8              // java/lang/Object
+  #3 = Utf8               isAdult
+  #4 = Utf8               ()Z
+  #5 = Utf8               SourceFile
+  #6 = Utf8               IPerson.java
+  #7 = Utf8               IPerson
+  #8 = Utf8               java/lang/Object
+{
+  public abstract boolean isAdult();
+    descriptor: ()Z
+    flags: (0x0401) ACC_PUBLIC, ACC_ABSTRACT
+}
+SourceFile: "IPerson.java"

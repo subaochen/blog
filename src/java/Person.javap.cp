@@ -14,8 +14,8 @@ Constant pool:
   #13 = Utf8               StackMapTable
   #14 = Utf8               SourceFile
   #15 = Utf8               Person.java
-  #16 = NameAndType        #7:#8          // "<init>":()V
-  #17 = NameAndType        #5:#6          // age:I
+  #16 = NameAndType        #7:#8          // "<init>":()V|\longremark{由\#7和\#8号Utf8字符串组成的名称和类型常量表项}|
+  #17 = NameAndType        #5:#6          // age:I|\longremark{由\#5和\#6号Utf8字符串常量表项组成的名称和类型常量表项}|
   #18 = Utf8               Person
   #19 = Utf8               java/lang/Object
 |\showremarks|
