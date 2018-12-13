@@ -108,20 +108,7 @@ Java Class文件结构：属性
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset toc
-LatexCommand tableofcontents
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-结构
-\end_layout
-
-\begin_layout Standard
-每一个属性都使用一个属性表来描述，其结构如
+class文件的每一个属性都使用一个属性表来描述，其结构如
 \begin_inset ERT
 status open
 
@@ -144,6 +131,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="6" columns="3">
 <features tabularvalignment="middle">
@@ -357,6 +345,26 @@ name "tab:属性表的结构"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+access_flags
+\end_layout
+
+\begin_layout Standard
+access_flags声明了属性的访问控制。
+\end_layout
+
+\begin_layout Section
+name_index
+\end_layout
+
+\begin_layout Section
+descriptor_index
+\end_layout
+
+\begin_layout Section
+attributes
 \end_layout
 
 \begin_layout Standard
