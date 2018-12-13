@@ -107,6 +107,101 @@ PackageOptions url hyphens
 Java Class文件结构：属性
 \end_layout
 
+\begin_layout Section
+类的总体描述
+\end_layout
+
+\begin_layout Standard
+根据class文件的结构，在常量池和属性表之间的，是以下的几个部分，描述了类的总体特性，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:class文件的总体结构"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Subsection
+类的访问控制
+\end_layout
+
+\begin_layout Subsection
+this class
+\end_layout
+
+\begin_layout Subsection
+super class
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/class-Person.class.svg.png
+	width 90line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+class文件的总体结构
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:class文件的总体结构"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+接口表
+\end_layout
+
+\begin_layout Section
+属性表
+\end_layout
+
 \begin_layout Standard
 class文件的每一个属性都使用一个属性表来描述，其结构如
 \begin_inset ERT
@@ -121,7 +216,25 @@ tablename
 
 \end_inset
 
-所示。
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:属性表的结构"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+所示
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jls-jvm-homepage"
+literal "false"
+
+\end_inset
+
+。
 \end_layout
 
 \begin_layout Standard
@@ -230,7 +343,7 @@ name_index
 \begin_inset Text
 
 \begin_layout Plain Layout
-u2
+u2z
 \end_layout
 
 \end_inset
@@ -347,7 +460,7 @@ name "tab:属性表的结构"
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 access_flags
 \end_layout
 
@@ -355,16 +468,20 @@ access_flags
 access_flags声明了属性的访问控制。
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 name_index
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 descriptor_index
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 attributes
+\end_layout
+
+\begin_layout Section
+方法表
 \end_layout
 
 \begin_layout Standard
