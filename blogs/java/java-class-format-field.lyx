@@ -136,6 +136,44 @@ noprefix "false"
 \end_inset
 
 。
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/class-Person.class.svg.png
+	width 90line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+class文件的总体结构
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:class文件的总体结构"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -361,7 +399,16 @@ ACC_SUPER
 \begin_inset Text
 
 \begin_layout Plain Layout
-父类
+兼容性考虑，在Java SE 8及其以上版本总是需要设置
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p74"
+key "jls-jvm-homepage"
+literal "false"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -576,43 +623,33 @@ name "tab:类的访问控制符"
 
 \end_layout
 
-\begin_layout Subsection
-this class
-\end_layout
-
-\begin_layout Subsection
-super class
+\begin_layout Standard
+在Person.class中，我们通过javap -v Person.class可以观察到类的访问控制是这样显示的：
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
+\begin_inset listings
+inline false
 status open
 
 \begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/java/class-Person.class.svg.png
-	width 90line%
 
-\end_inset
-
-
+ public class Person
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption Standard
+
+   minor version: 0
+\end_layout
 
 \begin_layout Plain Layout
-class文件的总体结构
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:class文件的总体结构"
 
-\end_inset
+   major version: 55
+\end_layout
 
+\begin_layout Plain Layout
 
+   flags: (0x0021) ACC_PUBLIC, ACC_SUPER  
 \end_layout
 
 \end_inset
@@ -620,8 +657,38 @@ name "fig:class文件的总体结构"
 
 \end_layout
 
+\begin_layout Standard
+即Person是一个public的类。
+\end_layout
+
+\begin_layout Subsection
+this class和super class
+\end_layout
+
+\begin_layout Standard
+this class和super class指向在常量池中CONSTANT_Class_info索引，Person.class中的this class是0x000
+3，super class是0x0004，即在常量池的第3个表项和第4个表项。查询常量池可以知道，第三个表项表示了类Person，第四个表项表示了类java/l
+ang/Object。通过javap -v Person.class观察可得：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
 \begin_layout Plain Layout
 
+flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+\end_layout
+
+\begin_layout Plain Layout
+
+this_class: #3                          // Person
+\end_layout
+
+\begin_layout Plain Layout
+
+super_class: #4                         // java/lang/Object
 \end_layout
 
 \end_inset
@@ -633,12 +700,38 @@ name "fig:class文件的总体结构"
 接口表
 \end_layout
 
+\begin_layout Standard
+接口表用来表示这个类实现了哪些接口。由于Java是允许实现多个接口的，因此首先是一个u2的接口表计数器interfaces_count，紧接着是各个接口的索引，
+每个索引指向一个u2的CONSTANT_Class_info结构，总统interfaces_count个这样的u2索引。
+\end_layout
+
+\begin_layout Standard
+也就是说，接口表总共interfaces_count + 1个u2结构，总共(interfaces_count + 1) * 2个字节。Person类没有实现接
+口，因此其interfaces_count = 0，参见javap的输出：
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+interfaces: 0, fields: 1, methods: 2, attributes: 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 属性表
 \end_layout
 
 \begin_layout Standard
-class文件的每一个属性都使用一个属性表来描述，其结构如
+紧接接口表的是属性表。首先是一个u2的属性表计数器fields_count，表示属性表的个数，即这个类包含了多少个属性，每一个属性都使用一个属性表来描述，其结构
+如
 \begin_inset ERT
 status open
 
@@ -778,7 +871,7 @@ name_index
 \begin_inset Text
 
 \begin_layout Plain Layout
-u2z
+u2
 \end_layout
 
 \end_inset
