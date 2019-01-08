@@ -139,7 +139,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -239,7 +239,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename /home/subaochen/git/blog/imgs/java/class_access_flags.png
+	filename /home/subaochen/git/blog/imgs/java/class_access_flags.eps
 	width 80line%
 
 \end_inset
@@ -614,10 +614,6 @@ name "tab:类的访问控制符"
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -979,10 +975,6 @@ name "tab:属性表的结构"
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -993,19 +985,200 @@ access_flags
 \end_layout
 
 \begin_layout Standard
-access_flags声明了属性的访问控制。
+access_flags声明了属性的访问控制，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:属性的访问控制属性"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+所示，其中大部分访问控制符的意义和
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tablename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:类的访问控制符"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+中的定义是一致的，只有2个访问控制符是属性特有的：
+\end_layout
+
+\begin_layout Description
+ACC_VOLATILE 声明为volatile的属性不能被缓存。
+\end_layout
+
+\begin_layout Description
+ACC_TRANSIENT 声明为transient的属性不能被持续化。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/java/class_field_flags.eps
+	width 80line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+属性的访问控制属性
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:属性的访问控制属性"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
 name_index
 \end_layout
 
+\begin_layout Standard
+一个指向常量池的索引，必须是合法的CONSTANT_Utf8_info结构，表示该属性的名称。
+\end_layout
+
 \begin_layout Subsection
 descriptor_index
 \end_layout
 
+\begin_layout Standard
+一个指向常量池的索引，必须是合法的CONSTANT_Utf8_info结构，表示该属性的描述符。
+\end_layout
+
 \begin_layout Subsection
-attributes
+attributes_count
+\end_layout
+
+\begin_layout Standard
+属性的属性表个数。
+\end_layout
+
+\begin_layout Subsection
+attribute_info[attributes_count]
+\end_layout
+
+\begin_layout Standard
+attributes_count个attribute_info数组。
+\end_layout
+
+\begin_layout Standard
+在Person.java中，只有一个私有属性age，参见
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:class文件的总体结构"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+，其相关数据结构如下：
+\end_layout
+
+\begin_layout Description
+access_flags 0x0002，对照
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:属性的访问控制属性"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+可知此属性是private的。
+\end_layout
+
+\begin_layout Description
+name_index 0x0005，对照常量池表项可知其值为age，这是属性的名称。
+\end_layout
+
+\begin_layout Description
+descriptor_index 0x0006，对照常量池表项可知其值为I，这是属性的类型。
+\end_layout
+
+\begin_layout Description
+attributes_count 0x0000，属性的属性表个数为0。
 \end_layout
 
 \begin_layout Section
