@@ -1115,6 +1115,10 @@ attribute_info[attributes_count]
 attributes_count个attribute_info数组。
 \end_layout
 
+\begin_layout Subsection
+Person.java的属性表
+\end_layout
+
 \begin_layout Standard
 在Person.java中，只有一个私有属性age，参见
 \begin_inset ERT
@@ -1178,7 +1182,7 @@ descriptor_index 0x0006，对照常量池表项可知其值为I，这是属性�
 \end_layout
 
 \begin_layout Description
-attributes_count 0x0000，属性的属性表个数为0。
+attributes_count 0x0000，属性的属性表个数为0，因此后面就没有attribute_info数组了。
 \end_layout
 
 \begin_layout Section

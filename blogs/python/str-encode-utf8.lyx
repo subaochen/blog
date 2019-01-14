@@ -1,0 +1,354 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{article-preamble.tex}
+\end_preamble
+\options openany
+\use_default_options true
+\begin_modules
+logicalmkup
+theorems-bytype
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-chap-bytype
+\end_modules
+\maintain_unincluded_children false
+\begin_local_layout
+PackageOptions url hyphens
+\end_local_layout
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\boxbgcolor #d3d7cf
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+粗谈字符的编码
+\end_layout
+
+\begin_layout Standard
+坦率的说，写了这么多年的程序，编码问题一直是一个头疼的问题，经常在数据库应用、WEB应用等碰到乱码，尤其是涉及到中文处理时。
+\end_layout
+
+\begin_layout Standard
+首先，我们要清楚的是，字符的编码涉及到几个层面：
+\end_layout
+
+\begin_layout Description
+程序内部的编码 在程序内部使用的编码方式。比如，Java内部一律使用unicode保存字符串，python3亦是这样的处理方式。通常，我们无法改变一个程序设计语
+言内部对字符串的默认编码设定。
+\end_layout
+
+\begin_layout Description
+终端界面的编码 无论是真正的终端（terminal）还是浏览器，都会使用用户指定的编码来解释字符串。比如在浏览器中，你可以选择使用何种编码显示网页的内容。
+\end_layout
+
+\begin_layout Description
+数据传输时的编码 在传输数据时，比如socket通讯中，可以使用指定的编码传输数据。通常，这里要考虑的问题是，使用何种编码方式文件的体积小又方便接收端解码。比如
+，如果文件只是包含常规的ASCII码，就使用ASCII码好了。
+\end_layout
+
+\begin_layout Standard
+于是，有了
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+所示的数据传输过程。我们看到，在数据不同的存储媒介、不同的传输阶段都可能使用不同的编码方式。任何一个环节出错或者不适配，就会出现所谓的乱码。
+\end_layout
+
+\begin_layout Section
+编码问题的由来
+\end_layout
+
+\begin_layout Standard
+由于美国人鼓捣出的ASCII的表现能力实在有限，最初的各国只好各自鼓捣出了适合自己国家文字的编码方式，比如中国鼓捣除了GB2312，日本鼓捣出了Shift_JI
+S，韩国鼓捣出了Euc-kr等等，世界一度陷入了编码战国时代，给信息的交换和编程带了极大的不变。
+\end_layout
+
+\begin_layout Section
+Unicode
+\end_layout
+
+\begin_layout Standard
+Unicode意图一统天下，通常使用2个字节表示所有的字符。比如ASCII的字母A，使用ASCII码表示为0x41，使用Unicode编码即为0x0041。比如
+汉字的“中”的Unicode编码为0x4e2d。
+\end_layout
+
+\begin_layout Standard
+目前Java和Python内部均以Unicode的方式表达字符串，这样Java和Python就很容易实现字符串的国际化了。
+\end_layout
+
+\begin_layout Section
+UTF-8
+\end_layout
+
+\begin_layout Standard
+但是我们很容易发现，如果一个字符串只包括了ASCII码字符，如果都使用Unicode来表达的话，存储空间就浪费了一半，这在网络传输带宽还比较紧张的今天，显然是一
+个需要优化的地方，于是有了在WEB编程中普遍被采用的UTF-8编码：变长的Unicode编码，即把Unicode字符划分了若干的区，不同区的字符使用不同数量的字
+节来表达。比如ASCII码还是使用1个字节来表达，汉字使用3个字节来表达，有的字符甚至使用6个字节来表达（当然，这些字符数量不多）。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+字符
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ASCII码
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Unicode编码
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+UTF-8编码
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0x41
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0x0041
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0x41
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+中
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+x
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0x4e2d
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0xe4b8ad
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+不同编码的内部表达
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:不同编码的内部表达"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+小结
+\end_layout
+
+\begin_layout Standard
+Unicode不是UTF-8，UTF-8未来不一定能够存在（试想，带宽足够大的时候，还在乎这几个字节吗？）。
+\end_layout
+
+\end_body
+\end_document
