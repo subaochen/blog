@@ -1,0 +1,379 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{article-preamble.tex}
+\end_preamble
+\options openany
+\use_default_options true
+\begin_modules
+logicalmkup
+theorems-bytype
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-chap-bytype
+\end_modules
+\maintain_unincluded_children false
+\begin_local_layout
+PackageOptions url hyphens
+\end_local_layout
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\boxbgcolor #d3d7cf
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+理解全概率公式
+\end_layout
+
+\begin_layout Section
+全概率公式的推导
+\end_layout
+
+\begin_layout Standard
+假设事件F
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+
+,F
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+,...,F
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+j
+\end_layout
+
+\end_inset
+
+是样本空间S上的互不相容的事件，且满足：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+[
+\backslash
+bigcup_{i=1}^{n}F_{i}=S
+\backslash
+]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，事件F
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+
+,F
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+,...,F
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+j
+\end_layout
+
+\end_inset
+
+必有一件发生。
+\end_layout
+
+\begin_layout Standard
+假设我们在样本空间S上观察到新的事件E，事件E区别于F
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+
+,F
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+,...,F
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+j
+\end_layout
+
+\end_inset
+
+，则事件E也可以定义为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+[E=
+\backslash
+bigcup_{i=1}^{n}EF_{i}
+\backslash
+]
+\end_layout
+
+\end_inset
+
+事件E仍然属于样本空间S。我们可以认为，事件E是从另外一个角度解读样本空间S，这和F
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+
+,F
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+,...,F
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+j
+\end_layout
+
+\end_inset
+
+是样本空间的一个充分划分并不矛盾，如
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+figurename
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:全概率公式示意图"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+所示。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/subaochen/git/blog/imgs/math/full-probability.eps
+	width 60line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+全概率公式示意图
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:全概率公式示意图"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+于是我们有：
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+[P(E)=P(
+\backslash
+bigcup_{i=1}^{n}EF_{i})=
+\backslash
+sum_{i=1}^{n}P(EF_{i})=
+\backslash
+sum_{i=1}^{n}P(E|F_{i})P(F_{i})
+\backslash
+]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+全概率公式的意义
+\end_layout
+
+\begin_layout Section
+全概率公式的应用
+\end_layout
+
+\end_body
+\end_document
