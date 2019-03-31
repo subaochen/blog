@@ -1,0 +1,169 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{article-preamble.tex}
+\end_preamble
+\options openany
+\use_default_options true
+\begin_modules
+logicalmkup
+theorems-bytype
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-chap-bytype
+\end_modules
+\maintain_unincluded_children false
+\begin_local_layout
+PackageOptions url hyphens
+\end_local_layout
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\boxbgcolor #d3d7cf
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+优惠券收集问题
+\end_layout
+
+\begin_layout Standard
+见《概率论基础教程》P99之例1e，瞪大眼珠子瞅了半个小时才整明白，尝试用自己的方式重新整理一下。题目如下：
+\end_layout
+
+\begin_layout Standard
+设想有N种不同的优惠券，某人每次收集一张，且每种优惠券都以相同的可能性被收集到，并假定各次收集是相互独立的。假设某人想收集全一套N种优惠券，那么他所收集到的优惠
+券的总张数是一个随机变量，记为T，请计算P{T=n}。
+\end_layout
+
+\begin_layout Standard
+首先搞清楚题意。这里有三个符号N，T，n，其中N的意义很明确，是优惠券的种类数量。T的意义为，此人收集了T张优惠券，恰好收全了N种优惠券。显然，T>=N。所求P
+{T=n}即为计算不同的T的概率，即计算T=N，T=N+1,...的概率，n在这里代表了>=N的自然数序列。
+\end_layout
+
+\begin_layout Standard
+直接求P{T=n}似乎无从下手，我们可以考虑计算出P{T>n}，即此人收集了n张优惠券但是没有收全的概率。如果计算出了P{T>n}，那么很容易推算出P{T>n-
+1}，其意义为此人收集了n-1张优惠券但是没有收全的概率。事件“收集了n-1张优惠券但是没有收全”和事件“收集了n张优惠券收全”、“收集了n张优惠券没有收全”的
+关系是怎样的呢？显然有：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+P\{T>n-1\}=P\{T=n\}+P\{T>n\}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+即，当收集了n-1张优惠券还没有收全时，要么在收集到第n张时收全，要么在收集到第n张时依然没有收全，这是两个独立（互斥）的事件。
+\end_layout
+
+\begin_layout Standard
+于是，计算P{T=n}的问题转换为计算P{T>n}，即：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+P\{T=n\}=P\{T>n-1\}-P\{T>n\}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+假设
+\begin_inset Formula $A_{j}$
+\end_inset
+
+表示事件“收集到第n张优惠券时没有第j种优惠券”，j=1,2,...,N。
+\end_layout
+
+\end_body
+\end_document
