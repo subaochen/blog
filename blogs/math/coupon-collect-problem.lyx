@@ -310,14 +310,18 @@ i
 \begin_layout Standard
 \begin_inset Formula 
 \begin{eqnarray*}
-P(T & = & n)=P(T>n-1)-P(T>n)=\\
- &  & \stackrel[i=1]{N-1}{\sum}\left(\begin{array}{c}
+P(T & = & n)=P(T>n-1)-P(T>n)\\
+ &  & =\stackrel[i=1]{N-1}{\sum}\left(\begin{array}{c}
 N\\
 i
 \end{array}\right)\left(\frac{N-i}{N}\right)^{n-1}(-1)^{i+1}-\stackrel[i=1]{N-1}{\sum}\left(\begin{array}{c}
 N\\
 i
-\end{array}\right)\left(\frac{N-i}{N}\right)^{n}(-1)^{i+1}=\text{？}
+\end{array}\right)\left(\frac{N-i}{N}\right)^{n}(-1)^{i+1}\\
+ &  & =\stackrel[i=1]{N-1}{\sum}\frac{i}{N}\left(\begin{array}{c}
+N\\
+i
+\end{array}\right)\left(\frac{N-i}{N}\right)^{n-1}(-1)^{i+1}\\
 \end{eqnarray*}
 
 \end_inset
@@ -326,11 +330,11 @@ i
 \end_layout
 
 \begin_layout Section
-相似问题
+Matlab验证
 \end_layout
 
 \begin_layout Section
-Matlab验证
+相似问题
 \end_layout
 
 \end_body
