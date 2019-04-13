@@ -1,0 +1,211 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\use_default_options true
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\boxbgcolor #c8c8c8
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+学点octave语法
+\end_layout
+
+\begin_layout Section
+逗号和分号的区别
+\end_layout
+
+\begin_layout Standard
+逗号表示连续运行命令，分号表示执行当前的语句。因此，在命令行可以使用逗号表示语句没有结束，比如：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+>> while true,
+\end_layout
+
+\begin_layout Plain Layout
+v(i)=999;
+\end_layout
+
+\begin_layout Plain Layout
+i=i+1;
+\end_layout
+
+\begin_layout Plain Layout
+if i == 6,
+\end_layout
+
+\begin_layout Plain Layout
+break;
+\end_layout
+
+\begin_layout Plain Layout
+end;
+\end_layout
+
+\begin_layout Plain Layout
+end;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+再说分号
+\end_layout
+
+\begin_layout Standard
+分号在命令行表示执行语句，但是执行结果不在屏幕显示。如果没有分号或者逗号，则执行结果立即显示。
+\end_layout
+
+\begin_layout Section
+访问向量和矩阵的元素
+\end_layout
+
+\begin_layout Standard
+比如向量v=[1 2 3]，则v(1)=1。注意不是v[1]，这和C语言等很不一样。同样的，对于矩阵，访问矩阵元素的方法是A(1,2)，表示访问矩阵A的第一行第
+二列的元素。
+\end_layout
+
+\begin_layout Section
+函数返回多个值
+\end_layout
+
+\begin_layout Standard
+比如下面的函数定义：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+function [y1,y2]=squareAndCubeThisNumber(x)
+\end_layout
+
+\begin_layout Plain Layout
+y1=x^2;
+\end_layout
+
+\begin_layout Plain Layout
+y2=x^3;
+\end_layout
+
+\begin_layout Plain Layout
+endfunction
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

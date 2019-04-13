@@ -1,0 +1,307 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\use_default_options true
+\begin_modules
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+单变量线性回归学习笔记
+\end_layout
+
+\begin_layout Section
+单变量线性回归的概念
+\end_layout
+
+\begin_layout Standard
+单变量线性回归是指只使用一个特征变量的线性回归，即只通过一个特征描述事物，比如房子的面积和价格的关系，房子的面积是特征变量x，价格是输出y。单变量线性回归的预测
+函数为：
+\begin_inset Formula 
+\begin{equation}
+h_{\theta}(x)=\theta_{0}+\theta_{1}x\label{eq:单变量线性回归的预测函数}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+单变量线性回归的目标是确定合适的
+\begin_inset Formula $\theta_{0}$
+\end_inset
+
+和
+\begin_inset Formula $\theta_{1}$
+\end_inset
+
+，使得公式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:单变量线性回归的预测函数"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+在给定的输入集合
+\begin_inset Formula $(x,y)$
+\end_inset
+
+下误差最小。这个误差用
+\begin_inset Flex Noun
+status open
+
+\begin_layout Plain Layout
+代价函数
+\end_layout
+
+\end_inset
+
+（cost function）来表示：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+J(\theta_{0},\theta_{1})=\frac{1}{2m}\stackrel[i=1]{m}{\sum}(h_{\theta}(x^{(i)})-y^{(i)})^{2}\label{eq:代价函数}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+也就是说，如果给定的m个样本的实际值和预测值的平方差的和最小，此时的
+\begin_inset Formula $\theta_{0}$
+\end_inset
+
+和
+\begin_inset Formula $\theta_{1}$
+\end_inset
+
+就是合适的。
+\end_layout
+
+\begin_layout Section
+梯度下降法（gradient descent）求解单变量线性回归问题
+\end_layout
+
+\begin_layout Standard
+如何选取
+\begin_inset Formula $\theta_{0}$
+\end_inset
+
+和
+\begin_inset Formula $\theta_{1}$
+\end_inset
+
+使得代价函数
+\begin_inset Formula $J(\theta_{0},\theta_{1})$
+\end_inset
+
+最小是单变量线性回归问题的关键。对于机器学习而言，我们可以从一个初始状态出发，比如从
+\begin_inset Formula $\theta_{0}=0$
+\end_inset
+
+，
+\begin_inset Formula $\theta_{1}=0$
+\end_inset
+
+开始。那么问题转化为如何选取下一组
+\begin_inset Formula $\theta_{0}$
+\end_inset
+
+和
+\begin_inset Formula $\theta_{1}$
+\end_inset
+
+，使得
+\begin_inset Formula $J(\theta_{0},\theta_{1})$
+\end_inset
+
+逐步收敛呢？很自然的有如下的递推公式：
+\begin_inset Formula 
+\begin{eqnarray}
+\theta_{0} & \coloneqq & \theta_{0}-\alpha\frac{\partial}{\partial\theta_{0}}J(\theta_{0},\theta_{1})\label{eq:theta0的递推公式}\\
+\theta_{1} & \coloneqq & \theta_{1}-\alpha\frac{\partial}{\partial\theta_{1}}J(\theta_{0},\theta_{1})\label{eq:theta1的递推公式}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+其中，
+\begin_inset Formula $\alpha$
+\end_inset
+
+为控制步长的因子。
+\end_layout
+
+\begin_layout Standard
+将公式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:单变量线性回归的预测函数"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+代入公式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:代价函数"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+，再将公式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:代价函数"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+带入公式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta0的递推公式"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+和公式
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta1的递推公式"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+进一步可得：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\theta_{0} & \coloneqq & \theta_{0}-\alpha\frac{1}{m}\stackrel[i=1]{m}{\sum}(h_{\theta}(x^{(i)})-y^{(i)})\\
+\theta_{1} & \coloneqq & \theta_{1}-\alpha\frac{1}{m}\stackrel[i=1]{m}{\sum}(h_{\theta}(x^{(i)})-y^{(i)})x^{(i)}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+于是，我们可以将m个样本代入求得下一轮的
+\begin_inset Formula $\theta_{0}$
+\end_inset
+
+和
+\begin_inset Formula $\theta_{1}$
+\end_inset
+
+。这个迭代过程什么时候结束呢？显然，
+\begin_inset Formula $\theta_{0}$
+\end_inset
+
+和
+\begin_inset Formula $\theta_{1}$
+\end_inset
+
+的迭代是一个逐渐逼近的过程，而且应该步长越来越小。只要误差小于合理的设定，这个迭代就可以结束了。
+\end_layout
+
+\end_body
+\end_document
