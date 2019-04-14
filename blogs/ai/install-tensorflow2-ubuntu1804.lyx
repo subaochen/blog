@@ -1,0 +1,348 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{article-preamble.tex}
+\end_preamble
+\options openany
+\use_default_options true
+\begin_modules
+logicalmkup
+theorems-bytype
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-chap-bytype
+\end_modules
+\maintain_unincluded_children false
+\begin_local_layout
+PackageOptions url hyphens
+\end_local_layout
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\boxbgcolor #d3d7cf
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+tensorflow2-gpu在ubuntu 18.04上的安装和测试
+\end_layout
+
+\begin_layout Section
+安装
+\end_layout
+
+\begin_layout Standard
+安装步骤还算是简单明了，主要分为以下几个方面：
+\end_layout
+
+\begin_layout Subsection
+安装anaconda
+\end_layout
+
+\begin_layout Standard
+这一步比较简单，从anaconda官网下载安装即可。
+\end_layout
+
+\begin_layout Subsection
+安装cuda 10.1
+\end_layout
+
+\begin_layout Standard
+最好下载deb格式的安装包，安装时可以自动解决依赖关系，少掉很多的麻烦。
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+sudo dpkg -i cuda-repo-ubuntu1804_10.1.105-1_amd64.deb
+\end_layout
+
+\begin_layout Plain Layout
+sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/re
+pos/ubuntu1804/x86_64/7fa2af80.pub
+\end_layout
+
+\begin_layout Plain Layout
+sudo apt-get update
+\end_layout
+
+\begin_layout Plain Layout
+sudo apt-get install cuda
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+安装cudnn
+\end_layout
+
+\begin_layout Standard
+下载和cuda版本一致的cudnn，然后解压缩，执行如下的命令安装：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+sudo cp cudnn/lib64/* /usr/local/cuda/lib64/
+\end_layout
+
+\begin_layout Plain Layout
+sudo cp cudnn/include/* /usr/local/cuda/include/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+安装tensorflow2
+\end_layout
+
+\begin_layout Standard
+目前的版本是2.0.0alpha0，因此安装方法为：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+pip install tensorflow-gpu==2.0.0alpha0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+设置环境变量
+\end_layout
+
+\begin_layout Standard
+编辑$HOME/.bashrc，增加内容如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shaded
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+export PATH=/usr/local/cuda/bin:$PATH
+\end_layout
+
+\begin_layout Plain Layout
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+最后的修饰
+\end_layout
+
+\begin_layout Standard
+不知道为什么，如果只是安装了cuda 10.1是不行的，还需要通过anaconda安装cuda 10.0？命令如下：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+conda install cudatoolkit
+\end_layout
+
+\begin_layout Plain Layout
+conda install cudnn
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+测试
+\end_layout
+
+\begin_layout Standard
+打开python终端，输入：
+\end_layout
+
+\begin_layout LyX-Code
+import tensorflow as tf
+\end_layout
+
+\begin_layout Standard
+如果没有报错，就大功告成了！
+\end_layout
+
+\end_body
+\end_document
