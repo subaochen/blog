@@ -156,6 +156,36 @@ python中大写字母开头的术语和小写字母开头的术语有啥区别�
 梯子还是需要的，不然www.tensorflow.org都没法访问。另外，把经常用到的数据集下载到本地，避免总是通过网络获取是个好办法。
 \end_layout
 
+\begin_layout Section
+常用测试数据的下载和使用
+\end_layout
+
+\begin_layout Standard
+cifar10/100：
+\begin_inset CommandInset href
+LatexCommand href
+name "cifar10/100"
+target "https://www.cs.toronto.edu/~kriz/cifar.html"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+variable,tensor,numpy,list,tuple之间的区别和联系？
+\end_layout
+
+\begin_layout Standard
+tensor是tensorflow内部节点使用的数据类型，因此所有其他类型的数据在tensorflow内部使用时均需要通过tensorflow.convert_t
+o_tensor方法转化为tensor类型。tensor类型的数据可以通过eval方法转化为numpy类型。
+\end_layout
+
+\begin_layout Standard
+由于numpy的广泛使用，主要掌握numpy和tensor之间的相互转化即可。
+\end_layout
+
 \begin_layout Standard
 \start_of_appendix
 \begin_inset CommandInset bibtex
