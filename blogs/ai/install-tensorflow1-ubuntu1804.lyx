@@ -104,130 +104,23 @@ PackageOptions url hyphens
 \begin_body
 
 \begin_layout Title
-tensorflow2学习笔记
+Ubuntu下tensorflow 1.x的安装和配置
 \end_layout
 
 \begin_layout Section
-tensorflow中国站
+安装cuda/cudnn
+\end_layout
+
+\begin_layout Section
+安装anaconda
+\end_layout
+
+\begin_layout Section
+修改anaconda的源为国内源
 \end_layout
 
 \begin_layout Standard
-tensorflow.google.cn
-\end_layout
-
-\begin_layout Section
-什么是tensor（张量）？
-\begin_inset CommandInset citation
-LatexCommand cite
-key "tensor-concept"
-literal "false"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-A tensor is a generalization of vectors and matrices to potentially higher
- dimentions.即，张量是多维数组，目的是把向量、矩阵的概念推向更高维度。
-\end_layout
-
-\begin_layout Section
-pad的反操作是什么？
-\end_layout
-
-\begin_layout Section
-split的反操作是gather
-\end_layout
-
-\begin_layout Section
-python中大写字母开头的术语和小写字母开头的术语有啥区别？
-\end_layout
-
-\begin_layout Standard
-比如Sequential，datetime，Model，keras/keras，Layer/layer？
-\end_layout
-
-\begin_layout Section
-关于梯子
-\end_layout
-
-\begin_layout Standard
-梯子还是需要的，不然www.tensorflow.org都没法访问。另外，把经常用到的数据集下载到本地，避免总是通过网络获取是个好办法。
-\end_layout
-
-\begin_layout Section
-常用测试数据的下载和使用
-\end_layout
-
-\begin_layout Standard
-cifar10/100：
-\begin_inset CommandInset href
-LatexCommand href
-name "cifar10/100"
-target "https://www.cs.toronto.edu/~kriz/cifar.html"
-literal "false"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-variable,tensor,numpy,list,tuple之间的区别和联系？
-\end_layout
-
-\begin_layout Standard
-tensor是tensorflow内部节点使用的数据类型，因此所有其他类型的数据在tensorflow内部使用时均需要通过tensorflow.convert_t
-o_tensor方法转化为tensor类型。tensor类型的数据可以通过eval方法转化为numpy类型。
-\end_layout
-
-\begin_layout Standard
-由于numpy的广泛使用，主要掌握numpy和tensor之间的相互转化即可。
-\end_layout
-
-\begin_layout Section
-tf.Variable中的V大写，有什么特别的原因吗？
-\end_layout
-
-\begin_layout Section
-使用tensorboard时，代码如何配合？
-\end_layout
-
-\begin_layout LyX-Code
-tf.reset_default_graph()
-\end_layout
-
-\begin_layout LyX-Code
-...
-\end_layout
-
-\begin_layout LyX-Code
-logdir = 
-\begin_inset Quotes erd
-\end_inset
-
-/tmp/tf
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\begin_layout LyX-Code
-writer = tf.summary.FileWriter(logdir, tf.get_default_graph())
-\end_layout
-
-\begin_layout LyX-Code
-writer.close()
-\end_layout
-
-\begin_layout Standard
-然后，如下启动tensorboard即可：
-\end_layout
-
-\begin_layout Standard
-tensorboard 
+conda config 
 \begin_inset ERT
 status open
 
@@ -240,24 +133,64 @@ status open
 
 \end_inset
 
-logdir /tmp/tf
-\end_layout
-
-\begin_layout LyX-Code
-
+add channels http://mirrors.ustc.edu.cn/anaconda/pkgs/free/
 \end_layout
 
 \begin_layout Standard
-\start_of_appendix
-\begin_inset CommandInset bibtex
-LatexCommand bibtex
-btprint "btPrintCited"
-bibfiles "/home/subaochen/git/bibref/ai"
-options "plain"
+conda config 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+-
+\backslash
+,-
+\end_layout
 
 \end_inset
 
+set show_channel_urls yes
+\end_layout
 
+\begin_layout Standard
+或者直接编辑$HOME/.condarc（没有就创建一个），内容如下：
+\end_layout
+
+\begin_layout Standard
+可以删除-default，则只从国内源安装软件。
+\end_layout
+
+\begin_layout Section
+创建virtualenv
+\end_layout
+
+\begin_layout Standard
+conda create -n tf1-gpu python=3.7
+\end_layout
+
+\begin_layout Section
+安装tensorflow-gpu
+\end_layout
+
+\begin_layout Standard
+conda activate tf1-gpu
+\end_layout
+
+\begin_layout Standard
+conda install tensorflow
+\end_layout
+
+\begin_layout Section
+测试tensorflow
+\end_layout
+
+\begin_layout Standard
+import tensorflow as tf
+\end_layout
+
+\begin_layout Standard
+tf.__version__
 \end_layout
 
 \end_body

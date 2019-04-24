@@ -240,7 +240,7 @@ backgroundcolor "none"
 status open
 
 \begin_layout Plain Layout
-pip install tensorflow-gpu==2.0.0alpha0
+pip install tensorflow-gpu==2.0.0-alpha0
 \end_layout
 
 \end_inset
@@ -342,6 +342,16 @@ import tensorflow as tf
 
 \begin_layout Standard
 如果没有报错，就大功告成了！
+\end_layout
+
+\begin_layout Section
+可能的问题
+\end_layout
+
+\begin_layout Standard
+可能，直接从pip源安装的tensorflow2无法运行，导入tensorflow时直接core dump！那么，基本上说明你的电脑CPU不支持AVX指令。从t
+ensorflow 1.6开始，预编译的tensorflow都默认支持AVX指令，因此如果CPU不支持AVX的话会直接退出。解决问题的方法是降级tensorflo
+w版本到1.5，或者手工编译tensorflow。
 \end_layout
 
 \end_body
