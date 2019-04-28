@@ -145,7 +145,7 @@ python中大写字母开头的术语和小写字母开头的术语有啥区别�
 \end_layout
 
 \begin_layout Standard
-比如Sequential，datetime，Model，keras/keras，Layer/layer？
+比如Sequential，datetime，Model，Keras/keras，Layer/layer？
 \end_layout
 
 \begin_layout Section
@@ -173,21 +173,101 @@ literal "false"
 
 \end_layout
 
+\begin_layout Standard
+如果已经运行过相关例程，则常用测试数据可以到$HOME/.keras下面找找看。
+\end_layout
+
 \begin_layout Section
 variable,tensor,numpy,list,tuple之间的区别和联系？
 \end_layout
 
 \begin_layout Standard
 tensor是tensorflow内部节点使用的数据类型，因此所有其他类型的数据在tensorflow内部使用时均需要通过tensorflow.convert_t
-o_tensor方法转化为tensor类型。tensor类型的数据可以通过eval方法转化为numpy类型。
+o_tensor方法转化为tensor类型。tensor类型的数据可以通过eval方法转化为numpy类型。但是当eager_executation为enabl
+e的时候（在tf2中好像自动enable_eager_executation？），应该使用numpy()方法获取tensor对应的数据，比如：
 \end_layout
 
 \begin_layout Standard
-由于numpy的广泛使用，主要掌握numpy和tensor之间的相互转化即可。
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+a = tf.constant(1)
+\end_layout
+
+\begin_layout Plain Layout
+
+a.numpy() 
+\end_layout
+
+\begin_layout Plain Layout
+
+#a.eval() # 如果enable_eager_executation，eval方法不可使用，原因未知
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+tensor是不可变的（immutable），Variable是可变的（mutable）。在自动求导过程中，Variable可以自动跟踪，而tensor需要通过
+watch方法才能自动跟踪（实际测试发现，tf.constant创建的tensor也可以在Grandient中自动跟踪？）。
+\end_layout
+
+\begin_layout Standard
+由于numpy的广泛使用，主要掌握numpy和tensor之间的相互转化即可。实际上，tensor和numpy的互操作都是自动完成的，即：
+\end_layout
+
+\begin_layout Itemize
+TensorFlow操作符自动将参数中的ndarray转化为tensor。
+\end_layout
+
+\begin_layout Itemize
+numpy的操作符自动将参数中的tensor转换为ndarray。
+\end_layout
+
+\begin_layout Standard
+也就是说，几乎不用区分tensor和numpy的ndarray。但是，tensor能够驻留在GPU中使用GPU加速，ndarray永远都在主内存里面。因此，尽量
+使用tensor以充分利用GPU加速。
 \end_layout
 
 \begin_layout Section
 tf.Variable中的V大写，有什么特别的原因吗？
+\end_layout
+
+\begin_layout Section
+关于eager execution
+\end_layout
+
+\begin_layout Standard
+从TensorFlow 1.8开始支持eager execution。
 \end_layout
 
 \begin_layout Section
@@ -243,12 +323,131 @@ status open
 logdir /tmp/tf
 \end_layout
 
-\begin_layout LyX-Code
+\begin_layout Section
+tf.data.DataSet和pandas，应该使用哪个？
+\end_layout
 
+\begin_layout Section
+TensorFlow提供了求高阶导数的方法吗？
+\end_layout
+
+\begin_layout Standard
+一阶导数可以方便的通过tf.GradientTape求得，二阶导数可以通过嵌套的tf.GradientTape求得，那么，TensorFlow提供了直接的求二阶导数
+的方法了吗？
+\end_layout
+
+\begin_layout Standard
+下面是求二阶导数的方法的示例：
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language=Python"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+x = tf.Variable(1.0)  # Create a Tensorflow variable initialized to 1.0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+with tf.GradientTape() as t:
+\end_layout
+
+\begin_layout Plain Layout
+
+  with tf.GradientTape() as t2:
+\end_layout
+
+\begin_layout Plain Layout
+
+    y = x * x * x
+\end_layout
+
+\begin_layout Plain Layout
+
+  # Compute the gradient inside the 't' context manager
+\end_layout
+
+\begin_layout Plain Layout
+
+  # which means the gradient computation is differentiable as well.
+\end_layout
+
+\begin_layout Plain Layout
+
+  dy_dx = t2.gradient(y, x)
+\end_layout
+
+\begin_layout Plain Layout
+
+d2y_dx2 = t.gradient(dy_dx, x)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+assert dy_dx.numpy() == 3.0
+\end_layout
+
+\begin_layout Plain Layout
+
+assert d2y_dx2.numpy() == 6.0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+数据归一化的常见方法
+\end_layout
+
+\begin_layout Subsection
+使用sklearn的preprocessing
+\end_layout
+
+\begin_layout Subsection
+使用keras的preprocessing
 \end_layout
 
 \begin_layout Standard
 \start_of_appendix
+，
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 btprint "btPrintCited"
