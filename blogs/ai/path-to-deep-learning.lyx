@@ -1,0 +1,280 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+\input{article-preamble.tex}
+\end_preamble
+\options openany
+\use_default_options true
+\begin_modules
+logicalmkup
+theorems-bytype
+coderemarks
+tip-inset
+note-inset
+warning-inset
+theorems-chap-bytype
+\end_modules
+\maintain_unincluded_children false
+\begin_local_layout
+PackageOptions url hyphens
+\end_local_layout
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "DejaVu Sans"
+\font_sans "default" "DejaVu Serif"
+\font_typewriter "default" "DejaVu Sans Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\boxbgcolor #d3d7cf
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+深度学习入门路径
+\end_layout
+
+\begin_layout Standard
+作为一个刚刚接触深度学习一个月的小白，不知道有没有资格谈这个话题？每个人情况不同，路径也不一样，这个算是自个学习过程的一个记录和反思，供大家参考和批判，也希望各
+位深度学习大佬多多指教，让小白少走弯路。
+\end_layout
+
+\begin_layout Section
+准备理论知识
+\end_layout
+
+\begin_layout Standard
+很多人被深度学习中会用到的“公式”吓跑，包括几年前的我。可是当下决心去搞一下深度学习的时候，你会发现能够理解甚至推导那些公式自然好，但只要理清思路，搞明白原理就
+好，公式就暂且留给吴恩达们去论证吧:-)。当然，如果你期望对深度学习有理论上的贡献，还是需要比较深厚的数学功底的，另当别论。
+\end_layout
+
+\begin_layout Standard
+我个人是希望将深度学习应用到工程领域，因此理论知识准备阶段的目标只限于“明原理”，快速学习了以下的课程：
+\end_layout
+
+\begin_layout Description
+数学知识 如果只是将深度学习应用到工程领域，大学的数学课基本就够用了，包括微积分、偏微分、基本的线性代数，基本的概率知识。我的数学知识遗忘的比较厉害，颇费了些周
+折才重新了解了一些基本概念，主要参考了网易云课堂的这个课程：
+\begin_inset CommandInset href
+LatexCommand href
+name "机器学习中的数学知识"
+target "https://study.163.com/course/courseMain.htm?courseId=1006185120"
+literal "false"
+
+\end_inset
+
+，个人觉得雷老师讲的还是不错的。这个数学知识课程我没有全部听完，机器学习这一块就转门到吴恩达了。
+\end_layout
+
+\begin_layout Description
+机器学习 深度学习是机器学习的一个分支，因此要学习深度学习就不能不搞清楚机器学习的基本原理，这方面吴恩达是绝好的引路人，他的课程个人认为是不二之选：
+\begin_inset CommandInset href
+LatexCommand href
+name "吴恩达机器学习"
+target "https://study.163.com/course/courseMain.htm?courseId=1004570029"
+literal "false"
+
+\end_inset
+
+。吴恩达的这个课程有必要全部听完，我目前也只是听了一大半，需要继续努力。
+\end_layout
+
+\begin_layout Section
+搭建开发环境
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:搭建开发环境"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+性子比较急的，吴恩达的“机器学习”课程过半时，就可以搭建一个开发环境上手实践了，比如我。我选择的开发环境是ubuntu+tensorflow+python，其中
+ubuntu是我熟悉的，python和tensorflow需要新学习。现在学习tensorflow的话，建议从2.0.0开始，因此我买了一个网易云课堂的网课，觉得还
+不错：
+\begin_inset CommandInset href
+LatexCommand href
+name "深度学习与TensorFlow 2入门实战"
+target "https://study.163.com/course/courseMain.htm?courseId=1209092816&share=1&shareId=1387524406"
+literal "false"
+
+\end_inset
+
+，基本上从搭建开发环境到tensorflow的入门操作，都是跟着这个课程来进行的。学完这个课程，基本上能对tensorflow和深度学习有个懵懵懂懂的理解。
+\end_layout
+
+\begin_layout Standard
+关于python，我对编程还算比较在行，因此花在学习python上的时间不多，主要是快速的看了一下
+\begin_inset CommandInset href
+LatexCommand href
+name "廖雪峰的python教程"
+target "https://www.liaoxuefeng.com/wiki/1016959663602400"
+literal "false"
+
+\end_inset
+
+，打算边学tensorflow边进一步熟悉python，遇到不熟悉的语法google一下，遇到不熟悉的包google一下，目前看来这个策略还是比较顺利的。也就是
+说，没有必要花大量的时间学习python，如果你有比较好的程序设计基础的话。
+\end_layout
+
+\begin_layout Standard
+推荐使用jupyter开始你的python和tensorflow学习之旅，你一定会惊叹，怎么会有这么奇妙的编程和文档结合的这么好的工具呢？使用jupyter用于
+python和机器学习的教学，个人认为是目前的最佳选择，没有之一，不接受反驳。甚至，目前我都把jupyter当做一个调试的工具了。当然，pycharm也是很不错
+的。
+\end_layout
+
+\begin_layout Section
+阅读tensorflow的官网资料
+\end_layout
+
+\begin_layout Standard
+在基本学完
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sectionname
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:搭建开发环境"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+的网课后，需要学习一下tensorflow 1.x版本（毕竟目前大量的案例是基于tensorflow1.x的），并大量阅读
+\begin_inset CommandInset href
+LatexCommand href
+name "tensorflow官网"
+target "http://www.tensorflow.org"
+literal "false"
+
+\end_inset
+
+的一些资料，帮助加深对tensorflow和深度学习的理解，主要的资料包括：
+\end_layout
+
+\begin_layout Itemize
+tutorial中的get started，Learn and ML的全部，research and experimentation的全部，Sequence中的
+Text generation with RNN，Load Data，Data representation。
+\end_layout
+
+\begin_layout Itemize
+guide中的keras，eager execution,importing data,embeddings。
+\end_layout
+
+\begin_layout Itemize
+熟悉API文档的结构。
+\end_layout
+
+\begin_layout Standard
+这些资料尽量阅读英文版的，中文版的翻译有的地方不及时。
+\end_layout
+
+\begin_layout Standard
+我目前只看了上面这些，其他资料可以用到的时候再看再学。
+\end_layout
+
+\begin_layout Standard
+注：tensorflow 1.x和2.0版本的差别对于初学者来说不算很大，找时间写一下给大家参考。
+\end_layout
+
+\begin_layout Section
+先玩转一个方向
+\end_layout
+
+\begin_layout Standard
+根据自己的兴趣，选一个方向比较深入的玩下去。弄明白代码的每一行非常重要，同时要思考数据流在每一个步骤中的shape以及为什么是这样的shape。我个人是选择了R
+NN，觉得非常好玩。
+\end_layout
+
+\begin_layout Section*
+开始行动比雄心万丈更重要！
+\end_layout
+
+\end_body
+\end_document
